@@ -22,7 +22,7 @@ const HealthStatusBadge: React.FC<{
     return (
       <span className="inline-flex items-center gap-1.5 text-xs text-gray-400 px-2 py-0.5 rounded-full bg-gray-50 border border-gray-100">
         <span className="h-1.5 w-1.5 rounded-full bg-gray-300 animate-pulse"></span>
-        Checking
+        检查中
       </span>
     );
   }
@@ -53,16 +53,16 @@ const HealthStatusBadge: React.FC<{
 
   const tooltipContent = (
     <div className="max-w-xs">
-      <div className="font-semibold mb-1">Health Status: {status}</div>
-      {lastCheck && <div className="text-xs mb-1">Last Check: {new Date(lastCheck).toLocaleString()}</div>}
+      <div className="font-semibold mb-1">健康状态: {status}</div>
+      {lastCheck && <div className="text-xs mb-1">上次检查: {new Date(lastCheck).toLocaleString()}</div>}
       {error && (
         <div className="text-xs">
-          <div className="font-medium text-red-400 mb-1">Error:</div>
+          <div className="font-medium text-red-400 mb-1">错误:</div>
           <div className="break-words">{error}</div>
         </div>
       )}
-      {!lastCheck && !error && <div className="text-xs text-gray-400">No health check data available</div>}
-      {isClickable && <div className="text-xs text-gray-400 mt-1">Click to recheck</div>}
+      {!lastCheck && !error && <div className="text-xs text-gray-400">没有可用的健康检查数据</div>}
+      {isClickable && <div className="text-xs text-gray-400 mt-1">点击重新检查</div>}
     </div>
   );
 
@@ -76,7 +76,7 @@ const HealthStatusBadge: React.FC<{
       >
         <span>{isHovered && isClickable ? "↻" : getStatusIcon(status)}</span>
         {isHovered && isClickable
-          ? "Recheck"
+          ? "重新检查"
           : status.charAt(0).toUpperCase() + status.slice(1)}
       </span>
     </Tooltip>
@@ -95,7 +95,7 @@ export const mcpServerColumns = (
 ): ColumnDef<MCPServer>[] => [
   {
     accessorKey: "server_id",
-    header: "Server ID",
+    header: "服务器 ID",
     enableSorting: true,
     cell: ({ row }) => (
       <button
@@ -108,7 +108,7 @@ export const mcpServerColumns = (
   },
   {
     accessorKey: "server_name",
-    header: "Name",
+    header: "名称",
     enableSorting: true,
     cell: ({ row }) => {
       const logoUrl = row.original.mcp_info?.logo_url;
@@ -130,12 +130,12 @@ export const mcpServerColumns = (
   },
   {
     accessorKey: "alias",
-    header: "Alias",
+    header: "别名",
     enableSorting: true,
   },
   {
     id: "url",
-    header: "URL",
+    header: "URL 地址",
     cell: ({ row }) => {
       const url = row.original.url;
       if (!url) {
@@ -147,7 +147,7 @@ export const mcpServerColumns = (
   },
   {
     accessorKey: "transport",
-    header: "Transport",
+    header: "传输协议",
     enableSorting: true,
     cell: ({ row }) => {
       const transport = row.original.transport || "http";
@@ -163,7 +163,7 @@ export const mcpServerColumns = (
   },
   {
     accessorKey: "auth_type",
-    header: "Auth Type",
+    header: "认证类型",
     enableSorting: true,
     cell: ({ getValue }) => {
       const authType = (getValue() as string) || "none";
@@ -176,7 +176,7 @@ export const mcpServerColumns = (
   },
   {
     id: "health_status",
-    header: "Health Status",
+    header: "健康状态",
     cell: ({ row }) => (
       <HealthStatusBadge
         server={row.original}
@@ -188,7 +188,7 @@ export const mcpServerColumns = (
   },
   {
     id: "mcp_access_groups",
-    header: "Access Groups",
+    header: "访问组",
     cell: ({ row }) => {
       const groups = row.original.mcp_access_groups;
       if (Array.isArray(groups) && groups.length > 0) {
@@ -213,24 +213,24 @@ export const mcpServerColumns = (
   },
   {
     id: "available_on_public_internet",
-    header: "Network Access",
+    header: "网络访问",
     cell: ({ row }) => {
       const isPublic = row.original.available_on_public_internet;
       return isPublic ? (
         <span className="inline-flex items-center gap-1 px-2 py-0.5 bg-green-50 text-green-700 rounded-full border border-green-200 text-xs font-medium">
           <span className="h-1.5 w-1.5 rounded-full bg-green-500"></span>
-          Public
+公网
         </span>
       ) : (
         <span className="inline-flex items-center gap-1 px-2 py-0.5 bg-orange-50 text-orange-700 rounded-full border border-orange-200 text-xs font-medium">
           <span className="h-1.5 w-1.5 rounded-full bg-orange-500"></span>
-          Internal
+          内网
         </span>
       );
     },
   },
   {
-    header: "Created",
+    header: "创建时间",
     accessorKey: "created_at",
     enableSorting: true,
     sortingFn: "datetime",
@@ -246,7 +246,7 @@ export const mcpServerColumns = (
     },
   },
   {
-    header: "Updated",
+    header: "更新时间",
     accessorKey: "updated_at",
     enableSorting: true,
     sortingFn: "datetime",
@@ -263,7 +263,7 @@ export const mcpServerColumns = (
   },
   {
     id: "byok_credential",
-    header: "Credential",
+    header: "凭证",
     cell: ({ row }) => {
       const server = row.original;
       if (!server.is_byok) {
@@ -273,14 +273,14 @@ export const mcpServerColumns = (
         return (
           <div className="flex items-center gap-2">
             <span className="inline-flex items-center gap-1 text-xs font-medium px-2 py-0.5 rounded-full bg-green-50 text-green-700 border border-green-200">
-              <CheckOutlined style={{ fontSize: 10 }} /> Connected
+              <CheckOutlined style={{ fontSize: 10 }} /> 已连接
             </span>
             {onByokConnect && (
               <button
                 className="text-xs text-gray-400 hover:text-blue-600 transition-colors"
                 onClick={() => onByokConnect(server)}
               >
-                Update
+                更新
               </button>
             )}
           </div>
@@ -291,17 +291,17 @@ export const mcpServerColumns = (
           className="text-xs bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded-md font-medium transition-colors shadow-sm"
           onClick={() => onByokConnect(server)}
         >
-          Connect
+连接
         </button>
       ) : null;
     },
   },
   {
     id: "actions",
-    header: "Actions",
+    header: "操作",
     cell: ({ row }) => (
       <div className="flex items-center gap-1">
-        <Tooltip title="Edit">
+        <Tooltip title="编辑">
           <button
             onClick={() => onEdit(row.original.server_id)}
             className="p-1.5 rounded-md text-gray-400 hover:text-blue-600 hover:bg-blue-50 transition-colors"
@@ -309,7 +309,7 @@ export const mcpServerColumns = (
             <Icon icon={PencilAltIcon} size="sm" />
           </button>
         </Tooltip>
-        <Tooltip title="Delete">
+        <Tooltip title="删除">
           <button
             onClick={() => onDelete(row.original.server_id)}
             className="p-1.5 rounded-md text-gray-400 hover:text-red-600 hover:bg-red-50 transition-colors"

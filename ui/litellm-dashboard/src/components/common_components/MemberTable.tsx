@@ -34,18 +34,18 @@ export default function MemberTable({
 }: MemberTableProps) {
   const baseColumns: ColumnsType<Member> = [
     {
-      title: "User Email",
+      title: "用户邮箱",
       dataIndex: "user_email",
       key: "user_email",
       render: (email: string | null) => <Text>{email || "-"}</Text>,
     },
     {
-      title: "User ID",
+      title: "用户ID",
       dataIndex: "user_id",
       key: "user_id",
       render: (userId: string | null) =>
         userId === "default_user_id" ? (
-          <Tag color="blue">Default Proxy Admin</Tag>
+          <Tag color="blue">默认代理管理员</Tag>
         ) : (
           <Text>{userId || "-"}</Text>
         ),
@@ -76,7 +76,7 @@ export default function MemberTable({
     },
     ...extraColumns,
     {
-      title: "Actions",
+      title: "操作",
       key: "actions",
       fixed: "right" as const,
       width: 120,
@@ -85,14 +85,14 @@ export default function MemberTable({
           <Space>
             <TableIconActionButton
               variant="Edit"
-              tooltipText="Edit member"
+              tooltipText="编辑成员"
               dataTestId="edit-member"
               onClick={() => onEdit(record)}
             />
             {(!showDeleteForMember || showDeleteForMember(record)) && (
               <TableIconActionButton
                 variant="Delete"
-                tooltipText="Delete member"
+                tooltipText="删除成员"
                 dataTestId="delete-member"
                 onClick={() => onDelete(record)}
               />
@@ -118,7 +118,7 @@ export default function MemberTable({
       />
       {onAddMember && canEdit && (
         <Button icon={<UserAddOutlined />} type="primary" onClick={onAddMember}>
-          Add Member
+          添加成员
         </Button>
       )}
     </Space>

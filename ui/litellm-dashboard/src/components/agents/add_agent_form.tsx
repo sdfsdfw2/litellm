@@ -217,7 +217,7 @@ const AddAgentForm: React.FC<AddAgentFormProps> = ({
 
   const handleCreateAgent = async () => {
     if (!accessToken) {
-      MessageManager.error("No access token available");
+      MessageManager.error("没有可用的访问令牌");
       return;
     }
 
@@ -227,7 +227,7 @@ const AddAgentForm: React.FC<AddAgentFormProps> = ({
       const values = { ...form.getFieldsValue(true) };
       const agentData = buildAgentData(values);
       if (!agentData) {
-        MessageManager.error("Failed to build agent data");
+        MessageManager.error("构建代理数据失败");
         setIsSubmitting(false);
         return;
       }
@@ -302,7 +302,7 @@ const AddAgentForm: React.FC<AddAgentFormProps> = ({
         setCreatedKeyValue(keyResponse.key || null);
       } else if (keyAssignOption === "existing_key") {
         if (!selectedExistingKey) {
-          MessageManager.error("Please select an existing key to assign");
+          MessageManager.error("请选择要分配的现有密钥");
           setIsSubmitting(false);
           return;
         }
@@ -319,7 +319,7 @@ const AddAgentForm: React.FC<AddAgentFormProps> = ({
     } catch (error) {
       console.error("Error creating agent:", error);
       const errorMessage = error instanceof Error ? error.message : String(error);
-      MessageManager.error(errorMessage ? `Failed to create agent: ${errorMessage}` : "Failed to create agent");
+      MessageManager.error(errorMessage ? `创建代理失败：${errorMessage}` : "创建代理失败");
     } finally {
       setIsSubmitting(false);
     }
@@ -346,18 +346,18 @@ const AddAgentForm: React.FC<AddAgentFormProps> = ({
   const renderEntitlementsStep = () => (
     <div className="space-y-4">
       <p className="text-sm text-gray-600">
-        Configure which models, agents, and MCP tools this agent is allowed to use. Leave fields empty to allow all (subject to key/team permissions).
+        配置此代理允许使用的模型、代理和 MCP 工具。留空表示允许全部（受密钥/团队权限限制）。
       </p>
 
       <Form.Item
-        label={<span className="text-sm font-medium text-gray-700">Allowed Models</span>}
+        label={<span className="text-sm font-medium text-gray-700">允许的模型</span>}
         name="entitlement_models"
-        tooltip="Restrict which models this agent can call. Leave empty to allow all."
+        tooltip="限制此代理可以调用的模型。留空表示允许全部。"
       >
         <Select
           mode="tags"
           style={{ width: "100%" }}
-          placeholder={loadingModels ? "Loading models..." : "Select models (leave empty for all)"}
+          placeholder={loadingModels ? "正在加载模型..." : "选择模型（留空表示允许全部）"}
           tokenSeparators={[","]}
           loading={loadingModels}
           showSearch
@@ -369,14 +369,14 @@ const AddAgentForm: React.FC<AddAgentFormProps> = ({
       </Form.Item>
 
       <Form.Item
-        label={<span className="text-sm font-medium text-gray-700">Allowed Agents (Sub-Agents)</span>}
+        label={<span className="text-sm font-medium text-gray-700">允许的代理（子代理）</span>}
         name="entitlement_agents"
-        tooltip="Restrict which other agents this agent can invoke as sub-agents. Leave empty to allow all."
+        tooltip="限制此代理可以作为子代理调用的其他代理。留空表示允许全部。"
       >
         <Select
           mode="multiple"
           style={{ width: "100%" }}
-          placeholder={loadingAgents ? "Loading agents..." : "Select agents (leave empty for all)"}
+          placeholder={loadingAgents ? "正在加载代理..." : "选择代理（留空表示允许全部）"}
           loading={loadingAgents}
           showSearch
           filterOption={(input, option) =>
@@ -394,8 +394,8 @@ const AddAgentForm: React.FC<AddAgentFormProps> = ({
       <Form.Item
         label={
           <span>
-            Allowed MCP Servers{" "}
-            <InfoCircleOutlined title="Select which MCP servers or access groups this agent can access" style={{ marginLeft: "4px" }} />
+            允许的 MCP 服务器{" "}
+            <InfoCircleOutlined title="选择此代理可以访问的 MCP 服务器或访问组" style={{ marginLeft: "4px" }} />
           </span>
         }
         name="allowed_mcp_servers_and_groups"
@@ -407,7 +407,7 @@ const AddAgentForm: React.FC<AddAgentFormProps> = ({
           }
           value={form.getFieldValue("allowed_mcp_servers_and_groups") || { servers: [], accessGroups: [] }}
           accessToken={accessToken ?? ""}
-          placeholder="Select MCP servers or access groups (optional)"
+          placeholder="选择 MCP 服务器或访问组（可选）"
         />
       </Form.Item>
       <Form.Item name="mcp_tool_permissions" initialValue={{}} hidden>
@@ -437,15 +437,15 @@ const AddAgentForm: React.FC<AddAgentFormProps> = ({
   const renderObservabilityStep = () => (
     <div className="space-y-6">
       <div>
-        <h4 className="text-sm font-medium text-gray-700 mb-3">Tracing</h4>
+        <h4 className="text-sm font-medium text-gray-700 mb-3">追踪</h4>
         <div className="space-y-4">
           <div className="flex items-center justify-between">
             <div>
               <span className="text-sm font-medium text-gray-700">
-                Require x-litellm-trace-id on calls TO this agent
+                对此代理的调用要求 x-litellm-trace-id
               </span>
               <p className="text-xs text-gray-500 mt-1">
-                Only accept this agent being invoked with a trace-id (e.g. when used as a sub-agent).
+                仅接受带有 trace-id 的代理调用（例如用作子代理时）。
               </p>
             </div>
             <Switch
@@ -457,10 +457,10 @@ const AddAgentForm: React.FC<AddAgentFormProps> = ({
           <div className="flex items-center justify-between">
             <div>
               <span className="text-sm font-medium text-gray-700">
-                Require x-litellm-trace-id on calls BY this agent
+                此代理发出的调用要求 x-litellm-trace-id
               </span>
               <p className="text-xs text-gray-500 mt-1">
-                Requires LLM/MCP calls made by this agent to include x-litellm-trace-id for session tracking.
+                要求此代理发出的 LLM/MCP 调用包含 x-litellm-trace-id 以进行会话跟踪。
               </p>
             </div>
             <Switch
@@ -480,68 +480,68 @@ const AddAgentForm: React.FC<AddAgentFormProps> = ({
       <Divider className="my-0" />
 
       <div>
-        <h4 className="text-sm font-medium text-gray-700 mb-3">Budgets &amp; Rate Limits</h4>
+        <h4 className="text-sm font-medium text-gray-700 mb-3">预算与速率限制</h4>
         <div className="space-y-4">
           {!requireTraceIdOutbound && (
             <div className="p-3 bg-yellow-50 border border-yellow-200 rounded-lg text-sm text-yellow-800">
-              Enable &quot;Require x-litellm-trace-id on calls BY this agent&quot; in Tracing to configure budgets and rate limits.
+              请在追踪中启用&quot;此代理发出的调用要求 x-litellm-trace-id&quot;以配置预算和速率限制。
             </div>
           )}
 
-          <div className="text-sm font-medium text-gray-700">Session Budgets</div>
+          <div className="text-sm font-medium text-gray-700">会话预算</div>
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="text-sm text-gray-600 block mb-1">Max Iterations</label>
+              <label className="text-sm text-gray-600 block mb-1">最大迭代次数</label>
               <InputNumber
                 className="w-full"
                 min={1}
-                placeholder="e.g. 25"
+                placeholder="例如：25"
                 disabled={!requireTraceIdOutbound}
                 value={maxIterations}
                 onChange={(val) => setMaxIterations(val)}
               />
-              <p className="text-xs text-gray-400 mt-1">Hard cap on LLM calls per session</p>
+              <p className="text-xs text-gray-400 mt-1">每个会话 LLM 调用的硬性上限</p>
             </div>
             <div>
-              <label className="text-sm text-gray-600 block mb-1">Max Budget Per Session ($)</label>
+              <label className="text-sm text-gray-600 block mb-1">每会话最大预算（$）</label>
               <InputNumber
                 className="w-full"
                 min={0.01}
                 step={0.5}
-                placeholder="e.g. 5.00"
+                placeholder="例如：5.00"
                 disabled={!requireTraceIdOutbound}
                 value={maxBudgetPerSession}
                 onChange={(val) => setMaxBudgetPerSession(val)}
               />
-              <p className="text-xs text-gray-400 mt-1">Max spend per trace before returning 429</p>
+              <p className="text-xs text-gray-400 mt-1">每次追踪在返回 429 之前的最大花费</p>
             </div>
           </div>
 
           <Divider className="my-2" />
 
-          <div className="text-sm font-medium text-gray-700">Agent Rate Limits</div>
+          <div className="text-sm font-medium text-gray-700">代理速率限制</div>
           <p className="text-xs text-gray-500">
-            Global rate limits applied across all callers of this agent.
+            应用于此代理所有调用方的全局速率限制。
           </p>
           <div className="grid grid-cols-2 gap-4">
-            <Form.Item label="TPM Limit" name="tpm_limit" className="mb-0">
-              <InputNumber className="w-full" min={0} placeholder="e.g. 100000" disabled={!requireTraceIdOutbound} />
+            <Form.Item label="TPM 限制" name="tpm_limit" className="mb-0">
+              <InputNumber className="w-full" min={0} placeholder="例如：100000" disabled={!requireTraceIdOutbound} />
             </Form.Item>
-            <Form.Item label="RPM Limit" name="rpm_limit" className="mb-0">
-              <InputNumber className="w-full" min={0} placeholder="e.g. 100" disabled={!requireTraceIdOutbound} />
+            <Form.Item label="RPM 限制" name="rpm_limit" className="mb-0">
+              <InputNumber className="w-full" min={0} placeholder="例如：100" disabled={!requireTraceIdOutbound} />
             </Form.Item>
           </div>
 
-          <div className="text-sm font-medium text-gray-700 mt-4">Per-Session Rate Limits</div>
+          <div className="text-sm font-medium text-gray-700 mt-4">每会话速率限制</div>
           <p className="text-xs text-gray-500">
-            Rate limits per session (x-litellm-trace-id). Each session gets its own counters.
+            每个会话的速率限制（x-litellm-trace-id）。每个会话拥有自己的计数器。
           </p>
           <div className="grid grid-cols-2 gap-4">
-            <Form.Item label="Session TPM Limit" name="session_tpm_limit" className="mb-0">
-              <InputNumber className="w-full" min={0} placeholder="e.g. 10000" disabled={!requireTraceIdOutbound} />
+            <Form.Item label="会话 TPM 限制" name="session_tpm_limit" className="mb-0">
+              <InputNumber className="w-full" min={0} placeholder="例如：10000" disabled={!requireTraceIdOutbound} />
             </Form.Item>
-            <Form.Item label="Session RPM Limit" name="session_rpm_limit" className="mb-0">
-              <InputNumber className="w-full" min={0} placeholder="e.g. 20" disabled={!requireTraceIdOutbound} />
+            <Form.Item label="会话 RPM 限制" name="session_rpm_limit" className="mb-0">
+              <InputNumber className="w-full" min={0} placeholder="例如：20" disabled={!requireTraceIdOutbound} />
             </Form.Item>
           </div>
         </div>
@@ -550,9 +550,9 @@ const AddAgentForm: React.FC<AddAgentFormProps> = ({
       <Divider className="my-0" />
 
       <div>
-        <h4 className="text-sm font-medium text-gray-700 mb-3">Guardrails</h4>
+        <h4 className="text-sm font-medium text-gray-700 mb-3">防护措施</h4>
         <p className="text-xs text-gray-500 mb-3">
-          Apply guardrails to this agent. Selected guardrails will run on all calls made by this agent.
+          为此代理应用防护措施。选中的防护措施将在此代理发出的所有调用上运行。
         </p>
         <Form.Item name="guardrails" initialValue={[]}>
           <GuardrailSelector
@@ -579,9 +579,9 @@ const AddAgentForm: React.FC<AddAgentFormProps> = ({
   const renderConfigureStep = () => (
     <>
       <Form.Item
-        label={<span className="text-sm font-medium text-gray-700">Agent Type</span>}
+        label={<span className="text-sm font-medium text-gray-700">代理类型</span>}
         required
-        tooltip="Select the type of agent you want to create"
+        tooltip="选择要创建的代理类型"
       >
         <Select
           value={agentType}
@@ -595,7 +595,7 @@ const AddAgentForm: React.FC<AddAgentFormProps> = ({
               <Divider style={{ margin: "4px 0" }} />
               <div className="px-2 py-1">
                 <div className="text-xs text-gray-400 font-medium mb-1 uppercase tracking-wide px-2">
-                  Not listed?
+                  未列出？
                 </div>
                 <div
                   className={`flex items-center gap-3 px-2 py-2 rounded cursor-pointer transition-colors ${
@@ -608,11 +608,11 @@ const AddAgentForm: React.FC<AddAgentFormProps> = ({
                   <AppstoreOutlined className="text-amber-600 text-lg" />
                   <div className="flex-1">
                     <div className="flex items-center gap-2">
-                      <span className="font-medium text-amber-700">Custom / Other</span>
-                      <Tag color="orange" style={{ fontSize: 10, padding: "0 4px" }}>GENERIC</Tag>
+                      <span className="font-medium text-amber-700">自定义 / 其他</span>
+                      <Tag color="orange" style={{ fontSize: 10, padding: "0 4px" }}>通用</Tag>
                     </div>
                     <div className="text-xs text-amber-600">
-                      For agents that don&apos;t follow a standard protocol — just needs a virtual key
+                      适用于不遵循标准协议的代理——仅需一个虚拟密钥
                     </div>
                   </div>
                 </div>
@@ -653,17 +653,17 @@ const AddAgentForm: React.FC<AddAgentFormProps> = ({
         {agentType === CUSTOM_AGENT_TYPE ? (
           <div className="space-y-4">
             <Form.Item
-              label="Agent Name"
+              label="代理名称"
               name="agent_name"
-              rules={[{ required: true, message: "Please enter an agent name" }]}
+              rules={[{ required: true, message: "请输入代理名称" }]}
             >
-              <Input placeholder="e.g. my-custom-agent" />
+              <Input placeholder="例如：my-custom-agent" />
             </Form.Item>
             <Form.Item
-              label="Description"
+              label="描述"
               name="description"
             >
-              <Input.TextArea placeholder="Describe what this agent does…" rows={3} />
+              <Input.TextArea placeholder="描述此代理的功能..." rows={3} />
             </Form.Item>
           </div>
         ) : agentType === "a2a" ? (
@@ -674,7 +674,7 @@ const AddAgentForm: React.FC<AddAgentFormProps> = ({
             {selectedAgentTypeInfo.credential_fields.length > 0 && (
               <div className="mt-4 p-4 border border-gray-200 rounded-lg">
                 <h4 className="text-sm font-medium text-gray-700 mb-3">
-                  {selectedAgentTypeInfo.agent_type_display_name} Settings
+                  {selectedAgentTypeInfo.agent_type_display_name} 设置
                 </h4>
                 {selectedAgentTypeInfo.credential_fields.map((field) => (
                   <Form.Item
@@ -683,7 +683,7 @@ const AddAgentForm: React.FC<AddAgentFormProps> = ({
                     name={field.key}
                     rules={
                       field.required
-                        ? [{ required: true, message: `Please enter ${field.label}` }]
+                        ? [{ required: true, message: `请输入 ${field.label}` }]
                         : undefined
                     }
                     tooltip={field.tooltip}
@@ -719,9 +719,9 @@ const AddAgentForm: React.FC<AddAgentFormProps> = ({
         </div>
 
         <Form.Item
-          label={<span className="text-sm font-medium text-gray-700">Assign to Team</span>}
+          label={<span className="text-sm font-medium text-gray-700">分配到团队</span>}
           name="team_id"
-          tooltip="Optionally assign this agent to a team. The agent and its key will belong to the selected team."
+          tooltip="可选：将此代理分配到团队。代理及其密钥将属于所选团队。"
         >
           <TeamDropdown />
         </Form.Item>
@@ -748,26 +748,26 @@ const AddAgentForm: React.FC<AddAgentFormProps> = ({
                 <div className="flex-1">
                   <div className="flex items-center gap-2">
                     <KeyOutlined className="text-indigo-600" />
-                    <span className="font-medium text-gray-900">Create a new key for this agent</span>
+                    <span className="font-medium text-gray-900">为此代理创建新密钥</span>
                   </div>
                   <p className="text-sm text-gray-500 mt-1">
-                    A dedicated key scoped to this agent.
+                    专用于此代理的密钥。
                   </p>
                   {keyAssignOption === "create_new" && (
                     <div className="mt-3 space-y-3" onClick={(e) => e.stopPropagation()}>
                       <div>
-                        <label className="text-sm text-gray-600 block mb-1">Key Name</label>
+                        <label className="text-sm text-gray-600 block mb-1">密钥名称</label>
                         <Input
                           value={newKeyName}
                           onChange={(e) => setNewKeyName(e.target.value)}
-                          placeholder="e.g. my-agent-key"
+                          placeholder="例如：my-agent-key"
                         />
                       </div>
                     </div>
                   )}
                 </div>
               </div>
-              <Tag color="green">Recommended</Tag>
+              <Tag color="green">推荐</Tag>
             </div>
           </div>
 
@@ -789,17 +789,17 @@ const AddAgentForm: React.FC<AddAgentFormProps> = ({
               <div className="flex-1">
                 <div className="flex items-center gap-2">
                   <KeyOutlined className="text-gray-500" />
-                  <span className="font-medium text-gray-900">Assign an existing key</span>
+                  <span className="font-medium text-gray-900">分配现有密钥</span>
                 </div>
                 <p className="text-sm text-gray-500 mt-1">
-                  Re-assign a key you already have to this agent.
+                  将已有密钥重新分配到此代理。
                 </p>
                 {keyAssignOption === "existing_key" && (
                   <div className="mt-3" onClick={(e) => e.stopPropagation()}>
                     <Select
                       showSearch
                       style={{ width: "100%" }}
-                      placeholder="Search by key name…"
+                      placeholder="按密钥名称搜索..."
                       loading={loadingKeys}
                       value={selectedExistingKey}
                       onChange={(value) => setSelectedExistingKey(value)}
@@ -824,7 +824,7 @@ const AddAgentForm: React.FC<AddAgentFormProps> = ({
             className="text-sm text-gray-500 underline hover:text-gray-700"
             onClick={() => setKeyAssignOption("skip")}
           >
-            Skip for now — I&apos;ll assign a key later
+            暂时跳过——稍后分配密钥
           </button>
         </div>
       </div>
@@ -834,7 +834,7 @@ const AddAgentForm: React.FC<AddAgentFormProps> = ({
   const renderReadyStep = () => (
     <div className="text-center py-6">
       <CheckCircleFilled className="text-5xl text-green-500 mb-4" style={{ fontSize: 48 }} />
-      <h3 className="text-xl font-semibold text-gray-900 mb-2">Agent Created!</h3>
+      <h3 className="text-xl font-semibold text-gray-900 mb-2">代理已创建！</h3>
       <div className="flex justify-center mb-4">
         <Tag icon={<RobotOutlined />} color="purple" className="px-3 py-1 text-sm">
           {createdAgentName}
@@ -847,12 +847,12 @@ const AddAgentForm: React.FC<AddAgentFormProps> = ({
       )}
       {assignedKeyAlias && (
         <p className="text-sm text-gray-600 mt-2">
-          Key <span className="font-medium">{assignedKeyAlias}</span> has been assigned to this agent.
+          密钥 <span className="font-medium">{assignedKeyAlias}</span> 已分配到此代理。
         </p>
       )}
       {!createdKeyValue && !assignedKeyAlias && keyAssignOption === "skip" && (
         <p className="text-sm text-gray-500 mt-2">
-          No key assigned. You can create one from the Virtual Keys page.
+          未分配密钥。您可以从虚拟密钥页面创建一个。
         </p>
       )}
     </div>
@@ -865,7 +865,7 @@ const AddAgentForm: React.FC<AddAgentFormProps> = ({
           {selectedLogo && currentStep < 1 && (
             <img src={selectedLogo} alt="Agent" className="w-6 h-6 object-contain" />
           )}
-          <h2 className="text-xl font-semibold text-gray-900">Add New Agent</h2>
+          <h2 className="text-xl font-semibold text-gray-900">添加新代理</h2>
         </div>
       }
       open={visible}
@@ -881,11 +881,11 @@ const AddAgentForm: React.FC<AddAgentFormProps> = ({
       <div className="mt-4">
         {/* Step indicator */}
         <Steps current={currentStep} size="small" className="mb-8">
-          <Step title="Configure" />
-          <Step title="Entitlements" />
-          <Step title="Governance" />
-          <Step title="Agent Management" />
-          <Step title="Ready" />
+          <Step title="配置" />
+          <Step title="权限" />
+          <Step title="治理" />
+          <Step title="代理管理" />
+          <Step title="完成" />
         </Steps>
 
         <Form
@@ -914,39 +914,39 @@ const AddAgentForm: React.FC<AddAgentFormProps> = ({
                 onClick={handleBack}
                 className="text-sm text-gray-600 border border-gray-300 rounded px-4 py-2 hover:bg-gray-50"
               >
-                ← Back
+                ← 返回
               </button>
             )}
           </div>
           <div className="flex gap-3">
             {currentStep < 4 && (
               <Button variant="secondary" onClick={handleClose}>
-                Cancel
+                取消
               </Button>
             )}
             {currentStep === 0 && (
               <Button variant="primary" onClick={handleNext}>
-                Next →
+                下一步 →
               </Button>
             )}
             {currentStep === 1 && (
               <Button variant="primary" onClick={handleNext}>
-                Next →
+                下一步 →
               </Button>
             )}
             {currentStep === 2 && (
               <Button variant="primary" onClick={handleNext}>
-                Next →
+                下一步 →
               </Button>
             )}
             {currentStep === 3 && (
               <Button variant="primary" loading={isSubmitting} onClick={handleCreateAgent}>
-                {isSubmitting ? "Creating..." : "Create Agent →"}
+                {isSubmitting ? "正在创建..." : "创建代理 →"}
               </Button>
             )}
             {currentStep === 4 && (
               <Button variant="primary" onClick={handleClose}>
-                Done
+                完成
               </Button>
             )}
           </div>

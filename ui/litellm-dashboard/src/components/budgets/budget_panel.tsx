@@ -145,13 +145,13 @@ const BudgetPanel: React.FC<BudgetSettingsPageProps> = ({ accessToken }) => {
                             <>
                               <TableIconActionButton
                                 variant="Edit"
-                                tooltipText="Edit budget"
+                                tooltipText="编辑预算"
                                 onClick={() => handleEditCall(value)}
                                 dataTestId="edit-budget-button"
                               />
                               <TableIconActionButton
                                 variant="Delete"
-                                tooltipText="Delete budget"
+                                tooltipText="删除预算"
                                 onClick={() => handleDeleteClick(value)}
                                 dataTestId="delete-budget-button"
                               />
@@ -164,8 +164,8 @@ const BudgetPanel: React.FC<BudgetSettingsPageProps> = ({ accessToken }) => {
               </Card>
               <DeleteResourceModal
                 isOpen={isDeleteModalVisible}
-                title="Delete Budget?"
-                message="Are you sure you want to delete this budget? This action cannot be undone."
+                title="删除预算？"
+                message="确定要删除此预算吗？此操作无法撤销。"
                 resourceInformationTitle="Budget Information"
                 resourceInformation={[
                   { label: "Budget ID", value: selectedBudget?.budget_id, code: true },

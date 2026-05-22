@@ -24,25 +24,25 @@ const LLMJudgeFields: React.FC<LLMJudgeFieldsProps> = ({ availableModels, form }
           color: "#389e0d",
         }}
       >
-        After each LLM response, the <strong>Judge Model</strong> scores it 0–100 against your criteria.
-        If the weighted average falls below the threshold, the response is blocked (or logged).
+        每次 LLM 响应后，<strong>评判模型</strong>会根据您的标准对其打分（0–100）。
+        如果加权平均值低于阈值，该响应将被拦截（或记录）。
       </div>
 
       <Form.Item
         name="judge_model"
         label={
           <span>
-            Judge Model&nbsp;
-            <Tooltip title="The LLM that reads each response and grades it. Pick a capable model — it never sees end-user data beyond what the LLM returned.">
+            评判模型&nbsp;
+            <Tooltip title="阅读每条响应并为其评分的 LLM。请选择一个能力较强的模型——它除了 LLM 返回的内容外，不会看到任何终端用户数据。">
               <QuestionCircleOutlined style={{ color: "#8c8c8c" }} />
             </Tooltip>
           </span>
         }
-        rules={[{ required: true, message: "Select a judge model" }]}
+        rules={[{ required: true, message: "请选择评判模型" }]}
       >
         <Select
           showSearch
-          placeholder="Select a model"
+          placeholder="选择模型"
           options={availableModels.map((m) => ({ label: m, value: m }))}
         />
       </Form.Item>
@@ -51,8 +51,8 @@ const LLMJudgeFields: React.FC<LLMJudgeFieldsProps> = ({ availableModels, form }
         name="overall_threshold"
         label={
           <span>
-            Minimum Score to Pass&nbsp;
-            <Tooltip title="0–100. If the weighted average of criterion scores falls below this, the guardrail triggers. 80 is a good default.">
+            最低通过分数&nbsp;
+            <Tooltip title="0–100。如果标准的加权平均分数低于此值，防护栏将被触发。80 是一个不错的默认值。">
               <QuestionCircleOutlined style={{ color: "#8c8c8c" }} />
             </Tooltip>
           </span>
@@ -66,8 +66,8 @@ const LLMJudgeFields: React.FC<LLMJudgeFieldsProps> = ({ availableModels, form }
         name="on_failure"
         label={
           <span>
-            On Failure&nbsp;
-            <Tooltip title="Block: return HTTP 422 when the score is too low. Log: record the result but let the response through.">
+            失败时处理&nbsp;
+            <Tooltip title="拦截：分数过低时返回 HTTP 422。记录：记录结果但允许响应通过。">
               <QuestionCircleOutlined style={{ color: "#8c8c8c" }} />
             </Tooltip>
           </span>
@@ -75,16 +75,16 @@ const LLMJudgeFields: React.FC<LLMJudgeFieldsProps> = ({ availableModels, form }
         initialValue="block"
       >
         <Select>
-          <Select.Option value="block">Block (return 422)</Select.Option>
-          <Select.Option value="log">Log only</Select.Option>
+          <Select.Option value="block">拦截（返回 422）</Select.Option>
+          <Select.Option value="log">仅记录</Select.Option>
         </Select>
       </Form.Item>
 
       <Form.Item
         label={
           <span>
-            Evaluation Criteria&nbsp;
-            <Tooltip title="Each criterion is something the judge checks. Weights must add up to 100%.">
+            评估标准&nbsp;
+            <Tooltip title="每条标准都是评判模型检查的内容。权重之和必须为 100%。">
               <QuestionCircleOutlined style={{ color: "#8c8c8c" }} />
             </Tooltip>
           </span>
@@ -107,22 +107,22 @@ const LLMJudgeFields: React.FC<LLMJudgeFieldsProps> = ({ availableModels, form }
                     <Form.Item
                       {...restField}
                       name={[name, "name"]}
-                      rules={[{ required: true, message: "Enter criterion name" }]}
+                      rules={[{ required: true, message: "请输入标准名称" }]}
                       style={{ flex: 2, marginBottom: 8 }}
                     >
-                      <Input placeholder="Criterion name (e.g. Policy accuracy)" />
+                      <Input placeholder="标准名称（例如：策略准确性）" />
                     </Form.Item>
                     <Form.Item
                       {...restField}
                       name={[name, "weight"]}
                       label={
-                        <Tooltip title="How much this criterion counts toward the final score. All weights must add up to 100%.">
+                        <Tooltip title="此标准在最终得分中所占的权重。所有权重之和必须为 100%。">
                           <span style={{ fontSize: 12, color: "#595959" }}>
-                            Weight <QuestionCircleOutlined style={{ color: "#bfbfbf" }} />
+                            权重 <QuestionCircleOutlined style={{ color: "#bfbfbf" }} />
                           </span>
                         </Tooltip>
                       }
-                      rules={[{ required: true, message: "Enter weight" }]}
+                      rules={[{ required: true, message: "请输入权重" }]}
                       style={{ flex: 1, marginBottom: 8 }}
                     >
                       <InputNumber
@@ -130,7 +130,7 @@ const LLMJudgeFields: React.FC<LLMJudgeFieldsProps> = ({ availableModels, form }
                         max={100}
                         addonAfter="%"
                         style={{ width: "100%" }}
-                        placeholder="e.g. 50"
+                        placeholder="例如：50"
                       />
                     </Form.Item>
                     <div style={{ marginBottom: 8 }}>
@@ -147,10 +147,10 @@ const LLMJudgeFields: React.FC<LLMJudgeFieldsProps> = ({ availableModels, form }
                   <Form.Item
                     {...restField}
                     name={[name, "description"]}
-                    rules={[{ required: true, message: "Describe what to check" }]}
+                    rules={[{ required: true, message: "请描述检查内容" }]}
                     style={{ marginBottom: 8 }}
                   >
-                    <Input placeholder="What should the judge check for this criterion?" />
+                    <Input placeholder="评判模型应检查此标准的哪些内容？" />
                   </Form.Item>
                 </div>
               ))}
@@ -161,7 +161,7 @@ const LLMJudgeFields: React.FC<LLMJudgeFieldsProps> = ({ availableModels, form }
                 onClick={() => add({ name: "", weight: 0, description: "" })}
                 icon={<PlusOutlined />}
               >
-                Add Criterion
+                添加标准
               </Button>
               {fields.length > 0 && (
                 <Form.Item shouldUpdate noStyle>
@@ -174,7 +174,7 @@ const LLMJudgeFields: React.FC<LLMJudgeFieldsProps> = ({ availableModels, form }
                     const weightOk = weightTotal === 100;
                     return (
                       <div style={{ marginTop: 6, fontSize: 12, color: weightOk ? "#52c41a" : "#faad14" }}>
-                        Weights total: {weightTotal}%{weightOk ? " ✓" : " — must add up to 100%"}
+                        权重总计：{weightTotal}%{weightOk ? " ✓" : " — 必须合计为 100%"}
                       </div>
                     );
                   }}

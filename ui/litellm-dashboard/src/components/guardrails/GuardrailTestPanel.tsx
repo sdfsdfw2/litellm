@@ -29,7 +29,7 @@ export function GuardrailTestPanel({
 
   const handleSubmit = () => {
     if (!inputText.trim()) {
-      NotificationsManager.fromBackend("Please enter text to test");
+      NotificationsManager.fromBackend("请输入要测试的文本");
       return;
     }
 
@@ -74,9 +74,9 @@ export function GuardrailTestPanel({
   const handleCopyInput = async () => {
     const success = await copyToClipboard(inputText);
     if (success) {
-      NotificationsManager.success("Input copied to clipboard");
+      NotificationsManager.success("输入已复制到剪贴板");
     } else {
-      NotificationsManager.fromBackend("Failed to copy input");
+      NotificationsManager.fromBackend("复制输入失败");
     }
   };
 
@@ -87,7 +87,7 @@ export function GuardrailTestPanel({
         <div className="flex items-center space-x-3">
           <div className="flex-1 min-w-0">
             <div className="flex items-center space-x-2 mb-1">
-              <h2 className="text-lg font-semibold text-gray-900">Test Guardrails:</h2>
+              <h2 className="text-lg font-semibold text-gray-900">测试防护栏：</h2>
               <div className="flex flex-wrap gap-2">
                 {guardrailNames.map((name) => (
                   <div
@@ -100,7 +100,7 @@ export function GuardrailTestPanel({
               </div>
             </div>
             <p className="text-sm text-gray-500">
-              Test {guardrailNames.length > 1 ? "guardrails" : "guardrail"} and compare results
+              测试 {guardrailNames.length} 个防护栏并比较结果
             </p>
           </div>
         </div>
@@ -112,8 +112,8 @@ export function GuardrailTestPanel({
           <div>
             <div className="flex justify-between items-center mb-2">
               <div className="flex items-center gap-2">
-                <label className="text-sm font-medium text-gray-700">Input Text</label>
-                <Tooltip title="Press Enter to submit. Use Shift+Enter for new line.">
+                <label className="text-sm font-medium text-gray-700">输入文本</label>
+                <Tooltip title="按 Enter 提交。使用 Shift+Enter 换行。">
                   <InfoCircleOutlined className="text-gray-400 cursor-help" />
                 </Tooltip>
               </div>
@@ -124,7 +124,7 @@ export function GuardrailTestPanel({
                   icon={CopyOutlined}
                   onClick={handleCopyInput}
                 >
-                  Copy Input
+                  复制输入
                 </Button>
               )}
             </div>
@@ -132,15 +132,15 @@ export function GuardrailTestPanel({
               value={inputText}
               onChange={(e) => setInputText(e.target.value)}
               onKeyDown={handleKeyDown}
-              placeholder="Enter text to test with guardrails..."
+              placeholder="输入要测试防护栏的文本..."
               rows={8}
               className="font-mono text-sm"
             />
             <div className="flex justify-between items-center mt-1">
               <Text className="text-xs text-gray-500">
-                Press <kbd className="px-1 py-0.5 bg-gray-100 border border-gray-300 rounded text-xs">Enter</kbd> to submit • <kbd className="px-1 py-0.5 bg-gray-100 border border-gray-300 rounded text-xs">Shift+Enter</kbd> for new line
+                按 <kbd className="px-1 py-0.5 bg-gray-100 border border-gray-300 rounded text-xs">Enter</kbd> 提交 • 按 <kbd className="px-1 py-0.5 bg-gray-100 border border-gray-300 rounded text-xs">Shift+Enter</kbd> 换行
               </Text>
-              <Text className="text-xs text-gray-500">Characters: {inputText.length}</Text>
+              <Text className="text-xs text-gray-500">字符数：{inputText.length}</Text>
             </div>
           </div>
 
@@ -152,8 +152,8 @@ export function GuardrailTestPanel({
               className="w-full"
             >
               {isLoading
-                ? `Testing ${guardrailNames.length} guardrail${guardrailNames.length > 1 ? "s" : ""}...`
-                : `Test ${guardrailNames.length} guardrail${guardrailNames.length > 1 ? "s" : ""}`}
+                ? `正在测试 ${guardrailNames.length} 个防护栏...`
+                : `测试 ${guardrailNames.length} 个防护栏`}
             </Button>
           </div>
         </div>

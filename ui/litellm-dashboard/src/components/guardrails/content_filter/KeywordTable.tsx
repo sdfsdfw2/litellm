@@ -25,12 +25,12 @@ const KeywordTable: React.FC<KeywordTableProps> = ({
 }) => {
   const columns = [
     {
-      title: "Keyword",
+      title: "关键词",
       dataIndex: "keyword",
       key: "keyword",
     },
     {
-      title: "Action",
+      title: "操作",
       dataIndex: "action",
       key: "action",
       width: 150,
@@ -41,13 +41,13 @@ const KeywordTable: React.FC<KeywordTableProps> = ({
           style={{ width: 120 }}
           size="small"
         >
-          <Option value="BLOCK">Block</Option>
-          <Option value="MASK">Mask</Option>
+          <Option value="BLOCK">拦截</Option>
+          <Option value="MASK">遮盖</Option>
         </Select>
       ),
     },
     {
-      title: "Description",
+      title: "描述",
       dataIndex: "description",
       key: "description",
       render: (desc: string) => desc || "-",
@@ -64,7 +64,7 @@ const KeywordTable: React.FC<KeywordTableProps> = ({
           icon={<DeleteOutlined />}
           onClick={() => onRemove(record.id)}
         >
-          Delete
+          删除
         </Button>
       ),
     },
@@ -73,7 +73,7 @@ const KeywordTable: React.FC<KeywordTableProps> = ({
   if (keywords.length === 0) {
     return (
       <div style={{ textAlign: "center", padding: "40px 0", color: "#999" }}>
-        No keywords added.
+        未添加关键词。
       </div>
     );
   }

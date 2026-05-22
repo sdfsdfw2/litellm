@@ -36,7 +36,7 @@ const PatternModal: React.FC<PatternModalProps> = ({
 }) => {
   return (
     <Modal
-      title="Add prebuilt pattern"
+      title="添加预置模式"
       open={visible}
       onCancel={onCancel}
       footer={null}
@@ -44,9 +44,9 @@ const PatternModal: React.FC<PatternModalProps> = ({
     >
       <Space direction="vertical" style={{ width: "100%" }} size="large">
         <div>
-          <Text strong>Pattern type</Text>
+          <Text strong>模式类型</Text>
           <Select
-            placeholder="Choose pattern type"
+            placeholder="选择模式类型"
             value={selectedPatternName}
             onChange={onPatternNameChange}
             style={{ width: "100%", marginTop: 8 }}
@@ -80,27 +80,27 @@ const PatternModal: React.FC<PatternModalProps> = ({
         </div>
 
         <div>
-          <Text strong>Action</Text>
+          <Text strong>操作</Text>
           <Text type="secondary" style={{ display: "block", marginTop: 4, marginBottom: 8 }}>
-            Choose what action the guardrail should take when this pattern is detected
+            选择检测到该模式时防护栏应采取的操作
           </Text>
           <Select
             value={patternAction}
             onChange={onActionChange}
             style={{ width: "100%" }}
           >
-            <Option value="BLOCK">Block</Option>
-            <Option value="MASK">Mask</Option>
+            <Option value="BLOCK">拦截</Option>
+            <Option value="MASK">遮盖</Option>
           </Select>
         </div>
       </Space>
 
       <div style={{ display: "flex", justifyContent: "flex-end", gap: "8px", marginTop: "24px" }}>
         <Button onClick={onCancel}>
-          Cancel
+          取消
         </Button>
         <Button type="primary" onClick={onAdd}>
-          Add
+          添加
         </Button>
       </div>
     </Modal>

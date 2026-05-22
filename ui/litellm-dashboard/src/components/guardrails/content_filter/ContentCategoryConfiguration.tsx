@@ -164,7 +164,7 @@ const ContentCategoryConfiguration: React.FC<ContentCategoryConfigurationProps> 
 
   const columns = [
     {
-      title: "Category",
+      title: "类别",
       dataIndex: "display_name",
       key: "display_name",
       render: (text: string, record: SelectedCategory) => {
@@ -182,7 +182,7 @@ const ContentCategoryConfiguration: React.FC<ContentCategoryConfigurationProps> 
       },
     },
     {
-      title: "Action",
+      title: "操作",
       dataIndex: "action",
       key: "action",
       width: 150,
@@ -202,7 +202,7 @@ const ContentCategoryConfiguration: React.FC<ContentCategoryConfigurationProps> 
       ),
     },
     {
-      title: "Severity Threshold",
+      title: "严重级别阈值",
       dataIndex: "severity_threshold",
       key: "severity_threshold",
       width: 180,
@@ -212,9 +212,9 @@ const ContentCategoryConfiguration: React.FC<ContentCategoryConfigurationProps> 
           onChange={(value) => onCategoryUpdate(record.id, "severity_threshold", value)}
           style={{ width: "100%" }}
         >
-          <Option value="low">Low</Option>
-          <Option value="medium">Medium</Option>
-          <Option value="high">High</Option>
+          <Option value="low">低</Option>
+          <Option value="medium">中</Option>
+          <Option value="high">高</Option>
         </Select>
       ),
     },
@@ -228,7 +228,7 @@ const ContentCategoryConfiguration: React.FC<ContentCategoryConfigurationProps> 
           onClick={() => onCategoryRemove(record.id)}
           size="small"
         >
-          Remove
+移除
         </Button>
       ),
     },
@@ -243,10 +243,10 @@ const ContentCategoryConfiguration: React.FC<ContentCategoryConfigurationProps> 
       title={
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 8 }}>
           <Title level={5} style={{ margin: 0 }}>
-            Blocked topics
+            拦截的主题
           </Title>
           <Text type="secondary" style={{ fontSize: 12, fontWeight: 400 }}>
-            Select topics to block using keyword and semantic analysis
+            选择要拦截的主题，使用关键词和语义分析
           </Text>
         </div>
       }
@@ -254,7 +254,7 @@ const ContentCategoryConfiguration: React.FC<ContentCategoryConfigurationProps> 
     >
       <div style={{ marginBottom: 16, display: "flex", gap: 8 }}>
         <Select
-          placeholder="Select a content category"
+          placeholder="选择内容类别"
           value={selectedCategoryName || undefined}
           onChange={setSelectedCategoryName}
           style={{ flex: 1 }}
@@ -281,7 +281,7 @@ const ContentCategoryConfiguration: React.FC<ContentCategoryConfigurationProps> 
           disabled={!selectedCategoryName}
           icon={<PlusOutlined />}
         >
-          Add
+添加
         </Button>
       </div>
 
@@ -297,7 +297,7 @@ const ContentCategoryConfiguration: React.FC<ContentCategoryConfigurationProps> 
           }}
         >
           <div style={{ marginBottom: 8, fontWeight: 500, fontSize: "14px" }}>
-            Preview: {availableCategories.find((c) => c.name === selectedCategoryName)?.display_name}
+            预览：{availableCategories.find((c) => c.name === selectedCategoryName)?.display_name}
             {categoryFileTypes[selectedCategoryName] && (
               <span style={{ marginLeft: 8, fontSize: "12px", color: "#888", fontWeight: 400 }}>
                 ({categoryFileTypes[selectedCategoryName]?.toUpperCase()})
@@ -306,7 +306,7 @@ const ContentCategoryConfiguration: React.FC<ContentCategoryConfigurationProps> 
           </div>
           {loadingPreviewYaml ? (
             <div style={{ padding: "16px", textAlign: "center", color: "#888" }}>
-              Loading content...
+              正在加载内容...
             </div>
           ) : previewYaml ? (
             <pre
@@ -329,7 +329,7 @@ const ContentCategoryConfiguration: React.FC<ContentCategoryConfigurationProps> 
             </pre>
           ) : (
             <div style={{ padding: "8px", textAlign: "center", color: "#888", fontSize: "12px" }}>
-              Unable to load category content
+              无法加载类别内容
             </div>
           )}
         </div>
@@ -371,12 +371,12 @@ const ContentCategoryConfiguration: React.FC<ContentCategoryConfigurationProps> 
                   label: (
                     <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
                       <FileTextOutlined />
-                      <span>View {fileTypeLabel} for {category.display_name}</span>
+                      <span>查看 {category.display_name} 的 {fileTypeLabel}</span>
                     </div>
                   ),
                   children: loadingYaml[category.category] ? (
                     <div style={{ padding: "16px", textAlign: "center", color: "#888" }}>
-                      Loading content...
+                      正在加载内容...
                     </div>
                   ) : categoryYaml[category.category] ? (
                     <pre
@@ -395,7 +395,7 @@ const ContentCategoryConfiguration: React.FC<ContentCategoryConfigurationProps> 
                     </pre>
                   ) : (
                     <div style={{ padding: "16px", textAlign: "center", color: "#888" }}>
-                      Content will load when expanded
+                      展开时将加载内容
                     </div>
                   ),
                 };
@@ -413,7 +413,7 @@ const ContentCategoryConfiguration: React.FC<ContentCategoryConfigurationProps> 
             borderRadius: "4px",
           }}
         >
-          No blocked topics selected. Add topics to detect and block harmful content.
+          未选择拦截的主题。添加主题以检测和拦截有害内容。
         </div>
       )}
     </Card>

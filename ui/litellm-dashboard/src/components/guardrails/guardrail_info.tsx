@@ -175,7 +175,7 @@ const GuardrailInfoView: React.FC<GuardrailInfoProps> = ({ guardrailId, onClose,
         setSelectedPiiActions({});
       }
     } catch (error) {
-      NotificationsManager.fromBackend("Failed to load guardrail information");
+      NotificationsManager.fromBackend("加载防护栏信息失败");
       console.error("Error fetching guardrail info:", error);
     } finally {
       setLoading(false);
@@ -462,28 +462,28 @@ const GuardrailInfoView: React.FC<GuardrailInfoProps> = ({ guardrailId, onClose,
 
       // Only proceed with update if there are actual changes
       if (Object.keys(updateData).length === 0) {
-        NotificationsManager.info("No changes detected");
+        NotificationsManager.info("未检测到更改");
         setIsEditing(false);
         return;
       }
 
       await updateGuardrailCall(accessToken, guardrailId, updateData);
-      NotificationsManager.success("Guardrail updated successfully");
+      NotificationsManager.success("防护栏更新成功");
       setHasUnsavedContentFilterChanges(false);
       fetchGuardrailInfo();
       setIsEditing(false);
     } catch (error) {
       console.error("Error updating guardrail:", error);
-      NotificationsManager.fromBackend("Failed to update guardrail");
+      NotificationsManager.fromBackend("防护栏更新失败");
     }
   };
 
   if (loading) {
-    return <div className="p-4">Loading...</div>;
+    return <div className="p-4">加载中...</div>;
   }
 
   if (!guardrailData) {
-    return <div className="p-4">Guardrail not found</div>;
+    return <div className="p-4">未找到防护栏</div>;
   }
 
   // Format date helper function
@@ -512,9 +512,9 @@ const GuardrailInfoView: React.FC<GuardrailInfoProps> = ({ guardrailId, onClose,
     <div className="p-4">
       <div>
         <Button type="text" icon={<ArrowLeftIcon className="w-4 h-4" />} onClick={onClose} className="mb-4">
-          Back to Guardrails
+          返回防护栏
         </Button>
-        <Title>{guardrailData.guardrail_name || "Unnamed Guardrail"}</Title>
+        <Title>{guardrailData.guardrail_name || "未命名防护栏"}</Title>
         <div className="flex items-center cursor-pointer">
           <Text className="text-gray-500 font-mono">{guardrailData.guardrail_id}</Text>
 
@@ -533,8 +533,8 @@ const GuardrailInfoView: React.FC<GuardrailInfoProps> = ({ guardrailId, onClose,
 
       <TabGroup>
         <TabList className="mb-4">
-          <Tab key="overview">Overview</Tab>
-          {isAdmin ? <Tab key="settings">Settings</Tab> : <></>}
+          <Tab key="overview">概览</Tab>
+          {isAdmin ? <Tab key="settings">设置</Tab> : <></>}
         </TabList>
 
         <TabPanels>
@@ -542,7 +542,7 @@ const GuardrailInfoView: React.FC<GuardrailInfoProps> = ({ guardrailId, onClose,
           <TabPanel>
             <Grid numItems={1} numItemsSm={2} numItemsLg={3} className="gap-6">
               <Card>
-                <Text>Provider</Text>
+                <Text>提供商</Text>
                 <div className="mt-2 flex items-center space-x-2">
                   {logo && (
                     <img
@@ -560,20 +560,20 @@ const GuardrailInfoView: React.FC<GuardrailInfoProps> = ({ guardrailId, onClose,
               </Card>
 
               <Card>
-                <Text>Mode</Text>
+                <Text>模式</Text>
                 <div className="mt-2">
                   <Title>{guardrailData.litellm_params?.mode || "-"}</Title>
                   <Badge color={guardrailData.litellm_params?.default_on ? "green" : "gray"}>
-                    {guardrailData.litellm_params?.default_on ? "Default On" : "Default Off"}
+                    {guardrailData.litellm_params?.default_on ? "默认开启" : "默认关闭"}
                   </Badge>
                 </div>
               </Card>
 
               <Card>
-                <Text>Created At</Text>
+                <Text>创建时间</Text>
                 <div className="mt-2">
                   <Title>{formatDate(guardrailData.created_at)}</Title>
-                  <Text>Last Updated: {formatDate(guardrailData.updated_at)}</Text>
+                  <Text>最后更新：{formatDate(guardrailData.updated_at)}</Text>
                 </div>
               </Card>
             </Grid>
@@ -582,9 +582,9 @@ const GuardrailInfoView: React.FC<GuardrailInfoProps> = ({ guardrailId, onClose,
               Object.keys(guardrailData.litellm_params.pii_entities_config).length > 0 && (
                 <Card className="mt-6">
                   <div className="flex justify-between items-center">
-                    <Text className="font-medium">PII Protection</Text>
+                    <Text className="font-medium">PII 保护</Text>
                     <Badge color="blue">
-                      {Object.keys(guardrailData.litellm_params.pii_entities_config).length} PII entities configured
+                      {Object.keys(guardrailData.litellm_params.pii_entities_config).length} 个已配置 PII 实体
                     </Badge>
                   </div>
                 </Card>
@@ -593,11 +593,11 @@ const GuardrailInfoView: React.FC<GuardrailInfoProps> = ({ guardrailId, onClose,
             {guardrailData.litellm_params?.pii_entities_config &&
               Object.keys(guardrailData.litellm_params.pii_entities_config).length > 0 && (
                 <Card className="mt-6">
-                  <Text className="mb-4 text-lg font-semibold">PII Entity Configuration</Text>
+                  <Text className="mb-4 text-lg font-semibold">PII 实体配置</Text>
                   <div className="border rounded-lg overflow-hidden shadow-sm">
                     <div className="bg-gray-50 px-5 py-3 border-b flex">
-                      <Text className="flex-1 font-semibold text-gray-700">Entity Type</Text>
-                      <Text className="flex-1 font-semibold text-gray-700">Configuration</Text>
+                      <Text className="flex-1 font-semibold text-gray-700">实体类型</Text>
+                      <Text className="flex-1 font-semibold text-gray-700">配置</Text>
                     </div>
                     <div className="max-h-[400px] overflow-y-auto">
                       {Object.entries(guardrailData.litellm_params?.pii_entities_config).map(([key, value]) => (
@@ -631,7 +631,7 @@ const GuardrailInfoView: React.FC<GuardrailInfoProps> = ({ guardrailId, onClose,
                 <div className="flex justify-between items-center mb-4">
                   <div className="flex items-center gap-2">
                     <CodeOutlined className="text-blue-500" />
-                    <Text className="font-medium text-lg">Custom Code</Text>
+                    <Text className="font-medium text-lg">自定义代码</Text>
                   </div>
                   {isAdmin && !isConfigGuardrail && (
                     <Button
@@ -665,9 +665,9 @@ const GuardrailInfoView: React.FC<GuardrailInfoProps> = ({ guardrailId, onClose,
             <TabPanel>
               <Card>
                 <div className="flex justify-between items-center mb-4">
-                  <Title>Guardrail Settings</Title>
+                  <Title>防护栏设置</Title>
                   {isConfigGuardrail && (
-                    <Tooltip title="Guardrail is defined in the config file and cannot be edited.">
+                    <Tooltip title="防护栏在配置文件中定义，无法编辑。">
                       <InfoCircleOutlined />
                     </Tooltip>
                   )}
@@ -677,10 +677,10 @@ const GuardrailInfoView: React.FC<GuardrailInfoProps> = ({ guardrailId, onClose,
                         icon={<CodeOutlined />}
                         onClick={() => setCustomCodeModalVisible(true)}
                       >
-                        Edit Code
+编辑代码
                       </Button>
                     ) : (
-                      <Button onClick={() => setIsEditing(true)}>Edit Settings</Button>
+                      <Button onClick={() => setIsEditing(true)}>编辑设置</Button>
                     )
                   )}
                 </div>
@@ -714,47 +714,47 @@ const GuardrailInfoView: React.FC<GuardrailInfoProps> = ({ guardrailId, onClose,
                     layout="vertical"
                   >
                     <Form.Item
-                      label="Guardrail Name"
+                      label="防护栏名称"
                       name="guardrail_name"
-                      rules={[{ required: true, message: "Please input a guardrail name" }]}
+                      rules={[{ required: true, message: "请输入防护栏名称" }]}
                     >
-                      <Input placeholder="Enter guardrail name" />
+                      <Input placeholder="输入防护栏名称" />
                     </Form.Item>
 
-                    <Form.Item label="Default On" name="default_on">
+                    <Form.Item label="默认开启" name="default_on">
                       <Select>
-                        <Select.Option value={true}>Yes</Select.Option>
-                        <Select.Option value={false}>No</Select.Option>
+                        <Select.Option value={true}>是</Select.Option>
+                        <Select.Option value={false}>否</Select.Option>
                       </Select>
                     </Form.Item>
 
                     <Form.Item
-                      label="Skip system messages in guardrail"
+                      label="跳过防护栏中的系统消息"
                       name="skip_system_message_choice"
-                      tooltip="Unified guardrails: omit role: system from guardrail input (LLM still gets full messages). Use global default follows litellm_settings.skip_system_message_in_guardrail."
+                      tooltip="统一防护栏：从防护栏输入中省略 role: system（LLM 仍接收完整消息）。使用全局默认值遵循 litellm_settings.skip_system_message_in_guardrail。"
                     >
                       <Select>
-                        <Select.Option value="inherit">Use global default</Select.Option>
-                        <Select.Option value="yes">Yes — exclude from guardrail scan</Select.Option>
-                        <Select.Option value="no">No — always include in scan</Select.Option>
+                        <Select.Option value="inherit">使用全局默认</Select.Option>
+                        <Select.Option value="yes">是 — 从防护栏扫描中排除</Select.Option>
+                        <Select.Option value="no">否 — 始终包含在扫描中</Select.Option>
                       </Select>
                     </Form.Item>
 
                     <Form.Item
-                      label="Skip tool messages in guardrail"
+                      label="跳过防护栏中的工具消息"
                       name="skip_tool_message_choice"
-                      tooltip="Unified guardrails: omit role: tool from guardrail input (LLM still gets full messages). Use global default follows litellm_settings.skip_tool_message_in_guardrail."
+                      tooltip="统一防护栏：从防护栏输入中省略 role: tool（LLM 仍接收完整消息）。使用全局默认值遵循 litellm_settings.skip_tool_message_in_guardrail。"
                     >
                       <Select>
-                        <Select.Option value="inherit">Use global default</Select.Option>
-                        <Select.Option value="yes">Yes — exclude from guardrail scan</Select.Option>
-                        <Select.Option value="no">No — always include in scan</Select.Option>
+                        <Select.Option value="inherit">使用全局默认</Select.Option>
+                        <Select.Option value="yes">是 — 从防护栏扫描中排除</Select.Option>
+                        <Select.Option value="no">否 — 始终包含在扫描中</Select.Option>
                       </Select>
                     </Form.Item>
 
                     {guardrailData.litellm_params?.guardrail === "presidio" && (
                       <>
-                        <Divider orientation="left">PII Protection</Divider>
+                        <Divider orientation="left">PII 保护</Divider>
                         <div className="mb-6">
                           {guardrailSettings && (
                             <PiiConfiguration
@@ -780,7 +780,7 @@ const GuardrailInfoView: React.FC<GuardrailInfoProps> = ({ guardrailId, onClose,
                       onUnsavedChanges={setHasUnsavedContentFilterChanges}
                     />
 
-                    {(guardrailData.litellm_params?.guardrail === "tool_permission" || guardrailProviderSpecificParams) && <Divider orientation="left">Provider Settings</Divider>}
+                    {(guardrailData.litellm_params?.guardrail === "tool_permission" || guardrailProviderSpecificParams) && <Divider orientation="left">提供商设置</Divider>}
 
                     {guardrailData.litellm_params?.guardrail === "tool_permission" ? (
                       <ToolPermissionRulesEditor
@@ -825,8 +825,8 @@ const GuardrailInfoView: React.FC<GuardrailInfoProps> = ({ guardrailId, onClose,
                       </>
                     )}
 
-                    <Divider orientation="left">Advanced Settings</Divider>
-                    <Form.Item label="Guardrail Information" name="guardrail_info">
+                    <Divider orientation="left">高级设置</Divider>
+                    <Form.Item label="防护栏信息" name="guardrail_info">
                       <Input.TextArea rows={5} />
                     </Form.Item>
 
@@ -838,40 +838,40 @@ const GuardrailInfoView: React.FC<GuardrailInfoProps> = ({ guardrailId, onClose,
                           resetToolPermissionEditor();
                         }}
                       >
-                        Cancel
+                        取消
                       </Button>
-                      <Button type="primary" htmlType="submit">Save Changes</Button>
+                      <Button type="primary" htmlType="submit">保存更改</Button>
                     </div>
                   </Form>
                 ) : (
                   <div className="space-y-4">
                     <div>
-                      <Text className="font-medium">Guardrail ID</Text>
+                      <Text className="font-medium">防护栏 ID</Text>
                       <div className="font-mono">{guardrailData.guardrail_id}</div>
                     </div>
                     <div>
-                      <Text className="font-medium">Guardrail Name</Text>
-                      <div>{guardrailData.guardrail_name || "Unnamed Guardrail"}</div>
+                      <Text className="font-medium">防护栏名称</Text>
+                      <div>{guardrailData.guardrail_name || "未命名防护栏"}</div>
                     </div>
                     <div>
-                      <Text className="font-medium">Provider</Text>
+                      <Text className="font-medium">提供商</Text>
                       <div>{displayName}</div>
                     </div>
                     <div>
-                      <Text className="font-medium">Mode</Text>
+                      <Text className="font-medium">模式</Text>
                       <div>{guardrailData.litellm_params?.mode || "-"}</div>
                     </div>
                     <div>
-                      <Text className="font-medium">Default On</Text>
+                      <Text className="font-medium">默认开启</Text>
                       <Badge color={guardrailData.litellm_params?.default_on ? "green" : "gray"}>
-                        {guardrailData.litellm_params?.default_on ? "Yes" : "No"}
+                        {guardrailData.litellm_params?.default_on ? "是" : "否"}
                       </Badge>
                     </div>
 
                     {guardrailData.litellm_params?.pii_entities_config &&
                       Object.keys(guardrailData.litellm_params.pii_entities_config).length > 0 && (
                         <div>
-                          <Text className="font-medium">PII Protection</Text>
+<Text className="font-medium">PII 保护</Text>
                           <div className="mt-2">
                             <Badge color="blue">
                               {Object.keys(guardrailData.litellm_params.pii_entities_config).length} PII entities
@@ -882,11 +882,11 @@ const GuardrailInfoView: React.FC<GuardrailInfoProps> = ({ guardrailId, onClose,
                       )}
 
                     <div>
-                      <Text className="font-medium">Created At</Text>
+                      <Text className="font-medium">创建时间</Text>
                       <div>{formatDate(guardrailData.created_at)}</div>
                     </div>
                     <div>
-                      <Text className="font-medium">Last Updated</Text>
+                      <Text className="font-medium">最后更新</Text>
                       <div>{formatDate(guardrailData.updated_at)}</div>
                     </div>
 

@@ -34,11 +34,11 @@ export const CategoryFilter: React.FC<CategoryFilterProps> = ({ categories, sele
     <div>
       <div className="flex items-center mb-2">
         <FilterOutlined className="text-gray-500 mr-1" />
-        <Text className="text-gray-500 font-medium">Filter by category</Text>
+        <Text className="text-gray-500 font-medium">按类别筛选</Text>
       </div>
       <Select
         mode="multiple"
-        placeholder="Select categories to filter by"
+        placeholder="选择要筛选的类别"
         style={{ width: "100%" }}
         onChange={onChange}
         value={selectedCategories}
@@ -75,9 +75,9 @@ export const QuickActions: React.FC<QuickActionsProps> = ({ onSelectAll, onUnsel
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center">
           <Text strong className="text-gray-700 text-base">
-            Quick Actions
+            快速操作
           </Text>
-          <Tooltip title="Apply action to all PII types at once">
+          <Tooltip title="将操作同时应用于所有 PII 类型">
             <div className="ml-2 text-gray-400 cursor-help text-xs">ⓘ</div>
           </Tooltip>
         </div>
@@ -88,7 +88,7 @@ export const QuickActions: React.FC<QuickActionsProps> = ({ onSelectAll, onUnsel
           disabled={!hasSelectedEntities}
           icon={<CloseOutlined />}
         >
-          Unselect All
+          取消全选
         </Button>
       </div>
       <div className="grid grid-cols-2 gap-4">
@@ -100,7 +100,7 @@ export const QuickActions: React.FC<QuickActionsProps> = ({ onSelectAll, onUnsel
           block
           icon={<EyeInvisibleOutlined />}
         >
-          Select All & Mask
+          全选并遮盖
         </Button>
         <Button
           color="danger"
@@ -110,7 +110,7 @@ export const QuickActions: React.FC<QuickActionsProps> = ({ onSelectAll, onUnsel
           block
           icon={<StopOutlined />}
         >
-          Select All & Block
+          全选并拦截
         </Button>
       </div>
     </div>
@@ -141,15 +141,15 @@ export const PiiEntityList: React.FC<PiiEntityListProps> = ({
     <div className="border rounded-lg overflow-hidden shadow-sm">
       <div className="bg-gray-50 px-5 py-3 border-b flex">
         <Text strong className="flex-1 text-gray-700">
-          PII Type
+          PII 类型
         </Text>
         <Text strong className="w-32 text-right text-gray-700">
-          Action
+          操作
         </Text>
       </div>
       <div className="max-h-[400px] overflow-y-auto">
         {entities.length === 0 ? (
-          <div className="py-10 text-center text-gray-500">No PII types match your filter criteria</div>
+          <div className="py-10 text-center text-gray-500">没有符合筛选条件的 PII 类型</div>
         ) : (
           entities.map((entity) => (
             <div

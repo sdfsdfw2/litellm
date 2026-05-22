@@ -103,13 +103,13 @@ const SearchTools: React.FC<SearchToolsProps> = ({ accessToken, userRole, userID
     setIsDeleting(true);
     try {
       await deleteSearchTool(accessToken, toolIdToDelete);
-      NotificationsManager.success("Deleted search tool successfully");
+      NotificationsManager.success("搜索工具已成功删除");
       setIsDeleteModalOpen(false);
       setToolToDelete(null);
       refetch();
     } catch (error) {
       console.error("Error deleting the search tool:", error);
-      NotificationsManager.error("Failed to delete search tool");
+      NotificationsManager.error("删除搜索工具失败");
     } finally {
       setIsDeleting(false);
     }
@@ -150,14 +150,14 @@ const SearchTools: React.FC<SearchToolsProps> = ({ accessToken, userRole, userID
       };
 
       await updateSearchTool(accessToken, selectedToolId, searchToolData);
-      NotificationsManager.success("Search tool updated successfully");
+      NotificationsManager.success("搜索工具已成功更新");
       setEditModalVisible(false);
       form.resetFields();
       setSelectedToolId(null);
       refetch();
     } catch (error) {
       console.error("Failed to update search tool:", error);
-      NotificationsManager.error("Failed to update search tool");
+      NotificationsManager.error("更新搜索工具失败");
     }
   };
 
@@ -165,18 +165,18 @@ const SearchTools: React.FC<SearchToolsProps> = ({ accessToken, userRole, userID
     <Form form={form} layout="vertical">
       <Form.Item
         name="search_tool_name"
-        label="Search Tool Name"
-        rules={[{ required: true, message: "Please enter a search tool name" }]}
+        label="搜索工具名称"
+        rules={[{ required: true, message: "请输入搜索工具名称" }]}
       >
-        <Input placeholder="e.g., my-perplexity-search" />
+        <Input placeholder="例如：my-perplexity-search" />
       </Form.Item>
 
       <Form.Item
         name="search_provider"
-        label="Search Provider"
-        rules={[{ required: true, message: "Please select a search provider" }]}
+        label="搜索提供商"
+        rules={[{ required: true, message: "请选择搜索提供商" }]}
       >
-        <Select placeholder="Select a search provider" loading={isLoadingProviders}>
+        <Select placeholder="选择搜索提供商" loading={isLoadingProviders}>
           {availableProviders.map((provider) => (
             <Select.Option key={provider.provider_name} value={provider.provider_name}>
               {provider.ui_friendly_name}
@@ -185,19 +185,19 @@ const SearchTools: React.FC<SearchToolsProps> = ({ accessToken, userRole, userID
         </Select>
       </Form.Item>
 
-      <Form.Item name="api_key" label="API Key" extra="API key for the search provider">
-        <Input.Password placeholder="Enter API key" />
+      <Form.Item name="api_key" label="API 密钥" extra="搜索提供商的 API 密钥">
+        <Input.Password placeholder="输入 API 密钥" />
       </Form.Item>
 
-      <Form.Item name="description" label="Description">
-        <Input.TextArea rows={3} placeholder="Description of this search tool" />
+      <Form.Item name="description" label="描述">
+        <Input.TextArea rows={3} placeholder="此搜索工具的描述" />
       </Form.Item>
     </Form>
   );
 
   if (!accessToken || !userRole || !userID) {
     console.log("Missing required authentication parameters", { accessToken, userRole, userID });
-    return <div className="p-6 text-center text-gray-500">Missing required authentication parameters.</div>;
+    return <div className="p-6 text-center text-gray-500">缺少必需的身份验证参数。</div>;
   }
 
   const ToolsTab = () =>
@@ -231,7 +231,7 @@ const SearchTools: React.FC<SearchToolsProps> = ({ accessToken, userRole, userID
             rowKey={(record) => record.search_tool_id || record.search_tool_name}
             pagination={false}
             locale={{
-              emptyText: "No search tools configured",
+              emptyText: "未配置搜索工具",
             }}
             size="small"
           />
@@ -244,19 +244,19 @@ const SearchTools: React.FC<SearchToolsProps> = ({ accessToken, userRole, userID
     <div className="w-full h-full p-6">
       <DeleteResourceModal
         isOpen={isDeleteModalOpen}
-        title="Delete Search Tool"
-        message="Are you sure you want to delete this search tool? This action cannot be undone."
-        resourceInformationTitle="Search Tool Information"
+        title="删除搜索工具"
+        message="确定要删除此搜索工具吗？此操作无法撤销。"
+        resourceInformationTitle="搜索工具信息"
         resourceInformation={
           toolToDelete
             ? [
-              { label: "Name", value: toolToDelete.search_tool_name },
+              { label: "名称", value: toolToDelete.search_tool_name },
               { label: "ID", value: toolToDelete.search_tool_id, code: true },
               {
-                label: "Provider",
+                label: "提供商",
                 value: providerInfo?.ui_friendly_name || toolToDelete.litellm_params.search_provider,
               },
-              { label: "Description", value: toolToDelete.search_tool_info?.description || "-" },
+              { label: "描述", value: toolToDelete.search_tool_info?.description || "-" },
             ]
             : []
         }
@@ -275,7 +275,7 @@ const SearchTools: React.FC<SearchToolsProps> = ({ accessToken, userRole, userID
 
       {/* Edit Modal */}
       <Modal
-        title="Edit Search Tool"
+        title="编辑搜索工具"
         open={isEditModalVisible}
         onOk={handleEditSubmit}
         onCancel={() => {
@@ -288,11 +288,11 @@ const SearchTools: React.FC<SearchToolsProps> = ({ accessToken, userRole, userID
         {renderEditForm()}
       </Modal>
 
-      <Title>Search Tools</Title>
-      <Text className="text-tremor-content mt-2">Configure and manage your search providers</Text>
+      <Title>搜索工具</Title>
+      <Text className="text-tremor-content mt-2">配置和管理您的搜索提供商</Text>
       {isAdminRole(userRole) && (
         <Button className="mt-4 mb-4" onClick={() => setCreateModalVisible(true)}>
-          + Add New Search Tool
+          + 添加新搜索工具
         </Button>
       )}
 

@@ -27,30 +27,30 @@ const PatternTable: React.FC<PatternTableProps> = ({
 }) => {
   const columns = [
     {
-      title: "Type",
+      title: "类型",
       dataIndex: "type",
       key: "type",
       width: 100,
       render: (type: string) => (
         <Tag color={type === "prebuilt" ? "blue" : "green"}>
-          {type === "prebuilt" ? "Prebuilt" : "Custom"}
+          {type === "prebuilt" ? "预置" : "自定义"}
         </Tag>
       ),
     },
     {
-      title: "Pattern name",
+      title: "模式名称",
       dataIndex: "name",
       key: "name",
       render: (_: string, record: Pattern) => record.display_name || record.name,
     },
     {
-      title: "Regex pattern",
+      title: "正则表达式",
       dataIndex: "pattern",
       key: "pattern",
       render: (pattern: string) => (pattern ? <Text code style={{ fontSize: 12 }}>{pattern.substring(0, 40)}...</Text> : "-"),
     },
     {
-      title: "Action",
+      title: "操作",
       dataIndex: "action",
       key: "action",
       width: 150,
@@ -61,8 +61,8 @@ const PatternTable: React.FC<PatternTableProps> = ({
           style={{ width: 120 }}
           size="small"
         >
-          <Option value="BLOCK">Block</Option>
-          <Option value="MASK">Mask</Option>
+          <Option value="BLOCK">拦截</Option>
+          <Option value="MASK">遮盖</Option>
         </Select>
       ),
     },
@@ -78,7 +78,7 @@ const PatternTable: React.FC<PatternTableProps> = ({
           icon={<DeleteOutlined />}
           onClick={() => onRemove(record.id)}
         >
-          Delete
+          删除
         </Button>
       ),
     },
@@ -87,7 +87,7 @@ const PatternTable: React.FC<PatternTableProps> = ({
   if (patterns.length === 0) {
     return (
       <div style={{ textAlign: "center", padding: "40px 0", color: "#999" }}>
-        No patterns added.
+        未添加模式。
       </div>
     );
   }

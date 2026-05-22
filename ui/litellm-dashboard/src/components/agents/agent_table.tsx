@@ -46,7 +46,7 @@ const AgentTable: React.FC<AgentTableProps> = ({
 
   const columns: ColumnDef<Agent>[] = [
     {
-      header: "Agent Name",
+      header: "代理名称",
       accessorKey: "agent_name",
       cell: ({ row }) => {
         const agent = row.original;
@@ -63,7 +63,7 @@ const AgentTable: React.FC<AgentTableProps> = ({
                 {name}
                 </Button>
               </Tooltip>
-            <Tooltip title="Copy Agent ID">
+            <Tooltip title="复制代理 ID">
               <CopyOutlined
                 onClick={(e) => {
                   e.stopPropagation();
@@ -77,10 +77,10 @@ const AgentTable: React.FC<AgentTableProps> = ({
       },
     },
     {
-      header: "Description",
+      header: "描述",
       accessorKey: "agent_card_params.description",
       cell: ({ row }) => {
-        const description = row.original.agent_card_params?.description || "No description";
+        const description = row.original.agent_card_params?.description || "无描述";
         return (
           <span className="text-xs text-gray-600 block max-w-[300px] truncate">
             {description}
@@ -89,7 +89,7 @@ const AgentTable: React.FC<AgentTableProps> = ({
       },
     },
     {
-      header: "Created At",
+      header: "创建时间",
       accessorKey: "created_at",
       cell: ({ row }) => {
         const agent = row.original;
@@ -103,7 +103,7 @@ const AgentTable: React.FC<AgentTableProps> = ({
     ...(isAdmin
       ? [
           {
-            header: "Actions",
+            header: "操作",
             id: "actions",
             enableSorting: false,
             cell: ({ row }: any) => {
@@ -111,7 +111,7 @@ const AgentTable: React.FC<AgentTableProps> = ({
               
               return (
                 <div className="flex items-center gap-1">
-                  <Tooltip title="Delete agent">
+                  <Tooltip title="删除代理">
                     <Button
                       size="xs"
                       variant="light"
@@ -182,7 +182,7 @@ const AgentTable: React.FC<AgentTableProps> = ({
               <TableRow>
                 <TableCell colSpan={columns.length} className="h-8 text-center">
                   <div className="text-center text-gray-500">
-                    <p>Loading...</p>
+                    <p>加载中...</p>
                   </div>
                 </TableCell>
               </TableRow>
@@ -200,7 +200,7 @@ const AgentTable: React.FC<AgentTableProps> = ({
               <TableRow>
                 <TableCell colSpan={columns.length} className="h-8 text-center">
                   <div className="text-center text-gray-500">
-                    <p>No agents found. Create one to get started.</p>
+                    <p>未找到代理。创建一个以开始使用。</p>
                 </div>
               </TableCell>
               </TableRow>

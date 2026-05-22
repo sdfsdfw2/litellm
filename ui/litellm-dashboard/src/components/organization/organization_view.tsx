@@ -180,11 +180,11 @@ const OrganizationInfoView: React.FC<OrganizationInfoProps> = ({
   };
 
   if (loading) {
-    return <div className="p-4">Loading...</div>;
+    return <div className="p-4">加载中...</div>;
   }
 
   if (!orgData) {
-    return <div className="p-4">Organization not found</div>;
+    return <div className="p-4">未找到组织</div>;
   }
 
   const copyToClipboard = async (text: string | null | undefined, key: string) => {
@@ -199,7 +199,7 @@ const OrganizationInfoView: React.FC<OrganizationInfoProps> = ({
 
   const orgExtraColumns: ColumnsType<Member> = [
     {
-      title: "Spend (USD)",
+      title: "消费（USD）",
       key: "spend",
       render: (_: unknown, record: Member) => {
         const orgMember =
@@ -214,7 +214,7 @@ const OrganizationInfoView: React.FC<OrganizationInfoProps> = ({
       },
     },
     {
-      title: "Created At",
+      title: "创建时间",
       key: "created_at",
       render: (_: unknown, record: Member) => {
         const orgMember =
@@ -237,7 +237,7 @@ const OrganizationInfoView: React.FC<OrganizationInfoProps> = ({
       <div className="flex justify-between items-center mb-6">
         <div>
           <TremorButton icon={ArrowLeftIcon} onClick={onClose} variant="light" className="mb-4">
-            Back to Organizations
+            返回组织列表
           </TremorButton>
           <Title>{orgData.organization_alias}</Title>
           <div className="flex items-center cursor-pointer">
@@ -262,11 +262,11 @@ const OrganizationInfoView: React.FC<OrganizationInfoProps> = ({
         items={[
           {
             key: "overview",
-            label: "Overview",
+            label: "概览",
             children: (
               <Grid numItems={1} numItemsSm={2} numItemsLg={3} className="gap-6">
                 <Card>
-                  <Text>Organization Details</Text>
+                  <Text>组织详情</Text>
                   <div className="mt-2">
                     <Text>Created: {new Date(orgData.created_at).toLocaleDateString()}</Text>
                     <Text>Updated: {new Date(orgData.updated_at).toLocaleDateString()}</Text>
@@ -275,7 +275,7 @@ const OrganizationInfoView: React.FC<OrganizationInfoProps> = ({
                 </Card>
 
                 <Card>
-                  <Text>Budget Status</Text>
+                  <Text>预算状态</Text>
                   <div className="mt-2">
                     <Title>${formatNumberWithCommas(orgData.spend, 4)}</Title>
                     <Text>
@@ -291,7 +291,7 @@ const OrganizationInfoView: React.FC<OrganizationInfoProps> = ({
                 </Card>
 
                 <Card>
-                  <Text>Rate Limits</Text>
+                  <Text>速率限制</Text>
                   <div className="mt-2">
                     <Text>TPM: {orgData.litellm_budget_table.tpm_limit || "Unlimited"}</Text>
                     <Text>RPM: {orgData.litellm_budget_table.rpm_limit || "Unlimited"}</Text>
@@ -302,7 +302,7 @@ const OrganizationInfoView: React.FC<OrganizationInfoProps> = ({
                 </Card>
 
                 <Card>
-                  <Text>Models</Text>
+                  <Text>模型</Text>
                   <div className="mt-2 flex flex-wrap gap-2">
                     {orgData.models.length === 0 ? (
                       <Badge color="red">All proxy models</Badge>
@@ -316,7 +316,7 @@ const OrganizationInfoView: React.FC<OrganizationInfoProps> = ({
                   </div>
                 </Card>
                 <Card>
-                  <Text>Teams</Text>
+                  <Text>团队</Text>
                   <div className="mt-2 flex flex-wrap gap-2">
                     {orgData.teams?.map((team, index) => (
                       <Badge key={index} color="red">
@@ -336,7 +336,7 @@ const OrganizationInfoView: React.FC<OrganizationInfoProps> = ({
           },
           {
             key: "members",
-            label: "Members",
+            label: "成员",
             children: (
               <div className="space-y-4">
                 <MemberTable
@@ -352,22 +352,22 @@ const OrganizationInfoView: React.FC<OrganizationInfoProps> = ({
                   }}
                   onDelete={(member) => handleMemberDelete(member)}
                   onAddMember={() => setIsAddMemberModalVisible(true)}
-                  roleColumnTitle="Organization Role"
+                  roleColumnTitle="组织角色"
                   extraColumns={orgExtraColumns}
-                  emptyText="No members found"
+                  emptyText="未找到成员"
                 />
               </div>
             ),
           },
           {
             key: "settings",
-            label: "Settings",
+            label: "设置",
             children: (
               <Card className="overflow-y-auto max-h-[65vh]">
                 <div className="flex justify-between items-center mb-4">
-                  <Title>Organization Settings</Title>
+                  <Title>组织设置</Title>
                   {canEditOrg && !isEditing && (
-                    <TremorButton onClick={() => setIsEditing(true)}>Edit Settings</TremorButton>
+                    <TremorButton onClick={() => setIsEditing(true)}>编辑设置</TremorButton>
                   )}
                 </div>
 
@@ -504,7 +504,7 @@ const OrganizationInfoView: React.FC<OrganizationInfoProps> = ({
                         Max:{" "}
                         {orgData.litellm_budget_table.max_budget !== null
                           ? `$${formatNumberWithCommas(orgData.litellm_budget_table.max_budget, 4)}`
-                          : "No Limit"}
+                          : "无限制"}
                       </div>
                       <div>Reset: {orgData.litellm_budget_table.budget_duration || "Never"}</div>
                     </div>
@@ -527,7 +527,7 @@ const OrganizationInfoView: React.FC<OrganizationInfoProps> = ({
         onCancel={() => setIsAddMemberModalVisible(false)}
         onSubmit={handleMemberAdd}
         accessToken={accessToken}
-        title="Add Organization Member"
+        title="添加组织成员"
         roles={[
           {
             label: "org_admin",
@@ -554,7 +554,7 @@ const OrganizationInfoView: React.FC<OrganizationInfoProps> = ({
         initialData={selectedEditMember}
         mode="edit"
         config={{
-          title: "Edit Member",
+          title: "编辑成员",
           showEmail: true,
           showUserId: true,
           roleOptions: [

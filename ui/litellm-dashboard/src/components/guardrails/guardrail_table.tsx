@@ -79,7 +79,7 @@ const GuardrailTable: React.FC<GuardrailTableProps> = ({
       ),
     },
     {
-      header: "Name",
+      header: "名称",
       accessorKey: "guardrail_name",
       cell: ({ row }) => {
         const guardrail = row.original;
@@ -91,7 +91,7 @@ const GuardrailTable: React.FC<GuardrailTableProps> = ({
       },
     },
     {
-      header: "Provider",
+      header: "提供商",
       accessorKey: "litellm_params.guardrail",
       cell: ({ row }) => {
         const guardrail = row.original;
@@ -115,7 +115,7 @@ const GuardrailTable: React.FC<GuardrailTableProps> = ({
       },
     },
     {
-      header: "Mode",
+      header: "模式",
       accessorKey: "litellm_params.mode",
       cell: ({ row }) => {
         const guardrail = row.original;
@@ -123,7 +123,7 @@ const GuardrailTable: React.FC<GuardrailTableProps> = ({
       },
     },
     {
-      header: "Default On",
+      header: "默认开启",
       accessorKey: "litellm_params.default_on",
       cell: ({ row }) => {
         const guardrail = row.original;
@@ -133,13 +133,13 @@ const GuardrailTable: React.FC<GuardrailTableProps> = ({
             className="text-xs font-normal"
             size="xs"
           >
-            {guardrail.litellm_params?.default_on ? "Default On" : "Default Off"}
+            {guardrail.litellm_params?.default_on ? "默认开启" : "默认关闭"}
           </Badge>
         );
       },
     },
     {
-      header: "Created At",
+      header: "创建时间",
       accessorKey: "created_at",
       cell: ({ row }) => {
         const guardrail = row.original;
@@ -151,7 +151,7 @@ const GuardrailTable: React.FC<GuardrailTableProps> = ({
       },
     },
     {
-      header: "Updated At",
+      header: "更新时间",
       accessorKey: "updated_at",
       cell: ({ row }) => {
         const guardrail = row.original;
@@ -164,31 +164,31 @@ const GuardrailTable: React.FC<GuardrailTableProps> = ({
     },
     {
       id: "actions",
-      header: "Actions",
+      header: "操作",
       cell: ({ row }) => {
         const guardrail = row.original;
         const isConfigGuardrail = guardrail.guardrail_definition_location === GuardrailDefinitionLocation.CONFIG;
         return (
           <div className="flex space-x-2">
             {isConfigGuardrail ? (
-              <Tooltip title="Config guardrail cannot be deleted on the dashboard. Please delete it from the config file.">
+              <Tooltip title="配置防护栏无法在仪表盘上删除，请从配置文件中删除。">
                 <Icon
                   data-testid="config-delete-icon"
                   icon={TrashIcon}
                   size="sm"
                   className="cursor-not-allowed text-gray-400"
-                  title="Config guardrail cannot be deleted on the dashboard. Please delete it from the config file."
+                  title="配置防护栏无法在仪表盘上删除，请从配置文件中删除。"
                   aria-label="Delete guardrail (config)"
                 />
               </Tooltip>
             ) : (
-              <Tooltip title="Delete guardrail">
+              <Tooltip title="删除防护栏">
                 <Icon
                   icon={TrashIcon}
                   size="sm"
                   onClick={() =>
                     guardrail.guardrail_id &&
-                    onDeleteClick(guardrail.guardrail_id, guardrail.guardrail_name || "Unnamed Guardrail")
+                    onDeleteClick(guardrail.guardrail_id, guardrail.guardrail_name || "未命名防护栏")
                   }
                   className="cursor-pointer hover:text-red-500"
                 />
@@ -254,7 +254,7 @@ const GuardrailTable: React.FC<GuardrailTableProps> = ({
               <TableRow>
                 <TableCell colSpan={columns.length} className="h-8 text-center">
                   <div className="text-center text-gray-500">
-                    <p>Loading...</p>
+                    <p>加载中...</p>
                   </div>
                 </TableCell>
               </TableRow>
@@ -279,7 +279,7 @@ const GuardrailTable: React.FC<GuardrailTableProps> = ({
               <TableRow>
                 <TableCell colSpan={columns.length} className="h-8 text-center">
                   <div className="text-center text-gray-500">
-                    <p>No guardrails found</p>
+                    <p>未找到防护栏</p>
                   </div>
                 </TableCell>
               </TableRow>

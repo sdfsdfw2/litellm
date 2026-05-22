@@ -10,7 +10,7 @@ export const searchToolColumns = (
   availableProviders: Array<{ provider_name: string; ui_friendly_name: string }>,
 ): ColumnsType<SearchTool> => [
     {
-      title: "Search Tool ID",
+      title: "搜索工具 ID",
       dataIndex: "search_tool_id",
       key: "search_tool_id",
       render: (_, tool) => {
@@ -31,13 +31,13 @@ export const searchToolColumns = (
       },
     },
     {
-      title: "Name",
+      title: "名称",
       dataIndex: "search_tool_name",
       key: "search_tool_name",
       render: (name: string) => <span className="font-medium">{name}</span>,
     },
     {
-      title: "Provider",
+      title: "提供商",
       key: "provider",
       render: (_, tool) => {
         const provider = tool.litellm_params.search_provider;
@@ -48,7 +48,7 @@ export const searchToolColumns = (
       },
     },
     {
-      title: "Created At",
+      title: "创建时间",
       dataIndex: "created_at",
       key: "created_at",
       render: (_, tool) => {
@@ -56,7 +56,7 @@ export const searchToolColumns = (
       },
     },
     {
-      title: "Updated At",
+      title: "更新时间",
       dataIndex: "updated_at",
       key: "updated_at",
       render: (_, tool) => {
@@ -64,20 +64,20 @@ export const searchToolColumns = (
       },
     },
     {
-      title: "Source",
+      title: "来源",
       key: "source",
       render: (_, tool) => {
         const isFromConfig = tool.is_from_config ?? false;
 
         return (
           <Tag color={isFromConfig ? "default" : "blue"}>
-            {isFromConfig ? "Config" : "DB"}
+            {isFromConfig ? "配置" : "数据库"}
           </Tag>
         );
       },
     },
     {
-      title: "Actions",
+      title: "操作",
       key: "actions",
       render: (_, tool) => {
         const toolId = tool.search_tool_id;
@@ -87,9 +87,9 @@ export const searchToolColumns = (
           <div className="flex items-center gap-2">
             <TableIconActionButton
               variant="Edit"
-              tooltipText="Edit search tool"
+              tooltipText="编辑搜索工具"
               disabled={isFromConfig}
-              disabledTooltipText="Config search tool cannot be edited on the dashboard. Please edit it from the config file."
+              disabledTooltipText="配置中的搜索工具无法在仪表板上编辑。请从配置文件中编辑。"
               onClick={() => {
                 if (toolId && !isFromConfig) {
                   onEdit(toolId);
@@ -98,9 +98,9 @@ export const searchToolColumns = (
             />
             <TableIconActionButton
               variant="Delete"
-              tooltipText="Delete search tool"
+              tooltipText="删除搜索工具"
               disabled={isFromConfig}
-              disabledTooltipText="Config search tool cannot be deleted on the dashboard. Please delete it from the config file."
+              disabledTooltipText="配置中的搜索工具无法在仪表板上删除。请从配置文件中删除。"
               onClick={() => {
                 if (toolId && !isFromConfig) {
                   onDelete(toolId);

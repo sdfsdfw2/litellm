@@ -47,7 +47,7 @@ const EditBudgetModal: React.FC<EditBudgetModalProps> = ({
 
   return (
     <Modal
-      title="Edit Budget"
+      title="编辑预算"
       open={isModalVisible}
       width={800}
       footer={null}
@@ -64,7 +64,7 @@ const EditBudgetModal: React.FC<EditBudgetModalProps> = ({
       >
         <>
           <Form.Item
-            label="Budget ID"
+            label="预算ID"
             name="budget_id"
             help="Budget ID cannot be changed after creation"
           >
@@ -79,7 +79,7 @@ const EditBudgetModal: React.FC<EditBudgetModalProps> = ({
 
           <Accordion className="mt-20 mb-8">
             <AccordionHeader>
-              <b>Optional Settings</b>
+              <b>可选设置</b>
             </AccordionHeader>
             <AccordionBody>
               <Form.Item label="Max Budget (USD)" name="max_budget">
@@ -97,7 +97,7 @@ const EditBudgetModal: React.FC<EditBudgetModalProps> = ({
         </>
 
         <div style={{ textAlign: "right", marginTop: "10px" }}>
-          <Button2 htmlType="submit">Save</Button2>
+          <Button2 htmlType="submit">保存</Button2>
         </div>
       </Form>
     </Modal>

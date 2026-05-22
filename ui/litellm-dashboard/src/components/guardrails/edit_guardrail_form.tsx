@@ -71,7 +71,7 @@ const EditGuardrailForm: React.FC<EditGuardrailFormProps> = ({
         setGuardrailSettings(data);
       } catch (error) {
         console.error("Error fetching guardrail settings:", error);
-        NotificationsManager.fromBackend("Failed to load guardrail settings");
+        NotificationsManager.fromBackend("加载防护栏设置失败");
       }
     };
 
@@ -222,7 +222,7 @@ const EditGuardrailForm: React.FC<EditGuardrailFormProps> = ({
         throw new Error(errorData || "Failed to update guardrail");
       }
 
-      NotificationsManager.success("Guardrail updated successfully");
+      NotificationsManager.success("防护栏更新成功");
 
       // Reset and close
       onSuccess();
@@ -230,7 +230,7 @@ const EditGuardrailForm: React.FC<EditGuardrailFormProps> = ({
     } catch (error) {
       console.error("Failed to update guardrail:", error);
       NotificationsManager.fromBackend(
-        "Failed to update guardrail: " + (error instanceof Error ? error.message : String(error)),
+        "防护栏更新失败：" + (error instanceof Error ? error.message : String(error)),
       );
     } finally {
       setLoading(false);
@@ -355,23 +355,23 @@ const EditGuardrailForm: React.FC<EditGuardrailFormProps> = ({
   };
 
   return (
-    <Modal title="Edit Guardrail" open={visible} onCancel={onClose} footer={null} width={700}>
+    <Modal title="编辑防护栏" open={visible} onCancel={onClose} footer={null} width={700}>
       <Form form={form} layout="vertical" initialValues={initialValues}>
         <Form.Item
           name="guardrail_name"
-          label="Guardrail Name"
-          rules={[{ required: true, message: "Please enter a guardrail name" }]}
+          label="防护栏名称"
+          rules={[{ required: true, message: "请输入防护栏名称" }]}
         >
-          <TextInput placeholder="Enter a name for this guardrail" />
+          <TextInput placeholder="为此防护栏输入名称" />
         </Form.Item>
 
         <Form.Item
           name="provider"
-          label="Guardrail Provider"
-          rules={[{ required: true, message: "Please select a provider" }]}
+          label="防护栏提供商"
+          rules={[{ required: true, message: "请选择提供商" }]}
         >
           <Select
-            placeholder="Select a guardrail provider"
+            placeholder="选择防护栏提供商"
             onChange={handleProviderChange}
             disabled={true} // Disable changing provider in edit mode
             optionLabelProp="label"
@@ -404,9 +404,9 @@ const EditGuardrailForm: React.FC<EditGuardrailFormProps> = ({
 
         <Form.Item
           name="mode"
-          label="Mode"
-          tooltip="How the guardrail should be applied"
-          rules={[{ required: true, message: "Please select a mode" }]}
+          label="模式"
+          tooltip="防护栏的应用方式"
+          rules={[{ required: true, message: "请选择模式" }]}
         >
           <Select>
             {guardrailSettings?.supported_modes?.map((mode) => (
@@ -424,8 +424,8 @@ const EditGuardrailForm: React.FC<EditGuardrailFormProps> = ({
 
         <Form.Item
           name="default_on"
-          label="Always On"
-          tooltip="If enabled, this guardrail will be applied to all requests by default"
+          label="始终开启"
+          tooltip="如果启用，此防护栏将默认应用于所有请求"
           valuePropName="checked"
         >
           <Switch />
@@ -433,25 +433,25 @@ const EditGuardrailForm: React.FC<EditGuardrailFormProps> = ({
 
         <Form.Item
           name="skip_system_message_choice"
-          label="Skip system messages in guardrail"
-          tooltip="Unified guardrails only: whether role: system content is omitted from guardrail input (LLM still receives full messages). Use global default follows litellm_settings.skip_system_message_in_guardrail."
+          label="跳过防护栏中的系统消息"
+          tooltip="仅限统一防护栏：是否从防护栏输入中省略 role: system 内容（LLM 仍接收完整消息）。使用全局默认值遵循 litellm_settings.skip_system_message_in_guardrail。"
         >
           <Select>
-            <Option value="inherit">Use global default</Option>
-            <Option value="yes">Yes — exclude from guardrail scan</Option>
-            <Option value="no">No — always include in scan</Option>
+            <Option value="inherit">使用全局默认</Option>
+            <Option value="yes">是 — 从防护栏扫描中排除</Option>
+            <Option value="no">否 — 始终包含在扫描中</Option>
           </Select>
         </Form.Item>
 
         <Form.Item
           name="skip_tool_message_choice"
-          label="Skip tool messages in guardrail"
-          tooltip="Unified guardrails only: whether role: tool content is omitted from guardrail input (LLM still receives full messages). Use global default follows litellm_settings.skip_tool_message_in_guardrail."
+          label="跳过防护栏中的工具消息"
+          tooltip="仅限统一防护栏：是否从防护栏输入中省略 role: tool 内容（LLM 仍接收完整消息）。使用全局默认值遵循 litellm_settings.skip_tool_message_in_guardrail。"
         >
           <Select>
-            <Option value="inherit">Use global default</Option>
-            <Option value="yes">Yes — exclude from guardrail scan</Option>
-            <Option value="no">No — always include in scan</Option>
+            <Option value="inherit">使用全局默认</Option>
+            <Option value="yes">是 — 从防护栏扫描中排除</Option>
+            <Option value="no">否 — 始终包含在扫描中</Option>
           </Select>
         </Form.Item>
 
@@ -459,10 +459,10 @@ const EditGuardrailForm: React.FC<EditGuardrailFormProps> = ({
 
         <div className="flex justify-end space-x-2 mt-4">
           <Button variant="secondary" onClick={onClose}>
-            Cancel
+            取消
           </Button>
           <Button onClick={handleSubmit} loading={loading}>
-            Update Guardrail
+            更新防护栏
           </Button>
         </div>
       </Form>

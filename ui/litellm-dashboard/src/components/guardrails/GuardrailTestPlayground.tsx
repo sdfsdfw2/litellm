@@ -104,12 +104,12 @@ const GuardrailTestPlayground: React.FC<GuardrailTestPlaygroundProps> = ({
 
     if (results.length > 0) {
       NotificationsManager.success(
-        `${results.length} guardrail${results.length > 1 ? "s" : ""} applied successfully`
+        `${results.length} 个防护栏应用成功`
       );
     }
     if (errors.length > 0) {
       NotificationsManager.fromBackend(
-        `${errors.length} guardrail${errors.length > 1 ? "s" : ""} failed`
+        `${errors.length} 个防护栏测试失败`
       );
     }
   };
@@ -122,10 +122,10 @@ const GuardrailTestPlayground: React.FC<GuardrailTestPlaygroundProps> = ({
           <div className="w-1/4 border-r border-gray-200 flex flex-col overflow-hidden">
             <div className="p-4 border-b border-gray-200">
               <div className="mb-3">
-                <h3 className="text-lg font-semibold mb-3">Guardrails</h3>
+                <h3 className="text-lg font-semibold mb-3">防护栏</h3>
                 <Input
                   prefix={<SearchOutlined />}
-                  placeholder="Search guardrails..."
+                  placeholder="搜索防护栏..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                 />
@@ -141,7 +141,7 @@ const GuardrailTestPlayground: React.FC<GuardrailTestPlaygroundProps> = ({
                 <div className="p-4">
                   <Empty
                     description={
-                      searchQuery ? "No guardrails match your search" : "No guardrails available"
+                      searchQuery ? "没有与搜索匹配的防护栏" : "没有可用的防护栏"
                     }
                   />
                 </div>
@@ -174,13 +174,13 @@ const GuardrailTestPlayground: React.FC<GuardrailTestPlaygroundProps> = ({
                         description={
                           <div className="text-xs space-y-1 mt-1">
                             <div>
-                              <span className="font-medium">Type: </span>
+                              <span className="font-medium">类型：</span>
                               <span className="text-gray-600">
                                 {guardrail.litellm_params.guardrail}
                               </span>
                             </div>
                             <div>
-                              <span className="font-medium">Mode: </span>
+                              <span className="font-medium">模式：</span>
                               <span className="text-gray-600">
                                 {guardrail.litellm_params.mode}
                               </span>
@@ -196,7 +196,7 @@ const GuardrailTestPlayground: React.FC<GuardrailTestPlaygroundProps> = ({
 
             <div className="p-3 border-t border-gray-200 bg-gray-50">
               <Typography.Text className="text-xs text-gray-600">
-                {selectedGuardrails.size} of {filteredGuardrails.length} selected
+                已选择 {selectedGuardrails.size}/{filteredGuardrails.length}
               </Typography.Text>
             </div>
           </div>
@@ -205,7 +205,7 @@ const GuardrailTestPlayground: React.FC<GuardrailTestPlaygroundProps> = ({
           <div className="w-3/4 flex flex-col bg-white">
             <div className="p-4 border-b border-gray-200 flex justify-between items-center">
               <Typography.Title level={2} className="text-xl font-semibold mb-0">
-                Guardrail Testing Playground
+                防护栏测试台
               </Typography.Title>
             </div>
 
@@ -214,11 +214,10 @@ const GuardrailTestPlayground: React.FC<GuardrailTestPlaygroundProps> = ({
                 <div className="h-full flex flex-col items-center justify-center text-gray-400">
                   <ExperimentOutlined style={{ fontSize: "48px", marginBottom: "16px" }} />
                   <Typography.Paragraph className="text-lg font-medium text-gray-600 mb-2">
-                    Select Guardrails to Test
+                    选择要测试的防护栏
                   </Typography.Paragraph>
                   <Typography.Paragraph className="text-center text-gray-500 max-w-md">
-                    Choose one or more guardrails from the left sidebar to start testing and
-                    comparing results.
+                    从左侧边栏选择一个或多个防护栏以开始测试和比较结果。
                   </Typography.Paragraph>
                 </div>
               ) : (

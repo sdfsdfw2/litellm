@@ -107,14 +107,14 @@ const CreateSearchTool: React.FC<CreateSearchToolProps> = ({
       if (accessToken != null) {
         const response = await createSearchTool(accessToken, payload);
 
-        NotificationsManager.success("Search tool created successfully");
+        NotificationsManager.success("搜索工具已成功创建");
         form.resetFields();
         setFormValues({});
         setModalVisible(false);
         onCreateSuccess(response);
       }
     } catch (error) {
-      NotificationsManager.error("Error creating search tool: " + error);
+      NotificationsManager.error("创建搜索工具时出错：" + error);
     } finally {
       setIsLoading(false);
     }
@@ -137,7 +137,7 @@ const CreateSearchTool: React.FC<CreateSearchToolProps> = ({
       // Show the modal with the fresh test
       setIsTestModalVisible(true);
     } catch (error) {
-      NotificationsManager.error("Please fill in Search Provider and API Key before testing");
+      NotificationsManager.error("请先填写搜索提供商和 API 密钥再进行测试");
     }
   };
 
@@ -157,7 +157,7 @@ const CreateSearchTool: React.FC<CreateSearchToolProps> = ({
       title={
         <div className="flex items-center space-x-3 pb-4 border-b border-gray-100">
           <span className="text-2xl">🔍</span>
-          <h2 className="text-xl font-semibold text-gray-900">Add New Search Tool</h2>
+          <h2 className="text-xl font-semibold text-gray-900">添加新搜索工具</h2>
         </div>
       }
       open={isModalVisible}
@@ -182,23 +182,23 @@ const CreateSearchTool: React.FC<CreateSearchToolProps> = ({
             <Form.Item
               label={
                 <span className="text-sm font-medium text-gray-700 flex items-center">
-                  Search Tool Name
-                  <Tooltip title="A unique name to identify this search tool configuration (e.g., 'perplexity-search', 'tavily-news-search').">
+                  搜索工具名称
+                  <Tooltip title="用于标识此搜索工具配置的唯一名称（例如：'perplexity-search'、'tavily-news-search'）。">
                     <InfoCircleOutlined className="ml-2 text-blue-400 hover:text-blue-600 cursor-help" />
                   </Tooltip>
                 </span>
               }
               name="search_tool_name"
               rules={[
-                { required: true, message: "Please enter a search tool name" },
+                { required: true, message: "请输入搜索工具名称" },
                 {
                   pattern: /^[a-zA-Z0-9_-]+$/,
-                  message: "Name can only contain letters, numbers, hyphens, and underscores",
+                  message: "名称只能包含字母、数字、连字符和下划线",
                 },
               ]}
             >
               <TextInput
-                placeholder="e.g., perplexity-search, my-tavily-tool"
+                placeholder="例如：perplexity-search, my-tavily-tool"
                 className="rounded-lg border-gray-300 focus:border-blue-500 focus:ring-blue-500"
               />
             </Form.Item>
@@ -206,17 +206,17 @@ const CreateSearchTool: React.FC<CreateSearchToolProps> = ({
             <Form.Item
               label={
                 <span className="text-sm font-medium text-gray-700 flex items-center">
-                  Search Provider
-                  <Tooltip title="Select the search provider you want to use. Each provider has different capabilities and pricing.">
+                  搜索提供商
+                  <Tooltip title="选择要使用的搜索提供商。每个提供商都有不同的功能和定价。">
                     <InfoCircleOutlined className="ml-2 text-blue-400 hover:text-blue-600 cursor-help" />
                   </Tooltip>
                 </span>
               }
               name="search_provider"
-              rules={[{ required: true, message: "Please select a search provider" }]}
+              rules={[{ required: true, message: "请选择搜索提供商" }]}
             >
               <Select
-                placeholder="Select a search provider"
+                placeholder="选择搜索提供商"
                 className="rounded-lg"
                 size="large"
                 loading={isLoadingProviders}
@@ -247,46 +247,46 @@ const CreateSearchTool: React.FC<CreateSearchToolProps> = ({
             <Form.Item
               label={
                 <span className="text-sm font-medium text-gray-700 flex items-center">
-                  API Key
-                  <Tooltip title="The API key for authenticating with the search provider. This will be securely stored.">
+                  API 密钥
+                  <Tooltip title="用于向搜索提供商进行身份验证的 API 密钥。该密钥将被安全存储。">
                     <InfoCircleOutlined className="ml-2 text-blue-400 hover:text-blue-600 cursor-help" />
                   </Tooltip>
                 </span>
               }
               name="api_key"
-              rules={[{ required: false, message: "Please enter an API key" }]}
+              rules={[{ required: false, message: "请输入 API 密钥" }]}
             >
               <TextInput
                 type="password"
-                placeholder="Enter your API key"
+                placeholder="输入您的 API 密钥"
                 className="rounded-lg border-gray-300 focus:border-blue-500 focus:ring-blue-500"
               />
             </Form.Item>
 
             <Form.Item
-              label={<span className="text-sm font-medium text-gray-700">Description (Optional)</span>}
+              label={<span className="text-sm font-medium text-gray-700">描述（可选）</span>}
               name="description"
             >
               <TextArea
                 rows={3}
-                placeholder="Brief description of this search tool's purpose"
+                placeholder="此搜索工具用途的简要说明"
                 className="rounded-lg border-gray-300 focus:border-blue-500 focus:ring-blue-500"
               />
             </Form.Item>
           </div>
 
           <div className="flex justify-between items-center pt-6 border-t border-gray-100">
-            <Tooltip title="Get help on our github">
+            <Tooltip title="在我们的 GitHub 上获取帮助">
               <Typography.Link href="https://github.com/BerriAI/litellm/issues" target="_blank">
-                Need Help?
+                需要帮助？
               </Typography.Link>
             </Tooltip>
             <div className="space-x-2">
               <Button onClick={handleTestConnection} loading={isTestingConnection}>
-                Test Connection
+                测试连接
               </Button>
               <Button loading={isLoading} type="submit">
-                Add Search Tool
+                添加搜索工具
               </Button>
             </div>
           </div>
@@ -295,7 +295,7 @@ const CreateSearchTool: React.FC<CreateSearchToolProps> = ({
 
       {/* Test Connection Results Modal */}
       <Modal
-        title="Connection Test Results"
+        title="连接测试结果"
         open={isTestModalVisible}
         onCancel={() => {
           setIsTestModalVisible(false);
@@ -309,7 +309,7 @@ const CreateSearchTool: React.FC<CreateSearchToolProps> = ({
               setIsTestingConnection(false);
             }}
           >
-            Close
+            关闭
           </Button>,
         ]}
         width={700}

@@ -137,14 +137,14 @@ const ToolPermissionRulesEditor: React.FC<ToolPermissionRulesEditorProps> = ({
           size="small"
           onClick={() => updateRule(index, { allowed_param_patterns: { "": "" } })}
         >
-          + Restrict tool arguments (optional)
+          + 限制工具参数（可选）
         </Button>
       );
     }
 
     return (
       <div className="space-y-2">
-        <Text className="text-sm text-gray-600">Argument constraints (dot or array paths)</Text>
+        <Text className="text-sm text-gray-600">参数约束（点号或数组路径）</Text>
         {entries.map(([path, pattern], patternIndex) => (
           <Space key={`${rule.id || index}-${patternIndex}`} align="start">
             <Input
@@ -183,7 +183,7 @@ const ToolPermissionRulesEditor: React.FC<ToolPermissionRulesEditorProps> = ({
             })
           }
         >
-          + Add another constraint
+          + 添加另一个约束
         </Button>
       </div>
     );
@@ -193,10 +193,9 @@ const ToolPermissionRulesEditor: React.FC<ToolPermissionRulesEditorProps> = ({
     <Card>
       <div className="flex items-center justify-between">
         <div>
-          <Text className="text-lg font-semibold">LiteLLM Tool Permission Guardrail</Text>
+          <Text className="text-lg font-semibold">LiteLLM 工具权限防护栏</Text>
           <Text className="text-sm text-gray-500">
-            Provide regex patterns (e.g., ^mcp__github_.*$) for tool names or types and optionally
-            constrain payload fields.
+            为工具名称或类型提供正则表达式模式（例如 ^mcp__github_.*$），并可选择约束负载字段。
           </Text>
         </div>
         {!disabled && (
@@ -206,7 +205,7 @@ const ToolPermissionRulesEditor: React.FC<ToolPermissionRulesEditorProps> = ({
             onClick={addRule}
             className="!bg-blue-600 !text-white hover:!bg-blue-500"
           >
-            Add Rule
+            添加规则
           </Button>
         )}
       </div>
@@ -214,13 +213,13 @@ const ToolPermissionRulesEditor: React.FC<ToolPermissionRulesEditorProps> = ({
       <Divider />
 
       {config.rules.length === 0 ? (
-        <Empty description="No tool rules added yet" />
+        <Empty description="尚未添加工具规则" />
       ) : (
         <div className="space-y-4">
           {config.rules.map((rule, index) => (
             <Card key={rule.id || index} className="bg-gray-50">
               <div className="flex items-center justify-between mb-3">
-                <Text className="font-semibold">Rule {index + 1}</Text>
+                <Text className="font-semibold">规则 {index + 1}</Text>
                 <Button
                   icon={<DeleteOutlined />}
                   danger
@@ -228,21 +227,21 @@ const ToolPermissionRulesEditor: React.FC<ToolPermissionRulesEditorProps> = ({
                   disabled={disabled}
                   onClick={() => removeRule(index)}
                 >
-                  Remove
+                  移除
                 </Button>
               </div>
               <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
                 <div>
-                  <Text className="text-sm font-medium">Rule ID</Text>
+                  <Text className="text-sm font-medium">规则 ID</Text>
                   <Input
                     disabled={disabled}
-                    placeholder="unique_rule_id"
+                    placeholder="唯一规则标识符"
                     value={rule.id}
                     onChange={(e) => updateRule(index, { id: e.target.value })}
                   />
                 </div>
                 <div>
-                  <Text className="text-sm font-medium">Tool Name (optional)</Text>
+                  <Text className="text-sm font-medium">工具名称（可选）</Text>
                   <Input
                     disabled={disabled}
                     placeholder="^mcp__github_.*$"
@@ -258,7 +257,7 @@ const ToolPermissionRulesEditor: React.FC<ToolPermissionRulesEditorProps> = ({
 
               <div className="grid grid-cols-1 gap-4 md:grid-cols-2 mt-4">
                 <div>
-                  <Text className="text-sm font-medium">Tool Type (optional)</Text>
+                  <Text className="text-sm font-medium">工具类型（可选）</Text>
                   <Input
                     disabled={disabled}
                     placeholder="^function$"
@@ -273,15 +272,15 @@ const ToolPermissionRulesEditor: React.FC<ToolPermissionRulesEditorProps> = ({
               </div>
 
               <div className="mt-4 flex flex-col gap-2">
-                <Text className="text-sm font-medium">Decision</Text>
+                <Text className="text-sm font-medium">决策</Text>
                 <Select
                   disabled={disabled}
                   value={rule.decision}
                   style={{ width: 200 }}
                   onChange={(value) => updateRule(index, { decision: value as ToolPermissionDecision })}
                 >
-                  <Select.Option value="allow">Allow</Select.Option>
-                  <Select.Option value="deny">Deny</Select.Option>
+                  <Select.Option value="allow">允许</Select.Option>
+                  <Select.Option value="deny">拒绝</Select.Option>
                 </Select>
               </div>
 
@@ -295,20 +294,20 @@ const ToolPermissionRulesEditor: React.FC<ToolPermissionRulesEditorProps> = ({
 
       <div className="grid gap-4 md:grid-cols-2">
         <div>
-          <Text className="text-sm font-medium">Default action</Text>
+          <Text className="text-sm font-medium">默认操作</Text>
           <Select
             disabled={disabled}
             value={config.default_action}
             onChange={(value) => updateConfig({ default_action: value as ToolPermissionDefaultAction })}
           >
-            <Select.Option value="allow">Allow</Select.Option>
-            <Select.Option value="deny">Deny</Select.Option>
+            <Select.Option value="allow">允许</Select.Option>
+            <Select.Option value="deny">拒绝</Select.Option>
           </Select>
         </div>
         <div>
           <Text className="text-sm font-medium flex items-center gap-1">
-            On disallowed action
-            <Tooltip title="Block returns an error when a forbidden tool is invoked. Rewrite strips the tool call but lets the rest of the response continue.">
+            禁止操作时
+            <Tooltip title="拦截：当调用被禁止的工具时返回错误。重写：移除工具调用但让响应的其余部分继续。">
               <InfoCircleOutlined />
             </Tooltip>
           </Text>
@@ -319,18 +318,18 @@ const ToolPermissionRulesEditor: React.FC<ToolPermissionRulesEditorProps> = ({
               updateConfig({ on_disallowed_action: value as ToolPermissionOnDisallowedAction })
             }
           >
-            <Select.Option value="block">Block</Select.Option>
-            <Select.Option value="rewrite">Rewrite</Select.Option>
+            <Select.Option value="block">拦截</Select.Option>
+            <Select.Option value="rewrite">重写</Select.Option>
           </Select>
         </div>
       </div>
 
       <div className="mt-4">
-        <Text className="text-sm font-medium">Violation message (optional)</Text>
+        <Text className="text-sm font-medium">违规消息（可选）</Text>
         <Input.TextArea
           disabled={disabled}
           rows={3}
-          placeholder="This violates our org policy..."
+          placeholder="这违反了我们的组织策略..."
           value={config.violation_message_template}
           onChange={(e) => updateConfig({ violation_message_template: e.target.value })}
         />

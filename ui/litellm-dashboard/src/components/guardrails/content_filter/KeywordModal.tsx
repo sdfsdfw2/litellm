@@ -29,7 +29,7 @@ const KeywordModal: React.FC<KeywordModalProps> = ({
 }) => {
   return (
     <Modal
-      title="Add blocked keyword"
+      title="添加拦截的关键词"
       open={visible}
       onCancel={onCancel}
       footer={null}
@@ -37,9 +37,9 @@ const KeywordModal: React.FC<KeywordModalProps> = ({
     >
       <Space direction="vertical" style={{ width: "100%" }} size="large">
         <div>
-          <Text strong>Keyword</Text>
+          <Text strong>关键词</Text>
           <Input
-            placeholder="Enter sensitive keyword or phrase"
+            placeholder="输入敏感关键词或短语"
             value={keyword}
             onChange={(e) => onKeywordChange(e.target.value)}
             style={{ marginTop: 8 }}
@@ -47,24 +47,24 @@ const KeywordModal: React.FC<KeywordModalProps> = ({
         </div>
 
         <div>
-          <Text strong>Action</Text>
+          <Text strong>操作</Text>
           <Text type="secondary" style={{ display: "block", marginTop: 4, marginBottom: 8 }}>
-            Choose what action the guardrail should take when this keyword is detected
+            选择检测到该关键词时防护栏应采取的操作
           </Text>
           <Select
             value={action}
             onChange={onActionChange}
             style={{ width: "100%" }}
           >
-            <Option value="BLOCK">Block</Option>
-            <Option value="MASK">Mask</Option>
+            <Option value="BLOCK">拦截</Option>
+            <Option value="MASK">遮盖</Option>
           </Select>
         </div>
 
         <div>
-          <Text strong>Description (optional)</Text>
+          <Text strong>描述（可选）</Text>
           <Input.TextArea
-            placeholder="Explain why this keyword is sensitive"
+            placeholder="说明此关键词为何敏感"
             value={description}
             onChange={(e) => onDescriptionChange(e.target.value)}
             rows={3}
@@ -75,10 +75,10 @@ const KeywordModal: React.FC<KeywordModalProps> = ({
 
       <div style={{ display: "flex", justifyContent: "flex-end", gap: "8px", marginTop: "24px" }}>
         <Button onClick={onCancel}>
-          Cancel
+          取消
         </Button>
         <Button type="primary" onClick={onAdd}>
-          Add
+          添加
         </Button>
       </div>
     </Modal>

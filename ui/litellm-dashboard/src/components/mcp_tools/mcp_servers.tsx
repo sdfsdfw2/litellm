@@ -189,7 +189,7 @@ const MCPServers: React.FC<MCPServerProps> = ({ accessToken, userRole, userID })
     try {
       setIsDeletingServer(true);
       await deleteMCPServer(accessToken, serverIdToDelete);
-      NotificationsManager.success("Deleted MCP Server successfully");
+      NotificationsManager.success("MCP 服务器已成功删除");
       refetch();
     } catch (error) {
       console.error("Error deleting the mcp server:", error);
@@ -248,23 +248,23 @@ const MCPServers: React.FC<MCPServerProps> = ({ accessToken, userRole, userID })
     <div className="w-full h-full p-6">
       <Modal
         open={isDeleteModalOpen}
-        title="Delete MCP Server?"
+        title="删除 MCP 服务器？"
         onOk={confirmDelete}
-        okText={isDeletingServer ? "Deleting..." : "Delete"}
+        okText={isDeletingServer ? "删除中..." : "删除"}
         onCancel={cancelDelete}
-        cancelText="Cancel"
+        cancelText="取消"
         cancelButtonProps={{ disabled: isDeletingServer }}
         okButtonProps={{ danger: true }}
         confirmLoading={isDeletingServer}
       >
         <div className="space-y-4">
-          <AntdText className="text-gray-600">This action is permanent and cannot be undone. All associated configurations will be removed.</AntdText>
+          <AntdText className="text-gray-600">此操作是永久性的，无法撤销。所有相关配置都将被移除。</AntdText>
 
           {serverToDelete && (
             <div className="mt-3 p-4 bg-gray-50 rounded-lg border border-gray-200">
               <Descriptions column={1} size="small" colon={false}>
                 {serverToDelete.server_name && (
-                  <Descriptions.Item label={<span className="text-gray-500 text-sm">Name</span>}>
+                  <Descriptions.Item label={<span className="text-gray-500 text-sm">名称</span>}>
                     <AntdText strong className="text-sm">{serverToDelete.server_name}</AntdText>
                   </Descriptions.Item>
                 )}
@@ -274,7 +274,7 @@ const MCPServers: React.FC<MCPServerProps> = ({ accessToken, userRole, userID })
                   </AntdText>
                 </Descriptions.Item>
                 {serverToDelete.url && (
-                  <Descriptions.Item label={<span className="text-gray-500 text-sm">URL</span>}>
+                  <Descriptions.Item label={<span className="text-gray-500 text-sm">URL 地址</span>}>
                     <AntdText code className="text-xs break-all">
                       {serverToDelete.url}
                     </AntdText>
@@ -303,19 +303,19 @@ const MCPServers: React.FC<MCPServerProps> = ({ accessToken, userRole, userID })
       <div className="flex items-center justify-between">
         <div>
           <div className="flex items-center gap-3">
-            <Title>MCP Servers</Title>
+            <Title>MCP 服务器</Title>
             {filteredServers.length > 0 && (
               <span className="inline-flex items-center text-xs font-medium px-2 py-0.5 rounded-full bg-gray-100 text-gray-600 border border-gray-200">
                 {filteredServers.length}
               </span>
             )}
           </div>
-          <Text className="text-tremor-content mt-1">Configure and manage your MCP servers</Text>
+          <Text className="text-tremor-content mt-1">配置和管理您的 MCP 服务器</Text>
         </div>
         <div className="flex items-center gap-2">
           {isAdminRole(userRole) && (
             <Button className="flex-shrink-0" onClick={() => setDiscoveryVisible(true)}>
-              + Add New MCP Server
++ 添加新 MCP 服务器
             </Button>
           )}
           {!isAdminRole(userRole) && (
@@ -327,7 +327,7 @@ const MCPServers: React.FC<MCPServerProps> = ({ accessToken, userRole, userID })
               }}
               variant="secondary"
             >
-              + Submit MCP Server
+              + 提交 MCP 服务器
             </Button>
           )}
         </div>
@@ -350,12 +350,12 @@ const MCPServers: React.FC<MCPServerProps> = ({ accessToken, userRole, userID })
       <TabGroup className="w-full h-full">
         <TabList className="flex justify-between mt-2 w-full items-center">
           <div className="flex">
-            <Tab>All Servers</Tab>
-            <Tab>Toolsets</Tab>
-            <Tab>Connect</Tab>
-            <Tab>Semantic Filter</Tab>
-            <Tab>Network Settings</Tab>
-            {isAdminRole(userRole) && <Tab><span className="flex items-center gap-2">Submitted MCPs <NewBadge /></span></Tab>}
+            <Tab>所有服务器</Tab>
+            <Tab>工具集</Tab>
+            <Tab>连接</Tab>
+            <Tab>语义过滤</Tab>
+            <Tab>网络设置</Tab>
+            {isAdminRole(userRole) && <Tab><span className="flex items-center gap-2">已提交的 MCP <NewBadge /></span></Tab>}
           </div>
         </TabList>
         <TabPanels>
@@ -378,13 +378,13 @@ const MCPServers: React.FC<MCPServerProps> = ({ accessToken, userRole, userID })
                   <div className="flex flex-col space-y-4">
                     <div className="flex items-center gap-6 bg-white rounded-lg px-4 py-3 border border-gray-200">
                       <div className="flex items-center gap-2">
-                        <Text className="text-sm font-medium text-gray-600 whitespace-nowrap">Team</Text>
+                        <Text className="text-sm font-medium text-gray-600 whitespace-nowrap">团队</Text>
                         <Select value={selectedTeam} onChange={handleTeamChange} style={{ width: 220 }} size="middle">
                           <Option value="all">
-                            <span className="font-medium">{isInternalUser ? "All Available Servers" : "All Servers"}</span>
+                            <span className="font-medium">{isInternalUser ? "所有可用服务器" : "所有服务器"}</span>
                           </Option>
                           <Option value="personal">
-                            <span className="font-medium">Personal</span>
+                            <span className="font-medium">个人</span>
                           </Option>
                           {uniqueTeams.map((team) => (
                             <Option key={team.team_id} value={team.team_id}>
@@ -396,14 +396,14 @@ const MCPServers: React.FC<MCPServerProps> = ({ accessToken, userRole, userID })
                       <div className="h-6 w-px bg-gray-200"></div>
                       <div className="flex items-center gap-2">
                         <Text className="text-sm font-medium text-gray-600 whitespace-nowrap">
-                          Access Group
-                          <Tooltip title="An MCP Access Group is a set of users or teams that have permission to access specific MCP servers. Use access groups to control and organize who can connect to which servers.">
+                          访问组
+                          <Tooltip title="MCP 访问组是一组有权访问特定 MCP 服务器的用户或团队。使用访问组来控制和组织谁可以连接到哪些服务器。">
                             <QuestionCircleOutlined style={{ marginLeft: 4, color: "#9ca3af" }} />
                           </Tooltip>
                         </Text>
                         <Select value={selectedMcpAccessGroup} onChange={handleMcpAccessGroupChange} style={{ width: 220 }} size="middle">
                           <Option value="all">
-                            <span className="font-medium">All Access Groups</span>
+                            <span className="font-medium">所有访问组</span>
                           </Option>
                           {uniqueMcpAccessGroups.map((group) => (
                             <Option key={group} value={group}>
@@ -422,8 +422,8 @@ const MCPServers: React.FC<MCPServerProps> = ({ accessToken, userRole, userID })
                     renderSubComponent={() => <div></div>}
                     getRowCanExpand={() => false}
                     isLoading={isLoadingServers}
-                    noDataMessage="No MCP servers configured. Click '+ Add New MCP Server' to get started."
-                    loadingMessage="Loading MCP servers..."
+                    noDataMessage="尚未配置 MCP 服务器。点击 '+ 添加新 MCP 服务器' 开始配置。"
+                    loadingMessage="正在加载 MCP 服务器..."
                     enableSorting={true}
                   />
                 </div>

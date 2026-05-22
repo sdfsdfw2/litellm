@@ -60,12 +60,12 @@ const FeatureCard: React.FC<FeatureCardProps> = ({
           <Text className="text-gray-600">{description}</Text>
         </div>
       </div>
-      {serverName && (title === "Implementation Example" || title === "Configuration") && (
+      {serverName && (title === "实现示例" || title === "配置") && (
         <Form.Item className="mb-4">
           <div className="flex items-center gap-2 mb-2">
             <Switch size="small" checked={useServerHeader} onChange={setUseServerHeader} />
             <Text className="text-sm">
-              Limit tools to specific MCP servers or MCP groups by passing the <code>x-mcp-servers</code> header
+              通过传递 <code>x-mcp-servers</code> 头将工具限制到特定的 MCP 服务器或 MCP 组
             </Text>
           </div>
           {useServerHeader && (
@@ -73,17 +73,17 @@ const FeatureCard: React.FC<FeatureCardProps> = ({
               className="mt-2"
               type="info"
               showIcon
-              message="Two Options"
+              message="两个选项"
               description={
                 <div>
                   <p>
-                    <strong>Option 1:</strong> Get a specific server: <code>"{serverName.replace(/\s+/g, "_")}"</code>
+                    <strong>选项 1：</strong>获取特定服务器：<code>"{serverName.replace(/\s+/g, "_")}"</code>
                   </p>
                   <p>
-                    <strong>Option 2:</strong> Get a group of MCPs: <code>"dev-group"</code>
+                    <strong>选项 2：</strong>获取一组 MCP：<code>"dev-group"</code>
                   </p>
                   <p className="mt-2 text-sm text-gray-600">
-                    You can also mix both: <code>"Server1,dev-group"</code>
+                    也可以混合：<code>"Server1,dev-group"</code>
                   </p>
                 </div>
               }
@@ -209,40 +209,40 @@ const MCPConnect: React.FC<MCPConnectProps> = ({ currentServerAccessGroups = [] 
         <div className="flex items-center gap-3 mb-3">
           <Zap className="text-emerald-600" size={24} />
           <Title level={4} className="mb-0 text-emerald-900">
-            LiteLLM Proxy API Integration
+            LiteLLM 代理 API 集成
           </Title>
         </div>
         <Text className="text-emerald-700">
-          Connect to LiteLLM Proxy Responses API for seamless tool integration with multiple model providers
+          连接到 LiteLLM 代理响应 API，实现与多个模型提供商的 seamless 工具集成
         </Text>
       </div>
 
       <Space direction="vertical" size="large" className="w-full">
         <FeatureCard
           icon={<KeyIcon className="text-emerald-600" size={16} />}
-          title="Virtual Key Setup"
-          description="Configure your LiteLLM Proxy Virtual Key for authentication"
+          title="虚拟密钥设置"
+          description="配置您的 LiteLLM 代理虚拟密钥以进行身份验证"
         >
           <Space direction="vertical" size="middle" className="w-full">
             <div>
-              <Text>Get your Virtual Key from your LiteLLM Proxy dashboard or contact your administrator</Text>
+              <Text>从您的 LiteLLM 代理仪表板获取虚拟密钥，或联系管理员</Text>
             </div>
-            <CodeBlock title="Environment Variable" code='export LITELLM_API_KEY="sk-..."' copyKey="litellm-env" />
+            <CodeBlock title="环境变量" code='export LITELLM_API_KEY="sk-..."' copyKey="litellm-env" />
           </Space>
         </FeatureCard>
 
         <FeatureCard
           icon={<ServerIcon className="text-emerald-600" size={16} />}
-          title="MCP Server Information"
-          description="Connection details for your LiteLLM MCP server"
+          title="MCP 服务器信息"
+          description="您的 LiteLLM MCP 服务器的连接详情"
         >
-          <CodeBlock title="Server URL" code={`${proxyBaseUrl}/mcp`} copyKey="litellm-server-url" />
+          <CodeBlock title="服务器 URL" code={`${proxyBaseUrl}/mcp`} copyKey="litellm-server-url" />
         </FeatureCard>
 
         <FeatureCard
           icon={<Code className="text-emerald-600" size={16} />}
-          title="Implementation Example"
-          description="Complete cURL example for using the LiteLLM Proxy Responses API"
+          title="实现示例"
+          description="使用 LiteLLM 代理响应 API 的完整 cURL 示例"
           serverName={currentServer}
           accessGroups={["dev-group"]}
         >
@@ -281,51 +281,52 @@ const MCPConnect: React.FC<MCPConnectProps> = ({ currentServerAccessGroups = [] 
         <div className="flex items-center gap-3 mb-3">
           <Code className="text-blue-600" size={24} />
           <Title level={4} className="mb-0 text-blue-900">
-            OpenAI Responses API Integration
+            OpenAI 响应 API 集成
           </Title>
         </div>
         <Text className="text-blue-700">
-          Connect OpenAI Responses API to your LiteLLM MCP server for seamless tool integration
+          将 OpenAI 响应 API 连接到您的 LiteLLM MCP 服务器，实现无缝工具集成
         </Text>
       </div>
 
       <Space direction="vertical" size="large" className="w-full">
         <FeatureCard
           icon={<KeyIcon className="text-blue-600" size={16} />}
-          title="API Key Setup"
-          description="Configure your OpenAI API key for authentication"
+          title="API 密钥设置"
+          description="配置您的 OpenAI API 密钥以进行身份验证"
         >
           <Space direction="vertical" size="middle" className="w-full">
             <div>
               {/* eslint-disable-next-line react/no-unescaped-entities */}
               <Text>
-                Get your API key from the{" "}
+                从{" "}
                 <a
                   href="https://platform.openai.com/api-keys"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-blue-600 hover:text-blue-700 inline-flex items-center gap-1"
                 >
-                  OpenAI platform <ExternalLinkIcon size={12} />
+                  OpenAI 平台 <ExternalLinkIcon size={12} />
                 </a>
+                获取您的 API 密钥
               </Text>
             </div>
-            <CodeBlock title="Environment Variable" code='export OPENAI_API_KEY="sk-..."' copyKey="openai-env" />
+            <CodeBlock title="环境变量" code='export OPENAI_API_KEY="sk-..."' copyKey="openai-env" />
           </Space>
         </FeatureCard>
 
         <FeatureCard
           icon={<ServerIcon className="text-blue-600" size={16} />}
-          title="MCP Server Information"
-          description="Connection details for your LiteLLM MCP server"
+          title="MCP 服务器信息"
+          description="您的 LiteLLM MCP 服务器的连接详情"
         >
-          <CodeBlock title="Server URL" code={`${proxyBaseUrl}/mcp`} copyKey="openai-server-url" />
+          <CodeBlock title="服务器 URL" code={`${proxyBaseUrl}/mcp`} copyKey="openai-server-url" />
         </FeatureCard>
 
         <FeatureCard
           icon={<Code className="text-blue-600" size={16} />}
-          title="Implementation Example"
-          description="Complete cURL example for using the Responses API"
+          title="实现示例"
+          description="使用响应 API 的完整 cURL 示例"
           serverName="Zapier Gmail"
           accessGroups={["dev-group"]}
         >
@@ -364,41 +365,40 @@ const MCPConnect: React.FC<MCPConnectProps> = ({ currentServerAccessGroups = [] 
         <div className="flex items-center gap-3 mb-3">
           <Terminal className="text-purple-600" size={24} />
           <Title level={4} className="mb-0 text-purple-900">
-            Cursor IDE Integration
+            Cursor IDE 集成
           </Title>
         </div>
         <Text className="text-purple-700">
-          Use tools directly from Cursor IDE with LiteLLM MCP. Enable your AI assistant to perform real-world tasks
-          without leaving your coding environment.
+          直接从 Cursor IDE 使用 LiteLLM MCP 的工具。让您的 AI 助手无需离开编码环境即可执行实际任务。
         </Text>
       </div>
 
       <Card className="border border-gray-200">
         <Title level={5} className="mb-4 text-gray-800">
-          Setup Instructions
+          设置说明
         </Title>
         <Space direction="vertical" size="large" className="w-full">
-          <StepCard step={1} title="Open Cursor Settings">
+          <StepCard step={1} title="打开 Cursor 设置">
             <Text className="text-gray-600">
-              Use the keyboard shortcut <code className="bg-gray-100 px-2 py-1 rounded">⇧+⌘+J</code> (Mac) or{" "}
-              <code className="bg-gray-100 px-2 py-1 rounded">Ctrl+Shift+J</code> (Windows/Linux)
+              使用快捷键 <code className="bg-gray-100 px-2 py-1 rounded">⇧+⌘+J</code>（Mac）或{" "}
+              <code className="bg-gray-100 px-2 py-1 rounded">Ctrl+Shift+J</code>（Windows/Linux）
             </Text>
           </StepCard>
 
-          <StepCard step={2} title="Navigate to MCP Tools">
-            <Text className="text-gray-600">Go to the "MCP Tools" tab and click "New MCP Server"</Text>
+          <StepCard step={2} title="导航到 MCP 工具">
+            <Text className="text-gray-600">转到 "MCP 工具" 选项卡，点击 "新建 MCP 服务器"</Text>
           </StepCard>
 
-          <StepCard step={3} title="Add Configuration">
+          <StepCard step={3} title="添加配置">
             <Text className="text-gray-600 mb-3">
-              Copy the JSON configuration below and paste it into Cursor, then save with{" "}
-              <code className="bg-gray-100 px-2 py-1 rounded">Cmd+S</code> or{" "}
-              <code className="bg-gray-100 px-2 py-1 rounded">Ctrl+S</code>
+              复制下面的 JSON 配置并粘贴到 Cursor 中，然后使用{" "}
+              <code className="bg-gray-100 px-2 py-1 rounded">Cmd+S</code> 或{" "}
+              <code className="bg-gray-100 px-2 py-1 rounded">Ctrl+S</code> 保存
             </Text>
             <FeatureCard
               icon={<Code className="text-purple-600" size={16} />}
-              title="Configuration"
-              description="Cursor MCP configuration"
+              title="配置"
+              description="Cursor MCP 配置"
               serverName="Zapier Gmail"
               accessGroups={["dev-group"]}
             >
@@ -430,29 +430,28 @@ const MCPConnect: React.FC<MCPConnectProps> = ({ currentServerAccessGroups = [] 
         <div className="flex items-center gap-3 mb-3">
           <Globe className="text-green-600" size={24} />
           <Title level={4} className="mb-0 text-green-900">
-            Streamable HTTP Transport
+            可流式 HTTP 传输
           </Title>
         </div>
         <Text className="text-green-700">
-          Connect to LiteLLM MCP using HTTP transport. Compatible with any MCP client that supports HTTP streaming.
+          使用 HTTP 传输连接到 LiteLLM MCP。兼容任何支持 HTTP 流式传输的 MCP 客户端。
         </Text>
       </div>
 
       <FeatureCard
         icon={<Globe className="text-green-600" size={16} />}
-        title="Universal MCP Connection"
-        description="Use this URL with any MCP client that supports HTTP transport"
+        title="通用 MCP 连接"
+        description="将此 URL 与任何支持 HTTP 传输的 MCP 客户端一起使用"
       >
         <Space direction="vertical" size="middle" className="w-full">
           <div>
             <Text>
-              Each MCP client supports different transports. Refer to your client documentation to determine the
-              appropriate transport method.
+              每个 MCP 客户端支持不同的传输方式。请参考您的客户端文档以确定合适的传输方法。
             </Text>
           </div>
-          <CodeBlock title="Server URL" code={`${proxyBaseUrl}/mcp`} copyKey="http-server-url" />
+          <CodeBlock title="服务器 URL" code={`${proxyBaseUrl}/mcp`} copyKey="http-server-url" />
           <CodeBlock
-            title="Headers Configuration"
+            title="请求头配置"
             code={JSON.stringify(
               {
                 "x-litellm-api-key": "Bearer YOUR_LITELLM_API_KEY",
@@ -469,7 +468,7 @@ const MCPConnect: React.FC<MCPConnectProps> = ({ currentServerAccessGroups = [] 
               href="https://modelcontextprotocol.io/docs/concepts/transports"
               icon={<ExternalLinkIcon size={14} />}
             >
-              Learn more about MCP transports
+              了解更多关于 MCP 传输的信息
             </Button>
           </div>
         </Space>
@@ -481,10 +480,9 @@ const MCPConnect: React.FC<MCPConnectProps> = ({ currentServerAccessGroups = [] 
     <div>
       <Space direction="vertical" size="large" className="w-full">
         <div>
-          <TremorTitle className="text-3xl font-bold text-gray-900 mb-3">Connect to your MCP client</TremorTitle>
+          <TremorTitle className="text-3xl font-bold text-gray-900 mb-3">连接到您的 MCP 客户端</TremorTitle>
           <TremorText className="text-lg text-gray-600">
-            Use tools directly from any MCP client with LiteLLM MCP. Enable your AI assistant to perform real-world
-            tasks through a simple, secure connection.
+            通过 LiteLLM MCP 直接从任何 MCP 客户端使用工具。让您的 AI 助手通过简单安全的连接执行实际任务。
           </TremorText>
         </div>
 
