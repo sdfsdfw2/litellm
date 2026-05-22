@@ -105,25 +105,25 @@ interface MenuGroup {
 // Menu groups organized by category - defined outside component for export
 const menuGroups: MenuGroup[] = [
   {
-    groupLabel: "AI GATEWAY",
+    groupLabel: "AI 网关",
     items: [
       {
         key: "api-keys",
         page: "api-keys",
-        label: "Virtual Keys",
+        label: "虚拟密钥",
         icon: <KeyOutlined />,
       },
       {
         key: "llm-playground",
         page: "llm-playground",
-        label: "Playground",
+        label: "调试台",
         icon: <PlayCircleOutlined />,
         roles: rolesWithWriteAccess,
       },
       {
         key: "models",
         page: "models",
-        label: "Models + Endpoints",
+        label: "模型 + 端点",
         icon: <BlockOutlined />,
         // Admin Viewer can view models read-only (write actions are
         // hidden inside the page); Playground above stays write-only.
@@ -132,13 +132,13 @@ const menuGroups: MenuGroup[] = [
       {
         key: "agentic",
         page: "agentic",
-        label: "Agentic",
+        label: "智能体",
         icon: <RobotOutlined />,
         children: [
           {
             key: "agents",
             page: "agents",
-            label: "Agents",
+            label: "代理",
             icon: <RobotOutlined />,
             // Admin Viewer can view agents read-only (write actions are
             // hidden inside the page); Playground above stays write-only.
@@ -147,13 +147,13 @@ const menuGroups: MenuGroup[] = [
           {
             key: "workflows",
             page: "workflows",
-            label: "Workflow Runs",
+            label: "工作流运行",
             icon: <ApartmentOutlined />,
           },
           {
             key: "memory",
             page: "memory",
-            label: "Memory",
+            label: "记忆",
             icon: <BookOutlined />,
           },
         ],
@@ -161,55 +161,51 @@ const menuGroups: MenuGroup[] = [
       {
         key: "mcp-servers",
         page: "mcp-servers",
-        label: "MCP Servers",
+        label: "MCP 服务器",
         icon: <ToolOutlined />,
       },
       {
         key: "skills",
         page: "skills",
-        label: "Skills",
+        label: "技能",
         icon: <ApiOutlined />,
         roles: all_admin_roles,
       },
       {
         key: "guardrails",
         page: "guardrails",
-        label: "Guardrails",
+        label: "护栏",
         icon: <SafetyOutlined />,
       },
       {
         key: "policies",
         page: "policies",
-        label: (
-          <span className="flex items-center gap-4">
-            Policies
-          </span>
-        ),
+        label: "策略",
         icon: <AuditOutlined />,
         roles: all_admin_roles,
       },
       {
         key: "tools",
         page: "tools",
-        label: "Tools",
+        label: "工具",
         icon: <ToolOutlined />,
         children: [
           {
             key: "search-tools",
             page: "search-tools",
-            label: "Search Tools",
+            label: "搜索工具",
             icon: <SearchOutlined />,
           },
           {
             key: "vector-stores",
             page: "vector-stores",
-            label: "Vector Stores",
+            label: "向量存储",
             icon: <DatabaseOutlined />,
           },
           {
             key: "tool-policies",
             page: "tool-policies",
-            label: "Tool Policies",
+            label: "工具策略",
             icon: <SafetyOutlined />,
           },
         ],
@@ -217,37 +213,37 @@ const menuGroups: MenuGroup[] = [
     ],
   },
   {
-    groupLabel: "OBSERVABILITY",
+    groupLabel: "可观测性",
     items: [
       {
         key: "new_usage",
         page: "new_usage",
         icon: <BarChartOutlined />,
         roles: [...all_admin_roles, ...internalUserRoles],
-        label: "Usage",
+        label: "使用量",
       },
       {
         key: "logs",
         page: "logs",
-        label: "Logs",
+        label: "日志",
         icon: <LineChartOutlined />,
       },
       {
         key: "guardrails-monitor",
         page: "guardrails-monitor",
-        label: "Guardrails Monitor",
+        label: "护栏监控",
         icon: <SafetyOutlined />,
         roles: [...all_admin_roles, ...internalUserRoles],
       },
     ],
   },
   {
-    groupLabel: "ACCESS CONTROL",
+    groupLabel: "访问控制",
     items: [
       {
         key: "teams",
         page: "teams",
-        label: "Teams",
+        label: "团队",
         icon: <TeamOutlined />,
       },
       {
@@ -255,7 +251,7 @@ const menuGroups: MenuGroup[] = [
         page: "projects",
         label: (
           <span className="flex items-center gap-2">
-            Projects <NewBadge />
+            项目 <NewBadge />
           </span>
         ),
         icon: <FolderOutlined />,
@@ -264,94 +260,94 @@ const menuGroups: MenuGroup[] = [
       {
         key: "users",
         page: "users",
-        label: "Internal Users",
+        label: "内部用户",
         icon: <UserOutlined />,
         roles: all_admin_roles,
       },
       {
         key: "organizations",
         page: "organizations",
-        label: "Organizations",
+        label: "组织",
         icon: <BankOutlined />,
         roles: all_admin_roles,
       },
       {
         key: "access-groups",
         page: "access-groups",
-        label: "Access Groups",
+        label: "访问组",
         icon: <BlockOutlined />,
         roles: all_admin_roles,
       },
       {
         key: "budgets",
         page: "budgets",
-        label: "Budgets",
+        label: "预算",
         icon: <CreditCardOutlined />,
         roles: all_admin_roles,
       },
     ],
   },
   {
-    groupLabel: "DEVELOPER TOOLS",
+    groupLabel: "开发工具",
     items: [
       {
         key: "api-reference",
         page: "api-reference",
-        label: "API Reference",
+        label: "API 参考",
         icon: <ApiOutlined />,
       },
       {
         key: "model-hub-table",
         page: "model-hub-table",
-        label: "AI Hub",
+        label: "AI 中心",
         icon: <AppstoreOutlined />,
       },
 
       {
         key: "learning-resources",
         page: "learning-resources",
-        label: "Learning Resources",
+        label: "学习资源",
         icon: <BookOutlined />,
         external_url: "https://models.litellm.ai/cookbook",
       },
       {
         key: "experimental",
         page: "experimental",
-        label: "Experimental",
+        label: "实验性",
         icon: <ExperimentOutlined />,
         children: [
           {
             key: "caching",
             page: "caching",
-            label: "Caching",
+            label: "缓存",
             icon: <DatabaseOutlined />,
             roles: all_admin_roles,
           },
           {
             key: "prompts",
             page: "prompts",
-            label: "Prompts",
+            label: "提示词",
             icon: <FileTextOutlined />,
             roles: all_admin_roles,
           },
           {
             key: "transform-request",
             page: "transform-request",
-            label: "API Playground",
+            label: "API 调试台",
             icon: <ApiOutlined />,
             roles: [...all_admin_roles, ...internalUserRoles],
           },
           {
             key: "tag-management",
             page: "tag-management",
-            label: "Tag Management",
+            label: "标签管理",
             icon: <TagsOutlined />,
             roles: all_admin_roles,
           },
           {
             key: "4",
             page: "usage",
-            label: "Old Usage",
+            label: "旧版用量",
             icon: <BarChartOutlined />,
           }
         ],
@@ -359,7 +355,7 @@ const menuGroups: MenuGroup[] = [
     ],
   },
   {
-    groupLabel: "SETTINGS",
+    groupLabel: "设置",
     roles: all_admin_roles,
     items: [
       {
@@ -367,7 +363,7 @@ const menuGroups: MenuGroup[] = [
         page: "settings",
         label: (
           <span className="flex items-center gap-2">
-            Settings <NewBadge />
+            设置 <NewBadge />
           </span>
         ),
         icon: <SettingOutlined />,
@@ -376,14 +372,14 @@ const menuGroups: MenuGroup[] = [
           {
             key: "router-settings",
             page: "router-settings",
-            label: "Router Settings",
+            label: "路由设置",
             icon: <SettingOutlined />,
             roles: all_admin_roles,
           },
           {
             key: "logging-and-alerts",
             page: "logging-and-alerts",
-            label: "Logging & Alerts",
+            label: "日志与告警",
             icon: <SettingOutlined />,
             roles: all_admin_roles,
           },
@@ -392,7 +388,7 @@ const menuGroups: MenuGroup[] = [
             page: "admin-panel",
             label: (
               <span className="flex items-center gap-2">
-                Admin Settings <NewBadge dot><span /></NewBadge>
+                管理员设置 <NewBadge dot><span /></NewBadge>
               </span>
             ),
             icon: <SettingOutlined />,
@@ -401,14 +397,14 @@ const menuGroups: MenuGroup[] = [
           {
             key: "cost-tracking",
             page: "cost-tracking",
-            label: "Cost Tracking",
+            label: "成本追踪",
             icon: <BarChartOutlined />,
             roles: all_admin_roles,
           },
           {
             key: "ui-theme",
             page: "ui-theme",
-            label: "UI Theme",
+            label: "UI 主题",
             icon: <BgColorsOutlined />,
             roles: all_admin_roles,
           },

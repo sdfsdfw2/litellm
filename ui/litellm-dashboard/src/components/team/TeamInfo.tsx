@@ -239,7 +239,7 @@ const TeamInfoView: React.FC<TeamInfoProps> = ({
       const response = await teamInfoCall(accessToken, teamId);
       setTeamData(response);
     } catch (error) {
-      NotificationsManager.fromBackend("Failed to load team information");
+      NotificationsManager.fromBackend("加载团队信息失败");
       console.error("Error fetching team info:", error);
     } finally {
       setLoading(false);
@@ -347,7 +347,7 @@ const TeamInfoView: React.FC<TeamInfoProps> = ({
 
       await teamMemberAddCall(accessToken, teamId, member);
 
-      NotificationsManager.success("Team member added successfully");
+      NotificationsManager.success("团队成员添加成功");
       setIsAddMemberModalVisible(false);
       form.resetFields();
 
@@ -358,10 +358,10 @@ const TeamInfoView: React.FC<TeamInfoProps> = ({
       // Notify parent component of the update
       onUpdate(updatedTeamData);
     } catch (error: any) {
-      let errMsg = "Failed to add team member";
+      let errMsg = "添加团队成员失败";
 
       if (error?.raw?.detail?.error?.includes("Assigning team admins is a premium feature")) {
-        errMsg = "Assigning admins is an enterprise-only feature. Please upgrade your LiteLLM plan to enable this.";
+        errMsg = "分配管理员是企业版功能，请升级您的LiteLLM套餐以启用此功能。";
       } else if (error?.message) {
         errMsg = error.message;
       }
@@ -390,7 +390,7 @@ const TeamInfoView: React.FC<TeamInfoProps> = ({
 
       await teamMemberUpdateCall(accessToken, teamId, member);
 
-      NotificationsManager.success("Team member updated successfully");
+      NotificationsManager.success("团队成员更新成功");
       setIsEditMemberModalVisible(false);
 
       // Fetch updated team info
@@ -400,9 +400,9 @@ const TeamInfoView: React.FC<TeamInfoProps> = ({
       // Notify parent component of the update
       onUpdate(updatedTeamData);
     } catch (error: any) {
-      let errMsg = "Failed to update team member";
+      let errMsg = "更新团队成员失败";
       if (error?.raw?.detail?.includes("Assigning team admins is a premium feature")) {
-        errMsg = "Assigning admins is an enterprise-only feature. Please upgrade your LiteLLM plan to enable this.";
+        errMsg = "分配管理员是企业版功能，请升级您的LiteLLM套餐以启用此功能。";
       } else if (error?.message) {
         errMsg = error.message;
       }
@@ -427,7 +427,7 @@ const TeamInfoView: React.FC<TeamInfoProps> = ({
     try {
       await teamMemberDeleteCall(accessToken, teamId, memberToDelete);
 
-      NotificationsManager.success("Team member removed successfully");
+      NotificationsManager.success("团队成员移除成功");
 
       // Fetch updated team info
       const updatedTeamData = await teamInfoCall(accessToken, teamId);
@@ -436,7 +436,7 @@ const TeamInfoView: React.FC<TeamInfoProps> = ({
       // Notify parent component of the update
       onUpdate(updatedTeamData);
     } catch (error) {
-      NotificationsManager.fromBackend("Failed to remove team member");
+      NotificationsManager.fromBackend("移除团队成员失败");
       console.error("Error removing team member:", error);
     } finally {
       setIsDeleting(false);
@@ -462,7 +462,7 @@ const TeamInfoView: React.FC<TeamInfoProps> = ({
         const { soft_budget_alerting_emails, ...rest } = rawMetadata;
         parsedMetadata = rest;
       } catch (e) {
-        NotificationsManager.fromBackend("Invalid JSON in metadata field");
+        NotificationsManager.fromBackend("元数据字段中的JSON无效");
         return;
       }
 
@@ -473,7 +473,7 @@ const TeamInfoView: React.FC<TeamInfoProps> = ({
           try {
             secretManagerSettings = JSON.parse(values.secret_manager_settings);
           } catch (e) {
-            NotificationsManager.fromBackend("Invalid JSON in secret manager settings");
+            NotificationsManager.fromBackend("密钥管理设置中的JSON无效");
             return;
           }
         }
@@ -641,7 +641,7 @@ const TeamInfoView: React.FC<TeamInfoProps> = ({
       const response = await teamUpdateCall(accessToken, updateData);
       queryClient.invalidateQueries({ queryKey: organizationKeys.all });
 
-      NotificationsManager.success("Team settings updated successfully");
+      NotificationsManager.success("团队设置更新成功");
       setIsEditing(false);
       fetchTeamInfo();
     } catch (error) {
@@ -652,11 +652,11 @@ const TeamInfoView: React.FC<TeamInfoProps> = ({
   };
 
   if (loading) {
-    return <div className="p-4">Loading...</div>;
+    return <div className="p-4">加载中...</div>;
   }
 
   if (!teamData?.team_info) {
-    return <div className="p-4">Team not found</div>;
+    return <div className="p-4">未找到团队</div>;
   }
 
   const { team_info: info } = teamData;
@@ -690,7 +690,7 @@ const TeamInfoView: React.FC<TeamInfoProps> = ({
         onMouseDown={preventTagMouseDown}
         style={{ marginInlineEnd: 4 }}
       >
-        {isGlobal && <GlobalOutlined style={{ marginInlineEnd: 4 }} aria-label="Global guardrail" />}
+        {isGlobal && <GlobalOutlined style={{ marginInlineEnd: 4 }} aria-label="全局护栏" />}
         {label}
       </Tag>
     );
@@ -716,7 +716,7 @@ const TeamInfoView: React.FC<TeamInfoProps> = ({
             onClick={onClose}
             className="mb-4"
           >
-            Back to Teams
+            返回团队列表
           </Button>
           <Title>{info.team_alias}</Title>
           <div className="flex items-center">
@@ -745,28 +745,28 @@ const TeamInfoView: React.FC<TeamInfoProps> = ({
             children: (
               <Grid numItems={1} numItemsSm={2} numItemsLg={3} className="gap-6">
                 <Card>
-                  <Text>Budget Status</Text>
+                  <Text>预算状态</Text>
                   <div className="mt-2">
                     <Title>${formatNumberWithCommas(info.spend, 4)}</Title>
                     <Text>
-                      of {info.max_budget === null ? "Unlimited" : `$${formatNumberWithCommas(info.max_budget, 4)}`}
+                      / {info.max_budget === null ? "无限制" : `$${formatNumberWithCommas(info.max_budget, 4)}`}
                     </Text>
-                    {info.budget_duration && <Text className="text-gray-500">Reset: {info.budget_duration}</Text>}
+                    {info.budget_duration && <Text className="text-gray-500">重置：{info.budget_duration}</Text>}
                     <br />
                     {info.team_member_budget_table && (
                       <Text className="text-gray-500">
-                        Team Member Budget: ${formatNumberWithCommas(info.team_member_budget_table.max_budget, 4)}
+                        团队成员预算：${formatNumberWithCommas(info.team_member_budget_table.max_budget, 4)}
                       </Text>
                     )}
                   </div>
                 </Card>
 
                 <Card>
-                  <Text>Rate Limits</Text>
+                  <Text>速率限制</Text>
                   <div className="mt-2">
-                    <Text>TPM: {info.tpm_limit || "Unlimited"}</Text>
-                    <Text>RPM: {info.rpm_limit || "Unlimited"}</Text>
-                    {info.max_parallel_requests && <Text>Max Parallel Requests: {info.max_parallel_requests}</Text>}
+                    <Text>TPM：{info.tpm_limit || "无限制"}</Text>
+                    <Text>RPM：{info.rpm_limit || "无限制"}</Text>
+                    {info.max_parallel_requests && <Text>最大并行请求数：{info.max_parallel_requests}</Text>}
                     {(() => {
                       const modelTpm = (info.metadata?.model_tpm_limit ?? {}) as Record<string, number>;
                       const modelRpm = (info.metadata?.model_rpm_limit ?? {}) as Record<string, number>;
@@ -774,7 +774,7 @@ const TeamInfoView: React.FC<TeamInfoProps> = ({
                       if (models.length === 0) return null;
                       return (
                         <div className="mt-3">
-                          <Text className="text-gray-500">Per-model limits:</Text>
+                          <Text className="text-gray-500">各模型限制：</Text>
                           {models.map((m) => (
                             <Text key={m} className="text-xs">
                               {m}: TPM {modelTpm[m] ?? "—"}, RPM {modelRpm[m] ?? "—"}
@@ -787,10 +787,10 @@ const TeamInfoView: React.FC<TeamInfoProps> = ({
                 </Card>
 
                 <Card>
-                  <Text>Models</Text>
+                  <Text>模型</Text>
                   <div className="mt-2 flex flex-wrap gap-2">
                     {info.models.length === 0 || info.models.includes("all-proxy-models") ? (
-                      <Badge color="red">All proxy models</Badge>
+                      <Badge color="red">所有代理模型</Badge>
                     ) : (
                       <>
                         {info.models.map((model: string, index: number) => (
@@ -799,7 +799,7 @@ const TeamInfoView: React.FC<TeamInfoProps> = ({
                           </Badge>
                         ))}
                         {(info.access_group_models || []).map((model: string, index: number) => (
-                          <Badge key={`ag-${index}`} color="green" title="From access group">
+                          <Badge key={`ag-${index}`} color="green" title="来自访问组">
                             {model}
                           </Badge>
                         ))}
@@ -809,11 +809,11 @@ const TeamInfoView: React.FC<TeamInfoProps> = ({
                 </Card>
 
                 <Card>
-                  <Text className="font-semibold text-gray-900">Virtual Keys</Text>
+                  <Text className="font-semibold text-gray-900">虚拟密钥</Text>
                   <div className="mt-2">
-                    <Text>User Keys: {teamData.keys.filter((key) => key.user_id).length}</Text>
-                    <Text>Service Account Keys: {teamData.keys.filter((key) => !key.user_id).length}</Text>
-                    <Text className="text-gray-500">Total: {teamData.keys.length}</Text>
+                    <Text>用户密钥：{teamData.keys.filter((key) => key.user_id).length}</Text>
+                    <Text>服务账号密钥：{teamData.keys.filter((key) => !key.user_id).length}</Text>
+                    <Text className="text-gray-500">总计：{teamData.keys.length}</Text>
                   </div>
                 </Card>
 
@@ -834,18 +834,18 @@ const TeamInfoView: React.FC<TeamInfoProps> = ({
                 </Card>
 
                 <Card>
-                  <Text className="font-semibold text-gray-900 mb-3">Policies</Text>
+                  <Text className="font-semibold text-gray-900 mb-3">策略</Text>
                   {info.policies && info.policies.length > 0 ? (
                     <div className="space-y-4">
                       {info.policies.map((policy: string, index: number) => (
                         <div key={index} className="space-y-2">
                           <div className="flex items-center gap-2">
                             <Badge color="purple">{policy}</Badge>
-                            {loadingPolicies && <Text className="text-xs text-gray-400">Loading guardrails...</Text>}
+                            {loadingPolicies && <Text className="text-xs text-gray-400">加载护栏中...</Text>}
                           </div>
                           {!loadingPolicies && policyGuardrails[policy] && policyGuardrails[policy].length > 0 && (
                             <div className="ml-4 pl-3 border-l-2 border-gray-200">
-                              <Text className="text-xs text-gray-500 mb-1">Resolved Guardrails:</Text>
+                              <Text className="text-xs text-gray-500 mb-1">已解析护栏：</Text>
                               <div className="flex flex-wrap gap-1">
                                 {policyGuardrails[policy].map((guardrail: string, gIndex: number) => (
                                   <Badge key={gIndex} color="blue" size="xs">
@@ -859,7 +859,7 @@ const TeamInfoView: React.FC<TeamInfoProps> = ({
                       ))}
                     </div>
                   ) : (
-                    <Text className="text-gray-500">No policies configured</Text>
+                    <Text className="text-gray-500">未配置策略</Text>
                   )}
                 </Card>
 
@@ -914,14 +914,14 @@ const TeamInfoView: React.FC<TeamInfoProps> = ({
             children: (
               <Card className="overflow-y-auto max-h-[65vh]">
                 <div className="flex justify-between items-center mb-4">
-                  <Title>Team Settings</Title>
+                  <Title>团队设置</Title>
                   {canEditTeam && !isEditing && (
-                    <Button icon={<EditOutlined className="h-4 w-4" />} onClick={() => setIsEditing(true)}>Edit Settings</Button>
+                    <Button icon={<EditOutlined className="h-4 w-4" />} onClick={() => setIsEditing(true)}>编辑设置</Button>
                   )}
                 </div>
 
                 {isEditing && isGuardrailsLoading ? (
-                  <div className="p-4">Loading...</div>
+                  <div className="p-4">加载中...</div>
                 ) : isEditing ? (
                   <Form
                     form={form}
@@ -1000,17 +1000,17 @@ const TeamInfoView: React.FC<TeamInfoProps> = ({
                     layout="vertical"
                   >
                     <Form.Item
-                      label="Team Name"
+                      label="团队名称"
                       name="team_alias"
-                      rules={[{ required: true, message: "Please input a team name" }]}
+                      rules={[{ required: true, message: "请输入团队名称" }]}
                     >
                       <Input type="" />
                     </Form.Item>
 
                     <Form.Item
-                      label="Models"
+                      label="模型"
                       name="models"
-                      rules={[{ required: true, message: "Please select at least one model" }]}
+                      rules={[{ required: true, message: "请至少选择一个模型" }]}
                     >
                       <ModelSelect
                         value={form.getFieldValue("models") || []}
@@ -1027,35 +1027,35 @@ const TeamInfoView: React.FC<TeamInfoProps> = ({
                       />
                     </Form.Item>
 
-                    <Form.Item label="Max Budget (USD)" name="max_budget">
+                    <Form.Item label="最大预算（美元）" name="max_budget">
                       <NumericalInput step={0.01} precision={2} style={{ width: "100%" }} />
                     </Form.Item>
 
-                    <Form.Item label="Soft Budget (USD)" name="soft_budget">
+                    <Form.Item label="软预算（美元）" name="soft_budget">
                       <NumericalInput step={0.01} precision={2} style={{ width: "100%" }} />
                     </Form.Item>
 
                     <Form.Item
-                      label="Soft Budget Alerting Emails"
+                      label="软预算告警邮箱"
                       name="soft_budget_alerting_emails"
-                      tooltip="Comma-separated email addresses to receive alerts when the soft budget is reached"
+                      tooltip="逗号分隔的邮箱地址，当达到软预算时接收告警"
                     >
                       <Input placeholder="example1@test.com, example2@test.com" />
                     </Form.Item>
 
                     <Accordion className="mt-4 mb-4">
                       <AccordionHeader>
-                        <b>Team Member Settings</b>
+                        <b>团队成员设置</b>
                       </AccordionHeader>
                       <AccordionBody>
                         <Text className="text-xs text-gray-500 mb-4">
-                          Optional defaults applied when members join this team. All fields can be overridden per member.
+                          成员加入此团队时应用的可选默认值。每个成员的所有字段均可覆盖。
                         </Text>
                         <Form.Item
                           label={
                             <span>
-                              Default Model Access{" "}
-                              <Tooltip title="Optional. If set, new members can only access these models by default. Must be a subset of the team's models above. Leave empty to give all members access to all team models.">
+                              默认模型访问权限{" "}
+                              <Tooltip title="可选。如果设置，新成员默认只能访问这些模型。必须是上述团队模型的子集。留空则所有成员可访问所有团队模型。">
                                 <InfoCircleOutlined style={{ marginLeft: "4px" }} />
                               </Tooltip>
                             </span>
@@ -1068,7 +1068,7 @@ const TeamInfoView: React.FC<TeamInfoProps> = ({
                               return (
                                 <Select
                                   mode="multiple"
-                                  placeholder="Leave empty — all team models accessible to every member"
+                                  placeholder="留空 — 所有团队成员可访问所有团队模型"
                                   value={form.getFieldValue("default_team_member_models") || []}
                                   onChange={(values) => form.setFieldValue("default_team_member_models", values)}
                                   options={teamModels.map((m: string) => ({ label: m, value: m }))}
@@ -1078,61 +1078,61 @@ const TeamInfoView: React.FC<TeamInfoProps> = ({
                           </Form.Item>
                         </Form.Item>
                         <Form.Item
-                          label="Default Budget (USD)"
+                          label="默认预算（美元）"
                           name="team_member_budget"
-                          tooltip="Default spend budget for each member in this team."
+                          tooltip="此团队中每个成员的默认消费预算。"
                         >
                           <NumericalInput step={0.01} precision={2} style={{ width: "100%" }} />
                         </Form.Item>
-                        <Form.Item label="Default Budget Duration" name="team_member_budget_duration">
+                        <Form.Item label="默认预算周期" name="team_member_budget_duration">
                           <DurationSelect
                             onChange={(value) => form.setFieldValue("team_member_budget_duration", value)}
                             value={form.getFieldValue("team_member_budget_duration")}
                           />
                         </Form.Item>
                         <Form.Item
-                          label="Default Key Duration (eg: 1d, 1mo)"
+                          label="默认密钥有效期（例如：1d, 1mo）"
                           name="team_member_key_duration"
-                          tooltip="Set a limit to the duration of a team member's key. Format: 30s (seconds), 30m (minutes), 30h (hours), 30d (days), 1mo (month)"
+                          tooltip="设置团队成员密钥的有效期限制。格式：30s（秒），30m（分钟），30h（小时），30d（天），1mo（月）"
                         >
-                          <TextInput placeholder="e.g., 30d" />
+                          <TextInput placeholder="例如：30d" />
                         </Form.Item>
                         <Form.Item
-                          label="Default TPM Limit"
+                          label="默认TPM限制"
                           name="team_member_tpm_limit"
-                          tooltip="Default tokens per minute limit for each member. Can be overridden per member."
+                          tooltip="每个成员的默认每分钟令牌数限制。可在每个成员处覆盖。"
                         >
-                          <NumericalInput step={1} style={{ width: "100%" }} placeholder="e.g., 1000" />
+                          <NumericalInput step={1} style={{ width: "100%" }} placeholder="例如：1000" />
                         </Form.Item>
                         <Form.Item
-                          label="Default RPM Limit"
+                          label="默认RPM限制"
                           name="team_member_rpm_limit"
-                          tooltip="Default requests per minute limit for each member. Can be overridden per member."
+                          tooltip="每个成员的默认每分钟请求数限制。可在每个成员处覆盖。"
                         >
-                          <NumericalInput step={1} style={{ width: "100%" }} placeholder="e.g., 100" />
+                          <NumericalInput step={1} style={{ width: "100%" }} placeholder="例如：100" />
                         </Form.Item>
                       </AccordionBody>
                     </Accordion>
 
-                    <Form.Item label="Reset Budget" name="budget_duration">
-                      <Select placeholder="n/a">
-                        <Select.Option value="24h">daily</Select.Option>
-                        <Select.Option value="7d">weekly</Select.Option>
-                        <Select.Option value="30d">monthly</Select.Option>
+                    <Form.Item label="预算重置" name="budget_duration">
+                      <Select placeholder="不设置">
+                        <Select.Option value="24h">每天</Select.Option>
+                        <Select.Option value="7d">每周</Select.Option>
+                        <Select.Option value="30d">每月</Select.Option>
                       </Select>
                     </Form.Item>
 
-                    <Form.Item label="Tokens per minute Limit (TPM)" name="tpm_limit">
+                    <Form.Item label="每分钟令牌数限制（TPM）" name="tpm_limit">
                       <NumericalInput step={1} style={{ width: "100%" }} />
                     </Form.Item>
 
-                    <Form.Item label="Requests per minute Limit (RPM)" name="rpm_limit">
+                    <Form.Item label="每分钟请求数限制（RPM）" name="rpm_limit">
                       <NumericalInput step={1} style={{ width: "100%" }} />
                     </Form.Item>
 
                     <Form.Item
-                      label="Model-Specific Rate Limits"
-                      tooltip="Set per-model TPM/RPM limits that apply across the whole team."
+                      label="模型特定速率限制"
+                      tooltip="设置适用于整个团队的每个模型的TPM/RPM限制。"
                     >
                       <Form.List name="modelLimits">
                         {(fields, { add, remove }) => (
@@ -1147,7 +1147,7 @@ const TeamInfoView: React.FC<TeamInfoProps> = ({
                                   {...restField}
                                   name={[name, "model"]}
                                   rules={[
-                                    { required: true, message: "Missing model" },
+                                    { required: true, message: "缺少模型" },
                                     {
                                       validator: (_, value) => {
                                         if (!value) return Promise.resolve();
@@ -1156,7 +1156,7 @@ const TeamInfoView: React.FC<TeamInfoProps> = ({
                                           (entry: { model?: string }) => entry?.model === value,
                                         );
                                         if (dupes.length > 1) {
-                                          return Promise.reject(new Error("Duplicate model"));
+                                          return Promise.reject(new Error("模型重复"));
                                         }
                                         return Promise.resolve();
                                       },
@@ -1166,7 +1166,7 @@ const TeamInfoView: React.FC<TeamInfoProps> = ({
                                 >
                                   <Select
                                     showSearch
-                                    placeholder="Select model"
+                                    placeholder="选择模型"
                                     allowClear
                                     options={availableRateLimitModels.map((m) => ({
                                       value: m,
@@ -1182,17 +1182,17 @@ const TeamInfoView: React.FC<TeamInfoProps> = ({
                                       validator: async (_, value) => {
                                         const row = (form.getFieldValue("modelLimits") ?? [])[name] ?? {};
                                         if (row.model && value == null && row.rpm == null) {
-                                          return Promise.reject(new Error("Set at least one of TPM or RPM"));
+                                          return Promise.reject(new Error("请至少设置TPM或RPM中的一个"));
                                         }
                                         return Promise.resolve();
                                       },
                                     },
                                   ]}
                                 >
-                                  <InputNumber placeholder="TPM Limit" min={0} />
+                                  <InputNumber placeholder="TPM限制" min={0} />
                                 </Form.Item>
                                 <Form.Item {...restField} name={[name, "rpm"]}>
-                                  <InputNumber placeholder="RPM Limit" min={0} />
+                                  <InputNumber placeholder="RPM限制" min={0} />
                                 </Form.Item>
                                 <MinusCircleOutlined
                                   onClick={() => remove(name)}
@@ -1207,7 +1207,7 @@ const TeamInfoView: React.FC<TeamInfoProps> = ({
                                 block
                                 icon={<PlusOutlined />}
                               >
-                                Add Model Limit
+                                添加模型限制
                               </Button>
                             </Form.Item>
                           </>
@@ -1215,7 +1215,7 @@ const TeamInfoView: React.FC<TeamInfoProps> = ({
                       </Form.List>
                     </Form.Item>
 
-                    <Form.Item label="Router Settings">
+                    <Form.Item label="路由设置">
                       <RouterSettingsAccordion
                         ref={routerSettingsRef}
                         accessToken={accessToken || ""}
@@ -1226,8 +1226,8 @@ const TeamInfoView: React.FC<TeamInfoProps> = ({
                     <Form.Item
                       label={
                         <span>
-                          Guardrails{" "}
-                          <Tooltip title="Select which guardrails apply to this team. Global guardrails are enabled by default — uncheck to opt out. Other guardrails are opt-in.">
+                          护栏{" "}
+                          <Tooltip title="选择适用于此团队的护栏。默认启用全局护栏 — 取消选中以退出。其他护栏为选择加入。">
                             <a
                               href="https://docs.litellm.ai/docs/proxy/guardrails/quick_start"
                               target="_blank"
@@ -1243,7 +1243,7 @@ const TeamInfoView: React.FC<TeamInfoProps> = ({
                     >
                       <Select
                         mode="multiple"
-                        placeholder="Select guardrails"
+                        placeholder="选择护栏"
                         optionLabelProp="label"
                         tagRender={renderGuardrailTag}
                       >
@@ -1251,7 +1251,7 @@ const TeamInfoView: React.FC<TeamInfoProps> = ({
                           label={
                             <>
                               <GlobalOutlined style={{ marginInlineEnd: 4 }} />
-                              Global
+全局
                             </>
                           }
                         >
@@ -1268,7 +1268,7 @@ const TeamInfoView: React.FC<TeamInfoProps> = ({
                               </Select.Option>
                             ))}
                         </Select.OptGroup>
-                        <Select.OptGroup label="Other">
+                        <Select.OptGroup label="其他">
                           {(guardrailsData?.guardrails ?? [])
                             .filter((g) => !g.litellm_params?.default_on)
                             .map((g) => (
@@ -1287,8 +1287,8 @@ const TeamInfoView: React.FC<TeamInfoProps> = ({
                     <Form.Item
                       label={
                         <span>
-                          Disable all global guardrails{" "}
-                          <Tooltip title="Kill switch: bypass every global guardrail for this team, including any added in the future. For per-guardrail opt-out instead, use the Guardrails dropdown above.">
+                          禁用所有全局护栏{" "}
+                          <Tooltip title="总开关：绕过此团队的所有全局护栏，包括将来添加的。如需逐个护栏退出，请使用上面的护栏下拉菜单。">
                             <InfoCircleOutlined style={{ marginLeft: "4px" }} />
                           </Tooltip>
                         </span>
@@ -1302,8 +1302,8 @@ const TeamInfoView: React.FC<TeamInfoProps> = ({
                     <Form.Item
                       label={
                         <span>
-                          Policies{" "}
-                          <Tooltip title="Apply policies to this team to control guardrails and other settings">
+                          策略{" "}
+                          <Tooltip title="对此团队应用策略以控制护栏和其他设置">
                             <a
                               href="https://docs.litellm.ai/docs/proxy/guardrails/guardrail_policies"
                               target="_blank"
@@ -1319,7 +1319,7 @@ const TeamInfoView: React.FC<TeamInfoProps> = ({
                     >
                       <Select
                         mode="tags"
-                        placeholder="Select or enter policies"
+                        placeholder="选择或输入策略"
                         options={policiesList.map((name) => ({ value: name, label: name }))}
                       />
                     </Form.Item>
@@ -1327,33 +1327,33 @@ const TeamInfoView: React.FC<TeamInfoProps> = ({
                     <Form.Item
                       label={
                         <span>
-                          Access Groups{" "}
-                          <Tooltip title="Assign access groups to this team. Access groups control which models, MCP servers, and agents this team can use">
+                          访问组{" "}
+                          <Tooltip title="为此团队分配访问组。访问组控制此团队可以使用哪些模型、MCP服务器和代理">
                             <InfoCircleOutlined style={{ marginLeft: "4px" }} />
                           </Tooltip>
                         </span>
                       }
                       name="access_group_ids"
                     >
-                      <AccessGroupSelector placeholder="Select access groups (optional)" />
+                      <AccessGroupSelector placeholder="选择访问组（可选）" />
                     </Form.Item>
 
-                    <Form.Item label="Vector Stores" name="vector_stores" aria-label="Vector Stores">
+                    <Form.Item label="向量存储" name="vector_stores" aria-label="向量存储">
                       <VectorStoreSelector
                         onChange={(values: string[]) => form.setFieldValue("vector_stores", values)}
                         value={form.getFieldValue("vector_stores")}
                         accessToken={accessToken || ""}
-                        placeholder="Select vector stores"
+                        placeholder="选择向量存储"
                       />
                     </Form.Item>
 
-                    <Form.Item label="Allowed Pass Through Routes" name="allowed_passthrough_routes">
+                    <Form.Item label="允许的透传路由" name="allowed_passthrough_routes">
                       <Tooltip
                         title={
                           !premiumUser
-                            ? "Premium feature - Upgrade to set allowed pass through routes"
+                            ? "高级功能 - 升级以设置允许的透传路由"
                             : !is_proxy_admin
-                              ? "Only proxy admins can set allowed pass through routes"
+                              ? "仅代理管理员可以设置允许的透传路由"
                               : ""
                         }
                         placement="top"
@@ -1362,18 +1362,18 @@ const TeamInfoView: React.FC<TeamInfoProps> = ({
                           onChange={(values: string[]) => form.setFieldValue("allowed_passthrough_routes", values)}
                           value={form.getFieldValue("allowed_passthrough_routes")}
                           accessToken={accessToken || ""}
-                          placeholder="Select pass through routes"
+                          placeholder="选择透传路由"
                           disabled={!premiumUser || !is_proxy_admin}
                         />
                       </Tooltip>
                     </Form.Item>
 
-                    <Form.Item label="MCP Servers / Access Groups" name="mcp_servers_and_groups">
+                    <Form.Item label="MCP服务器/访问组" name="mcp_servers_and_groups">
                       <MCPServerSelector
                         onChange={(val) => form.setFieldValue("mcp_servers_and_groups", val)}
                         value={form.getFieldValue("mcp_servers_and_groups")}
                         accessToken={accessToken || ""}
-                        placeholder="Select MCP servers or access groups (optional)"
+                        placeholder="选择MCP服务器或访问组（可选）"
                       />
                     </Form.Item>
 
@@ -1401,39 +1401,39 @@ const TeamInfoView: React.FC<TeamInfoProps> = ({
                       )}
                     </Form.Item>
 
-                    <Form.Item label="Agents / Access Groups" name="agents_and_groups">
+                    <Form.Item label="代理/访问组" name="agents_and_groups">
                       <AgentSelector
                         onChange={(val) => form.setFieldValue("agents_and_groups", val)}
                         value={form.getFieldValue("agents_and_groups")}
                         accessToken={accessToken || ""}
-                        placeholder="Select agents or access groups (optional)"
+                        placeholder="选择代理或访问组（可选）"
                       />
                     </Form.Item>
 
                     <Accordion className="mt-4 mb-4">
                       <AccordionHeader>
-                        <b>Search Tool Settings</b>
+                        <b>搜索工具设置</b>
                       </AccordionHeader>
                       <AccordionBody>
                         <Form.Item
-                          label="Allowed Search Tools"
+                          label="允许的搜索工具"
                           name="object_permission_search_tools"
-                          tooltip="Select which search tools this team can access. Leave empty to allow all search tools."
+                          tooltip="选择此团队可以访问的搜索工具。留空以允许所有搜索工具。"
                         >
                           <SearchToolSelector
                             onChange={(vals: string[]) => form.setFieldValue("object_permission_search_tools", vals)}
                             value={form.getFieldValue("object_permission_search_tools")}
                             accessToken={accessToken || ""}
-                            placeholder="Select search tools (optional, empty = all allowed)"
+                            placeholder="选择搜索工具（可选，留空=全部允许）"
                           />
                         </Form.Item>
                       </AccordionBody>
                     </Accordion>
 
-                    <Form.Item label="Organization" name="organization_id">
+                    <Form.Item label="组织" name="organization_id">
                       <Select
                         allowClear
-                        placeholder="Select an organization"
+                        placeholder="选择一个组织"
                         showSearch
                         optionFilterProp="label"
                         options={userOrganizations.map((org) => ({
@@ -1443,7 +1443,7 @@ const TeamInfoView: React.FC<TeamInfoProps> = ({
                       />
                     </Form.Item>
 
-                    <Form.Item label="Logging Settings" name="logging_settings">
+                    <Form.Item label="日志设置" name="logging_settings">
                       <EditLoggingSettings
                         value={form.getFieldValue("logging_settings")}
                         onChange={(values) => form.setFieldValue("logging_settings", values)}
@@ -1451,12 +1451,12 @@ const TeamInfoView: React.FC<TeamInfoProps> = ({
                     </Form.Item>
 
                     <Form.Item
-                      label="Secret Manager Settings"
+                      label="密钥管理设置"
                       name="secret_manager_settings"
                       help={
                         premiumUser
-                          ? "Enter secret manager configuration as a JSON object."
-                          : "Premium feature - Upgrade to manage secret manager settings."
+                          ? "以JSON对象格式输入密钥管理配置。"
+                          : "高级功能 - 升级以管理密钥管理设置。"
                       }
                       rules={[
                         {
@@ -1468,7 +1468,7 @@ const TeamInfoView: React.FC<TeamInfoProps> = ({
                               JSON.parse(value);
                               return Promise.resolve();
                             } catch (error) {
-                              return Promise.reject(new Error("Please enter valid JSON"));
+                              return Promise.reject(new Error("请输入有效的JSON"));
                             }
                           },
                         },
@@ -1481,17 +1481,17 @@ const TeamInfoView: React.FC<TeamInfoProps> = ({
                       />
                     </Form.Item>
 
-                    <Form.Item label="Metadata" name="metadata">
+                    <Form.Item label="元数据" name="metadata">
                       <Input.TextArea rows={10} />
                     </Form.Item>
 
                     <div className="sticky z-10 bg-white p-4 pr-0 border-t border-gray-200 bottom-[-1.5rem] inset-x-[-1.5rem]">
                       <div className="flex justify-end items-center gap-2">
                         <Button onClick={() => setIsEditing(false)} disabled={isTeamSaving}>
-                          Cancel
+                          取消
                         </Button>
                         <Button icon={<SaveOutlined className="h-4 w-4" />} type="primary" htmlType="submit" loading={isTeamSaving}>
-                          Save Changes
+                          保存更改
                         </Button>
                       </div>
                     </div>
@@ -1499,15 +1499,15 @@ const TeamInfoView: React.FC<TeamInfoProps> = ({
                 ) : (
                   <div className="space-y-4">
                     <div>
-                      <Text className="font-medium">Team Name</Text>
+                      <Text className="font-medium">团队名称</Text>
                       <div>{info.team_alias}</div>
                     </div>
                     <div>
-                      <Text className="font-medium">Team ID</Text>
+                      <Text className="font-medium">团队ID</Text>
                       <div className="font-mono">{info.team_id}</div>
                     </div>
                     <div>
-                      <Text className="font-medium">Created At</Text>
+                      <Text className="font-medium">创建时间</Text>
                       <div>{new Date(info.created_at).toLocaleString()}</div>
                     </div>
                     <div>
@@ -1522,7 +1522,7 @@ const TeamInfoView: React.FC<TeamInfoProps> = ({
                     </div>
                     {info.default_team_member_models && info.default_team_member_models.length > 0 && (
                       <div>
-                        <Text className="font-medium">Default Member Models</Text>
+                        <Text className="font-medium">默认成员模型</Text>
                         <div className="flex flex-wrap gap-2 mt-1">
                           {info.default_team_member_models.map((model, index) => (
                             <Badge key={index} color="blue">
@@ -1533,9 +1533,9 @@ const TeamInfoView: React.FC<TeamInfoProps> = ({
                       </div>
                     )}
                     <div>
-                      <Text className="font-medium">Rate Limits</Text>
-                      <div>TPM: {info.tpm_limit || "Unlimited"}</div>
-                      <div>RPM: {info.rpm_limit || "Unlimited"}</div>
+                      <Text className="font-medium">速率限制</Text>
+                      <div>TPM：{info.tpm_limit || "无限制"}</div>
+                      <div>RPM：{info.rpm_limit || "无限制"}</div>
                       {(() => {
                         const modelTpm = (info.metadata?.model_tpm_limit ?? {}) as Record<string, number>;
                         const modelRpm = (info.metadata?.model_rpm_limit ?? {}) as Record<string, number>;
@@ -1543,7 +1543,7 @@ const TeamInfoView: React.FC<TeamInfoProps> = ({
                         if (models.length === 0) return null;
                         return (
                           <div className="mt-2">
-                            <Text className="text-gray-500">Per-model limits:</Text>
+<Text className="text-gray-500">各模型限制：</Text>
                             {models.map((m) => (
                               <div key={m} className="text-xs ml-2">
                                 {m}: TPM {modelTpm[m] ?? "—"}, RPM {modelRpm[m] ?? "—"}
@@ -1554,84 +1554,84 @@ const TeamInfoView: React.FC<TeamInfoProps> = ({
                       })()}
                     </div>
                     <div>
-                      <Text className="font-medium">Team Budget</Text>
+                      <Text className="font-medium">团队预算</Text>
                       <div>
-                        Max Budget:{" "}
-                        {info.max_budget !== null ? `$${formatNumberWithCommas(info.max_budget, 4)}` : "No Limit"}
+                        最大预算：{" "}
+                        {info.max_budget !== null ? `$${formatNumberWithCommas(info.max_budget, 4)}` : "无限制"}
                       </div>
                       <div>
-                        Soft Budget:{" "}
+                        软预算：{" "}
                         {info.soft_budget !== null && info.soft_budget !== undefined
                           ? `$${formatNumberWithCommas(info.soft_budget, 4)}`
-                          : "No Limit"}
+                          : "无限制"}
                       </div>
-                      <div>Budget Reset: {info.budget_duration || "Never"}</div>
+                      <div>预算重置：{info.budget_duration || "从不"}</div>
                       {info.metadata?.soft_budget_alerting_emails &&
                         Array.isArray(info.metadata.soft_budget_alerting_emails) &&
                         info.metadata.soft_budget_alerting_emails.length > 0 && (
                           <div>
-                            Soft Budget Alerting Emails: {info.metadata.soft_budget_alerting_emails.join(", ")}
+                            软预算告警邮箱： {info.metadata.soft_budget_alerting_emails.join(", ")}
                           </div>
                         )}
                     </div>
                     <div>
                       <Text className="font-medium">
-                        Team Member Settings{" "}
-                        <Tooltip title="These are limits on individual team members">
+                        团队成员设置{" "}
+                        <Tooltip title="这些是对单个团队成员的限">
                           <InfoCircleOutlined style={{ marginLeft: "4px" }} />
                         </Tooltip>
                       </Text>
-                      <div>Max Budget: {info.team_member_budget_table?.max_budget || "No Limit"}</div>
-                      <div>Budget Duration: {info.team_member_budget_table?.budget_duration || "No Limit"}</div>
-                      <div>Key Duration: {info.metadata?.team_member_key_duration || "No Limit"}</div>
-                      <div>TPM Limit: {info.team_member_budget_table?.tpm_limit || "No Limit"}</div>
-                      <div>RPM Limit: {info.team_member_budget_table?.rpm_limit || "No Limit"}</div>
+                      <div>最大预算：{info.team_member_budget_table?.max_budget || "无限制"}</div>
+                      <div>预算周期：{info.team_member_budget_table?.budget_duration || "无限制"}</div>
+                      <div>密钥有效期：{info.metadata?.team_member_key_duration || "无限制"}</div>
+                      <div>TPM限制：{info.team_member_budget_table?.tpm_limit || "无限制"}</div>
+                      <div>RPM限制：{info.team_member_budget_table?.rpm_limit || "无限制"}</div>
                     </div>
                     <div>
-                      <Text className="font-medium">Router Settings</Text>
+                      <Text className="font-medium">路由设置</Text>
                       {info.router_settings && Object.values(info.router_settings).some(
                         (v) => v !== null && v !== undefined && v !== "" && !(Array.isArray(v) && v.length === 0)
                       ) ? (
                         <div className="mt-1 space-y-1">
                           {info.router_settings.routing_strategy && (
                             <div>
-                              Routing Strategy:{" "}
+                              路由策略：{" "}
                               <Badge color="blue">{info.router_settings.routing_strategy}</Badge>
                             </div>
                           )}
                           {info.router_settings.num_retries != null && (
-                            <div>Number of Retries: {info.router_settings.num_retries}</div>
+                            <div>重试次数： {info.router_settings.num_retries}</div>
                           )}
                           {info.router_settings.allowed_fails != null && (
-                            <div>Allowed Failures: {info.router_settings.allowed_fails}</div>
+                            <div>允许失败次数： {info.router_settings.allowed_fails}</div>
                           )}
                           {info.router_settings.cooldown_time != null && (
-                            <div>Cooldown Time: {info.router_settings.cooldown_time}s</div>
+                            <div>冷却时间： {info.router_settings.cooldown_time}s</div>
                           )}
                           {info.router_settings.timeout != null && (
-                            <div>Timeout: {info.router_settings.timeout}s</div>
+                            <div>超时时间： {info.router_settings.timeout}s</div>
                           )}
                           {info.router_settings.retry_after != null && (
-                            <div>Retry After: {info.router_settings.retry_after}s</div>
+                            <div>重试间隔： {info.router_settings.retry_after}s</div>
                           )}
                           {info.router_settings.fallbacks && Array.isArray(info.router_settings.fallbacks) && info.router_settings.fallbacks.length > 0 && (
-                            <div>Fallbacks: {info.router_settings.fallbacks.length} configured</div>
+                            <div>备用方案：已配置{info.router_settings.fallbacks.length}个</div>
                           )}
                           {info.router_settings.enable_tag_filtering && (
-                            <div>Tag Filtering: Enabled</div>
+                            <div>标签过滤：已启用</div>
                           )}
                         </div>
                       ) : (
-                        <div className="text-gray-400">No router settings configured</div>
+                        <div className="text-gray-400">未配置路由设置</div>
                       )}
                     </div>
                     <div>
-                      <Text className="font-medium">Organization ID</Text>
+                      <Text className="font-medium">组织ID</Text>
                       <div>{info.organization_id}</div>
                     </div>
                     <div>
-                      <Text className="font-medium">Status</Text>
-                      <Badge color={info.blocked ? "red" : "green"}>{info.blocked ? "Blocked" : "Active"}</Badge>
+                      <Text className="font-medium">状态</Text>
+                      <Badge color={info.blocked ? "red" : "green"}>{info.blocked ? "已封禁" : "活跃"}</Badge>
                     </div>
 
                     <ObjectPermissionsView
@@ -1681,12 +1681,12 @@ const TeamInfoView: React.FC<TeamInfoProps> = ({
         initialData={selectedEditMember}
         mode="edit"
         config={{
-          title: "Edit Member",
+          title: "编辑成员",
           showEmail: true,
           showUserId: true,
           roleOptions: [
-            { label: "Admin", value: "admin" },
-            { label: "User", value: "user" },
+            { label: "管理员", value: "admin" },
+            { label: "用户", value: "user" },
           ],
           additionalFields: [
             {
@@ -1694,7 +1694,7 @@ const TeamInfoView: React.FC<TeamInfoProps> = ({
               label: (
                 <span>
                   Team Member Budget (USD){" "}
-                  <Tooltip title="Maximum amount in USD this member can spend within this team. This is separate from any global user budget limits">
+                  <Tooltip title="此成员在此团队内最多可花费的美元金额。此限制独立于任何全局用户预算限制">
                     <InfoCircleOutlined style={{ marginLeft: "4px" }} />
                   </Tooltip>
                 </span>
@@ -1702,14 +1702,14 @@ const TeamInfoView: React.FC<TeamInfoProps> = ({
               type: "numerical" as const,
               step: 0.01,
               min: 0,
-              placeholder: "Budget limit for this member within this team",
+              placeholder: "此成员在此团队中的预算限制",
             },
             {
               name: "tpm_limit",
               label: (
                 <span>
                   Team Member TPM Limit{" "}
-                  <Tooltip title="Maximum tokens per minute this member can use within this team. This is separate from any global user TPM limit">
+                  <Tooltip title="此成员在此团队内每分钟可使用的最大令牌数。此限制独立于任何全局用户TPM限制">
                     <InfoCircleOutlined style={{ marginLeft: "4px" }} />
                   </Tooltip>
                 </span>
@@ -1717,14 +1717,14 @@ const TeamInfoView: React.FC<TeamInfoProps> = ({
               type: "numerical" as const,
               step: 1,
               min: 0,
-              placeholder: "Tokens per minute limit for this member in this team",
+              placeholder: "此成员在此团队中的每分钟令牌数限制",
             },
             {
               name: "rpm_limit",
               label: (
                 <span>
                   Team Member RPM Limit{" "}
-                  <Tooltip title="Maximum requests per minute this member can make within this team. This is separate from any global user RPM limit">
+                  <Tooltip title="此成员在此团队内每分钟可发出的最大请求数。此限制独立于任何全局用户RPM限制">
                     <InfoCircleOutlined style={{ marginLeft: "4px" }} />
                   </Tooltip>
                 </span>
@@ -1732,21 +1732,21 @@ const TeamInfoView: React.FC<TeamInfoProps> = ({
               type: "numerical" as const,
               step: 1,
               min: 0,
-              placeholder: "Requests per minute limit for this member in this team",
+              placeholder: "此成员在此团队中的每分钟请求数限制",
             },
             {
               name: "allowed_models",
               label: (
                 <span>
                   Allowed Models{" "}
-                  <Tooltip title="Models this member can access within this team. Leave empty to inherit all team models.">
+                  <Tooltip title="此成员在此团队内可以访问的模型。留空则继承所有团队模型。">
                     <InfoCircleOutlined style={{ marginLeft: "4px" }} />
                   </Tooltip>
                 </span>
               ),
               type: "multi-select" as const,
               options: (info.models || []).map((m: string) => ({ label: m, value: m })),
-              placeholder: "Leave empty to inherit all team models",
+              placeholder: "留空以继承所有团队模型",
             },
           ],
         }}
@@ -1763,10 +1763,10 @@ const TeamInfoView: React.FC<TeamInfoProps> = ({
       {/* Delete Member Confirmation Modal */}
       <DeleteResourceModal
         isOpen={isDeleteModalOpen}
-        title="Delete Team Member"
-        alertMessage="Removing team members will also delete any keys created by or created for this member."
-        message="Are you sure you want to remove this member from the team? This action cannot be undone."
-        resourceInformationTitle="Team Member Information"
+        title="删除团队成员"
+        alertMessage="移除团队成员也将删除由此成员创建或为其创建的所有密钥。"
+        message="确定要从团队中移除此成员吗？此操作无法撤销。"
+        resourceInformationTitle="团队成员信息"
         resourceInformation={[
           { label: "User ID", value: memberToDelete?.user_id, code: true },
           { label: "Email", value: memberToDelete?.user_email },

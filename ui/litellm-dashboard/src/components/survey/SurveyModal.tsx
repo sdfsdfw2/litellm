@@ -172,8 +172,8 @@ export function SurveyModal({ isOpen, onClose, onComplete }: SurveyModalProps) {
     if (step === 1) {
       return (
         <div className="space-y-6">
-          <h2 className="text-2xl font-bold text-gray-900">Are you using LiteLLM at your company?</h2>
-          <p className="text-gray-500">Help us understand how our product is being used in professional environments.</p>
+          <h2 className="text-2xl font-bold text-gray-900">你在公司使用 LiteLLM 吗？</h2>
+          <p className="text-gray-500">帮助我们了解我们的产品在专业环境中的使用情况。</p>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-4">
             <button
               onClick={() => updateData("usingAtCompany", true)}
@@ -183,8 +183,8 @@ export function SurveyModal({ isOpen, onClose, onComplete }: SurveyModalProps) {
                   : "border-gray-200 hover:border-blue-300 hover:bg-gray-50"
               }`}
             >
-              <span className="block text-lg font-semibold text-gray-900 mb-1">Yes</span>
-              <span className="text-sm text-gray-500">We use it for work</span>
+              <span className="block text-lg font-semibold text-gray-900 mb-1">是</span>
+              <span className="text-sm text-gray-500">工作中使用</span>
             </button>
             <button
               onClick={() => updateData("usingAtCompany", false)}
@@ -194,8 +194,8 @@ export function SurveyModal({ isOpen, onClose, onComplete }: SurveyModalProps) {
                   : "border-gray-200 hover:border-blue-300 hover:bg-gray-50"
               }`}
             >
-              <span className="block text-lg font-semibold text-gray-900 mb-1">No</span>
-              <span className="text-sm text-gray-500">Personal project / Hobby</span>
+              <span className="block text-lg font-semibold text-gray-900 mb-1">否</span>
+              <span className="text-sm text-gray-500">个人项目/爱好</span>
             </button>
           </div>
         </div>
@@ -206,11 +206,11 @@ export function SurveyModal({ isOpen, onClose, onComplete }: SurveyModalProps) {
     if (step === 2 && data.usingAtCompany === true) {
       return (
         <div className="space-y-6">
-          <h2 className="text-2xl font-bold text-gray-900">What company are you using LiteLLM at?</h2>
-          <p className="text-gray-500">This helps us understand our user base better.</p>
+          <h2 className="text-2xl font-bold text-gray-900">你在哪个公司使用 LiteLLM？</h2>
+          <p className="text-gray-500">这有助于我们更好地了解我们的用户群体。</p>
           <Input
             size="large"
-            placeholder="Enter your company name"
+            placeholder="输入公司名称"
             value={data.companyName}
             onChange={(e) => updateData("companyName", e.target.value)}
             autoFocus
@@ -223,14 +223,14 @@ export function SurveyModal({ isOpen, onClose, onComplete }: SurveyModalProps) {
     if (step === 3) {
       return (
         <div className="space-y-6">
-          <h2 className="text-2xl font-bold text-gray-900">When did you start using LiteLLM?</h2>
+          <h2 className="text-2xl font-bold text-gray-900">你是什么时候开始使用 LiteLLM 的？</h2>
           <Radio.Group
             value={data.startDate}
             onChange={(e) => updateData("startDate", e.target.value)}
             className="w-full"
           >
             <Space direction="vertical" className="w-full">
-              {["Less than a month ago", "1-3 months ago", "3-6 months ago", "More than 6 months ago"].map((option) => (
+              {["不到 1 个月", "1-3 个月", "3-6 个月", "超过 6 个月"].map((option) => (
                 <label
                   key={option}
                   className={`flex items-center p-4 rounded-lg border cursor-pointer transition-all w-full ${
@@ -252,8 +252,8 @@ export function SurveyModal({ isOpen, onClose, onComplete }: SurveyModalProps) {
     if (step === 4) {
       return (
         <div className="space-y-6">
-          <h2 className="text-2xl font-bold text-gray-900">Why did you pick LiteLLM over other AI Gateways?</h2>
-          <p className="text-gray-500">Select all that apply.</p>
+          <h2 className="text-2xl font-bold text-gray-900">为什么选择 LiteLLM 而不是其他 AI 网关？</h2>
+          <p className="text-gray-500">选择所有适用的选项。</p>
           <div className="space-y-3">
             {REASONS_OPTIONS.map((option) => {
               const isSelected = data.reasons.includes(option.id);
@@ -285,7 +285,7 @@ export function SurveyModal({ isOpen, onClose, onComplete }: SurveyModalProps) {
                   {option.id === "other" && isSelected && (
                     <Input
                       className="mt-2 ml-7"
-                      placeholder="Please specify..."
+                      placeholder="请具体说明..."
                       value={data.otherReason}
                       onChange={(e) => updateData("otherReason", e.target.value)}
                       onClick={(e) => e.stopPropagation()}
@@ -304,20 +304,20 @@ export function SurveyModal({ isOpen, onClose, onComplete }: SurveyModalProps) {
     if (step === 5) {
       return (
         <div className="space-y-6">
-          <h2 className="text-2xl font-bold text-gray-900">Want to share more?</h2>
+          <h2 className="text-2xl font-bold text-gray-900">想分享更多吗？</h2>
           <p className="text-gray-500">
-            Leave your email and we may reach out to learn more about your experience. This is completely optional.
+            留下你的邮箱，我们可能会联系你了解更多体验。这完全是可选的。
           </p>
           <Input
             size="large"
             type="email"
-            placeholder="your@email.com (optional)"
+            placeholder="your@email.com（可选）"
             value={data.email}
             onChange={(e) => updateData("email", e.target.value)}
             autoFocus
           />
           <p className="text-xs text-gray-400">
-            We will only use this to follow up on your feedback. No spam, ever.
+            我们只会在跟进你的反馈时使用此邮箱。绝不发送垃圾邮件。
           </p>
         </div>
       );
@@ -339,7 +339,7 @@ export function SurveyModal({ isOpen, onClose, onComplete }: SurveyModalProps) {
         <div className="px-6 py-4 border-b border-gray-100 flex items-center justify-between bg-gray-50/50">
           <div className="flex items-center gap-2 text-blue-600">
             <MessageSquare className="h-5 w-5" />
-            <span className="font-semibold text-sm tracking-wide uppercase">Quick Feedback</span>
+            <span className="font-semibold text-sm tracking-wide uppercase">快速反馈</span>
           </div>
           <button
             onClick={onClose}
@@ -358,12 +358,12 @@ export function SurveyModal({ isOpen, onClose, onComplete }: SurveyModalProps) {
         {/* Footer */}
         <div className="px-6 py-4 bg-gray-50 border-t border-gray-200 flex items-center justify-between">
           <div className="text-sm text-gray-500 font-medium">
-            Step {getStepNumber()} of {totalSteps}
+            Step {getStepNumber()} / {totalSteps}
           </div>
           <div className="flex gap-3">
             {step > 1 && (
               <Button onClick={handleBack} disabled={isSubmitting} icon={<ArrowLeft className="h-4 w-4" />}>
-                Back
+返回
               </Button>
             )}
             <Button
@@ -373,7 +373,7 @@ export function SurveyModal({ isOpen, onClose, onComplete }: SurveyModalProps) {
               loading={isSubmitting}
               className="min-w-[100px]"
             >
-              {isLastStep ? "Submit" : "Next"}
+              {isLastStep ? "提交" : "下一步"}
               {!isLastStep && <ArrowRight className="ml-2 h-4 w-4" />}
             </Button>
           </div>

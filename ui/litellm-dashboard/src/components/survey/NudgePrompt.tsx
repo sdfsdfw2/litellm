@@ -86,7 +86,7 @@ export function NudgePrompt({
             </div>
             <div className="flex-1">
               <p className="text-sm text-gray-700 font-medium">
-                Got it, we will not ask again. Reactivate this at any time in the User Menu.
+                好的，我们不会再询问了。你可以在用户菜单中随时重新启用。
               </p>
             </div>
           </div>
@@ -138,7 +138,7 @@ export function NudgePrompt({
             onClick={handleDontAskAgain}
             className="text-xs"
           >
-            Don&apos;t ask me again
+            不要再次询问
           </Button>
         </div>
       </div>

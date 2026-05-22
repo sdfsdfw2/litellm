@@ -13,12 +13,12 @@ export const TEAM_INFO_TAB_KEYS = {
 } as const;
 
 export const TEAM_INFO_TAB_LABELS: Record<string, string> = {
-  [TEAM_INFO_TAB_KEYS.OVERVIEW]: "Overview",
-  [TEAM_INFO_TAB_KEYS.MY_USER]: "My User",
-  [TEAM_INFO_TAB_KEYS.VIRTUAL_KEYS]: "Virtual Keys",
-  [TEAM_INFO_TAB_KEYS.MEMBERS]: "Members",
-  [TEAM_INFO_TAB_KEYS.MEMBER_PERMISSIONS]: "Member Permissions",
-  [TEAM_INFO_TAB_KEYS.SETTINGS]: "Settings",
+  [TEAM_INFO_TAB_KEYS.OVERVIEW]: "概览",
+  [TEAM_INFO_TAB_KEYS.MY_USER]: "我的用户",
+  [TEAM_INFO_TAB_KEYS.VIRTUAL_KEYS]: "虚拟密钥",
+  [TEAM_INFO_TAB_KEYS.MEMBERS]: "成员",
+  [TEAM_INFO_TAB_KEYS.MEMBER_PERMISSIONS]: "成员权限",
+  [TEAM_INFO_TAB_KEYS.SETTINGS]: "设置",
 };
 
 /**

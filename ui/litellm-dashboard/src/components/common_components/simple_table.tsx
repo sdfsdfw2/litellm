@@ -25,8 +25,8 @@ export function SimpleTable<T>({
   data,
   columns,
   isLoading = false,
-  loadingMessage = "Loading...",
-  emptyMessage = "No data",
+  loadingMessage = "加载中...",
+  emptyMessage = "暂无数据",
   getRowKey,
 }: SimpleTableProps<T>) {
   return (

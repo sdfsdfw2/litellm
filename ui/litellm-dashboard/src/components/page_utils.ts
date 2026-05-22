@@ -48,7 +48,7 @@ export const getAvailablePages = (): PageMetadata[] => {
           page: item.page,
           label: label,
           group: group.groupLabel,
-          description: pageDescriptions[item.page] || "No description available",
+          description: pageDescriptions[item.page] || "暂无描述",
         });
       }
 
@@ -63,7 +63,7 @@ export const getAvailablePages = (): PageMetadata[] => {
               page: child.page,
               label: childLabel,
               group: `${group.groupLabel} > ${parentLabel}`,
-              description: pageDescriptions[child.page] || "No description available",
+              description: pageDescriptions[child.page] || "暂无描述",
             });
           }
         });

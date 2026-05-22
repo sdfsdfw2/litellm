@@ -303,11 +303,11 @@ export function KeyEditView({
 
   return (
     <Form form={form} onFinish={handleSubmit} initialValues={initialValues} layout="vertical">
-      <Form.Item label="Key Alias" name="key_alias">
+      <Form.Item label="密钥别名" name="key_alias">
         <TextInput />
       </Form.Item>
 
-      <Form.Item label="Models" name="models">
+      <Form.Item label="模型" name="models">
         <Form.Item
           noStyle
           shouldUpdate={(prevValues, currentValues) =>
@@ -331,14 +331,14 @@ export function KeyEditView({
               <>
                 <Select
                   mode="multiple"
-                  placeholder="Select models"
+                  placeholder="选择模型"
                   style={{ width: "100%" }}
                   disabled={isDisabled}
                   value={isDisabled ? [] : models}
                   onChange={(value) => setFieldValue("models", value)}
                 >
                   {/* Only show All Team Models if team has models */}
-                  {availableModels.length > 0 && <Select.Option value="all-team-models">All Team Models</Select.Option>}
+                  {availableModels.length > 0 && <Select.Option value="all-team-models">所有团队模型</Select.Option>}
                   {availableModels.map((model) => (
                     <Select.Option key={model} value={model}>
                       {model}
@@ -347,7 +347,7 @@ export function KeyEditView({
                 </Select>
                 {isDisabled && (
                   <div style={{ fontSize: "11px", color: "#6b7280", marginTop: "2px" }}>
-                    Models field is disabled for this key type
+                    此密钥类型已禁用模型字段
                   </div>
                 )}
               </>
@@ -356,7 +356,7 @@ export function KeyEditView({
         </Form.Item>
       </Form.Item>
 
-      <Form.Item label="Key Type">
+      <Form.Item label="密钥类型">
         <Form.Item
           noStyle
           shouldUpdate={(prevValues, currentValues) => prevValues.allowed_routes !== currentValues.allowed_routes}
@@ -375,7 +375,7 @@ export function KeyEditView({
 
             return (
               <Select
-                placeholder="Select key type"
+                placeholder="选择密钥类型"
                 style={{ width: "100%" }}
                 optionLabelProp="label"
                 value={keyTypeValue}
@@ -394,27 +394,27 @@ export function KeyEditView({
                   }
                 }}
               >
-                <Select.Option value="default" label="Default">
+                <Select.Option value="default" label="默认">
                   <div style={{ padding: "4px 0" }}>
-                    <div style={{ fontWeight: 500 }}>Default</div>
+                    <div style={{ fontWeight: 500 }}>默认</div>
                     <div style={{ fontSize: "11px", color: "#6b7280", marginTop: "2px" }}>
-                      Can call AI APIs + Management routes
+                      可调用 AI API 和管理路由
                     </div>
                   </div>
                 </Select.Option>
-                <Select.Option value="llm_api" label="AI APIs">
+                <Select.Option value="llm_api" label="AI API">
                   <div style={{ padding: "4px 0" }}>
-                    <div style={{ fontWeight: 500 }}>AI APIs</div>
+                    <div style={{ fontWeight: 500 }}>AI API</div>
                     <div style={{ fontSize: "11px", color: "#6b7280", marginTop: "2px" }}>
-                      Can call only AI API routes (chat/completions, embeddings, etc.)
+                      仅可调用 AI API 路由（chat/completions、embeddings 等）
                     </div>
                   </div>
                 </Select.Option>
-                <Select.Option value="management" label="Management">
+                <Select.Option value="management" label="管理">
                   <div style={{ padding: "4px 0" }}>
-                    <div style={{ fontWeight: 500 }}>Management</div>
+                    <div style={{ fontWeight: 500 }}>管理</div>
                     <div style={{ fontSize: "11px", color: "#6b7280", marginTop: "2px" }}>
-                      Can call only management routes (user/team/key management)
+                      仅可调用管理路由（用户/团队/密钥管理）
                     </div>
                   </div>
                 </Select.Option>
@@ -427,34 +427,34 @@ export function KeyEditView({
       <Form.Item
         label={
           <span>
-            Allowed Routes{" "}
-            <Tooltip title="List of allowed routes for the key (comma-separated). Can be specific routes (e.g., '/chat/completions') or route patterns (e.g., 'llm_api_routes', 'management_routes', '/keys/*'). Leave empty to allow all routes.">
+            允许的路由{" "}
+            <Tooltip title="密钥允许的路由列表（逗号分隔）。可以是具体路由（如 '/chat/completions'）或路由模式（如 'llm_api_routes'、'management_routes'、'/keys/*'）。留空则允许所有路由。">
               <InfoCircleOutlined style={{ marginLeft: "4px" }} />
             </Tooltip>
           </span>
         }
         name="allowed_routes"
       >
-        <Input placeholder="Enter allowed routes (comma-separated). Special values: llm_api_routes, management_routes. Examples: llm_api_routes, /chat/completions, /keys/*. Leave empty to allow all routes" />
+        <Input placeholder="输入允许的路由（逗号分隔）。特殊值：llm_api_routes、management_routes。示例：llm_api_routes、/chat/completions、/keys/*。留空则允许所有路由" />
       </Form.Item>
 
-      <Form.Item label="Max Budget (USD)" name="max_budget">
-        <NumericalInput step={0.01} style={{ width: "100%" }} placeholder="Enter a numerical value" />
+      <Form.Item label="最大预算（美元）" name="max_budget">
+        <NumericalInput step={0.01} style={{ width: "100%" }} placeholder="输入数值" />
       </Form.Item>
 
-      <Form.Item label="Reset Budget" name="budget_duration">
-        <Select placeholder="n/a">
-          <Select.Option value="daily">Daily</Select.Option>
-          <Select.Option value="weekly">Weekly</Select.Option>
-          <Select.Option value="monthly">Monthly</Select.Option>
+      <Form.Item label="重置预算" name="budget_duration">
+        <Select placeholder="无">
+          <Select.Option value="daily">每天</Select.Option>
+          <Select.Option value="weekly">每周</Select.Option>
+          <Select.Option value="monthly">每月</Select.Option>
         </Select>
       </Form.Item>
 
       <Form.Item
         label={
           <span>
-            Budget Windows{" "}
-            <Tooltip title="Set multiple independent budget windows (e.g., hourly $10 AND monthly $200). Each window tracks spend separately and resets on its own schedule.">
+            预算窗口{" "}
+            <Tooltip title="设置多个独立的预算窗口（例如每小时 $10 且每月 $200）。每个窗口独立跟踪支出并按自身周期重置。">
               <InfoCircleOutlined style={{ marginLeft: "4px" }} />
             </Tooltip>
           </span>
@@ -463,31 +463,31 @@ export function KeyEditView({
         <BudgetWindowsEditor value={budgetLimits} onChange={setBudgetLimits} />
       </Form.Item>
 
-      <Form.Item label="TPM Limit" name="tpm_limit">
+      <Form.Item label="TPM 限制" name="tpm_limit">
         <NumericalInput min={0} />
       </Form.Item>
 
       <RateLimitTypeFormItem type="tpm" name="tpm_limit_type" showDetailedDescriptions={false} />
 
-      <Form.Item label="RPM Limit" name="rpm_limit">
+      <Form.Item label="RPM 限制" name="rpm_limit">
         <NumericalInput min={0} />
       </Form.Item>
 
       <RateLimitTypeFormItem type="rpm" name="rpm_limit_type" showDetailedDescriptions={false} />
 
-      <Form.Item label="Max Parallel Requests" name="max_parallel_requests">
+      <Form.Item label="最大并行请求数" name="max_parallel_requests">
         <NumericalInput min={0} />
       </Form.Item>
 
-      <Form.Item label="Model TPM Limit" name="model_tpm_limit">
+      <Form.Item label="模型 TPM 限制" name="model_tpm_limit">
         <Input.TextArea rows={4} placeholder='{"gpt-4": 100, "claude-v1": 200}' />
       </Form.Item>
 
-      <Form.Item label="Model RPM Limit" name="model_rpm_limit">
+      <Form.Item label="模型 RPM 限制" name="model_rpm_limit">
         <Input.TextArea rows={4} placeholder='{"gpt-4": 100, "claude-v1": 200}' />
       </Form.Item>
 
-      <Form.Item label="Guardrails" name="guardrails">
+      <Form.Item label="护栏" name="guardrails">
         {accessToken && (
           <GuardrailSelector
             onChange={(v) => {
@@ -502,8 +502,8 @@ export function KeyEditView({
       <Form.Item
         label={
           <span>
-            Disable Global Guardrails{" "}
-            <Tooltip title="When enabled, this key will bypass any guardrails configured to run on every request (global guardrails)">
+            禁用全局护栏{" "}
+            <Tooltip title="启用后，此密钥将绕过配置为在每个请求上运行的任何护栏（全局护栏）">
               <InfoCircleOutlined style={{ marginLeft: "4px" }} />
             </Tooltip>
           </span>
@@ -511,14 +511,14 @@ export function KeyEditView({
         name="disable_global_guardrails"
         valuePropName="checked"
       >
-        <Switch disabled={!canEditGuardrails} checkedChildren="Yes" unCheckedChildren="No" />
+        <Switch disabled={!canEditGuardrails} checkedChildren="是" unCheckedChildren="否" />
       </Form.Item>
 
       <Form.Item
         label={
           <span>
-            Policies{" "}
-            <Tooltip title="Apply policies to this key to control guardrails and other settings">
+            策略{" "}
+            <Tooltip title="为此密钥应用策略以控制护栏和其他设置">
               <InfoCircleOutlined style={{ marginLeft: "4px" }} />
             </Tooltip>
           </span>
@@ -536,11 +536,11 @@ export function KeyEditView({
         )}
       </Form.Item>
 
-      <Form.Item label="Tags" name="tags">
+      <Form.Item label="标签" name="tags">
         <Select
           mode="tags"
           style={{ width: "100%" }}
-          placeholder="Select or enter tags"
+          placeholder="选择或输入标签"
           options={Object.values(tagsList).map((tag) => ({
             value: tag.name,
             label: tag.name,
@@ -549,18 +549,18 @@ export function KeyEditView({
         />
       </Form.Item>
 
-      <Form.Item label="Prompts" name="prompts">
-        <Tooltip title={!premiumUser ? "Setting prompts by key is a premium feature" : ""} placement="top">
+      <Form.Item label="提示词" name="prompts">
+        <Tooltip title={!premiumUser ? "按密钥设置提示词是高级功能" : ""} placement="top">
           <Select
             mode="tags"
             style={{ width: "100%" }}
             disabled={!premiumUser}
             placeholder={
               !premiumUser
-                ? "Premium feature - Upgrade to set prompts by key"
+                ? "高级功能 - 升级以按密钥设置提示词"
                 : Array.isArray(keyData.metadata?.prompts) && keyData.metadata.prompts.length > 0
-                  ? `Current: ${keyData.metadata.prompts.join(", ")}`
-                  : "Select or enter prompts"
+                  ? `当前：${keyData.metadata.prompts.join(", ")}`
+                  : "选择或输入提示词"
             }
             options={promptsList.map((name) => ({ value: name, label: name }))}
           />
@@ -570,20 +570,20 @@ export function KeyEditView({
       <Form.Item
         label={
           <span>
-            Access Groups{" "}
-            <Tooltip title="Assign access groups to this key. Access groups control which models, MCP servers, and agents this key can use">
+            访问组{" "}
+            <Tooltip title="为此密钥分配访问组。访问组控制此密钥可以使用哪些模型、MCP 服务器和代理">
               <InfoCircleOutlined style={{ marginLeft: "4px" }} />
             </Tooltip>
           </span>
         }
         name="access_group_ids"
       >
-        <AccessGroupSelector placeholder="Select access groups (optional)" />
+        <AccessGroupSelector placeholder="选择访问组（可选）" />
       </Form.Item>
 
-      <Form.Item label="Allowed Pass Through Routes" name="allowed_passthrough_routes">
+      <Form.Item label="允许的透传路由" name="allowed_passthrough_routes">
         <Tooltip
-          title={!premiumUser ? "Setting allowed pass through routes by key is a premium feature" : ""}
+          title={!premiumUser ? "按密钥设置允许的透传路由是高级功能" : ""}
           placement="top"
         >
           <PassThroughRoutesSelector
@@ -592,32 +592,32 @@ export function KeyEditView({
             accessToken={accessToken || ""}
             placeholder={
               !premiumUser
-                ? "Premium feature - Upgrade to set allowed pass through routes by key"
+                ? "高级功能 - 升级以按密钥设置允许的透传路由"
                 : Array.isArray(keyData.metadata?.allowed_passthrough_routes) &&
                     keyData.metadata.allowed_passthrough_routes.length > 0
-                  ? `Current: ${keyData.metadata.allowed_passthrough_routes.join(", ")}`
-                  : "Select or enter allowed pass through routes"
+                  ? `当前：${keyData.metadata.allowed_passthrough_routes.join(", ")}`
+                  : "选择或输入允许的透传路由"
             }
             disabled={!premiumUser}
           />
         </Tooltip>
       </Form.Item>
 
-      <Form.Item label="Vector Stores" name="vector_stores">
+      <Form.Item label="向量存储" name="vector_stores">
         <VectorStoreSelector
           onChange={(values: string[]) => form.setFieldValue("vector_stores", values)}
           value={form.getFieldValue("vector_stores")}
           accessToken={accessToken || ""}
-          placeholder="Select vector stores"
+          placeholder="选择向量存储"
         />
       </Form.Item>
 
-      <Form.Item label="MCP Servers / Access Groups" name="mcp_servers_and_groups">
+      <Form.Item label="MCP 服务器 / 访问组" name="mcp_servers_and_groups">
         <MCPServerSelector
           onChange={(val) => form.setFieldValue("mcp_servers_and_groups", val)}
           value={form.getFieldValue("mcp_servers_and_groups")}
           accessToken={accessToken || ""}
-          placeholder="Select MCP servers or access groups (optional)"
+          placeholder="选择 MCP 服务器或访问组（可选）"
         />
       </Form.Item>
 
@@ -645,20 +645,20 @@ export function KeyEditView({
         )}
       </Form.Item>
 
-      <Form.Item label="Agents / Access Groups" name="agents_and_groups">
+      <Form.Item label="代理 / 访问组" name="agents_and_groups">
         <AgentSelector
           onChange={(val) => form.setFieldValue("agents_and_groups", val)}
           value={form.getFieldValue("agents_and_groups")}
           accessToken={accessToken || ""}
-          placeholder="Select agents or access groups (optional)"
+          placeholder="选择代理或访问组（可选）"
         />
       </Form.Item>
 
       <Form.Item
         label={
           <span>
-            Organization{" "}
-            <Tooltip title="The organization this key belongs to. Selecting an organization filters the available teams.">
+            组织{" "}
+            <Tooltip title="此密钥所属的组织。选择组织将过滤可用的团队。">
               <InfoCircleOutlined style={{ marginLeft: "4px" }} />
             </Tooltip>
           </span>
@@ -677,12 +677,12 @@ export function KeyEditView({
       </Form.Item>
 
       <Form.Item
-        label="Team ID"
+        label="团队 ID"
         name="team_id"
-        help={enableProjectsUI && hasProject ? "Team is locked because this key belongs to a project" : undefined}
+        help={enableProjectsUI && hasProject ? "团队已锁定，因为此密钥属于一个项目" : undefined}
       >
         <Select
-          placeholder="Select team"
+          placeholder="选择团队"
           showSearch
           disabled={enableProjectsUI && hasProject}
           style={{ width: "100%" }}
@@ -715,11 +715,11 @@ export function KeyEditView({
         </Select>
       </Form.Item>
       {enableProjectsUI && hasProject && (
-        <Form.Item label="Project">
+        <Form.Item label="项目">
           <Input value={projectDisplay ?? ""} disabled />
         </Form.Item>
       )}
-      <Form.Item label="Logging Settings" name="logging_settings">
+      <Form.Item label="日志设置" name="logging_settings">
         <EditLoggingSettings
           value={form.getFieldValue("logging_settings")}
           onChange={(values) => form.setFieldValue("logging_settings", values)}
@@ -734,7 +734,7 @@ export function KeyEditView({
         />
       </Form.Item>
 
-      <Form.Item label="Metadata" name="metadata">
+      <Form.Item label="元数据" name="metadata">
         <Input.TextArea rows={10} />
       </Form.Item>
 
@@ -775,10 +775,10 @@ export function KeyEditView({
       <div className="sticky z-10 bg-white p-4 border-t border-gray-200 bottom-[-1.5rem] inset-x-[-1.5rem]">
         <div className="flex justify-end items-center gap-2">
           <TremorButton variant="secondary" onClick={onCancel} disabled={isKeySaving}>
-            Cancel
+            取消
           </TremorButton>
           <TremorButton type="submit" loading={isKeySaving}>
-            Save Changes
+            保存更改
           </TremorButton>
         </div>
       </div>

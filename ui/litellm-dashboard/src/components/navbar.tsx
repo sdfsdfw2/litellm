@@ -95,7 +95,7 @@ const Navbar: React.FC<NavbarProps> = ({
               <button
                 onClick={onToggleSidebar}
                 className="flex items-center justify-center w-10 h-10 mr-2 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded transition-colors"
-                title={sidebarCollapsed ? "Expand sidebar" : "Collapse sidebar"}
+                title={sidebarCollapsed ? "展开侧边栏" : "收起侧边栏"}
               >
                 <span className="text-lg">{sidebarCollapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}</span>
               </button>
@@ -107,7 +107,7 @@ const Navbar: React.FC<NavbarProps> = ({
                   <div className="h-10 max-w-48 flex items-center justify-center overflow-hidden">
                     <img
                       src={imageUrl}
-                      alt="LiteLLM Brand"
+                      alt="LiteLLM 品牌"
                       className="max-w-full max-h-full w-auto h-auto object-contain"
                     />
                   </div>
@@ -119,7 +119,7 @@ const Navbar: React.FC<NavbarProps> = ({
                     <span
                       className="absolute -top-1 -left-2 text-lg animate-bounce"
                       style={{ animationDuration: "2s" }}
-                      title="Thanks for using LiteLLM!"
+                      title="感谢使用 LiteLLM！"
                     >
                       🌑
                     </span>
@@ -154,7 +154,7 @@ const Navbar: React.FC<NavbarProps> = ({
               />
             )}
             <Button type="text" href="https://docs.litellm.ai/docs/" target="_blank" rel="noopener noreferrer">
-              Docs
+              文档
             </Button>
             <BlogDropdown />
 

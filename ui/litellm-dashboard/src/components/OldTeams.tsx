@@ -172,7 +172,7 @@ const getOrganizationAlias = (
   organizations: Organization[] | null | undefined,
 ): string => {
   if (!organizationId || !organizations) {
-    return organizationId || "N/A";
+    return organizationId || "无";
   }
 
   const organization = organizations.find((org) => org.organization_id === organizationId);
@@ -242,7 +242,7 @@ const Teams: React.FC<TeamProps> = ({
       setTeams(response.teams ?? []);
       setTotalTeams(response.total ?? 0);
     } catch (err: any) {
-      setFetchError(err?.message || "Failed to fetch teams");
+      setFetchError(err?.message || "获取团队列表失败");
     } finally {
       setIsLoading(false);
     }
@@ -424,9 +424,9 @@ const Teams: React.FC<TeamProps> = ({
       setIsTeamDeleting(true);
       await teamDeleteCall(accessToken, teamToDelete.team_id);
       await fetchTeamsV2();
-      NotificationsManager.success("Team deleted successfully");
+      NotificationsManager.success("团队删除成功");
     } catch (error) {
-      NotificationsManager.fromBackend("Error deleting the team: " + error);
+      NotificationsManager.fromBackend("删除团队时出错：" + error);
     } finally {
       setIsTeamDeleting(false);
       setIsDeleteModalOpen(false);
@@ -472,10 +472,10 @@ const Teams: React.FC<TeamProps> = ({
 
         // Remove guardrails from top level since it's now in metadata
         if (existingTeamAliases.includes(newTeamAlias)) {
-          throw new Error(`Team alias ${newTeamAlias} already exists, please pick another alias`);
+          throw new Error(`团队别名 ${newTeamAlias} 已存在，请选择其他别名`);
         }
 
-        NotificationsManager.info("Creating Team");
+        NotificationsManager.info("正在创建团队");
 
         // Handle logging settings in metadata
         if (loggingSettings.length > 0) {
@@ -505,7 +505,7 @@ const Teams: React.FC<TeamProps> = ({
               try {
                 formValues.secret_manager_settings = JSON.parse(formValues.secret_manager_settings);
               } catch (e) {
-                throw new Error("Failed to parse secret manager settings: " + e);
+                throw new Error("无法解析密钥管理器设置：" + e);
               }
             }
           }
@@ -595,7 +595,7 @@ const Teams: React.FC<TeamProps> = ({
         }
 
         await teamCreateCall(accessToken, formValues);
-        NotificationsManager.success("Team created");
+        NotificationsManager.success("团队创建成功");
         await fetchTeamsV2({
           page: currentPage,
           size: pageSize,
@@ -609,7 +609,7 @@ const Teams: React.FC<TeamProps> = ({
       }
     } catch (error) {
       console.error("Error creating the team:", error);
-      NotificationsManager.fromBackend("Error creating the team: " + error);
+      NotificationsManager.fromBackend("创建团队时出错：" + error);
     }
   };
 
@@ -697,7 +697,7 @@ const Teams: React.FC<TeamProps> = ({
 
   const teamColumns: ColumnsType<Team> = useMemo(() => [
     {
-      title: "Team ID",
+      title: "团队 ID",
       dataIndex: "team_id",
       key: "team_id",
       width: 170,
@@ -717,7 +717,7 @@ const Teams: React.FC<TeamProps> = ({
       ),
     },
     {
-      title: "Team Alias",
+      title: "团队别名",
       dataIndex: "team_alias",
       key: "team_alias",
       ellipsis: true,
@@ -729,7 +729,7 @@ const Teams: React.FC<TeamProps> = ({
       ),
     },
     {
-      title: "Organization",
+      title: "组织",
       key: "organization",
       width: 160,
       ellipsis: true,
@@ -739,7 +739,7 @@ const Teams: React.FC<TeamProps> = ({
       },
     },
     {
-      title: "Resources",
+      title: "资源",
       key: "resources",
       width: 240,
       render: (_: unknown, record: Team) => {
@@ -748,7 +748,7 @@ const Teams: React.FC<TeamProps> = ({
         const keyCount = perTeamInfo?.[record.team_id]?.keys?.length ?? 0;
         return (
           <Flex gap={12} align="center">
-            <Tooltip title={`${memberCount} Members`}>
+            <Tooltip title={`${memberCount} 个成员`}>
               <Tag color="purple" style={{ fontSize: 14, padding: "2px 8px", margin: 0 }}>
                 <Flex align="center" gap={6}>
                   <UsersIcon size={14} />
@@ -756,7 +756,7 @@ const Teams: React.FC<TeamProps> = ({
                 </Flex>
               </Tag>
             </Tooltip>
-            <Tooltip title={`${modelCount} Models`}>
+            <Tooltip title={`${modelCount} 个模型`}>
               <Tag color="blue" style={{ fontSize: 14, padding: "2px 8px", margin: 0 }}>
                 <Flex align="center" gap={6}>
                   <LayersIcon size={14} />
@@ -764,7 +764,7 @@ const Teams: React.FC<TeamProps> = ({
                 </Flex>
               </Tag>
             </Tooltip>
-            <Tooltip title={`${keyCount} Keys`}>
+            <Tooltip title={`${keyCount} 个密钥`}>
               <Tag color="cyan" style={{ fontSize: 14, padding: "2px 8px", margin: 0 }}>
                 <Flex align="center" gap={6}>
                   <KeyIcon size={14} />
@@ -777,7 +777,7 @@ const Teams: React.FC<TeamProps> = ({
       },
     },
     {
-      title: "Spend / Budget",
+      title: "消耗 / 预算",
       key: "spend",
       width: 200,
       sorter: true,
@@ -787,7 +787,7 @@ const Teams: React.FC<TeamProps> = ({
         const spendStr = `$${spendVal.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
         const budgetStr = budgetVal != null
           ? `$${budgetVal.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`
-          : "Unlimited";
+          : "无限制";
         const percent = budgetVal != null && budgetVal > 0 ? Math.min((spendVal / budgetVal) * 100, 100) : null;
         return (
           <Flex vertical gap={2}>
@@ -809,7 +809,7 @@ const Teams: React.FC<TeamProps> = ({
       },
     },
     {
-      title: "Created",
+      title: "创建时间",
       dataIndex: "created_at",
       key: "created_at",
       width: 130,
@@ -822,7 +822,7 @@ const Teams: React.FC<TeamProps> = ({
       ),
     },
     {
-      title: "Actions",
+      title: "操作",
       key: "actions",
       width: 120,
       align: "right" as const,
@@ -830,18 +830,18 @@ const Teams: React.FC<TeamProps> = ({
         <Space size={4}>
           <TableIconActionButton
             variant="Copy"
-            tooltipText="Copy Team ID"
+            tooltipText="复制团队 ID"
             onClick={() => {
               navigator.clipboard.writeText(record.team_id)
-                .then(() => message.success("Team ID copied"))
-                .catch(() => message.error("Failed to copy"));
+                .then(() => message.success("团队 ID 已复制"))
+                .catch(() => message.error("复制失败"));
             }}
           />
           {userRole === "Admin" && (
             <>
               <TableIconActionButton
                 variant="Edit"
-                tooltipText="Edit team"
+                tooltipText="编辑团队"
                 dataTestId="edit-team-button"
                 onClick={() => {
                   setSelectedTeamId(record.team_id);
@@ -850,7 +850,7 @@ const Teams: React.FC<TeamProps> = ({
               />
               <TableIconActionButton
                 variant="Delete"
-                tooltipText="Delete team"
+                tooltipText="删除团队"
                 dataTestId="delete-team-button"
                 onClick={() => handleDelete(record)}
               />
@@ -876,13 +876,13 @@ const Teams: React.FC<TeamProps> = ({
       return (
         <Flex vertical align="center" gap={16} style={{ padding: "64px 0" }}>
           <Text type="danger" style={{ fontSize: 15 }}>
-            Failed to load teams
+            加载团队失败
           </Text>
           <Text type="secondary" style={{ fontSize: 13 }}>
             {fetchError}
           </Text>
           <Button icon={<ReloadOutlined />} onClick={handleRetry}>
-            Retry
+            重试
           </Button>
         </Flex>
       );
@@ -900,11 +900,11 @@ const Teams: React.FC<TeamProps> = ({
             <div style={{ padding: "64px 0", textAlign: "center" }}>
               <TeamOutlined style={{ fontSize: 40, color: "#d9d9d9", marginBottom: 12 }} />
               <div>
-                <Text style={{ fontSize: 15, color: "#595959" }}>No teams yet</Text>
+                <Text style={{ fontSize: 15, color: "#595959" }}>暂无团队</Text>
               </div>
               <div style={{ marginTop: 4 }}>
                 <Text type="secondary" style={{ fontSize: 13 }}>
-                  Create your first team to organize members and manage access to models.
+                  创建您的第一个团队来组织成员并管理模型的访问权限。
                 </Text>
               </div>
               {canCreateOrManageTeams(userRole, userID, organizations) && (
@@ -915,8 +915,8 @@ const Teams: React.FC<TeamProps> = ({
                   style={{ marginTop: 16 }}
                   data-testid="create-team-button"
                 >
-                  Create Team
-                </Button>
+创建团队
+                  </Button>
               )}
             </div>
           ),
@@ -930,7 +930,7 @@ const Teams: React.FC<TeamProps> = ({
   const tabItems = [
     {
       key: "your-teams",
-      label: "Your Teams",
+      label: "我的团队",
       children: (
         <>
           <Card styles={{ body: { padding: 0 } }}>
@@ -943,7 +943,7 @@ const Teams: React.FC<TeamProps> = ({
                 <Input
                   prefix={<SearchIcon size={16} />}
                   suffix={isSearching ? <AntDLoadingSpinner size="small" /> : null}
-                  placeholder="Search teams by name or ID..."
+                  placeholder="按名称或 ID 搜索团队..."
                   onChange={(e) => handleSearchChange(e.target.value)}
                   allowClear
                   style={{ maxWidth: 400 }}
@@ -965,7 +965,7 @@ const Teams: React.FC<TeamProps> = ({
                   fetchTeamsV2({ page, size });
                 }}
                 size="small"
-                showTotal={(total) => `${total} teams`}
+                showTotal={(total) => `共 ${total} 个团队`}
                 showSizeChanger
                 pageSizeOptions={["10", "20", "50"]}
               />
@@ -976,19 +976,19 @@ const Teams: React.FC<TeamProps> = ({
 
           <DeleteResourceModal
             isOpen={isDeleteModalOpen}
-            title="Delete Team?"
+            title="删除团队？"
             alertMessage={
               teamToDelete?.keys?.length === 0
                 ? undefined
-                : `Warning: This team has ${teamToDelete?.keys?.length} keys associated with it. Deleting the team will also delete all associated keys. This action is irreversible.`
+                : `警告：此团队关联了 ${teamToDelete?.keys?.length} 个密钥。删除团队将同时删除所有关联的密钥。此操作不可逆。`
             }
-            message="Are you sure you want to delete this team and all its keys? This action cannot be undone."
-            resourceInformationTitle="Team Information"
+            message="确认删除此团队及其所有密钥？此操作无法撤销。"
+            resourceInformationTitle="团队信息"
             resourceInformation={[
-              { label: "Team ID", value: teamToDelete?.team_id, code: true },
-              { label: "Team Name", value: teamToDelete?.team_alias },
-              { label: "Keys", value: teamToDelete?.keys?.length },
-              { label: "Members", value: teamToDelete?.members_with_roles?.length },
+              { label: "团队 ID", value: teamToDelete?.team_id, code: true },
+              { label: "团队名称", value: teamToDelete?.team_alias },
+              { label: "密钥数", value: teamToDelete?.keys?.length },
+              { label: "成员数", value: teamToDelete?.members_with_roles?.length },
             ]}
             requiredConfirmation={teamToDelete?.team_alias}
             onCancel={cancelDelete}
@@ -1000,14 +1000,14 @@ const Teams: React.FC<TeamProps> = ({
     },
     {
       key: "available-teams",
-      label: "Available Teams",
+      label: "可用团队",
       children: <AvailableTeamsPanel accessToken={accessToken} userID={userID} />,
     },
     ...(isProxyAdminRole(userRole || "")
       ? [
           {
             key: "default-settings",
-            label: "Default Team Settings",
+            label: "默认团队设置",
             children: <TeamSSOSettings accessToken={accessToken} userID={userID || ""} userRole={userRole || ""} />,
           },
         ]
@@ -1050,15 +1050,15 @@ const Teams: React.FC<TeamProps> = ({
             <Space direction="vertical" size={0}>
               <Title level={2} style={{ margin: 0 }}>
                 <TeamOutlined style={{ marginRight: 8 }} />
-                Teams
+                团队
               </Title>
               <Text type="secondary">
-                Manage teams, members, and their access to models and budgets
+                管理团队、成员及其对模型和预算的访问权限
               </Text>
             </Space>
             {canCreateOrManageTeams(userRole, userID, organizations) && (
               <Button type="primary" icon={<PlusOutlined />} onClick={() => setIsTeamModalVisible(true)} data-testid="create-team-button">
-                Create Team
+                创建团队
               </Button>
             )}
           </Flex>
@@ -1069,7 +1069,7 @@ const Teams: React.FC<TeamProps> = ({
 
       {canCreateOrManageTeams(userRole, userID, organizations) && (
             <Modal
-              title="Create Team"
+              title="创建团队"
               open={isTeamModalVisible}
               width={1000}
               footer={null}
@@ -1085,12 +1085,12 @@ const Teams: React.FC<TeamProps> = ({
               >
                 <>
                   <Form.Item
-                    label="Team Name"
+                    label="团队名称"
                     name="team_alias"
                     rules={[
                       {
                         required: true,
-                        message: "Please input a team name",
+                        message: "请输入团队名称",
                       },
                     ]}
                   >
@@ -1107,11 +1107,11 @@ const Teams: React.FC<TeamProps> = ({
                         <Form.Item
                           label={
                             <span>
-                              Organization{" "}
+                              组织{" "}
                               <Tooltip
                                 title={
                                   <span>
-                                    Organizations can have multiple teams. Learn more about{" "}
+                                    一个组织下可以拥有多个团队。了解更多关于{" "}
                                     <a
                                       href="https://docs.litellm.ai/docs/proxy/user_management_heirarchy"
                                       target="_blank"
@@ -1122,7 +1122,7 @@ const Teams: React.FC<TeamProps> = ({
                                       }}
                                       onClick={(e) => e.stopPropagation()}
                                     >
-                                      user management hierarchy
+                                      用户管理层次结构
                                     </a>
                                   </span>
                                 }
@@ -1139,16 +1139,16 @@ const Teams: React.FC<TeamProps> = ({
                               ? [
                                 {
                                   required: true,
-                                  message: "Please select an organization",
+                                  message: "请选择一个组织",
                                 },
                               ]
                               : []
                           }
                           help={
                             isSingleOrg
-                              ? "You can only create teams within this organization"
+                              ? "您只能在此组织内创建团队"
                               : isOrgAdmin
-                                ? "required"
+                                ? "必填"
                                 : ""
                           }
                         >
@@ -1156,7 +1156,7 @@ const Teams: React.FC<TeamProps> = ({
                             showSearch
                             allowClear={!isOrgAdmin}
                             disabled={isSingleOrg}
-                            placeholder={hasNoOrgs ? "No organizations available" : "Search or select an Organization"}
+                            placeholder={hasNoOrgs ? "没有可用的组织" : "搜索或选择一个组织"}
                             onChange={(value) => {
                               form.setFieldValue("organization_id", value);
                               setCurrentOrgForCreateTeam(
@@ -1183,8 +1183,7 @@ const Teams: React.FC<TeamProps> = ({
                         {isOrgAdmin && !isSingleOrg && adminOrgs.length > 1 && (
                           <div className="mb-8 p-4 bg-blue-50 border border-blue-200 rounded-md">
                             <Text style={{ color: "#1e40af", fontSize: 14 }}>
-                              Please select an organization to create a team for. You can only create teams within
-                              organizations where you are an admin.
+                              请选择一个组织来创建团队。您只能在担任管理员的组织内创建团队。
                             </Text>
                           </div>
                         )}
@@ -1194,8 +1193,8 @@ const Teams: React.FC<TeamProps> = ({
                   <Form.Item
                     label={
                       <span>
-                        Models{" "}
-                        <Tooltip title="These are the models that your selected team has access to">
+                        模型{" "}
+                        <Tooltip title="所选团队可以访问的模型">
                           <InfoCircleOutlined style={{ marginLeft: "4px" }} />
                         </Tooltip>
                       </span>
@@ -1203,7 +1202,7 @@ const Teams: React.FC<TeamProps> = ({
                     rules={[
                       {
                         required: true,
-                        message: "Please select at least one model",
+                        message: "请至少选择一个模型",
                       },
                     ]}
                     name="models"
@@ -1221,20 +1220,20 @@ const Teams: React.FC<TeamProps> = ({
                     />
                   </Form.Item>
 
-                  <Form.Item label="Max Budget (USD)" name="max_budget">
+                  <Form.Item label="最大预算（USD）" name="max_budget">
                     <NumericalInput step={0.01} precision={2} width={200} />
                   </Form.Item>
-                  <Form.Item className="mt-8" label="Reset Budget" name="budget_duration">
-                    <Select defaultValue={null} placeholder="n/a">
-                      <Select.Option value="24h">daily</Select.Option>
-                      <Select.Option value="7d">weekly</Select.Option>
-                      <Select.Option value="30d">monthly</Select.Option>
+                  <Form.Item className="mt-8" label="预算重置周期" name="budget_duration">
+                    <Select defaultValue={null} placeholder="无">
+                      <Select.Option value="24h">每天</Select.Option>
+                      <Select.Option value="7d">每周</Select.Option>
+                      <Select.Option value="30d">每月</Select.Option>
                     </Select>
                   </Form.Item>
-                  <Form.Item label="Tokens per minute Limit (TPM)" name="tpm_limit">
+                  <Form.Item label="每分钟令牌数限制（TPM）" name="tpm_limit">
                     <NumericalInput step={1} width={400} />
                   </Form.Item>
-                  <Form.Item label="Requests per minute Limit (RPM)" name="rpm_limit">
+                  <Form.Item label="每分钟请求数限制（RPM）" name="rpm_limit">
                     <NumericalInput step={1} width={400} />
                   </Form.Item>
 
@@ -1248,13 +1247,13 @@ const Teams: React.FC<TeamProps> = ({
                     }}
                   >
                     <AccordionHeader>
-                      <b>Additional Settings</b>
+                      <b>其他设置</b>
                     </AccordionHeader>
                     <AccordionBody>
                       <Form.Item
-                        label="Team ID"
+                        label="团队 ID"
                         name="team_id"
-                        help="ID of the team you want to create. If not provided, it will be generated automatically."
+                        help="要创建的团队 ID。如未提供，将自动生成。"
                       >
                         <TextInput
                           onChange={(e) => {
@@ -1263,48 +1262,48 @@ const Teams: React.FC<TeamProps> = ({
                         />
                       </Form.Item>
                       <Form.Item
-                        label="Team Member Budget (USD)"
+                        label="团队成员预算（USD）"
                         name="team_member_budget"
                         normalize={(value) => (value ? Number(value) : undefined)}
-                        tooltip="This is the individual budget for a user in the team."
+                        tooltip="这是团队中每个成员的独立预算。"
                       >
                         <NumericalInput step={0.01} precision={2} width={200} />
                       </Form.Item>
                       <Form.Item
-                        label="Team Member Key Duration (eg: 1d, 1mo)"
+                        label="团队成员密钥有效期（例如：1d、1mo）"
                         name="team_member_key_duration"
-                        tooltip="Set a limit to the duration of a team member's key. Format: 30s (seconds), 30m (minutes), 30h (hours), 30d (days), 1mo (month)"
+                        tooltip="设置团队成员密钥的有效期限。格式：30s（秒）、30m（分钟）、30h（小时）、30d（天）、1mo（月）"
                       >
-                        <TextInput placeholder="e.g., 30d" />
+                        <TextInput placeholder="例如：30d" />
                       </Form.Item>
                       <Form.Item
-                        label="Team Member RPM Limit"
+                        label="团队成员 RPM 限制"
                         name="team_member_rpm_limit"
-                        tooltip="The RPM (Requests Per Minute) limit for individual team members"
+                        tooltip="团队成员的每分钟请求数（RPM）限制"
                       >
                         <NumericalInput step={1} width={400} />
                       </Form.Item>
                       <Form.Item
-                        label="Team Member TPM Limit"
+                        label="团队成员 TPM 限制"
                         name="team_member_tpm_limit"
-                        tooltip="The TPM (Tokens Per Minute) limit for individual team members"
+                        tooltip="团队成员的每分钟令牌数（TPM）限制"
                       >
                         <NumericalInput step={1} width={400} />
                       </Form.Item>
                       <Form.Item
-                        label="Metadata"
+                        label="元数据"
                         name="metadata"
-                        help="Additional team metadata. Enter metadata as JSON object."
+                        help="额外的团队元数据。请以 JSON 对象格式输入。"
                       >
                         <Input.TextArea rows={4} />
                       </Form.Item>
                       <Form.Item
-                        label="Secret Manager Settings"
+                        label="密钥管理器设置"
                         name="secret_manager_settings"
                         help={
                           premiumUser
-                            ? "Enter secret manager configuration as a JSON object."
-                            : "Premium feature - Upgrade to manage secret manager settings."
+                            ? "请输入密钥管理器配置的 JSON 对象。"
+                            : "高级功能 - 升级以管理密钥管理器设置。"
                         }
                         rules={[
                           {
@@ -1316,7 +1315,7 @@ const Teams: React.FC<TeamProps> = ({
                                 JSON.parse(value);
                                 return Promise.resolve();
                               } catch (error) {
-                                return Promise.reject(new Error("Please enter valid JSON"));
+                                return Promise.reject(new Error("请输入有效的 JSON"));
                               }
                             },
                           },
@@ -1331,8 +1330,8 @@ const Teams: React.FC<TeamProps> = ({
                       <Form.Item
                         label={
                           <span>
-                            Guardrails{" "}
-                            <Tooltip title="Setup your first guardrail">
+                            护栏{" "}
+                            <Tooltip title="设置您的第一个护栏">
                               <a
                                 href="https://docs.litellm.ai/docs/proxy/guardrails/quick_start"
                                 target="_blank"
@@ -1346,12 +1345,12 @@ const Teams: React.FC<TeamProps> = ({
                         }
                         name="guardrails"
                         className="mt-8"
-                        help="Select existing guardrails or enter new ones"
+                        help="选择现有护栏或输入新护栏"
                       >
                         <Select
                           mode="tags"
                           style={{ width: "100%" }}
-                          placeholder="Select or enter guardrails"
+                          placeholder="选择或输入护栏"
                           options={guardrailsList.map((name) => ({
                             value: name,
                             label: name,
@@ -1361,8 +1360,8 @@ const Teams: React.FC<TeamProps> = ({
                       <Form.Item
                         label={
                           <span>
-                            Disable Global Guardrails{" "}
-                            <Tooltip title="When enabled, this team will bypass any guardrails configured to run on every request (global guardrails)">
+                            禁用全局护栏{" "}
+                            <Tooltip title="启用后，此团队将绕过配置为在每个请求上运行的护栏（全局护栏）">
                               <InfoCircleOutlined style={{ marginLeft: "4px" }} />
                             </Tooltip>
                           </span>
@@ -1370,23 +1369,23 @@ const Teams: React.FC<TeamProps> = ({
                         name="disable_global_guardrails"
                         className="mt-4"
                         valuePropName="checked"
-                        help="Bypass global guardrails for this team"
+                        help="为此团队绕过全局护栏"
                       >
                         <Switch
                           disabled={!premiumUser}
                           checkedChildren={
-                            premiumUser ? "Yes" : "Premium feature - Upgrade to disable global guardrails by team"
+                            premiumUser ? "是" : "高级功能 - 升级以按团队禁用全局护栏"
                           }
                           unCheckedChildren={
-                            premiumUser ? "No" : "Premium feature - Upgrade to disable global guardrails by team"
+                            premiumUser ? "否" : "高级功能 - 升级以按团队禁用全局护栏"
                           }
                         />
                       </Form.Item>
                       <Form.Item
                         label={
                           <span>
-                            Policies{" "}
-                            <Tooltip title="Apply policies to this team to control guardrails and other settings">
+                            策略{" "}
+                            <Tooltip title="为此团队应用策略以控制护栏和其他设置">
                               <a
                                 href="https://docs.litellm.ai/docs/proxy/guardrails/guardrail_policies"
                                 target="_blank"
@@ -1400,12 +1399,12 @@ const Teams: React.FC<TeamProps> = ({
                         }
                         name="policies"
                         className="mt-8"
-                        help="Select existing policies or enter new ones"
+                        help="选择现有策略或输入新策略"
                       >
                         <Select
                           mode="tags"
                           style={{ width: "100%" }}
-                          placeholder="Select or enter policies"
+                          placeholder="选择或输入策略"
                           options={policiesList.map((name) => ({
                             value: name,
                             label: name,
@@ -1415,49 +1414,49 @@ const Teams: React.FC<TeamProps> = ({
                       <Form.Item
                         label={
                           <span>
-                            Access Groups{" "}
-                            <Tooltip title="Assign access groups to this team. Access groups control which models, MCP servers, and agents this team can use">
+                            访问组{" "}
+                            <Tooltip title="为此团队分配访问组。访问组控制此团队可以使用的模型、MCP 服务器和代理">
                               <InfoCircleOutlined style={{ marginLeft: "4px" }} />
                             </Tooltip>
                           </span>
                         }
                         name="access_group_ids"
                         className="mt-8"
-                        help="Select access groups to assign to this team"
+                        help="选择要分配给此团队的访问组"
                       >
-                        <AccessGroupSelector placeholder="Select access groups (optional)" />
+                        <AccessGroupSelector placeholder="选择访问组（可选）" />
                       </Form.Item>
                       <Form.Item
                         label={
                           <span>
-                            Allowed Vector Stores{" "}
-                            <Tooltip title="Select which vector stores this team can access by default. Leave empty for access to all vector stores">
+                            允许的向量存储{" "}
+                            <Tooltip title="选择此团队默认可以访问的向量存储。留空表示可访问所有向量存储">
                               <InfoCircleOutlined style={{ marginLeft: "4px" }} />
                             </Tooltip>
                           </span>
                         }
                         name="allowed_vector_store_ids"
                         className="mt-8"
-                        help="Select vector stores this team can access. Leave empty for access to all vector stores"
+                        help="选择此团队可以访问的向量存储。留空表示可访问所有向量存储"
                       >
                         <VectorStoreSelector
                           onChange={(values: string[]) => form.setFieldValue("allowed_vector_store_ids", values)}
                           value={form.getFieldValue("allowed_vector_store_ids")}
                           accessToken={accessToken || ""}
-                          placeholder="Select vector stores (optional)"
+                          placeholder="选择向量存储（可选）"
                         />
                       </Form.Item>
                       <Form.Item
-                        label="Allowed Pass Through Routes"
+                        label="允许的透传路由"
                         name="allowed_passthrough_routes"
                         className="mt-8"
                       >
                         <Tooltip
                           title={
                             !premiumUser
-                              ? "Premium feature - Upgrade to set allowed pass through routes"
+                              ? "高级功能 - 升级以设置允许的透传路由"
                               : !isProxyAdminRole(userRole || "")
-                                ? "Only proxy admins can set allowed pass through routes"
+                                ? "仅代理管理员可以设置允许的透传路由"
                                 : ""
                           }
                           placement="top"
@@ -1466,7 +1465,7 @@ const Teams: React.FC<TeamProps> = ({
                             onChange={(values: string[]) => form.setFieldValue("allowed_passthrough_routes", values)}
                             value={form.getFieldValue("allowed_passthrough_routes")}
                             accessToken={accessToken || ""}
-                            placeholder="Select pass through routes (optional)"
+                            placeholder="选择透传路由（可选）"
                             disabled={!premiumUser || !isProxyAdminRole(userRole || "")}
                           />
                         </Tooltip>
@@ -1476,27 +1475,27 @@ const Teams: React.FC<TeamProps> = ({
 
                   <Accordion className="mt-8 mb-8">
                     <AccordionHeader>
-                      <b>MCP Settings</b>
+                      <b>MCP 设置</b>
                     </AccordionHeader>
                     <AccordionBody>
                       <Form.Item
                         label={
                           <span>
-                            Allowed MCP Servers{" "}
-                            <Tooltip title="Select which MCP servers or access groups this team can access">
+                            允许的 MCP 服务器{" "}
+                            <Tooltip title="选择此团队可以访问的 MCP 服务器或访问组">
                               <InfoCircleOutlined style={{ marginLeft: "4px" }} />
                             </Tooltip>
                           </span>
                         }
                         name="allowed_mcp_servers_and_groups"
                         className="mt-4"
-                        help="Select MCP servers or access groups this team can access"
+                        help="选择此团队可以访问的 MCP 服务器或访问组"
                       >
                         <MCPServerSelector
                           onChange={(val: any) => form.setFieldValue("allowed_mcp_servers_and_groups", val)}
                           value={form.getFieldValue("allowed_mcp_servers_and_groups")}
                           accessToken={accessToken || ""}
-                          placeholder="Select MCP servers or access groups (optional)"
+                          placeholder="选择 MCP 服务器或访问组（可选）"
                         />
                       </Form.Item>
 
@@ -1528,27 +1527,27 @@ const Teams: React.FC<TeamProps> = ({
 
                   <Accordion className="mt-8 mb-8">
                     <AccordionHeader>
-                      <b>Agent Settings</b>
+                      <b>代理设置</b>
                     </AccordionHeader>
                     <AccordionBody>
                       <Form.Item
                         label={
                           <span>
-                            Allowed Agents{" "}
-                            <Tooltip title="Select which agents or access groups this team can access">
+                            允许的代理{" "}
+                            <Tooltip title="选择此团队可以访问的代理或访问组">
                               <InfoCircleOutlined style={{ marginLeft: "4px" }} />
                             </Tooltip>
                           </span>
                         }
                         name="allowed_agents_and_groups"
                         className="mt-4"
-                        help="Select agents or access groups this team can access"
+                        help="选择此团队可以访问的代理或访问组"
                       >
                         <AgentSelector
                           onChange={(val: any) => form.setFieldValue("allowed_agents_and_groups", val)}
                           value={form.getFieldValue("allowed_agents_and_groups")}
                           accessToken={accessToken || ""}
-                          placeholder="Select agents or access groups (optional)"
+                          placeholder="选择代理或访问组（可选）"
                         />
                       </Form.Item>
                     </AccordionBody>
@@ -1556,27 +1555,27 @@ const Teams: React.FC<TeamProps> = ({
 
                   <Accordion className="mt-8 mb-8">
                     <AccordionHeader>
-                      <b>Search Tool Settings</b>
+                      <b>搜索工具设置</b>
                     </AccordionHeader>
                     <AccordionBody>
                       <Form.Item
                         label={
                           <span>
-                            Allowed Search Tools{" "}
-                            <Tooltip title="Select which search tools this team can access. Leave empty to allow all search tools.">
+                            允许的搜索工具{" "}
+                            <Tooltip title="选择此团队可以访问的搜索工具。留空表示允许所有搜索工具。">
                               <InfoCircleOutlined style={{ marginLeft: "4px" }} />
                             </Tooltip>
                           </span>
                         }
                         name="object_permission_search_tools"
                         className="mt-4"
-                        help="Restrict which configured search tools keys on this team may call."
+                        help="限制此团队上的密钥可以调用的已配置搜索工具。"
                       >
                         <SearchToolSelector
                           onChange={(vals: string[]) => form.setFieldValue("object_permission_search_tools", vals)}
                           value={form.getFieldValue("object_permission_search_tools")}
                           accessToken={accessToken || ""}
-                          placeholder="Select search tools (optional, empty = all allowed)"
+                          placeholder="选择搜索工具（可选，留空 = 全部允许）"
                         />
                       </Form.Item>
                     </AccordionBody>
@@ -1584,7 +1583,7 @@ const Teams: React.FC<TeamProps> = ({
 
                   <Accordion className="mt-8 mb-8">
                     <AccordionHeader>
-                      <b>Logging Settings</b>
+                      <b>日志设置</b>
                     </AccordionHeader>
                     <AccordionBody>
                       <div className="mt-4">
@@ -1599,7 +1598,7 @@ const Teams: React.FC<TeamProps> = ({
 
                   <Accordion key={`router-settings-accordion-${routerSettingsKey}`} className="mt-8 mb-8">
                     <AccordionHeader>
-                      <b>Router Settings</b>
+                      <b>路由设置</b>
                     </AccordionHeader>
                     <AccordionBody>
                       <div className="mt-4 w-full">
@@ -1616,13 +1615,12 @@ const Teams: React.FC<TeamProps> = ({
 
                   <Accordion className="mt-8 mb-8">
                     <AccordionHeader>
-                      <b>Model Aliases</b>
+                      <b>模型别名</b>
                     </AccordionHeader>
                     <AccordionBody>
                       <div className="mt-4">
                         <Text type="secondary" style={{ fontSize: 14, marginBottom: 16, display: "block" }}>
-                          Create custom aliases for models that can be used by team members in API calls. This allows
-                          you to create shortcuts for specific models.
+                          为模型创建自定义别名，团队成员可在 API 调用中使用。这允许您为特定模型创建快捷方式。
                         </Text>
                         <ModelAliasManager
                           accessToken={accessToken || ""}
@@ -1635,7 +1633,7 @@ const Teams: React.FC<TeamProps> = ({
                   </Accordion>
                 </>
                 <div style={{ textAlign: "right", marginTop: "10px" }}>
-                  <Button htmlType="submit" data-testid="create-team-submit">Create Team</Button>
+                  <Button htmlType="submit" data-testid="create-team-submit">创建团队</Button>
                 </div>
               </Form>
             </Modal>

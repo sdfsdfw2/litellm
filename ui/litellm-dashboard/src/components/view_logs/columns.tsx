@@ -110,19 +110,19 @@ export const createColumns = (sortProps?: LogsSortProps): ColumnDef<LogEntry>[] 
     header: sortProps
       ? () => (
           <SortableHeader
-            label="Time"
+            label="时间"
             field="startTime"
             sortBy={sortProps.sortBy}
             sortOrder={sortProps.sortOrder}
             onSortChange={sortProps.onSortChange}
           />
         )
-      : "Time",
+      : "时间",
     accessorKey: "startTime",
     cell: (info: any) => <TimeCell utcTime={info.getValue()} />,
   },
   {
-    header: "Type",
+    header: "类型",
     id: "type",
     cell: (info: any) => {
       const row = info.row.original;
@@ -158,9 +158,9 @@ export const createColumns = (sortProps?: LogsSortProps): ColumnDef<LogEntry>[] 
       );
 
       const tooltipParts = [
-        sessionLlmCount > 0 && `${sessionLlmCount} LLM`,
-        sessionAgentCount > 0 && `${sessionAgentCount} Agent`,
-        sessionMcpCount > 0 && `${sessionMcpCount} MCP`,
+        sessionLlmCount > 0 && `${sessionLlmCount} 个LLM`,
+        sessionAgentCount > 0 && `${sessionAgentCount} 个Agent`,
+        sessionMcpCount > 0 && `${sessionMcpCount} 个MCP`,
       ].filter(Boolean);
       return (
         <Tooltip title={tooltipParts.join(" • ")}>
@@ -170,7 +170,7 @@ export const createColumns = (sortProps?: LogsSortProps): ColumnDef<LogEntry>[] 
     },
   },
   {
-    header: "Status",
+    header: "状态",
     accessorKey: "metadata.status",
     cell: (info: any) => {
       const status = info.getValue() || "Success";
@@ -182,13 +182,13 @@ export const createColumns = (sortProps?: LogsSortProps): ColumnDef<LogEntry>[] 
             isSuccess ? "bg-green-100 text-green-800" : "bg-red-100 text-red-800"
           }`}
         >
-          {isSuccess ? "Success" : "Failure"}
+          {isSuccess ? "成功" : "失败"}
         </span>
       );
     },
   },
   {
-    header: "Session ID",
+    header: "会话ID",
     accessorKey: "session_id",
     cell: (info: any) => {
       const value = String(info.getValue() || "");
@@ -209,7 +209,7 @@ export const createColumns = (sortProps?: LogsSortProps): ColumnDef<LogEntry>[] 
   },
 
   {
-    header: "Request ID",
+    header: "请求ID",
     accessorKey: "request_id",
     cell: (info: any) => (
       <Tooltip title={String(info.getValue() || "")}>
@@ -221,14 +221,14 @@ export const createColumns = (sortProps?: LogsSortProps): ColumnDef<LogEntry>[] 
     header: sortProps
       ? () => (
           <SortableHeader
-            label="Cost"
+            label="费用"
             field="spend"
             sortBy={sortProps.sortBy}
             sortOrder={sortProps.sortOrder}
             onSortChange={sortProps.onSortChange}
           />
         )
-      : "Cost",
+      : "费用",
     accessorKey: "spend",
     cell: (info: any) => {
       const row = info.row.original;
@@ -242,7 +242,7 @@ export const createColumns = (sortProps?: LogsSortProps): ColumnDef<LogEntry>[] 
           </Tooltip>
           {mcpCount > 0 && mcpSpend > 0 && (
             <span className="text-[10px] text-amber-600">
-              incl. {getSpendString(mcpSpend)} from {mcpCount} MCP
+              含 {getSpendString(mcpSpend)}，来自 {mcpCount} 个MCP调用
             </span>
           )}
         </div>
@@ -253,14 +253,14 @@ export const createColumns = (sortProps?: LogsSortProps): ColumnDef<LogEntry>[] 
     header: sortProps
       ? () => (
           <SortableHeader
-            label="Duration (s)"
+            label="耗时(秒)"
             field="request_duration_ms"
             sortBy={sortProps.sortBy}
             sortOrder={sortProps.sortOrder}
             onSortChange={sortProps.onSortChange}
           />
         )
-      : "Duration (s)",
+      : "耗时(秒)",
     accessorKey: "request_duration_ms",
     cell: (info: any) => {
       const ms = info.getValue();
@@ -277,14 +277,14 @@ export const createColumns = (sortProps?: LogsSortProps): ColumnDef<LogEntry>[] 
     header: sortProps
       ? () => (
           <SortableHeader
-            label="TTFT (s)"
+            label="TTFT(秒)"
             field="ttft_ms"
             sortBy={sortProps.sortBy}
             sortOrder={sortProps.sortOrder}
             onSortChange={sortProps.onSortChange}
           />
         )
-      : "TTFT (s)",
+      : "TTFT(秒)",
     accessorKey: "completionStartTime",
     cell: (info: any) => {
       const row = info.row.original;
@@ -303,7 +303,7 @@ export const createColumns = (sortProps?: LogsSortProps): ColumnDef<LogEntry>[] 
     },
   },
   {
-    header: "Team Name",
+    header: "团队名称",
     accessorKey: "metadata.user_api_key_team_alias",
     cell: (info: any) => (
       <Tooltip title={String(info.getValue() || "-")}>
@@ -312,7 +312,7 @@ export const createColumns = (sortProps?: LogsSortProps): ColumnDef<LogEntry>[] 
     ),
   },
   {
-    header: "Key Hash",
+    header: "密钥哈希",
     accessorKey: "metadata.user_api_key",
     cell: (info: any) => {
       const value = String(info.getValue() || "-");
@@ -331,7 +331,7 @@ export const createColumns = (sortProps?: LogsSortProps): ColumnDef<LogEntry>[] 
     },
   },
   {
-    header: "Key Name",
+    header: "密钥名称",
     accessorKey: "metadata.user_api_key_alias",
     cell: (info: any) => (
       <Tooltip title={String(info.getValue() || "-")}>
@@ -343,14 +343,14 @@ export const createColumns = (sortProps?: LogsSortProps): ColumnDef<LogEntry>[] 
     header: sortProps
       ? () => (
           <SortableHeader
-            label="Model"
+            label="模型"
             field="model"
             sortBy={sortProps.sortBy}
             sortOrder={sortProps.sortOrder}
             onSortChange={sortProps.onSortChange}
           />
         )
-      : "Model",
+      : "模型",
     accessorKey: "model",
     cell: (info: any) => {
       const row = info.row.original;
@@ -380,14 +380,14 @@ export const createColumns = (sortProps?: LogsSortProps): ColumnDef<LogEntry>[] 
     header: sortProps
       ? () => (
           <SortableHeader
-            label="Tokens"
+            label="Token数"
             field="total_tokens"
             sortBy={sortProps.sortBy}
             sortOrder={sortProps.sortOrder}
             onSortChange={sortProps.onSortChange}
           />
         )
-      : "Tokens",
+      : "Token数",
     accessorKey: "total_tokens",
     cell: (info: any) => {
       const row = info.row.original;
@@ -402,7 +402,7 @@ export const createColumns = (sortProps?: LogsSortProps): ColumnDef<LogEntry>[] 
     },
   },
   {
-    header: "Internal User",
+    header: "内部用户",
     accessorKey: "user",
     cell: (info: any) => (
       <Tooltip title={String(info.getValue() || "-")}>
@@ -411,7 +411,7 @@ export const createColumns = (sortProps?: LogsSortProps): ColumnDef<LogEntry>[] 
     ),
   },
   {
-    header: "End User",
+    header: "最终用户",
     accessorKey: "end_user",
     cell: (info: any) => (
       <Tooltip title={String(info.getValue() || "-")}>
@@ -421,7 +421,7 @@ export const createColumns = (sortProps?: LogsSortProps): ColumnDef<LogEntry>[] 
   },
 
   {
-    header: "Tags",
+    header: "标签",
     accessorKey: "request_tags",
     cell: (info: any) => {
       const tags = info.getValue();
@@ -459,7 +459,7 @@ export const createColumns = (sortProps?: LogsSortProps): ColumnDef<LogEntry>[] 
 export const columns = createColumns();
 
 const formatMessage = (message: any): string => {
-  if (!message) return "N/A";
+  if (!message) return "无";
   if (typeof message === "string") return message;
   if (typeof message === "object") {
     // Handle the {text, type} object specifically
@@ -487,11 +487,11 @@ export const RequestResponsePanel = ({ request, response }: { request: any; resp
     <div className="grid grid-cols-2 gap-4 mt-4">
       <div className="rounded-lg border border-gray-200 bg-gray-50">
         <div className="flex justify-between items-center p-3 border-b border-gray-200">
-          <h3 className="text-sm font-medium">Request</h3>
+          <h3 className="text-sm font-medium">请求</h3>
           <button
             onClick={() => copyToClipboard(requestStr)}
             className="p-1 hover:bg-gray-200 rounded"
-            title="Copy request"
+            title="复制请求"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -514,11 +514,11 @@ export const RequestResponsePanel = ({ request, response }: { request: any; resp
 
       <div className="rounded-lg border border-gray-200 bg-gray-50">
         <div className="flex justify-between items-center p-3 border-b border-gray-200">
-          <h3 className="text-sm font-medium">Response</h3>
+          <h3 className="text-sm font-medium">响应</h3>
           <button
             onClick={() => copyToClipboard(responseStr)}
             className="p-1 hover:bg-gray-200 rounded"
-            title="Copy response"
+            title="复制响应"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -554,7 +554,7 @@ const CollapsibleJsonCell = ({ jsonData }: { jsonData: any }) => {
   return (
     <div>
       <button onClick={() => setIsExpanded(!isExpanded)} className="text-blue-500 hover:text-blue-700 text-xs">
-        {isExpanded ? "Hide JSON" : "Show JSON"} ({Object.keys(jsonData).length} fields)
+        {isExpanded ? "隐藏JSON" : "显示JSON"} ({Object.keys(jsonData).length} 个字段)
       </button>
       {isExpanded && (
         <pre className="mt-2 p-2 bg-gray-50 border rounded text-xs overflow-auto max-h-60">{jsonString}</pre>
@@ -600,7 +600,7 @@ export const auditLogColumns: ColumnDef<AuditLogEntry>[] = [
           <button
             onClick={toggleHandler}
             style={{ cursor: "pointer" }}
-            aria-label={localExpanded ? "Collapse row" : "Expand row"}
+            aria-label={localExpanded ? "折叠行" : "展开行"}
             className="w-6 h-6 flex items-center justify-center focus:outline-none"
           >
             <svg
@@ -621,31 +621,31 @@ export const auditLogColumns: ColumnDef<AuditLogEntry>[] = [
     },
   },
   {
-    header: "Timestamp",
+    header: "时间戳",
     accessorKey: "updated_at",
     cell: (info: any) => <TimeCell utcTime={info.getValue()} />,
   },
   {
-    header: "Table Name",
+    header: "表名",
     accessorKey: "table_name",
     cell: (info: any) => {
       const tableName = info.getValue();
       let displayValue = tableName;
       switch (tableName) {
         case "LiteLLM_VerificationToken":
-          displayValue = "Keys";
+          displayValue = "密钥";
           break;
         case "LiteLLM_TeamTable":
-          displayValue = "Teams";
+          displayValue = "团队";
           break;
         case "LiteLLM_OrganizationTable":
-          displayValue = "Organizations";
+          displayValue = "组织";
           break;
         case "LiteLLM_UserTable":
-          displayValue = "Users";
+          displayValue = "用户";
           break;
         case "LiteLLM_ProxyModelTable":
-          displayValue = "Models";
+          displayValue = "模型";
           break;
         default:
           displayValue = tableName;
@@ -654,12 +654,12 @@ export const auditLogColumns: ColumnDef<AuditLogEntry>[] = [
     },
   },
   {
-    header: "Action",
+    header: "操作",
     accessorKey: "action",
     cell: (info: any) => <span>{getActionBadge(info.getValue())}</span>,
   },
   {
-    header: "Changed By",
+    header: "变更人",
     accessorKey: "changed_by",
     cell: (info: any) => {
       const changedBy = info.row.original.changed_by;
@@ -681,7 +681,7 @@ export const auditLogColumns: ColumnDef<AuditLogEntry>[] = [
     },
   },
   {
-    header: "Affected Item ID",
+    header: "受影响项ID",
     accessorKey: "object_id",
     cell: (props) => {
       const ObjectIdDisplay = () => {
@@ -701,7 +701,7 @@ export const auditLogColumns: ColumnDef<AuditLogEntry>[] = [
         };
 
         return (
-          <Tooltip title={copied ? "Copied!" : String(objectId)}>
+          <Tooltip title={copied ? "已复制!" : String(objectId)}>
             <span className="max-w-[20ch] truncate block cursor-pointer hover:text-blue-600" onClick={handleCopy}>
               {String(objectId)}
             </span>

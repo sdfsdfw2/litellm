@@ -26,7 +26,7 @@ export const columns = (
   // Backend sortable columns: user_id, user_email, created_at, spend, user_alias, user_role
   const baseColumns: ColumnDef<UserInfo>[] = [
     {
-      header: "User ID",
+      header: "用户ID",
       accessorKey: "user_id",
       enableSorting: true,
       cell: ({ row }) => (
@@ -35,11 +35,11 @@ export const columns = (
             <span className="text-xs">{row.original.user_id ? `${row.original.user_id.slice(0, 7)}...` : "-"}</span>
           </Tooltip>
           {row.original.user_id && (
-            <Tooltip title="Copy User ID">
+            <Tooltip title="复制用户ID">
               <CopyOutlined
                 onClick={(e) => {
                   e.stopPropagation();
-                  copyToClipboard(row.original.user_id, "User ID copied to clipboard");
+                  copyToClipboard(row.original.user_id, "用户ID已复制到剪贴板");
                 }}
                 className="cursor-pointer text-gray-500 hover:text-blue-500 text-xs"
               />
@@ -49,14 +49,14 @@ export const columns = (
       ),
     },
     {
-      header: "Email",
+      header: "邮箱",
       accessorKey: "user_email",
       enableSorting: true,
       cell: ({ row }) => <span className="text-xs">{row.original.user_email || "-"}</span>,
     },
     {
       id: "status",
-      header: "Status",
+      header: "状态",
       enableSorting: false,
       cell: ({ row }) => {
         const isScimInactive =
@@ -64,34 +64,34 @@ export const columns = (
             ?.scim_active === false;
         if (isScimInactive) {
           return (
-            <Tooltip title="Deactivated via SCIM (external identity provider). The user's virtual keys are blocked.">
+            <Tooltip title="已通过SCIM（外部身份提供商）停用。用户的虚拟密钥已被阻止。">
               <Tag color="red" data-testid={`user-status-${row.original.user_id}`}>
-                Inactive
+                未激活
               </Tag>
             </Tooltip>
           );
         }
         return (
           <Tag color="green" data-testid={`user-status-${row.original.user_id}`}>
-            Active
+            活跃
           </Tag>
         );
       },
     },
     {
-      header: "Global Proxy Role",
+      header: "全局代理角色",
       accessorKey: "user_role",
       enableSorting: true,
       cell: ({ row }) => <span className="text-xs">{possibleUIRoles?.[row.original.user_role]?.ui_label || "-"}</span>,
     },
     {
-      header: "User Alias",
+      header: "用户别名",
       accessorKey: "user_alias",
       enableSorting: false,
       cell: ({ row }) => <span className="text-xs">{row.original.user_alias || "-"}</span>,
     },
     {
-      header: "Spend (USD)",
+      header: "消费（美元）",
       accessorKey: "spend",
       enableSorting: true,
       cell: ({ row }) => (
@@ -99,18 +99,18 @@ export const columns = (
       ),
     },
     {
-      header: "Budget (USD)",
+      header: "预算（美元）",
       accessorKey: "max_budget",
       enableSorting: false,
       cell: ({ row }) => (
-        <span className="text-xs">{row.original.max_budget !== null ? row.original.max_budget : "Unlimited"}</span>
+        <span className="text-xs">{row.original.max_budget !== null ? row.original.max_budget : "无限制"}</span>
       ),
     },
     {
       header: () => (
         <div className="flex items-center gap-2">
           <span>SSO ID</span>
-          <Tooltip title="SSO ID is the ID of the user in the SSO provider. If the user is not using SSO, this will be null.">
+          <Tooltip title="SSO ID是用户在SSO提供商中的ID。如果用户未使用SSO，则该值为空。">
             <InformationCircleIcon className="w-4 h-4" />
           </Tooltip>
         </div>
@@ -122,25 +122,25 @@ export const columns = (
       ),
     },
     {
-      header: "Virtual Keys",
+      header: "虚拟密钥",
       accessorKey: "key_count",
       enableSorting: false,
       cell: ({ row }) => (
         <Grid numItems={2}>
           {row.original.key_count > 0 ? (
             <Badge size="xs" color="indigo">
-              {row.original.key_count} {row.original.key_count === 1 ? "Key" : "Keys"}
+              {row.original.key_count} 个
             </Badge>
           ) : (
             <Badge size="xs" color="gray">
-              No Keys
+              无密钥
             </Badge>
           )}
         </Grid>
       ),
     },
     {
-      header: "Created At",
+      header: "创建时间",
       accessorKey: "created_at",
       enableSorting: true,
       cell: ({ row }) => (
@@ -150,7 +150,7 @@ export const columns = (
       ),
     },
     {
-      header: "Updated At",
+      header: "更新时间",
       accessorKey: "updated_at",
       enableSorting: false,
       cell: ({ row }) => (
@@ -161,11 +161,11 @@ export const columns = (
     },
     {
       id: "actions",
-      header: "Actions",
+      header: "操作",
       enableSorting: false,
       cell: ({ row }) => (
         <div className="flex gap-2">
-          <Tooltip title="Edit user details">
+          <Tooltip title="编辑用户详情">
             <Icon
               icon={PencilAltIcon}
               size="sm"
@@ -173,7 +173,7 @@ export const columns = (
               className="cursor-pointer hover:text-blue-600"
             />
           </Tooltip>
-          <Tooltip title="Delete user">
+          <Tooltip title="删除用户">
             <Icon
               icon={TrashIcon}
               size="sm"
@@ -181,7 +181,7 @@ export const columns = (
               className="cursor-pointer hover:text-red-600"
             />
           </Tooltip>
-          <Tooltip title="Reset Password">
+          <Tooltip title="重置密码">
             <Icon
               icon={RefreshIcon}
               size="sm"

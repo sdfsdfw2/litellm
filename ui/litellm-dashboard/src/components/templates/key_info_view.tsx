@@ -62,7 +62,7 @@ export default function KeyInfoView({
   teams,
   onKeyDataUpdate,
   onDelete,
-  backButtonText = "Back to Keys",
+  backButtonText = "返回密钥列表",
 }: KeyInfoViewProps) {
   const { accessToken, userId: userID, userRole, premiumUser } = useAuthorized();
   const canEditGuardrails = premiumUser || (userRole != null && rolesWithWriteAccess.includes(userRole));
@@ -143,7 +143,7 @@ export default function KeyInfoView({
         <Button icon={ArrowLeftIcon} variant="light" onClick={onClose} className="mb-4">
           {backButtonText}
         </Button>
-        <Text>Key not found</Text>
+        <Text>未找到密钥</Text>
       </div>
     );
   }
@@ -248,7 +248,7 @@ export default function KeyInfoView({
           };
         } catch (error) {
           console.error("Error parsing metadata JSON:", error);
-          NotificationManager.error("Invalid metadata JSON");
+          NotificationManager.error("元数据 JSON 格式无效");
           return;
         }
       } else {
@@ -291,7 +291,7 @@ export default function KeyInfoView({
       if (onKeyDataUpdate) {
         onKeyDataUpdate(newKeyValues);
       }
-      NotificationManager.success("Key updated successfully");
+      NotificationManager.success("密钥更新成功");
       setIsEditing(false);
       // Refresh key data here if needed
     } catch (error) {
@@ -305,7 +305,7 @@ export default function KeyInfoView({
       setDeleteLoading(true);
       if (!accessToken) return;
       await keyDeleteCall(accessToken as string, currentKeyData.token || currentKeyData.token_id);
-      NotificationManager.success("Key deleted successfully");
+      NotificationManager.success("密钥删除成功");
       if (onDelete) {
         onDelete();
       }
@@ -348,12 +348,12 @@ export default function KeyInfoView({
   // Update the formatTimestamp function to use the desired date format
   const formatTimestamp = (timestamp: string | Date) => {
     const date = new Date(timestamp);
-    const dateStr = date.toLocaleDateString("en-US", {
+    const dateStr = date.toLocaleDateString("zh-CN", {
       year: "numeric",
       month: "short",
       day: "numeric",
     });
-    const timeStr = date.toLocaleTimeString("en-US", {
+    const timeStr = date.toLocaleTimeString("zh-CN", {
       hour: "numeric",
       minute: "2-digit",
       hour12: true,
@@ -385,7 +385,7 @@ export default function KeyInfoView({
         if (onKeyDataUpdate) {
           onKeyDataUpdate({ spend: 0 });
         }
-        NotificationManager.success("Key spend reset to $0");
+        NotificationManager.success("密钥消耗已重置为 $0");
         setIsResetSpendModalOpen(false);
       },
       onError: (error) => {
@@ -399,7 +399,7 @@ export default function KeyInfoView({
     <div className="w-full h-full overflow-y-auto p-4">
       <KeyInfoHeader
         data={{
-          keyName: currentKeyData.key_alias || "Virtual Key",
+          keyName: currentKeyData.key_alias || "虚拟密钥",
           keyId: currentKeyData.token_id || currentKeyData.token,
           userId: currentKeyData.user_id || "",
           userEmail: currentKeyData.user_email || "",
@@ -411,8 +411,8 @@ export default function KeyInfoView({
             "",
           createdAt: currentKeyData.created_at ? formatTimestamp(currentKeyData.created_at) : "",
           lastUpdated: currentKeyData.updated_at ? formatTimestamp(currentKeyData.updated_at) : "",
-          lastActive: currentKeyData.last_active ? formatTimestamp(currentKeyData.last_active) : "Never",
-          expires: currentKeyData.expires ? formatTimestamp(currentKeyData.expires) : "Never",
+          lastActive: currentKeyData.last_active ? formatTimestamp(currentKeyData.last_active) : "从未",
+          expires: currentKeyData.expires ? formatTimestamp(currentKeyData.expires) : "从未",
         }}
         onBack={onClose}
         onRegenerate={() => setIsRegenerateModalOpen(true)}
@@ -423,7 +423,7 @@ export default function KeyInfoView({
         regenerateDisabled={!premiumUser}
         regenerateTooltip={
           !premiumUser
-            ? "This is a LiteLLM Enterprise feature, and requires a valid key to use."
+            ? "这是 LiteLLM 企业版功能，需要有效许可证才能使用。"
             : undefined
         }
       />
@@ -439,27 +439,27 @@ export default function KeyInfoView({
       {/* Delete Confirmation Modal */}
       <DeleteResourceModal
         isOpen={isDeleteModalOpen}
-        title="Delete Key"
-        alertMessage="This action is irreversible and will immediately revoke access for any applications using this key."
-        message="Are you sure you want to delete this Virtual Key?"
-        resourceInformationTitle="Key Information"
+        title="删除密钥"
+        alertMessage="此操作不可逆，将立即撤销使用此密钥的所有应用程序的访问权限。"
+        message="确认删除此虚拟密钥？"
+        resourceInformationTitle="密钥信息"
         resourceInformation={[
           {
-            label: "Key Alias",
+            label: "密钥别名",
             value: currentKeyData?.key_alias || "-",
           },
           {
-            label: "Key ID",
+            label: "密钥 ID",
             value: currentKeyData?.token_id || currentKeyData?.token || "-",
             code: true,
           },
           {
-            label: "Team ID",
+            label: "团队 ID",
             value: currentKeyData?.team_id || "-",
             code: true,
           },
           {
-            label: "Spend",
+            label: "消耗",
             value: currentKeyData?.spend ? `$${formatNumberWithCommas(currentKeyData.spend, 4)}` : "$0.0000",
           },
         ]}
@@ -474,28 +474,27 @@ export default function KeyInfoView({
 
       {/* Reset Spend Confirmation Modal */}
       <Modal
-        title="Reset Key Spend"
+        title="重置密钥消耗"
         open={isResetSpendModalOpen}
         onOk={handleResetSpend}
         onCancel={() => setIsResetSpendModalOpen(false)}
-        okText="Reset"
+        okText="重置"
         okButtonProps={{ danger: true }}
         confirmLoading={resetSpendLoading}
       >
         <p>
-          Reset spend for <strong>{currentKeyData?.key_alias || currentKeyData?.token_id || "this key"}</strong> to{" "}
-          <strong>$0</strong>?
+          将 <strong>{currentKeyData?.key_alias || currentKeyData?.token_id || "此密钥"}</strong> 的消耗重置为{" "}
+          <strong>$0</strong>？
         </p>
         <p style={{ color: "#666", fontSize: "0.875rem", marginTop: 8 }}>
-          Current spend: <strong>${formatNumberWithCommas(currentKeyData.spend, 4)}</strong>. Spend history is
-          preserved in logs. This resets the current period spend counter, the same as an automatic budget reset.
+          当前消耗：<strong>${formatNumberWithCommas(currentKeyData.spend, 4)}</strong>。消耗历史记录保留在日志中。此操作会重置当前周期的消耗计数器，与自动预算重置相同。
         </p>
       </Modal>
 
       <TabGroup>
         <TabList className="mb-4">
-          <Tab>Overview</Tab>
-          <Tab>Settings</Tab>
+          <Tab>概览</Tab>
+          <Tab>设置</Tab>
         </TabList>
 
         <TabPanels>
@@ -503,28 +502,28 @@ export default function KeyInfoView({
           <TabPanel>
             <Grid numItems={1} numItemsSm={2} numItemsLg={3} className="gap-6">
               <Card>
-                <Text>Spend</Text>
+                <Text>消耗</Text>
                 <div className="mt-2">
                   <Title>${formatNumberWithCommas(currentKeyData.spend, 4)}</Title>
                   <Text>
-                    of{" "}
+                    上限{" "}
                     {currentKeyData.max_budget !== null
                       ? `$${formatNumberWithCommas(currentKeyData.max_budget)}`
-                      : "Unlimited"}
+                      : "无限制"}
                   </Text>
                 </div>
               </Card>
 
               <Card>
-                <Text>Rate Limits</Text>
+                <Text>速率限制</Text>
                 <div className="mt-2">
-                  <Text>TPM: {currentKeyData.tpm_limit !== null ? currentKeyData.tpm_limit : "Unlimited"}</Text>
-                  <Text>RPM: {currentKeyData.rpm_limit !== null ? currentKeyData.rpm_limit : "Unlimited"}</Text>
+                  <Text>TPM：{currentKeyData.tpm_limit !== null ? currentKeyData.tpm_limit : "无限制"}</Text>
+                  <Text>RPM：{currentKeyData.rpm_limit !== null ? currentKeyData.rpm_limit : "无限制"}</Text>
                 </div>
               </Card>
 
               <Card>
-                <Text>Models</Text>
+                <Text>模型</Text>
                 <div className="mt-2 flex flex-wrap gap-2">
                   {currentKeyData.models && currentKeyData.models.length > 0 ? (
                     currentKeyData.models.map((model, index) => (
@@ -533,7 +532,7 @@ export default function KeyInfoView({
                       </Badge>
                     ))
                   ) : (
-                    <Text>No models specified</Text>
+                    <Text>未指定模型</Text>
                   )}
                 </div>
               </Card>
@@ -547,7 +546,7 @@ export default function KeyInfoView({
               </Card>
 
               <Card>
-                <Text className="font-medium mb-3">Guardrails</Text>
+                <Text className="font-medium mb-3">护栏</Text>
                 {Array.isArray(currentKeyData.metadata?.guardrails) && currentKeyData.metadata.guardrails.length > 0 ? (
                   <div className="flex flex-wrap gap-2">
                     {currentKeyData.metadata.guardrails.map((guardrail: string, index: number) => (
@@ -557,29 +556,29 @@ export default function KeyInfoView({
                     ))}
                   </div>
                 ) : (
-                  <Text className="text-gray-500">No guardrails configured</Text>
+                  <Text className="text-gray-500">未配置护栏</Text>
                 )}
                 {typeof currentKeyData.metadata?.disable_global_guardrails === "boolean" &&
                   currentKeyData.metadata.disable_global_guardrails === true && (
                     <div className="mt-3 pt-3 border-t border-gray-200">
-                      <Badge color="yellow">Global Guardrails Disabled</Badge>
+                      <Badge color="gold">全局护栏已禁用</Badge>
                     </div>
                   )}
               </Card>
 
               <Card>
-                <Text className="font-medium mb-3">Policies</Text>
+                <Text className="font-medium mb-3">策略</Text>
                 {Array.isArray(currentKeyData.metadata?.policies) && currentKeyData.metadata.policies.length > 0 ? (
                   <div className="space-y-4">
                     {currentKeyData.metadata.policies.map((policy: string, index: number) => (
                       <div key={index} className="space-y-2">
                         <div className="flex items-center gap-2">
                           <Badge color="purple">{policy}</Badge>
-                          {loadingPolicies && <Text className="text-xs text-gray-400">Loading guardrails...</Text>}
+                          {loadingPolicies && <Text className="text-xs text-gray-400">正在加载护栏...</Text>}
                         </div>
                         {!loadingPolicies && policyGuardrails[policy] && policyGuardrails[policy].length > 0 && (
                           <div className="ml-4 pl-3 border-l-2 border-gray-200">
-                            <Text className="text-xs text-gray-500 mb-1">Resolved Guardrails:</Text>
+                            <Text className="text-xs text-gray-500 mb-1">已解析的护栏：</Text>
                             <div className="flex flex-wrap gap-1">
                               {policyGuardrails[policy].map((guardrail: string, gIndex: number) => (
                                 <Badge key={gIndex} color="blue" size="xs">
@@ -593,7 +592,7 @@ export default function KeyInfoView({
                     ))}
                   </div>
                 ) : (
-                  <Text className="text-gray-500">No policies configured</Text>
+                  <Text className="text-gray-500">未配置策略</Text>
                 )}
               </Card>
 
@@ -622,9 +621,9 @@ export default function KeyInfoView({
           <TabPanel>
             <Card>
               <div className="flex justify-between items-center mb-4">
-                <Title>Key Settings</Title>
+                <Title>密钥设置</Title>
                 {!isEditing && canModifyKey && (
-                  <Button onClick={() => setIsEditing(true)}>Edit Settings</Button>
+                  <Button onClick={() => setIsEditing(true)}>编辑设置</Button>
                 )}
               </div>
 
@@ -642,28 +641,28 @@ export default function KeyInfoView({
               ) : (
                 <div className="space-y-4">
                   <div>
-                    <Text className="font-medium">Key ID</Text>
+                    <Text className="font-medium">密钥 ID</Text>
                     <Text className="font-mono">{currentKeyData.token_id || currentKeyData.token}</Text>
                   </div>
 
                   <div>
-                    <Text className="font-medium">Key Alias</Text>
-                    <Text>{currentKeyData.key_alias || "Not Set"}</Text>
+                    <Text className="font-medium">密钥别名</Text>
+                    <Text>{currentKeyData.key_alias || "未设置"}</Text>
                   </div>
 
                   <div>
-                    <Text className="font-medium">Secret Key</Text>
+                    <Text className="font-medium">密钥</Text>
                     <Text className="font-mono">{currentKeyData.key_name}</Text>
                   </div>
 
                   <div>
-                    <Text className="font-medium">Team ID</Text>
-                    <Text>{currentKeyData.team_id || "Not Set"}</Text>
+                    <Text className="font-medium">团队 ID</Text>
+                    <Text>{currentKeyData.team_id || "未设置"}</Text>
                   </div>
 
                   {enableProjectsUI && (
                     <div>
-                      <Text className="font-medium">Project</Text>
+                      <Text className="font-medium">项目</Text>
                       <Text>
                         {currentKeyData.project_id
                           ? (() => {
@@ -672,36 +671,36 @@ export default function KeyInfoView({
                                 ? `${project.project_alias} (${currentKeyData.project_id})`
                                 : currentKeyData.project_id;
                             })()
-                          : "Not Set"}
+                          : "未设置"}
                       </Text>
                     </div>
                   )}
 
                   <div>
-                    <Text className="font-medium">Organization</Text>
-                    <Text>{(currentKeyData.organization_id ?? currentKeyData.org_id) || "Not Set"}</Text>
+                    <Text className="font-medium">组织</Text>
+                    <Text>{(currentKeyData.organization_id ?? currentKeyData.org_id) || "未设置"}</Text>
                   </div>
 
                   <div>
-                    <Text className="font-medium">Created</Text>
+                    <Text className="font-medium">创建时间</Text>
                     <Text>{formatTimestamp(currentKeyData.created_at)}</Text>
                   </div>
 
                   {lastRegeneratedAt && (
                     <div>
-                      <Text className="font-medium">Last Regenerated</Text>
+                      <Text className="font-medium">上次重新生成</Text>
                       <div className="flex items-center gap-2">
                         <Text>{formatTimestamp(lastRegeneratedAt)}</Text>
                         <Badge color="green" size="xs">
-                          Recent
+                          最近
                         </Badge>
                       </div>
                     </div>
                   )}
 
                   <div>
-                    <Text className="font-medium">Expires</Text>
-                    <Text>{currentKeyData.expires ? formatTimestamp(currentKeyData.expires) : "Never"}</Text>
+                    <Text className="font-medium">过期时间</Text>
+                    <Text>{currentKeyData.expires ? formatTimestamp(currentKeyData.expires) : "从不"}</Text>
                   </div>
 
                   <AutoRotationView
@@ -715,21 +714,21 @@ export default function KeyInfoView({
                   />
 
                   <div>
-                    <Text className="font-medium">Spend</Text>
+                    <Text className="font-medium">消耗</Text>
                     <Text>${formatNumberWithCommas(currentKeyData.spend, 4)} USD</Text>
                   </div>
 
                   <div>
-                    <Text className="font-medium">Budget</Text>
+                    <Text className="font-medium">预算</Text>
                     <Text>
                       {currentKeyData.max_budget !== null
                         ? `$${formatNumberWithCommas(currentKeyData.max_budget, 2)}`
-                        : "Unlimited"}
+                        : "无限制"}
                     </Text>
                   </div>
 
                   <div>
-                    <Text className="font-medium">Tags</Text>
+                    <Text className="font-medium">标签</Text>
                     <div className="flex flex-wrap gap-2 mt-1">
                       {Array.isArray(currentKeyData.metadata?.tags) && currentKeyData.metadata.tags.length > 0
                         ? currentKeyData.metadata.tags.map((tag, index) => (
@@ -737,12 +736,12 @@ export default function KeyInfoView({
                             {tag}
                           </span>
                         ))
-                        : "No tags specified"}
+                        : "未指定标签"}
                     </div>
                   </div>
 
                   <div>
-                    <Text className="font-medium">Prompts</Text>
+                    <Text className="font-medium">提示词</Text>
                     <Text>
                       {Array.isArray(currentKeyData.metadata?.prompts) && currentKeyData.metadata.prompts.length > 0
                         ? currentKeyData.metadata.prompts.map((prompt, index) => (
@@ -750,12 +749,12 @@ export default function KeyInfoView({
                             {prompt}
                           </span>
                         ))
-                        : "No prompts specified"}
+                        : "未指定提示词"}
                     </Text>
                   </div>
 
                   <div>
-                    <Text className="font-medium">Allowed Routes</Text>
+                    <Text className="font-medium">允许的路由</Text>
                     <div className="flex flex-wrap gap-2 mt-1">
                       {Array.isArray(currentKeyData.allowed_routes) && currentKeyData.allowed_routes.length > 0 ? (
                         currentKeyData.allowed_routes.map((route, index) => (
@@ -764,13 +763,13 @@ export default function KeyInfoView({
                           </span>
                         ))
                       ) : (
-                        <Tag color="green">All routes allowed</Tag>
+                        <Tag color="green">所有路由均允许</Tag>
                       )}
                     </div>
                   </div>
 
                   <div>
-                    <Text className="font-medium">Allowed Pass Through Routes</Text>
+                    <Text className="font-medium">允许的透传路由</Text>
                     <Text>
                       {Array.isArray(currentKeyData.metadata?.allowed_passthrough_routes) &&
                         currentKeyData.metadata.allowed_passthrough_routes.length > 0
@@ -779,23 +778,23 @@ export default function KeyInfoView({
                             {route}
                           </span>
                         ))
-                        : "No pass through routes specified"}
+                        : "未指定透传路由"}
                     </Text>
                   </div>
 
                   <div>
-                    <Text className="font-medium">Disable Global Guardrails</Text>
+                    <Text className="font-medium">禁用全局护栏</Text>
                     <Text>
                       {currentKeyData.metadata?.disable_global_guardrails === true ? (
-                        <Badge color="yellow">Enabled - Global guardrails bypassed</Badge>
+                        <Badge color="gold">已启用 - 全局护栏已绕过</Badge>
                       ) : (
-                        <Badge color="green">Disabled - Global guardrails active</Badge>
+                        <Badge color="green">已禁用 - 全局护栏生效中</Badge>
                       )}
                     </Text>
                   </div>
 
                   <div>
-                    <Text className="font-medium">Models</Text>
+                    <Text className="font-medium">模型</Text>
                     <div className="flex flex-wrap gap-2 mt-1">
                       {currentKeyData.models && currentKeyData.models.length > 0 ? (
                         currentKeyData.models.map((model, index) => (
@@ -804,37 +803,37 @@ export default function KeyInfoView({
                           </span>
                         ))
                       ) : (
-                        <Text>No models specified</Text>
+                        <Text>未指定模型</Text>
                       )}
                     </div>
                   </div>
 
                   <div>
-                    <Text className="font-medium">Rate Limits</Text>
-                    <Text>TPM: {currentKeyData.tpm_limit !== null ? currentKeyData.tpm_limit : "Unlimited"}</Text>
-                    <Text>RPM: {currentKeyData.rpm_limit !== null ? currentKeyData.rpm_limit : "Unlimited"}</Text>
+                    <Text className="font-medium">速率限制</Text>
+                    <Text>TPM：{currentKeyData.tpm_limit !== null ? currentKeyData.tpm_limit : "无限制"}</Text>
+                    <Text>RPM：{currentKeyData.rpm_limit !== null ? currentKeyData.rpm_limit : "无限制"}</Text>
                     <Text>
-                      Max Parallel Requests:{" "}
+                      最大并行请求数：{" "}
                       {currentKeyData.max_parallel_requests !== null
                         ? currentKeyData.max_parallel_requests
-                        : "Unlimited"}
+                        : "无限制"}
                     </Text>
                     <Text>
-                      Model TPM Limits:{" "}
+                      模型 TPM 限制：{" "}
                       {currentKeyData.metadata?.model_tpm_limit
                         ? JSON.stringify(currentKeyData.metadata.model_tpm_limit)
-                        : "Unlimited"}
+                        : "无限制"}
                     </Text>
                     <Text>
-                      Model RPM Limits:{" "}
+                      模型 RPM 限制：{" "}
                       {currentKeyData.metadata?.model_rpm_limit
                         ? JSON.stringify(currentKeyData.metadata.model_rpm_limit)
-                        : "Unlimited"}
+                        : "无限制"}
                     </Text>
                   </div>
 
                   <div>
-                    <Text className="font-medium">Metadata</Text>
+                    <Text className="font-medium">元数据</Text>
                     <pre className="bg-gray-100 p-2 rounded text-xs overflow-auto mt-1">
                       {formatMetadataForDisplay(stripTagsFromMetadata(currentKeyData.metadata))}
                     </pre>

@@ -46,7 +46,7 @@ const UserDropdown: React.FC<UserDropdownProps> = ({ onLogout }) => {
       label: (
         <Space>
           <LogoutOutlined />
-          Logout
+退出登录
         </Space>
       ),
       onClick: onLogout,
@@ -65,14 +65,14 @@ const UserDropdown: React.FC<UserDropdownProps> = ({ onLogout }) => {
             icon={<CrownOutlined />}
             color="gold"
           >
-            Premium
+高级版
           </Tag>
         ) : (
-          <Tooltip title="Upgrade to Premium for advanced features" placement="left">
+          <Tooltip title="升级到高级版以获取更多功能" placement="left">
             <Tag
               icon={<CrownOutlined />}
             >
-              Standard
+              标准版
             </Tag>
           </Tooltip>
         )}
@@ -81,7 +81,7 @@ const UserDropdown: React.FC<UserDropdownProps> = ({ onLogout }) => {
       <Space style={{ width: "100%", justifyContent: "space-between" }}>
         <Space>
           <UserOutlined />
-          <Text type="secondary">User ID</Text>
+          <Text type="secondary">用户ID</Text>
         </Space>
         <Text
           copyable
@@ -95,13 +95,13 @@ const UserDropdown: React.FC<UserDropdownProps> = ({ onLogout }) => {
       <Space style={{ width: "100%", justifyContent: "space-between" }}>
         <Space>
           <SafetyOutlined />
-          <Text type="secondary">Role</Text>
+          <Text type="secondary">角色</Text>
         </Space>
         <Text>{userRole}</Text>
       </Space>
       <Divider style={{ margin: "8px 0" }} />
       <Space style={{ width: "100%", justifyContent: "space-between" }}>
-        <Text type="secondary">Hide New Feature Indicators</Text>
+        <Text type="secondary">隐藏新功能提示</Text>
         <Switch
           size="small"
           checked={disableShowNewBadge}
@@ -115,11 +115,11 @@ const UserDropdown: React.FC<UserDropdownProps> = ({ onLogout }) => {
               emitLocalStorageChange("disableShowNewBadge");
             }
           }}
-          aria-label="Toggle hide new feature indicators"
+          aria-label="切换隐藏新功能提示"
         />
       </Space>
       <Space style={{ width: "100%", justifyContent: "space-between" }}>
-        <Text type="secondary">Hide All Prompts</Text>
+        <Text type="secondary">隐藏所有提示</Text>
         <Switch
           size="small"
           checked={disableShowPrompts}
@@ -132,11 +132,11 @@ const UserDropdown: React.FC<UserDropdownProps> = ({ onLogout }) => {
               emitLocalStorageChange("disableShowPrompts");
             }
           }}
-          aria-label="Toggle hide all prompts"
+          aria-label="切换隐藏所有提示"
         />
       </Space>
       <Space style={{ width: "100%", justifyContent: "space-between" }}>
-        <Text type="secondary">Hide Usage Indicator</Text>
+        <Text type="secondary">隐藏使用量指示器</Text>
         <Switch
           size="small"
           checked={disableUsageIndicator}
@@ -149,11 +149,11 @@ const UserDropdown: React.FC<UserDropdownProps> = ({ onLogout }) => {
               emitLocalStorageChange("disableUsageIndicator");
             }
           }}
-          aria-label="Toggle hide usage indicator"
+          aria-label="切换隐藏使用量指示器"
         />
       </Space>
       <Space style={{ width: "100%", justifyContent: "space-between" }}>
-        <Text type="secondary">Hide Blog Posts</Text>
+        <Text type="secondary">隐藏博客文章</Text>
         <Switch
           size="small"
           checked={disableBlogPosts}
@@ -166,11 +166,11 @@ const UserDropdown: React.FC<UserDropdownProps> = ({ onLogout }) => {
               emitLocalStorageChange("disableBlogPosts");
             }
           }}
-          aria-label="Toggle hide blog posts"
+          aria-label="切换隐藏博客文章"
         />
       </Space>
       <Space style={{ width: "100%", justifyContent: "space-between" }}>
-        <Text type="secondary">Hide Bouncing Icon</Text>
+        <Text type="secondary">隐藏跳动图标</Text>
         <Switch
           size="small"
           checked={disableBouncingIcon}
@@ -183,7 +183,7 @@ const UserDropdown: React.FC<UserDropdownProps> = ({ onLogout }) => {
               emitLocalStorageChange("disableBouncingIcon");
             }
           }}
-          aria-label="Toggle hide bouncing icon"
+          aria-label="切换隐藏跳动图标"
         />
       </Space>
     </Space>
@@ -207,7 +207,7 @@ const UserDropdown: React.FC<UserDropdownProps> = ({ onLogout }) => {
       <Button type="text" >
         <Space>
           <UserOutlined />
-          <Text>User</Text>
+          <Text>用户</Text>
           <DownOutlined />
         </Space>
       </Button>

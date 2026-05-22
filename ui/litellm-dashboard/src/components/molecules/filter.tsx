@@ -36,7 +36,7 @@ const FilterComponent: React.FC<FilterComponentProps> = ({
   onApplyFilters,
   onResetFilters,
   initialValues = {},
-  buttonLabel = "Filters",
+  buttonLabel = "筛选",
 }) => {
   const [showFilters, setShowFilters] = useState<boolean>(false);
   const [tempValues, setTempValues] = useState<FilterValues>(initialValues);
@@ -131,17 +131,17 @@ const FilterComponent: React.FC<FilterComponentProps> = ({
 
   // Define the order of filters
   const orderedFilters = [
-    "Team ID",
-    "Status",
-    "Organization ID",
-    "Key Alias",
-    "User ID",
-    "End User",
-    "Error Code",
-    "Error Message",
-    "Key Hash",
-    "Model",
-    "Public model / search tool",
+    "团队ID",
+    "状态",
+    "组织ID",
+    "密钥别名",
+    "用户ID",
+    "最终用户",
+    "错误代码",
+    "错误信息",
+    "密钥哈希",
+    "模型",
+    "公开模型/搜索工具",
   ];
 
   return (
@@ -154,7 +154,7 @@ const FilterComponent: React.FC<FilterComponentProps> = ({
         >
           {buttonLabel}
         </Button>
-        <Button onClick={resetFilters}>Reset Filters</Button>
+        <Button onClick={resetFilters}>重置筛选</Button>
       </div>
 
       {showFilters && (
@@ -170,7 +170,7 @@ const FilterComponent: React.FC<FilterComponentProps> = ({
                   <Select
                     showSearch
                     className="w-full"
-                    placeholder={`Search ${option.label || option.name}...`}
+                    placeholder={`搜索${option.label || option.name}...`}
                     value={tempValues[option.name] || undefined}
                     onChange={(value) => handleFilterChange(option.name, value)}
                     onOpenChange={(open) => handleDropdownVisibleChange(open, option)}
@@ -187,12 +187,12 @@ const FilterComponent: React.FC<FilterComponentProps> = ({
                     loading={searchLoadingMap[option.name]}
                     options={searchOptionsMap[option.name] || []}
                     allowClear
-                    notFoundContent={searchLoadingMap[option.name] ? "Loading..." : "No results found"}
+                    notFoundContent={searchLoadingMap[option.name] ? "加载中..." : "未找到结果"}
                   />
                 ) : option.options ? (
                   <Select
                     className="w-full"
-                    placeholder={`Select ${option.label || option.name}...`}
+                    placeholder={`选择${option.label || option.name}...`}
                     value={tempValues[option.name] || undefined}
                     onChange={(value) => handleFilterChange(option.name, value)}
                     allowClear
@@ -210,7 +210,7 @@ const FilterComponent: React.FC<FilterComponentProps> = ({
                       <CustomComponent
                         value={tempValues[option.name] || undefined}
                         onChange={(value) => handleFilterChange(option.name, value ?? "")}
-                        placeholder={`Select ${option.label || option.name}...`}
+                        placeholder={`选择${option.label || option.name}...`}
                         allFilters={tempValues}
                       />
                     );
@@ -218,7 +218,7 @@ const FilterComponent: React.FC<FilterComponentProps> = ({
                 ) : (
                   <Input
                     className="w-full"
-                    placeholder={`Enter ${option.label || option.name}...`}
+                    placeholder={`输入${option.label || option.name}...`}
                     value={tempValues[option.name] || ""}
                     onChange={(e) => handleFilterChange(option.name, e.target.value)}
                     allowClear

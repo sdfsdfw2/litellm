@@ -10,36 +10,36 @@ export function getLogFilterOptions(accessToken: string): FilterOption[] {
   return [
     {
       name: "Team ID",
-      label: "Team ID",
+      label: "团队ID",
       customComponent: FilterTeamDropdown,
     },
     {
       name: "Status",
-      label: "Status",
+      label: "状态",
       isSearchable: false,
       options: [
-        { label: "Success", value: "success" },
-        { label: "Failure", value: "failure" },
+        { label: "成功", value: "success" },
+        { label: "失败", value: "failure" },
       ],
     },
     {
       name: "Model",
-      label: "Model",
+      label: "模型",
       customComponent: PaginatedModelSelect,
     },
     {
       name: FILTER_KEYS.PUBLIC_MODEL_OR_SEARCH_TOOL,
-      label: "Public model / search tool",
+      label: "公开模型/搜索工具",
       isSearchable: false,
     },
     {
       name: "Key Alias",
-      label: "Key Alias",
+      label: "密钥别名",
       customComponent: PaginatedKeyAliasSelect,
     },
     {
       name: "End User",
-      label: "End User",
+      label: "最终用户",
       isSearchable: true,
       searchFn: async (searchText: string) => {
         const data = await allEndUsersCall(accessToken);
@@ -50,7 +50,7 @@ export function getLogFilterOptions(accessToken: string): FilterOption[] {
     },
     {
       name: "Error Code",
-      label: "Error Code",
+      label: "错误码",
       isSearchable: true,
       searchFn: async (searchText: string) => {
         if (!searchText) return ERROR_CODE_OPTIONS;
@@ -58,19 +58,19 @@ export function getLogFilterOptions(accessToken: string): FilterOption[] {
         const filtered = ERROR_CODE_OPTIONS.filter((opt) => opt.label.toLowerCase().includes(lower));
         const isExactValue = ERROR_CODE_OPTIONS.some((opt) => opt.value === searchText.trim());
         if (!isExactValue && searchText.trim()) {
-          filtered.push({ label: `Use custom code: ${searchText.trim()}`, value: searchText.trim() });
+          filtered.push({ label: `使用自定义码: ${searchText.trim()}`, value: searchText.trim() });
         }
         return filtered;
       },
     },
     {
       name: "Key Hash",
-      label: "Key Hash",
+      label: "密钥哈希",
       isSearchable: false,
     },
     {
       name: "Error Message",
-      label: "Error Message",
+      label: "错误信息",
       isSearchable: false,
     },
   ];

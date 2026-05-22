@@ -29,7 +29,7 @@ export function ClaudeCodeModal({ isOpen, onClose, onComplete }: ClaudeCodeModal
         <div className="px-6 py-4 border-b border-gray-100 flex items-center justify-between bg-gray-50/50">
           <div className="flex items-center gap-2 text-purple-600">
             <Code className="h-5 w-5" />
-            <span className="font-semibold text-sm tracking-wide uppercase">Claude Code Feedback</span>
+            <span className="font-semibold text-sm tracking-wide uppercase">Claude Code 反馈</span>
           </div>
           <button
             onClick={onClose}
@@ -42,13 +42,13 @@ export function ClaudeCodeModal({ isOpen, onClose, onComplete }: ClaudeCodeModal
         {/* Content */}
         <div className="p-8">
           <h2 className="text-2xl font-bold text-gray-900 mb-4">
-            Help us improve your experience
+            帮助我们改善你的体验
           </h2>
           <p className="text-gray-600 mb-6">
-            We&apos;d love to hear about your experience using LiteLLM with Claude Code. Your feedback helps us improve the product for everyone.
+            我们非常希望了解你在 LiteLLM 中使用 Claude Code 的体验。你的反馈有助于我们为所有人改进产品。
           </p>
           <p className="text-sm text-gray-500 mb-6">
-            This brief survey takes about 2-3 minutes to complete.
+            这份简短的问卷大约需要 2-3 分钟完成。
           </p>
 
           <Button
@@ -59,7 +59,7 @@ export function ClaudeCodeModal({ isOpen, onClose, onComplete }: ClaudeCodeModal
             icon={<ExternalLink className="h-4 w-4" />}
             style={{ backgroundColor: '#7c3aed', borderColor: '#7c3aed' }}
           >
-            Open Feedback Form
+            打开反馈表单
           </Button>
         </div>
       </div>

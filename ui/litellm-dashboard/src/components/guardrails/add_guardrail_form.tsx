@@ -26,12 +26,12 @@ const { Option } = Select;
 
 // Define human-friendly descriptions for each mode
 const modeDescriptions = {
-  pre_call: "Before LLM Call - Runs before the LLM call and checks the input (Recommended)",
-  during_call: "During LLM Call - Runs in parallel with the LLM call, with response held until check completes",
-  post_call: "After LLM Call - Runs after the LLM call and checks only the output",
-  logging_only: "Logging Only - Only runs on logging callbacks without affecting the LLM call",
-  pre_mcp_call: "Before MCP Tool Call - Runs before MCP tool execution and validates tool calls",
-  during_mcp_call: "During MCP Tool Call - Runs in parallel with MCP tool execution for monitoring",
+  pre_call: "LLM 调用前 - 在 LLM 调用之前运行并检查输入（推荐）",
+  during_call: "LLM 调用中 - 与 LLM 调用并行运行，响应保持直到检查完成",
+  post_call: "LLM 调用后 - 在 LLM 调用之后运行，仅检查输出",
+  logging_only: "仅记录 - 仅在日志回调中运行，不影响 LLM 调用",
+  pre_mcp_call: "MCP 工具调用前 - 在 MCP 工具执行之前运行并验证工具调用",
+  during_mcp_call: "MCP 工具调用中 - 与 MCP 工具执行并行运行以进行监控",
 };
 
 interface GuardrailPreset {
@@ -170,7 +170,7 @@ const AddGuardrailForm: React.FC<AddGuardrailFormProps> = ({ visible, onClose, a
         populateGuardrailProviderMap(providerParamsResp);
       } catch (error) {
         console.error("Error fetching guardrail data:", error);
-        NotificationsManager.fromBackend("Failed to load guardrail configuration");
+        NotificationsManager.fromBackend("加载护栏配置失败");
       }
     };
 
@@ -313,7 +313,7 @@ const AddGuardrailForm: React.FC<AddGuardrailFormProps> = ({ visible, onClose, a
       // Validate configuration steps
       if (currentStep === 1) {
         if (shouldRenderPIIConfigSettings(selectedProvider) && selectedEntities.length === 0) {
-          NotificationsManager.fromBackend("Please select at least one PII entity to continue");
+          NotificationsManager.fromBackend("请至少选择一个 PII 实体以继续");
           return;
         }
       }
@@ -469,7 +469,7 @@ const AddGuardrailForm: React.FC<AddGuardrailFormProps> = ({ visible, onClose, a
           !hasCompetitorIntent
         ) {
           NotificationsManager.fromBackend(
-            "Please configure at least one content filter setting (category, pattern, keyword, or competitor intent)",
+            "请至少配置一个内容过滤设置（类别、模式、关键词或竞品意图）",
           );
           setLoading(false);
           return;
@@ -523,7 +523,7 @@ const AddGuardrailForm: React.FC<AddGuardrailFormProps> = ({ visible, onClose, a
           // For some guardrails, the config values need to be in litellm_params
           guardrailData.guardrail_info = configObj;
         } catch (error) {
-          NotificationsManager.fromBackend("Invalid JSON in configuration");
+          NotificationsManager.fromBackend("配置中的 JSON 格式无效");
           setLoading(false);
           return;
         }
@@ -532,13 +532,13 @@ const AddGuardrailForm: React.FC<AddGuardrailFormProps> = ({ visible, onClose, a
       if (guardrailProvider === "llm_as_a_judge") {
         const criteria: any[] = values.criteria || [];
         if (criteria.length === 0) {
-          NotificationsManager.fromBackend("Add at least one evaluation criterion");
+          NotificationsManager.fromBackend("请至少添加一个评估标准");
           setLoading(false);
           return;
         }
         const weightTotal = criteria.reduce((sum: number, c: any) => sum + (Number(c?.weight) || 0), 0);
         if (weightTotal !== 100) {
-          NotificationsManager.fromBackend(`Criterion weights must sum to 100% (currently ${weightTotal}%)`);
+          NotificationsManager.fromBackend(`评估标准权重总和必须为 100%（当前为 ${weightTotal}%）`);
           setLoading(false);
           return;
         }
@@ -554,7 +554,7 @@ const AddGuardrailForm: React.FC<AddGuardrailFormProps> = ({ visible, onClose, a
 
       if (guardrailProvider === "tool_permission") {
         if (toolPermissionConfig.rules.length === 0) {
-          NotificationsManager.fromBackend("Add at least one tool permission rule");
+          NotificationsManager.fromBackend("请至少添加一个工具权限规则");
           setLoading(false);
           return;
         }
@@ -636,7 +636,7 @@ const AddGuardrailForm: React.FC<AddGuardrailFormProps> = ({ visible, onClose, a
       console.log("Sending guardrail data:", JSON.stringify(guardrailData));
       await createGuardrailCall(accessToken, guardrailData);
 
-      NotificationsManager.success("Guardrail created successfully");
+      NotificationsManager.success("护栏创建成功");
 
       // Reset form and close modal
       resetForm();
@@ -645,7 +645,7 @@ const AddGuardrailForm: React.FC<AddGuardrailFormProps> = ({ visible, onClose, a
     } catch (error) {
       console.error("Failed to create guardrail:", error);
       NotificationsManager.fromBackend(
-        "Failed to create guardrail: " + (error instanceof Error ? error.message : String(error)),
+        "创建护栏失败：" + (error instanceof Error ? error.message : String(error)),
       );
     } finally {
       setLoading(false);
@@ -657,19 +657,19 @@ const AddGuardrailForm: React.FC<AddGuardrailFormProps> = ({ visible, onClose, a
       <>
         <Form.Item
           name="guardrail_name"
-          label="Guardrail Name"
-          rules={[{ required: true, message: "Please enter a guardrail name" }]}
+          label="护栏名称"
+          rules={[{ required: true, message: "请输入护栏名称" }]}
         >
-          <Input placeholder="Enter a name for this guardrail" />
+          <Input placeholder="为此护栏输入一个名称" />
         </Form.Item>
 
         <Form.Item
           name="provider"
-          label="Guardrail Provider"
-          rules={[{ required: true, message: "Please select a provider" }]}
+          label="护栏提供商"
+          rules={[{ required: true, message: "请选择一个提供商" }]}
         >
           <Select
-            placeholder="Select a guardrail provider"
+            placeholder="选择一个护栏提供商"
             onChange={handleProviderChange}
             labelInValue={false}
             optionLabelProp="label"
@@ -728,9 +728,9 @@ const AddGuardrailForm: React.FC<AddGuardrailFormProps> = ({ visible, onClose, a
 
         <Form.Item
           name="mode"
-          label="Mode"
-          tooltip="How the guardrail should be applied"
-          rules={[{ required: true, message: "Please select a mode" }]}
+          label="模式"
+          tooltip="护栏的应⽤方式"
+          rules={[{ required: true, message: "请选择一种模式" }]}
         >
           <Select optionLabelProp="label" mode="multiple">
             {guardrailSettings?.supported_modes?.map((mode) => (
@@ -740,7 +740,7 @@ const AddGuardrailForm: React.FC<AddGuardrailFormProps> = ({ visible, onClose, a
                     <strong>{mode}</strong>
                     {mode === "pre_call" && (
                       <Tag color="green" style={{ marginLeft: "8px" }}>
-                        Recommended
+                        推荐
                       </Tag>
                     )}
                   </div>
@@ -754,7 +754,7 @@ const AddGuardrailForm: React.FC<AddGuardrailFormProps> = ({ visible, onClose, a
                 <Option value="pre_call" label="pre_call">
                   <div>
                     <div>
-                      <strong>pre_call</strong> <Tag color="green">Recommended</Tag>
+                      <strong>pre_call</strong> <Tag color="green">推荐</Tag>
                     </div>
                     <div style={{ fontSize: "12px", color: "#888" }}>{modeDescriptions.pre_call}</div>
                   </div>
@@ -790,36 +790,36 @@ const AddGuardrailForm: React.FC<AddGuardrailFormProps> = ({ visible, onClose, a
 
         <Form.Item
           name="default_on"
-          label="Always On"
-          tooltip="If enabled, this guardrail will be applied to all requests by default."
+          label="始终开启"
+          tooltip="如启用，此护栏将默认应用于所有请求。"
         >
           <Select>
-            <Select.Option value={true}>Yes</Select.Option>
-            <Select.Option value={false}>No</Select.Option>
+            <Select.Option value={true}>是</Select.Option>
+            <Select.Option value={false}>否</Select.Option>
           </Select>
         </Form.Item>
 
         <Form.Item
           name="skip_system_message_choice"
-          label="Skip system messages in guardrail"
-          tooltip="Unified guardrails only: omit role: system from guardrail evaluation input (OpenAI chat + Anthropic messages). The model still receives full messages. Use global default follows litellm_settings.skip_system_message_in_guardrail."
+          label="在护栏中跳过系统消息"
+          tooltip="仅限统一护栏：从护栏评估输入中省略 role: system（OpenAI chat + Anthropic messages）。模型仍会收到完整消息。使用全局默认值遵循 litellm_settings.skip_system_message_in_guardrail。"
         >
           <Select>
-            <Select.Option value="inherit">Use global default</Select.Option>
-            <Select.Option value="yes">Yes — exclude from guardrail scan</Select.Option>
-            <Select.Option value="no">No — always include in scan</Select.Option>
+            <Select.Option value="inherit">使用全局默认值</Select.Option>
+            <Select.Option value="yes">是 — 从护栏扫描中排除</Select.Option>
+            <Select.Option value="no">否 — 始终包含在扫描中</Select.Option>
           </Select>
         </Form.Item>
 
         <Form.Item
           name="skip_tool_message_choice"
-          label="Skip tool messages in guardrail"
-          tooltip="Unified guardrails only: omit role: tool from guardrail evaluation input (OpenAI chat + Anthropic messages). The model still receives full messages. Use global default follows litellm_settings.skip_tool_message_in_guardrail."
+          label="在护栏中跳过工具消息"
+          tooltip="仅限统一护栏：从护栏评估输入中省略 role: tool（OpenAI chat + Anthropic messages）。模型仍会收到完整消息。使用全局默认值遵循 litellm_settings.skip_tool_message_in_guardrail。"
         >
           <Select>
-            <Select.Option value="inherit">Use global default</Select.Option>
-            <Select.Option value="yes">Yes — exclude from guardrail scan</Select.Option>
-            <Select.Option value="no">No — always include in scan</Select.Option>
+            <Select.Option value="inherit">使用全局默认值</Select.Option>
+            <Select.Option value="yes">是 — 从护栏扫描中排除</Select.Option>
+            <Select.Option value="no">否 — 始终包含在扫描中</Select.Option>
           </Select>
         </Form.Item>
 
@@ -962,33 +962,33 @@ const AddGuardrailForm: React.FC<AddGuardrailFormProps> = ({ visible, onClose, a
 
     return (
       <div className="flex justify-end space-x-2 mt-4">
-        {currentStep > 0 && <Button onClick={prevStep}>Previous</Button>}
+        {currentStep > 0 && <Button onClick={prevStep}>上一步</Button>}
         {isCategoriesStep ? (
           <>
-            <Button onClick={nextStep}>Skip</Button>
+            <Button onClick={nextStep}>跳过</Button>
             <Button
               type="primary"
               onClick={() => handleAddAndContinue(hasCompetitorIntentConfigured)}
               disabled={!canContinueFromCategoriesStep}
             >
-              {hasPendingCategory ? "Add & Continue →" : "Continue →"}
+              {hasPendingCategory ? "添加并继续 →" : "继续 →"}
             </Button>
           </>
         ) : (
           <>
             {!isLastStep && (
               <Button type="primary" onClick={nextStep}>
-                Next
+                下一步
               </Button>
             )}
             {isLastStep && (
               <Button type="primary" onClick={handleSubmit} loading={loading}>
-                Create Guardrail
+                创建护栏
               </Button>
             )}
           </>
         )}
-        <Button onClick={handleClose}>Cancel</Button>
+        <Button onClick={handleClose}>取消</Button>
       </div>
     );
   };
@@ -998,15 +998,14 @@ const AddGuardrailForm: React.FC<AddGuardrailFormProps> = ({ visible, onClose, a
       <div className="space-y-6">
         <div>
           <p className="text-sm text-gray-500">
-            Configure settings for a specific call type. Most guardrails don't need this — skip it
-            unless you're using a specific endpoint like <code>/v1/realtime</code>.
+            配置特定调用类型的设置。大多数护栏不需要此配置 —— 除非你正在使用特定的端点（如 <code>/v1/realtime</code>），否则请跳过。
           </p>
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">Call type</label>
+          <label className="block text-sm font-medium text-gray-700 mb-1">调用类型</label>
           <Select
-            placeholder="Select a call type"
+            placeholder="选择调用类型"
             value={selectedEndpointType || undefined}
             onChange={(v) => {
               setSelectedEndpointType(v);
@@ -1016,7 +1015,7 @@ const AddGuardrailForm: React.FC<AddGuardrailFormProps> = ({ visible, onClose, a
             allowClear
             options={[{ value: "realtime", label: "/v1/realtime" }]}
           />
-          <p className="text-xs text-gray-400 mt-1">More call types coming soon.</p>
+          <p className="text-xs text-gray-400 mt-1">更多调用类型即将推出。</p>
         </div>
 
         {selectedEndpointType === "realtime" && (
@@ -1026,7 +1025,7 @@ const AddGuardrailForm: React.FC<AddGuardrailFormProps> = ({ visible, onClose, a
               onClick={() => setEndpointSettingsOpen((o) => !o)}
               className="w-full flex items-center justify-between px-4 py-3 bg-gray-50 hover:bg-gray-100 text-sm font-medium text-gray-700"
             >
-              <span>/v1/realtime settings</span>
+              <span>/v1/realtime 设置</span>
               <svg
                 className={`w-4 h-4 text-gray-500 transition-transform ${endpointSettingsOpen ? "rotate-180" : ""}`}
                 fill="none"
@@ -1042,16 +1041,15 @@ const AddGuardrailForm: React.FC<AddGuardrailFormProps> = ({ visible, onClose, a
               <div className="space-y-5 px-4 py-4 border-t border-gray-200">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">
-                    End session after X violations
+                    违规 X 次后结束会话
                   </label>
                   <p className="text-xs text-gray-400 mb-2">
-                    Automatically close the session after this many guardrail violations. Leave
-                    empty to never auto-close.
+                    在达到此数量的护栏违规后自动关闭会话。留空则永不自动关闭。
                   </p>
                   <input
                     type="number"
                     min={1}
-                    placeholder="e.g. 3"
+                    placeholder="例如：3"
                     value={endSessionAfterNFails ?? ""}
                     onChange={(e) =>
                       setEndSessionAfterNFails(
@@ -1064,7 +1062,7 @@ const AddGuardrailForm: React.FC<AddGuardrailFormProps> = ({ visible, onClose, a
 
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
-                    On violation
+                    违规时处理方式
                   </label>
                   <div className="space-y-2">
                     {(["warn", "end_session"] as const).map((opt) => (
@@ -1079,12 +1077,12 @@ const AddGuardrailForm: React.FC<AddGuardrailFormProps> = ({ visible, onClose, a
                         />
                         <div>
                           <span className="text-sm font-medium text-gray-800">
-                            {opt === "warn" ? "Warn" : "End session"}
+                            {opt === "warn" ? "警告" : "结束会话"}
                           </span>
                           <p className="text-xs text-gray-400 m-0">
                             {opt === "warn"
-                              ? "Bot speaks the message, session continues"
-                              : "Bot speaks the message, connection closes immediately"}
+                              ? "机器人播报消息，会话继续"
+                              : "机器人播报消息，连接立即关闭"}
                           </p>
                         </div>
                       </label>
@@ -1094,15 +1092,14 @@ const AddGuardrailForm: React.FC<AddGuardrailFormProps> = ({ visible, onClose, a
 
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Message the user hears
+                    用户听到的消息
                   </label>
                   <p className="text-xs text-gray-400 mb-2">
-                    What the bot says aloud when this guardrail fires. Falls back to the default
-                    violation message if empty.
+                    护栏触发时机器人会说的话。如果留空，则回退到默认违规消息。
                   </p>
                   <textarea
                     rows={3}
-                    placeholder="e.g. I'm not able to continue this conversation. Please contact us at 1-800-774-2678."
+                    placeholder="例如：我无法继续此对话。请致电 1-800-774-2678 联系我们。"
                     value={realtimeViolationMessage}
                     onChange={(e) => setRealtimeViolationMessage(e.target.value)}
                     className="border border-gray-300 rounded px-3 py-2 text-sm w-full resize-none"
@@ -1119,22 +1116,22 @@ const AddGuardrailForm: React.FC<AddGuardrailFormProps> = ({ visible, onClose, a
   const getStepConfigs = () => {
     if (shouldRenderContentFilterConfigSettings(selectedProvider)) {
       return [
-        { title: "Basic Info", optional: false },
-        { title: "Topics", optional: false },
-        { title: "Patterns", optional: false },
-        { title: "Keywords", optional: false },
-        { title: "Endpoint Settings (Optional)", optional: true },
+        { title: "基本信息", optional: false },
+        { title: "主题", optional: false },
+        { title: "模式", optional: false },
+        { title: "关键词", optional: false },
+        { title: "端点设置（可选）", optional: true },
       ];
     }
     if (shouldRenderPIIConfigSettings(selectedProvider)) {
       return [
-        { title: "Basic Info", optional: false },
-        { title: "PII Configuration", optional: false },
+        { title: "基本信息", optional: false },
+        { title: "PII 配置", optional: false },
       ];
     }
     return [
-      { title: "Basic Info", optional: false },
-      { title: "Provider Configuration", optional: false },
+      { title: "基本信息", optional: false },
+      { title: "提供商配置", optional: false },
     ];
   };
 
@@ -1156,7 +1153,7 @@ const AddGuardrailForm: React.FC<AddGuardrailFormProps> = ({ visible, onClose, a
       <div className="flex flex-col">
         {/* Header */}
         <div className="flex items-center justify-between px-6 py-4 border-b border-gray-200">
-          <h3 className="text-base font-semibold text-gray-900 m-0">Create guardrail</h3>
+          <h3 className="text-base font-semibold text-gray-900 m-0">创建护栏</h3>
           <button
             onClick={handleClose}
             className="text-gray-400 hover:text-gray-600 bg-transparent border-none cursor-pointer text-base leading-none p-1"
@@ -1226,8 +1223,8 @@ const AddGuardrailForm: React.FC<AddGuardrailFormProps> = ({ visible, onClose, a
                       >
                         {step.title}
                       </span>
-                      {step.optional && !isCurrent && <span className="text-[11px] text-slate-400">optional</span>}
-                      {isDone && <span className="text-[11px] text-indigo-500 hover:underline">Edit</span>}
+                      {step.optional && !isCurrent && <span className="text-[11px] text-slate-400">可选</span>}
+                      {isDone && <span className="text-[11px] text-indigo-500 hover:underline">编辑</span>}
                     </div>
 
                     {/* Expanded form content for current step */}
@@ -1241,15 +1238,15 @@ const AddGuardrailForm: React.FC<AddGuardrailFormProps> = ({ visible, onClose, a
 
         {/* Bottom bar */}
         <div className="flex items-center justify-end space-x-3 px-6 py-3 border-t border-gray-200">
-          <Button onClick={handleClose}>Cancel</Button>
-          {currentStep > 0 && <Button onClick={prevStep}>Previous</Button>}
+          <Button onClick={handleClose}>取消</Button>
+          {currentStep > 0 && <Button onClick={prevStep}>上一步</Button>}
           {currentStep < stepConfigs.length - 1 ? (
             <Button type="primary" onClick={nextStep}>
-              Next
+              下一步
             </Button>
           ) : (
             <Button type="primary" onClick={handleSubmit} loading={loading}>
-              Create Guardrail
+              创建护栏
             </Button>
           )}
         </div>

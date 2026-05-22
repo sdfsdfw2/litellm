@@ -48,7 +48,7 @@ const AdminPanel: React.FC<AdminPanelProps> = ({ proxySettings }) => {
   const [ssoConfigured, setSsoConfigured] = useState<boolean>(false);
 
   const baseUrl = useBaseUrl();
-  const all_ip_address_allowed = "All IP Addresses Allowed";
+  const all_ip_address_allowed = "允许所有IP地址";
 
   let nonSssoUrl = baseUrl;
   nonSssoUrl += "/fallback/login";
@@ -78,7 +78,7 @@ const AdminPanel: React.FC<AdminPanelProps> = ({ proxySettings }) => {
     try {
       if (premiumUser !== true) {
         NotificationsManager.fromBackend(
-          "This feature is only available for premium users. Please upgrade your account.",
+          "此功能仅适用于高级用户。请升级您的账户。",
         );
         return;
       }
@@ -90,7 +90,7 @@ const AdminPanel: React.FC<AdminPanelProps> = ({ proxySettings }) => {
       }
     } catch (error) {
       console.error("Error fetching allowed IPs:", error);
-      NotificationsManager.fromBackend(`Failed to fetch allowed IPs ${error}`);
+      NotificationsManager.fromBackend(`获取允许的IP地址失败 ${error}`);
       setAllowedIPs([all_ip_address_allowed]);
     } finally {
       if (premiumUser === true) {
@@ -106,11 +106,11 @@ const AdminPanel: React.FC<AdminPanelProps> = ({ proxySettings }) => {
         // Fetch the updated list of IPs
         const updatedIPs = await getAllowedIPs(accessToken);
         setAllowedIPs(updatedIPs);
-        NotificationsManager.success("IP address added successfully");
+        NotificationsManager.success("IP地址添加成功");
       }
     } catch (error) {
       console.error("Error adding IP:", error);
-      NotificationsManager.fromBackend(`Failed to add IP address ${error}`);
+      NotificationsManager.fromBackend(`添加IP地址失败 ${error}`);
     } finally {
       setIsAddIPModalVisible(false);
     }
@@ -128,10 +128,10 @@ const AdminPanel: React.FC<AdminPanelProps> = ({ proxySettings }) => {
         // Fetch the updated list of IPs
         const updatedIPs = await getAllowedIPs(accessToken);
         setAllowedIPs(updatedIPs.length > 0 ? updatedIPs : [all_ip_address_allowed]);
-        NotificationsManager.success("IP address deleted successfully");
+        NotificationsManager.success("IP地址删除成功");
       } catch (error) {
         console.error("Error deleting IP:", error);
-        NotificationsManager.fromBackend(`Failed to delete IP address ${error}`);
+        NotificationsManager.fromBackend(`删除IP地址失败 ${error}`);
       } finally {
         setIsDeleteIPModalVisible(false);
         setIPToDelete(null);
@@ -186,19 +186,19 @@ const AdminPanel: React.FC<AdminPanelProps> = ({ proxySettings }) => {
   const tabItems = [
     {
       key: "sso-settings",
-      label: "SSO Settings",
+      label: "SSO 设置",
       children: <SSOSettings />,
     },
     {
       key: "security-settings",
-      label: "Security Settings",
+      label: "安全设置",
       children: (
         <>
           <Card>
-            <Title level={4}> ✨ Security Settings</Title>
+            <Title level={4}> ✨ 安全设置</Title>
             <Alert
-              message="SSO Configuration Deprecated"
-              description="Editing SSO Settings on this page is deprecated and will be removed in a future version. Please use the SSO Settings tab for SSO configuration."
+              message="SSO 配置已弃用"
+              description="在此页面上编辑 SSO 设置的功能已弃用，将在未来版本中移除。请使用「SSO 设置」选项卡进行 SSO 配置。"
               type="warning"
               showIcon
             />
@@ -213,12 +213,12 @@ const AdminPanel: React.FC<AdminPanelProps> = ({ proxySettings }) => {
             >
               <div>
                 <Button style={{ width: "150px" }} onClick={() => setIsAddSSOModalVisible(true)}>
-                  {ssoConfigured ? "Edit SSO Settings" : "Add SSO"}
+                  {ssoConfigured ? "编辑 SSO 设置" : "添加 SSO"}
                 </Button>
               </div>
               <div>
                 <Button style={{ width: "150px" }} onClick={handleShowAllowedIPs}>
-                  Allowed IPs
+                  允许的 IP
                 </Button>
               </div>
               <div>
@@ -227,10 +227,10 @@ const AdminPanel: React.FC<AdminPanelProps> = ({ proxySettings }) => {
                   onClick={() =>
                     premiumUser === true
                       ? setIsUIAccessControlModalVisible(true)
-                      : NotificationsManager.fromBackend("Only premium users can configure UI access control")
+                      : NotificationsManager.fromBackend("只有高级用户才能配置 UI 访问控制")
                   }
                 >
-                  UI Access Control
+UI 访问控制
                 </Button>
               </div>
             </div>
@@ -250,24 +250,24 @@ const AdminPanel: React.FC<AdminPanelProps> = ({ proxySettings }) => {
               ssoConfigured={ssoConfigured}
             />
             <Modal
-              title="Manage Allowed IP Addresses"
+              title="管理允许的 IP 地址"
               width={800}
               open={isAllowedIPModalVisible}
               onCancel={() => setIsAllowedIPModalVisible(false)}
               footer={[
                 <Button className="mx-1" key="add" onClick={() => setIsAddIPModalVisible(true)}>
-                  Add IP Address
+                  添加 IP 地址
                 </Button>,
                 <Button key="close" onClick={() => setIsAllowedIPModalVisible(false)}>
-                  Close
+                  关闭
                 </Button>,
               ]}
             >
               <Table>
                 <TableHead>
                   <TableRow>
-                    <TableHeaderCell>IP Address</TableHeaderCell>
-                    <TableHeaderCell className="text-right">Action</TableHeaderCell>
+                    <TableHeaderCell>IP 地址</TableHeaderCell>
+                    <TableHeaderCell className="text-right">操作</TableHeaderCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
@@ -277,7 +277,7 @@ const AdminPanel: React.FC<AdminPanelProps> = ({ proxySettings }) => {
                       <TableCell className="text-right">
                         {ip !== all_ip_address_allowed && (
                           <Button onClick={() => handleDeleteIP(ip)} color="red" size="xs">
-                            Delete
+                            删除
                           </Button>
                         )}
                       </TableCell>
@@ -288,41 +288,41 @@ const AdminPanel: React.FC<AdminPanelProps> = ({ proxySettings }) => {
             </Modal>
 
             <Modal
-              title="Add Allowed IP Address"
+              title="添加允许的 IP 地址"
               open={isAddIPModalVisible}
               onCancel={() => setIsAddIPModalVisible(false)}
               footer={null}
             >
               <Form onFinish={handleAddIP}>
-                <Form.Item name="ip" rules={[{ required: true, message: "Please enter an IP address" }]}>
-                  <Input placeholder="Enter IP address" />
+                <Form.Item name="ip" rules={[{ required: true, message: "请输入 IP 地址" }]}>
+                  <Input placeholder="输入 IP 地址" />
                 </Form.Item>
                 <Form.Item>
-                  <Button2 htmlType="submit">Add IP Address</Button2>
+                  <Button2 htmlType="submit">添加 IP 地址</Button2>
                 </Form.Item>
               </Form>
             </Modal>
 
             <Modal
-              title="Confirm Delete"
+              title="确认删除"
               open={isDeleteIPModalVisible}
               onCancel={() => setIsDeleteIPModalVisible(false)}
               onOk={confirmDeleteIP}
               footer={[
                 <Button className="mx-1" key="delete" onClick={() => confirmDeleteIP()}>
-                  Yes
+                  是
                 </Button>,
                 <Button key="close" onClick={() => setIsDeleteIPModalVisible(false)}>
-                  Close
+                  关闭
                 </Button>,
               ]}
             >
-              <Text>Are you sure you want to delete the IP address: {ipToDelete}?</Text>
+              <Text>确定要删除 IP 地址：{ipToDelete}？</Text>
             </Modal>
 
             {/* UI Access Control Modal */}
             <Modal
-              title="UI Access Control Settings"
+              title="UI 访问控制设置"
               open={isUIAccessControlModalVisible}
               width={600}
               footer={null}
@@ -333,13 +333,13 @@ const AdminPanel: React.FC<AdminPanelProps> = ({ proxySettings }) => {
                 accessToken={accessToken}
                 onSuccess={() => {
                   handleUIAccessControlOk();
-                  NotificationsManager.success("UI Access Control settings updated successfully");
+                  NotificationsManager.success("UI 访问控制设置更新成功");
                 }}
               />
             </Modal>
           </div>
-          <Callout title="Login without SSO" color="teal">
-            If you need to login without sso, you can access{" "}
+          <Callout title="不使用 SSO 登录" color="teal">
+            如果你需要使用非 SSO 方式登录，可以访问{" "}
             <a href={nonSssoUrl} target="_blank" rel="noopener noreferrer">
               <b>{nonSssoUrl}</b>{" "}
             </a>
@@ -349,7 +349,7 @@ const AdminPanel: React.FC<AdminPanelProps> = ({ proxySettings }) => {
     },
     {
       key: "scim",
-      label: "SCIM",
+      label: "SCIM 配置",
       children: <SCIMConfig accessToken={accessToken} userID={userID} proxySettings={proxySettings} />,
     },
     {
@@ -357,7 +357,7 @@ const AdminPanel: React.FC<AdminPanelProps> = ({ proxySettings }) => {
       label: (
         <Space>
           <Text>
-            UI Settings <NewBadge />
+            UI 设置 <NewBadge />
           </Text>
         </Space>
       ),
@@ -365,20 +365,20 @@ const AdminPanel: React.FC<AdminPanelProps> = ({ proxySettings }) => {
     },
     {
       key: "logging-settings",
-      label: "Logging Settings",
+      label: "日志设置",
       children: <LoggingSettings />,
     },
     {
       key: "hashicorp-vault",
-      label: "Hashicorp Vault",
+      label: "Hashicorp Vault 配置",
       children: <HashicorpVault />,
     },
   ];
 
   return (
     <div className="w-full m-2 mt-2 p-8">
-      <Title level={4}>Admin Access </Title>
-      <Paragraph>Go to &apos;Internal Users&apos; page to add other admins.</Paragraph>
+      <Title level={4}>管理员访问</Title>
+      <Paragraph>前往「内部用户」页面添加其他管理员。</Paragraph>
       <Tabs items={tabItems} />
     </div>
   );

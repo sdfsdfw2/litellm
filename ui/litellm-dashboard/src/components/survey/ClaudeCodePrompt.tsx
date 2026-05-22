@@ -14,9 +14,9 @@ export function ClaudeCodePrompt({ onOpen, onDismiss, isVisible }: ClaudeCodePro
       onOpen={onOpen}
       onDismiss={onDismiss}
       isVisible={isVisible}
-      title="Claude Code Feedback"
-      description="Help us improve your Claude Code experience with LiteLLM! Share your feedback in 4 quick questions."
-      buttonText="Share feedback"
+      title="Claude Code 反馈"
+      description="帮助我们改善你在 LiteLLM 中使用 Claude Code 的体验！用 4 个快速问题分享你的反馈。"
+      buttonText="分享反馈"
       icon={Code}
       accentColor="#7c3aed"
       buttonStyle={{ backgroundColor: '#7c3aed', borderColor: '#7c3aed' }}

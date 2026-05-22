@@ -86,7 +86,7 @@ const DynamicParamsFields: React.FC<DynamicParamsFieldsProps> = ({ params, callb
                 ? [
                     {
                       required: true,
-                      message: `Please enter the ${fieldLabel.toLowerCase()}`,
+                      message: `请输入${fieldLabel.toLowerCase()}`,
                     },
                   ]
                 : undefined
@@ -95,14 +95,14 @@ const DynamicParamsFields: React.FC<DynamicParamsFieldsProps> = ({ params, callb
             {paramType === "password" ? (
               <Input.Password
                 size="large"
-                placeholder={`Enter your ${fieldLabel.toLowerCase()}`}
+                placeholder={`请输入您的${fieldLabel.toLowerCase()}`}
                 className="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
               />
             ) : paramType === "number" ? (
               <Input
                 type="number"
                 size="large"
-                placeholder={`Enter ${fieldLabel.toLowerCase()}`}
+                placeholder={`请输入${fieldLabel.toLowerCase()}`}
                 className="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
                 min={0}
                 max={1}
@@ -111,7 +111,7 @@ const DynamicParamsFields: React.FC<DynamicParamsFieldsProps> = ({ params, callb
             ) : (
               <Input
                 size="large"
-                placeholder={`Enter your ${fieldLabel.toLowerCase()}`}
+                placeholder={`请输入您的${fieldLabel.toLowerCase()}`}
                 className="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
               />
             )}
@@ -138,12 +138,12 @@ const CallbackSelector: React.FC<CallbackSelectorProps> = ({
 }) => {
   return (
     <FormItem
-      label="Callback"
+      label="回调"
       name="callback"
-      rules={disabled ? undefined : [{ required: true, message: "Please select a callback" }]}
+      rules={disabled ? undefined : [{ required: true, message: "请选择一个回调" }]}
     >
       <Select
-        placeholder="Choose a logging callback..."
+        placeholder="选择日志回调..."
         size="large"
         className="w-full"
         showSearch
@@ -168,7 +168,7 @@ const CallbackSelector: React.FC<CallbackSelectorProps> = ({
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
                     src={logoSrc}
-                    alt={`${callbackConfig.displayName} logo`}
+                    alt={`${callbackConfig.displayName} 标志`}
                     className="w-6 h-6 rounded object-contain"
                     onError={(e) => {
                       e.currentTarget.style.display = "none";
@@ -256,7 +256,7 @@ const Settings: React.FC<SettingsPageProps> = ({ accessToken, userRole, userID, 
         setCallbackConfigs(data || []);
       })
       .catch((error) => {
-        NotificationsManager.fromBackend("Failed to load callback configs: " + parseErrorMessage(error));
+        NotificationsManager.fromBackend("加载回调配置失败：" + parseErrorMessage(error));
       });
   }, [accessToken]);
 
@@ -280,14 +280,14 @@ const Settings: React.FC<SettingsPageProps> = ({ accessToken, userRole, userID, 
     }
   };
   const alerts_to_UI_NAME: Record<string, string> = {
-    llm_exceptions: "LLM Exceptions",
-    llm_too_slow: "LLM Responses Too Slow",
-    llm_requests_hanging: "LLM Requests Hanging",
-    budget_alerts: "Budget Alerts (API Keys, Users)",
-    db_exceptions: "Database Exceptions (Read/Write)",
-    daily_reports: "Weekly/Monthly Spend Reports",
-    outage_alerts: "Outage Alerts",
-    region_outage_alerts: "Region Outage Alerts",
+    llm_exceptions: "LLM 异常",
+    llm_too_slow: "LLM 响应过慢",
+    llm_requests_hanging: "LLM 请求挂起",
+    budget_alerts: "预算告警（API 密钥、用户）",
+    db_exceptions: "数据库异常（读/写）",
+    daily_reports: "周/月度消费报告",
+    outage_alerts: "服务中断告警",
+    region_outage_alerts: "区域服务中断告警",
   };
 
   useEffect(() => {
@@ -337,7 +337,7 @@ const Settings: React.FC<SettingsPageProps> = ({ accessToken, userRole, userID, 
     try {
       await setCallbacksCall(accessToken, payload);
       NotificationsManager.success(
-        isEdit ? "Callback updated successfully" : `Callback ${callbackName} added successfully`,
+        isEdit ? "回调更新成功" : `回调 ${callbackName} 添加成功`,
       );
 
       if (isEdit) {
@@ -412,7 +412,7 @@ const Settings: React.FC<SettingsPageProps> = ({ accessToken, userRole, userID, 
     } catch (error) {
       NotificationsManager.fromBackend(error);
     }
-    NotificationsManager.success("Alerts updated successfully");
+    NotificationsManager.success("告警更新成功");
   };
   const handleSaveChanges = (callback: any) => {
     if (!accessToken) {
@@ -438,7 +438,7 @@ const Settings: React.FC<SettingsPageProps> = ({ accessToken, userRole, userID, 
     } catch (error) {
       NotificationsManager.fromBackend(error);
     }
-    NotificationsManager.success("Callback updated successfully");
+    NotificationsManager.success("回调更新成功");
   };
 
   const handleOk = () => {
@@ -519,7 +519,7 @@ const Settings: React.FC<SettingsPageProps> = ({ accessToken, userRole, userID, 
         setCallbacks(callbacks ? [...callbacks, newCallback] : [newCallback]);
       } else {
         payload = {
-          error: "Invalid callback value",
+          error: "无效的回调值",
         };
       }
       setIsModalVisible(false);
@@ -541,7 +541,7 @@ const Settings: React.FC<SettingsPageProps> = ({ accessToken, userRole, userID, 
     try {
       setIsDeletingCallback(true);
       await deleteCallback(accessToken, callbackToDelete.name);
-      NotificationsManager.success(`Callback ${callbackToDelete.name} deleted successfully`);
+      NotificationsManager.success(`回调 ${callbackToDelete.name} 删除成功`);
 
       // Refresh the callbacks list
       if (userID && userRole) {
@@ -552,7 +552,7 @@ const Settings: React.FC<SettingsPageProps> = ({ accessToken, userRole, userID, 
       setShowDeleteConfirmModal(false);
       setCallbackToDelete(null);
     } catch (error) {
-      console.error("Failed to delete callback:", error);
+      console.error("删除回调失败：", error);
       NotificationsManager.fromBackend(error);
     } finally {
       setIsDeletingCallback(false);
@@ -568,11 +568,11 @@ const Settings: React.FC<SettingsPageProps> = ({ accessToken, userRole, userID, 
       <Grid numItems={1} className="gap-2 p-8 w-full mt-2">
         <TabGroup>
           <TabList variant="line" defaultValue="1">
-            <Tab value="1">Logging Callbacks</Tab>
-            <Tab value="2">CloudZero Cost Tracking</Tab>
-            <Tab value="2">Alerting Types</Tab>
-            <Tab value="3">Alerting Settings</Tab>
-            <Tab value="4">Email Alerts</Tab>
+            <Tab value="1">日志回调</Tab>
+            <Tab value="2">CloudZero 成本追踪</Tab>
+            <Tab value="2">告警类型</Tab>
+            <Tab value="3">告警设置</Tab>
+            <Tab value="4">邮件告警</Tab>
           </TabList>
           <TabPanels>
             <TabPanel>
@@ -588,7 +588,7 @@ const Settings: React.FC<SettingsPageProps> = ({ accessToken, userRole, userID, 
                 onTest={async (cb) => {
                   try {
                     await serviceHealthCheck(accessToken, cb.name);
-                    NotificationsManager.success("Health check triggered");
+                    NotificationsManager.success("健康检查已触发");
                   } catch (error) {
                     NotificationsManager.fromBackend(parseErrorMessage(error));
                   }
@@ -603,10 +603,11 @@ const Settings: React.FC<SettingsPageProps> = ({ accessToken, userRole, userID, 
             <TabPanel>
               <Card>
                 <Text className="my-2">
-                  Alerts are only supported for Slack Webhook URLs. Get your webhook urls from{" "}
+                  告警仅支持 Slack Webhook URL。请从{" "}
                   <a href="https://api.slack.com/messaging/webhooks" target="_blank" style={{ color: "blue" }}>
-                    here
+                    此处
                   </a>
+                  获取您的 Webhook URL
                 </Text>
                 <Table>
                   <TableHead>
@@ -632,7 +633,7 @@ const Settings: React.FC<SettingsPageProps> = ({ accessToken, userRole, userID, 
                             ) : (
                               <Button className="flex items-center justify-center">
                                 <a href="https://forms.gle/W3U4PZpJGFHWtHyA9" target="_blank">
-                                  ✨ Enterprise Feature
+                                  ✨ 企业版功能
                                 </a>
                               </Button>
                             )
@@ -664,7 +665,7 @@ const Settings: React.FC<SettingsPageProps> = ({ accessToken, userRole, userID, 
                   </TableBody>
                 </Table>
                 <Button size="xs" className="mt-2" onClick={handleSaveAlerts}>
-                  Save Changes
+                  保存更改
                 </Button>
 
                 <Button
@@ -672,7 +673,7 @@ const Settings: React.FC<SettingsPageProps> = ({ accessToken, userRole, userID, 
                     try {
                       await serviceHealthCheck(accessToken, "slack");
                       NotificationsManager.success(
-                        "Alert test triggered. Test request to slack made - check logs/alerts on slack to verify",
+                        "告警测试已触发。已向 Slack 发送测试请求 - 请查看 Slack 上的日志/告警以确认",
                       );
                     } catch (error) {
                       NotificationsManager.fromBackend(parseErrorMessage(error));
@@ -680,7 +681,7 @@ const Settings: React.FC<SettingsPageProps> = ({ accessToken, userRole, userID, 
                   }}
                   className="mx-2"
                 >
-                  Test Alerts
+                  测试告警
                 </Button>
               </Card>
             </TabPanel>
@@ -695,7 +696,7 @@ const Settings: React.FC<SettingsPageProps> = ({ accessToken, userRole, userID, 
       </Grid>
 
       <Modal
-        title="Add Logging Callback"
+        title="添加日志回调"
         open={showAddCallbacksModal}
         width={800}
         onCancel={() => {
@@ -712,7 +713,7 @@ const Settings: React.FC<SettingsPageProps> = ({ accessToken, userRole, userID, 
           style={{ color: "blue" }}
         >
           {" "}
-          LiteLLM Docs: Logging
+          LiteLLM 文档：日志
         </a>
 
         <Form
@@ -744,10 +745,10 @@ const Settings: React.FC<SettingsPageProps> = ({ accessToken, userRole, userID, 
               }}
               disabled={isAddingCallback}
             >
-              Cancel
+              取消
             </Button2>
             <Button2 htmlType="submit" loading={isAddingCallback} disabled={isAddingCallback}>
-              {isAddingCallback ? "Adding..." : "Add Callback"}
+              {isAddingCallback ? "添加中..." : "添加回调"}
             </Button2>
           </div>
         </Form>
@@ -756,7 +757,7 @@ const Settings: React.FC<SettingsPageProps> = ({ accessToken, userRole, userID, 
       <Modal
         open={showEditCallback}
         width={800}
-        title={"Edit Callback Settings"}
+        title={"编辑回调设置"}
         onCancel={() => {
           setShowEditCallback(false);
           setSelectedEditCallback(null);
@@ -801,7 +802,7 @@ const Settings: React.FC<SettingsPageProps> = ({ accessToken, userRole, userID, 
               }}
               disabled={isUpdatingCallback}
             >
-              Cancel
+              取消
             </Button2>
             <Button2
               onClick={() => {
@@ -810,7 +811,7 @@ const Settings: React.FC<SettingsPageProps> = ({ accessToken, userRole, userID, 
               loading={isUpdatingCallback}
               disabled={isUpdatingCallback}
             >
-              {isUpdatingCallback ? "Saving..." : "Save Changes"}
+              {isUpdatingCallback ? "保存中..." : "保存更改"}
             </Button2>
           </div>
         </Form>
@@ -818,12 +819,12 @@ const Settings: React.FC<SettingsPageProps> = ({ accessToken, userRole, userID, 
 
       <DeleteResourceModal
         isOpen={showDeleteConfirmModal}
-        title="Delete Callback"
-        message="Are you sure you want to delete this callback? This action cannot be undone."
-        resourceInformationTitle="Callback Information"
+        title="删除回调"
+        message="确定要删除此回调吗？此操作无法撤销。"
+        resourceInformationTitle="回调信息"
         resourceInformation={[
-          { label: "Callback Name", value: callbackToDelete?.name },
-          { label: "Mode", value: callbackToDelete?.mode || "success" },
+          { label: "回调名称", value: callbackToDelete?.name },
+          { label: "模式", value: callbackToDelete?.mode || "成功" },
         ]}
         onCancel={() => {
           setShowDeleteConfirmModal(false);
