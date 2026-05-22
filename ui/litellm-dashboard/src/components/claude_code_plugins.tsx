@@ -129,7 +129,7 @@ const ClaudeCodePluginsPanel: React.FC<ClaudeCodePluginsPanelProps> = ({
           onOk={handleDeleteConfirm}
           onCancel={() => setPluginToDelete(null)}
           confirmLoading={isDeleting}
-          okText="Delete"
+          okText="删除"
           okButtonProps={{ danger: true }}
         >
           <p>

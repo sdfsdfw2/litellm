@@ -93,7 +93,7 @@ const RoutingGroupModal: React.FC<RoutingGroupModalProps> = ({
       onCancel={onClose}
       onOk={handleSubmit}
       okText={mode === "create" ? "Create Group" : "Save Changes"}
-      cancelText="Cancel"
+      cancelText="取消"
       confirmLoading={saving}
       destroyOnClose
       width={560}

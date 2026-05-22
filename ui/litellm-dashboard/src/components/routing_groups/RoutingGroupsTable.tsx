@@ -183,7 +183,7 @@ const RoutingGroupsTable: React.FC<RoutingGroupsTableProps> = ({
       align: "right",
       render: (_, group) => (
         <Flex justify="flex-end" align="center" gap={8}>
-          <Tooltip title="Edit">
+          <Tooltip title="编辑">
             <Button
               type="text"
               icon={<EditOutlined />}
@@ -193,7 +193,7 @@ const RoutingGroupsTable: React.FC<RoutingGroupsTableProps> = ({
               }}
             />
           </Tooltip>
-          <Tooltip title="Delete">
+          <Tooltip title="删除">
             <Button
               type="text"
               danger

@@ -188,7 +188,7 @@ const PromptsPanel: React.FC<PromptsProps> = ({ accessToken, userRole }) => {
           onOk={handleDeleteConfirm}
           onCancel={handleDeleteCancel}
           confirmLoading={isDeleting}
-          okText="Delete"
+          okText="删除"
           okButtonProps={{ danger: true }}
         >
           <p>Are you sure you want to delete prompt: {promptToDelete.name} ?</p>

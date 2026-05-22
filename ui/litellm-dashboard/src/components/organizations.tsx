@@ -431,7 +431,7 @@ const OrganizationsTable: React.FC<OrganizationsTableProps> = ({
                                           <>
                                             <TableIconActionButton
                                               variant="Edit"
-                                              tooltipText="Edit organization"
+                                              tooltipText="编辑组织"
                                               onClick={() => {
                                                 setSelectedOrgId(org.organization_id);
                                                 setEditOrg(true);
@@ -439,7 +439,7 @@ const OrganizationsTable: React.FC<OrganizationsTableProps> = ({
                                             />
                                             <TableIconActionButton
                                               variant="Delete"
-                                              tooltipText="Delete organization"
+                                              tooltipText="删除组织"
                                               onClick={() => handleDelete(org.organization_id)}
                                             />
                                           </>

@@ -58,7 +58,7 @@ export function AccessGroupCreateModal({
       onCancel={onCancel}
       width={700}
       okText="Create Group"
-      cancelText="Cancel"
+      cancelText="取消"
       confirmLoading={createMutation.isPending}
       destroyOnClose
     >

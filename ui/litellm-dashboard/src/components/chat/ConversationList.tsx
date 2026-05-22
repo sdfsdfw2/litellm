@@ -196,7 +196,7 @@ const ConversationRow: React.FC<ConversationRowProps> = ({
             }}
             onClick={(e) => e.stopPropagation()}
           >
-            <Tooltip title="Rename">
+            <Tooltip title="重命名">
               <Button
                 type="text"
                 size="small"
@@ -206,13 +206,13 @@ const ConversationRow: React.FC<ConversationRowProps> = ({
               />
             </Tooltip>
             <Popconfirm
-              title="Delete this conversation?"
+              title="删除此对话？"
               onConfirm={() => onDelete(conv.id)}
-              okText="Delete"
-              cancelText="Cancel"
+              okText="删除"
+              cancelText="取消"
               okButtonProps={{ danger: true }}
             >
-              <Tooltip title="Delete">
+              <Tooltip title="删除">
                 <Button
                   type="text"
                   size="small"

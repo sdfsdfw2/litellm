@@ -70,7 +70,7 @@ export const MemoryEditModal: React.FC<MemoryEditModalProps> = ({
         onClose();
       }}
       onOk={handleOk}
-      okText={mode === "create" ? "Create" : "Save"}
+      okText={mode === "create" ? "创建" : "保存"}
       confirmLoading={submitting}
       width={640}
       destroyOnClose

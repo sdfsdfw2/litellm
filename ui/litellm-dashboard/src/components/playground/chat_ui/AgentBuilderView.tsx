@@ -379,9 +379,9 @@ export default function AgentBuilderView({
     Modal.confirm({
       title: "Delete agent",
       content: `Are you sure you want to delete "${selectedAgent.model_name}"? This cannot be undone.`,
-      okText: "Delete",
+      okText: "删除",
       okType: "danger",
-      cancelText: "Cancel",
+      cancelText: "取消",
       onOk: async () => {
         setDeleting(true);
         try {

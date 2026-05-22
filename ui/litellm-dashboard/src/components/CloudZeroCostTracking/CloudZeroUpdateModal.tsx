@@ -73,7 +73,7 @@ export default function CloudZeroUpdateModal({ open, onOk, onCancel, settings }:
       onCancel={handleCancel}
       confirmLoading={updateMutation.isPending}
       okText={updateMutation.isPending ? "Updating..." : "Update"}
-      cancelText="Cancel"
+      cancelText="取消"
       okButtonProps={{
         disabled: updateMutation.isPending,
       }}

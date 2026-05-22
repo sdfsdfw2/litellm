@@ -95,7 +95,7 @@ const PromptEditorHeader: React.FC<PromptEditorHeaderProps> = ({
           loading={isSaving}
           disabled={isSaving}
         >
-          {editMode ? "Update" : "Save"}
+          {editMode ? "更新" : "保存"}
         </TremorButton>
       </div>
     </div>

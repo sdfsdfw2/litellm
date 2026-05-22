@@ -168,7 +168,7 @@ export function CloudZeroIntegrationSettings({ settings, onSettingsUpdated }: Cl
               description="This will push the current accumulated cost data to CloudZero. Continue?"
               onConfirm={handleExport}
               okText="Export"
-              cancelText="Cancel"
+              cancelText="取消"
             >
               <Button
                 type="primary"

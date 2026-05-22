@@ -226,7 +226,7 @@ const MakeSkillPublicForm: React.FC<MakeSkillPublicFormProps> = ({
 
         <div className="flex justify-between mt-6">
           <Button onClick={currentStep === 0 ? handleClose : () => setCurrentStep(0)}>
-            {currentStep === 0 ? "Cancel" : "Previous"}
+            {currentStep === 0 ? "取消" : "上一步"}
           </Button>
           <div className="flex space-x-2">
             {currentStep === 0 && (

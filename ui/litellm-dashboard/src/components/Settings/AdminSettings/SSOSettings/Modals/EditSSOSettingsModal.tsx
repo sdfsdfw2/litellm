@@ -133,7 +133,7 @@ const EditSSOSettingsModal: React.FC<EditSSOSettingsModalProps> = ({ isVisible, 
             Cancel
           </Button>
           <Button loading={isPending} onClick={() => form.submit()}>
-            {isPending ? "Saving..." : "Save"}
+            {isPending ? "保存中..." : "保存"}
           </Button>
         </Space>
       }

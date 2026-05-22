@@ -521,7 +521,7 @@ const SSOModals: React.FC<SSOModalsProps> = ({
         onOk={handleClearSSO}
         onCancel={() => setIsClearConfirmModalVisible(false)}
         okText="Yes, Clear"
-        cancelText="Cancel"
+        cancelText="取消"
         okButtonProps={{
           danger: true,
           style: {

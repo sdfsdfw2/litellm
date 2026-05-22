@@ -294,7 +294,7 @@ const AgentsPanel: React.FC<AgentsPanelProps> = ({ accessToken, userRole, teams 
           onOk={handleDeleteConfirm}
           onCancel={handleDeleteCancel}
           confirmLoading={isDeleting}
-          okText="Delete"
+          okText="删除"
           okButtonProps={{ danger: true }}
         >
           <p>Are you sure you want to delete agent: {agentToDelete.name}?</p>

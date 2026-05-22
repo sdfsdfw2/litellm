@@ -471,7 +471,7 @@ const PriceDataReload: React.FC<PriceDataReloadProps> = ({
         onCancel={() => setShowScheduleModal(false)}
         confirmLoading={isScheduling}
         okText="Schedule"
-        cancelText="Cancel"
+        cancelText="取消"
         okButtonProps={{
           style: {
             backgroundColor: "#6366f1",

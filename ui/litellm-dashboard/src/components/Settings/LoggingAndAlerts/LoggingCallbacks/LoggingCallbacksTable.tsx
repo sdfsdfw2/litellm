@@ -80,8 +80,8 @@ export const LoggingCallbacksTable: React.FC<LoggingCallbacksProps> = ({
       render: (_: unknown, record: CallbackRow) => (
         <div className="flex justify-end gap-2">
           <TableIconActionButton variant="Test" tooltipText="Test Callback" onClick={() => onTest(record)} />
-          <TableIconActionButton variant="Edit" tooltipText="Edit Callback" onClick={() => onEdit(record)} />
-          <TableIconActionButton variant="Delete" tooltipText="Delete Callback" onClick={() => onDelete(record)} />
+          <TableIconActionButton variant="Edit" tooltipText="编辑回调" onClick={() => onEdit(record)} />
+          <TableIconActionButton variant="Delete" tooltipText="删除回调" onClick={() => onDelete(record)} />
         </div>
       ),
       width: 240,

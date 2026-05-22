@@ -64,8 +64,8 @@ export default function CloudZeroCreationModal({ open, onOk, onCancel }: CloudZe
       onOk={handleSubmit}
       onCancel={handleCancel}
       confirmLoading={createMutation.isPending}
-      okText={createMutation.isPending ? "Creating..." : "Create"}
-      cancelText="Cancel"
+      okText={createMutation.isPending ? "创建中..." : "创建"}
+      cancelText="取消"
       okButtonProps={{
         disabled: createMutation.isPending,
       }}

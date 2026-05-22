@@ -142,7 +142,7 @@ const EditHashicorpVaultModal: React.FC<EditHashicorpVaultModalProps> = ({
             Cancel
           </Button>
           <Button type="primary" loading={isPending} onClick={() => form.submit()}>
-            {isPending ? "Saving..." : "Save"}
+            {isPending ? "保存中..." : "保存"}
           </Button>
         </Space>
       }

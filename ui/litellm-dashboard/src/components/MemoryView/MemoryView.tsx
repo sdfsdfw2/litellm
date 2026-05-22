@@ -322,7 +322,7 @@ export const MemoryView: React.FC<MemoryViewProps> = ({ accessToken }) => {
             type="text"
             icon={<EditOutlined />}
             onClick={() => setEditRow(r)}
-            aria-label="Edit"
+            aria-label="编辑"
           />
           <Button
             size="small"
@@ -330,7 +330,7 @@ export const MemoryView: React.FC<MemoryViewProps> = ({ accessToken }) => {
             danger
             icon={<DeleteOutlined />}
             onClick={() => handleDelete(r)}
-            aria-label="Delete"
+            aria-label="删除"
           />
         </Space>
       ),

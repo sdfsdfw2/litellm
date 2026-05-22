@@ -133,12 +133,12 @@ const VectorStoreTable: React.FC<VectorStoreTableProps> = ({ data, onView, onEdi
           <div className="flex space-x-2">
             <TableIconActionButton
               variant="Edit"
-              tooltipText="Edit vector store"
+              tooltipText="编辑向量存储"
               onClick={() => onEdit(vectorStore.vector_store_id)}
             />
             <TableIconActionButton
               variant="Delete"
-              tooltipText="Delete vector store"
+              tooltipText="删除向量存储"
               onClick={() => onDelete(vectorStore.vector_store_id)}
             />
           </div>

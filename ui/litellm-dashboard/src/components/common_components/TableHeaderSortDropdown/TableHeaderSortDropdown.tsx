@@ -47,7 +47,7 @@ export const TableHeaderSortDropdown: React.FC<TableHeaderSortDropdownProps> = (
     },
     {
       key: "reset",
-      label: "Reset",
+      label: "重置",
       icon: <XIcon className="h-4 w-4" />,
     },
   ];

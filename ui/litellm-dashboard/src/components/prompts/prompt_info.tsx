@@ -503,7 +503,7 @@ const PromptInfoView: React.FC<PromptInfoProps> = ({ promptId, onClose, accessTo
         onOk={handleDeleteConfirm}
         onCancel={handleDeleteCancel}
         confirmLoading={isDeleting}
-        okText="Delete"
+        okText="删除"
         okButtonProps={{ danger: true }}
       >
         <p>

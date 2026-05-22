@@ -201,13 +201,13 @@ const PassThroughSettings: React.FC<GeneralSettingsPageProps> = ({ accessToken, 
             icon={PencilAltIcon}
             size="sm"
             onClick={() => row.original.id && setSelectedEndpointId(row.original.id)}
-            title="Edit"
+            title="编辑"
           />
           <Icon
             icon={TrashIcon}
             size="sm"
             onClick={() => handleResetField(row.original.id!, row.index)}
-            title="Delete"
+            title="删除"
           />
         </div>
       ),

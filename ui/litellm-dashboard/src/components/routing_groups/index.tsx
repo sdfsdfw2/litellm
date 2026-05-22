@@ -159,9 +159,9 @@ const RoutingGroups: React.FC = () => {
       <Modal
         open={Boolean(deletingGroup)}
         title="Delete routing group?"
-        okText="Delete"
+        okText="删除"
         okButtonProps={{ danger: true, loading: saveMutation.isPending }}
-        cancelText="Cancel"
+        cancelText="取消"
         onOk={confirmDelete}
         onCancel={() => setDeletingGroup(null)}
       >
