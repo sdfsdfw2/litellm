@@ -104,16 +104,16 @@ const EditSSOSettingsModal: React.FC<EditSSOSettingsModalProps> = ({ isVisible, 
 
       await mutateAsync(payload, {
         onSuccess: () => {
-          NotificationsManager.success("SSO settings updated successfully");
+          NotificationsManager.success("SSO 设置更新成功");
           onSuccess();
         },
         onError: (error) => {
-          NotificationsManager.fromBackend("Failed to save SSO settings: " + parseErrorMessage(error));
+          NotificationsManager.fromBackend("保存 SSO 设置失败: " + parseErrorMessage(error));
         },
       });
     } catch (error) {
       // Handle processing errors gracefully
-      NotificationsManager.fromBackend("Failed to process SSO settings: " + parseErrorMessage(error));
+      NotificationsManager.fromBackend("处理 SSO 设置失败: " + parseErrorMessage(error));
     }
   };
 
@@ -124,13 +124,13 @@ const EditSSOSettingsModal: React.FC<EditSSOSettingsModalProps> = ({ isVisible, 
 
   return (
     <Modal
-      title="Edit SSO Settings"
+      title="编辑 SSO 设置"
       open={isVisible}
       width={800}
       footer={
         <Space>
           <Button onClick={handleCancel} disabled={isPending}>
-            Cancel
+            取消
           </Button>
           <Button loading={isPending} onClick={() => form.submit()}>
             {isPending ? "保存中..." : "保存"}

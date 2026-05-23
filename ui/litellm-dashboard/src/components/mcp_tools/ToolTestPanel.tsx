@@ -129,7 +129,7 @@ export function ToolTestPanel({
         properties: {
           input: {
             type: "string",
-            description: "Input for this tool",
+            description: "此工具的输入",
           },
         },
         required: ["input"],
@@ -280,18 +280,18 @@ export function ToolTestPanel({
   const handleCopyResult = async () => {
     const success = await copyToClipboard(JSON.stringify(result, null, 2));
     if (success) {
-      NotificationsManager.success("Result copied to clipboard");
+      NotificationsManager.success("结果已复制到剪贴板");
     } else {
-      NotificationsManager.fromBackend("Failed to copy result");
+      NotificationsManager.fromBackend("复制结果失败");
     }
   };
 
   const handleCopyToolName = async () => {
     const success = await copyToClipboard(tool.name);
     if (success) {
-      NotificationsManager.success("Tool name copied to clipboard");
+      NotificationsManager.success("工具名称已复制到剪贴板");
     } else {
-      NotificationsManager.fromBackend("Failed to copy tool name");
+      NotificationsManager.fromBackend("复制工具名称失败");
     }
   };
 
@@ -304,17 +304,17 @@ export function ToolTestPanel({
             // eslint-disable-next-line @next/next/no-img-element
             <img
               src={tool.mcp_info.logo_url}
-              alt={`${tool.mcp_info.server_name} logo`}
+              alt={`${tool.mcp_info.server_name} 图标`}
               className="w-6 h-6 object-contain"
             />
           )}
           <div className="flex-1 min-w-0">
             <div className="flex items-center space-x-2 mb-1">
-              <h2 className="text-lg font-semibold text-gray-900">Test Tool:</h2>
+              <h2 className="text-lg font-semibold text-gray-900">测试工具：</h2>
               <div
                 className="group inline-flex items-center space-x-1 bg-slate-50 hover:bg-slate-100 px-3 py-1 rounded-md cursor-pointer transition-colors border border-slate-200"
                 onClick={handleCopyToolName}
-                title="Click to copy tool name"
+                title="点击复制工具名称"
               >
                 <span className="font-mono text-slate-700 font-medium text-sm">{tool.name}</span>
                 <svg
@@ -333,7 +333,7 @@ export function ToolTestPanel({
               </div>
             </div>
             <p className="text-xs text-gray-600">{tool.description}</p>
-            <p className="text-xs text-gray-500">Provider: {tool.mcp_info.server_name}</p>
+            <p className="text-xs text-gray-500">提供者：{tool.mcp_info.server_name}</p>
           </div>
         </div>
         <Button onClick={onClose} variant="light" size="sm" className="text-gray-500 hover:text-gray-700">
@@ -349,8 +349,8 @@ export function ToolTestPanel({
         <div className="bg-white border border-gray-200 rounded-lg">
           <div className="border-b border-gray-100 px-4 py-2">
             <div className="flex items-center justify-between">
-              <h3 className="text-sm font-semibold text-gray-900">Input Parameters</h3>
-              <Tooltip title="Configure the input parameters for this tool call">
+              <h3 className="text-sm font-semibold text-gray-900">输入参数</h3>
+              <Tooltip title="配置此工具调用的输入参数">
                 <InfoCircleOutlined className="text-gray-400 hover:text-gray-600" />
               </Tooltip>
             </div>
@@ -363,15 +363,15 @@ export function ToolTestPanel({
                   <Form.Item
                     label={
                       <span className="text-sm font-medium text-gray-700">
-                        Input <span className="text-red-500">*</span>
+                        输入 <span className="text-red-500">*</span>
                       </span>
                     }
                     name="input"
-                    rules={[{ required: true, message: "Please enter input for this tool" }]}
+                    rules={[{ required: true, message: "请输入此工具的输入内容" }]}
                     className="mb-3"
                   >
                     <TextInput
-                      placeholder="Enter input for this tool"
+                      placeholder="请输入此工具的输入内容"
                       className="rounded-lg border-gray-300 focus:border-blue-500 focus:ring-blue-500"
                     />
                   </Form.Item>
@@ -379,8 +379,8 @@ export function ToolTestPanel({
               ) : actualSchema.properties === undefined ? (
                 <div className="text-center py-6 bg-gray-50 rounded-lg border border-gray-200">
                   <div className="max-w-sm mx-auto">
-                    <h4 className="text-sm font-medium text-gray-900 mb-1">No Parameters Required</h4>
-                    <p className="text-xs text-gray-500">This tool can be called without any input parameters.</p>
+                    <h4 className="text-sm font-medium text-gray-900 mb-1">无需参数</h4>
+                    <p className="text-xs text-gray-500">此工具无需任何输入参数即可调用。</p>
                   </div>
                 </div>
               ) : (
@@ -406,7 +406,7 @@ export function ToolTestPanel({
                         rules={[
                           {
                             required: actualSchema.required?.includes(key),
-                          message: `Please enter ${key}`,
+                          message: `请输入${key}`,
                         },
                         ...(prop.type === "object" || prop.type === "array"
                           ? [
@@ -435,12 +435,12 @@ export function ToolTestPanel({
                                     return Promise.reject(
                                       new Error(
                                         prop.type === "object"
-                                          ? "Please enter a JSON object"
-                                          : "Please enter a JSON array",
+                                          ? "请输入有效的JSON对象"
+                                          : "请输入有效的JSON数组",
                                       ),
                                     );
                                   } catch (error) {
-                                    return Promise.reject(new Error("Invalid JSON"));
+                                    return Promise.reject(new Error("JSON格式无效"));
                                   }
                                 },
                               },
@@ -454,7 +454,7 @@ export function ToolTestPanel({
                             className="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm transition-colors"
                             defaultValue={(initialValue as string) ?? ""}
                           >
-                            {!actualSchema.required?.includes(key) && <option value="">Select {key}</option>}
+                            {!actualSchema.required?.includes(key) && <option value="">选择{key}</option>}
                             {prop.enum.map((value) => (
                               <option key={value} value={value}>
                                 {value}
@@ -465,7 +465,7 @@ export function ToolTestPanel({
 
                         {prop.type === "string" && !prop.enum && (
                           <TextInput
-                            placeholder={prop.description || `Enter ${key}`}
+                            placeholder={prop.description || `输入${key}`}
                             defaultValue={(initialValue as string) ?? ""}
                             className="rounded-lg border-gray-300 focus:border-blue-500 focus:ring-blue-500"
                           />
@@ -475,7 +475,7 @@ export function ToolTestPanel({
                           <input
                             type="number"
                             step={prop.type === "integer" ? 1 : "any"}
-                            placeholder={prop.description || `Enter ${key}`}
+                            placeholder={prop.description || `输入${key}`}
                             defaultValue={initialValue ?? 0}
                             className="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm transition-colors"
                           />
@@ -483,12 +483,12 @@ export function ToolTestPanel({
 
                         {prop.type === "boolean" && (
                           <Select
-                            placeholder={`Select ${key}`}
+                            placeholder={`选择${key}`}
                             allowClear={!actualSchema.required?.includes(key)}
                             className="w-full"
                           >
-                            <Select.Option value={true}>True</Select.Option>
-                            <Select.Option value={false}>False</Select.Option>
+                            <Select.Option value={true}>是</Select.Option>
+                            <Select.Option value={false}>否</Select.Option>
                           </Select>
                         )}
 
@@ -498,7 +498,7 @@ export function ToolTestPanel({
                               rows={prop.type === "object" ? 6 : 4}
                               placeholder={
                                 prop.description ||
-                                (prop.type === "object" ? `Enter JSON object for ${key}` : `Enter JSON array for ${key}`)
+                                (prop.type === "object" ? `输入${key}的JSON对象` : `输入${key}的JSON数组`)
                               }
                               defaultValue={(initialValue as string) ?? (prop.type === "object" ? "{}" : "[]")}
                               spellCheck={false}
@@ -507,8 +507,8 @@ export function ToolTestPanel({
                             />
                             <p className="text-xs text-gray-500">
                               {prop.type === "object"
-                                ? "Provide a valid JSON object."
-                                : "Provide a valid JSON array."}
+                                ? "请提供有效的JSON对象。"
+                                : "请提供有效的JSON数组。"}
                             </p>
                           </div>
                         )}
@@ -526,7 +526,7 @@ export function ToolTestPanel({
                   className="w-full"
                   loading={isLoading}
                 >
-                  {isLoading ? "Calling Tool..." : result || error ? "Call Again" : "Call Tool"}
+                  {isLoading ? "正在调用工具..." : result || error ? "再次调用" : "调用工具"}
                 </Button>
               </div>
             </Form>
@@ -536,7 +536,7 @@ export function ToolTestPanel({
         {/* Right Column - Tool Result */}
         <div className="bg-white border border-gray-200 rounded-lg">
           <div className="border-b border-gray-100 px-4 py-2">
-            <h3 className="text-sm font-semibold text-gray-900">Tool Result</h3>
+            <h3 className="text-sm font-semibold text-gray-900">工具结果</h3>
           </div>
 
           <div className="p-4">
@@ -559,9 +559,9 @@ export function ToolTestPanel({
                       />
                     </svg>
                   </div>
-                  <h4 className="text-sm font-medium text-gray-900 mb-1">Ready to Call Tool</h4>
+                  <h4 className="text-sm font-medium text-gray-900 mb-1">准备就绪</h4>
                   <p className="text-xs text-gray-500 leading-relaxed">
-                    Configure the input parameters and click &quot;Call Tool&quot; to see the results here.
+                    配置输入参数并点击"调用工具"以在此处查看结果。
                   </p>
                 </div>
               </div>
@@ -580,7 +580,7 @@ export function ToolTestPanel({
                             d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
                           />
                         </svg>
-                        <h4 className="text-xs font-medium text-green-900">Tool executed successfully</h4>
+                        <h4 className="text-xs font-medium text-green-900">工具执行成功</h4>
                         {duration !== null && (
                           <span className="text-xs text-green-600 ml-1">• {(duration / 1000).toFixed(2)}s</span>
                         )}
@@ -596,7 +596,7 @@ export function ToolTestPanel({
                                 : "text-green-600 hover:text-green-800"
                             }`}
                           >
-                            Formatted
+                            格式化
                           </button>
                           <button
                             onClick={() => setViewMode("json")}
@@ -613,7 +613,7 @@ export function ToolTestPanel({
                         <button
                           onClick={handleCopyResult}
                           className="p-1 hover:bg-green-100 rounded text-green-700"
-                          title="Copy response"
+                          title="复制响应"
                         >
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
@@ -642,8 +642,8 @@ export function ToolTestPanel({
                         <div className="animate-spin rounded-full h-8 w-8 border-2 border-gray-200"></div>
                         <div className="animate-spin rounded-full h-8 w-8 border-2 border-blue-600 border-t-transparent absolute top-0"></div>
                       </div>
-                      <p className="text-sm font-medium mt-3">Calling tool...</p>
-                      <p className="text-xs text-gray-400 mt-1">Please wait while we process your request</p>
+                      <p className="text-sm font-medium mt-3">正在调用工具...</p>
+                      <p className="text-xs text-gray-400 mt-1">请稍候，正在处理您的请求</p>
                     </div>
                   )}
 
@@ -662,7 +662,7 @@ export function ToolTestPanel({
                         </div>
                         <div className="flex-1">
                           <div className="flex items-center space-x-2 mb-1">
-                            <h4 className="text-xs font-medium text-red-900">Tool Call Failed</h4>
+                            <h4 className="text-xs font-medium text-red-900">工具调用失败</h4>
                             {duration !== null && (
                               <span className="text-xs text-red-600">• {(duration / 1000).toFixed(2)}s</span>
                             )}
@@ -689,7 +689,7 @@ export function ToolTestPanel({
                               <div>
                                 <div className="bg-gray-50 px-3 py-1 border-b border-gray-200">
                                   <span className="text-xs font-medium text-gray-700 uppercase tracking-wide">
-                                    Text Response
+                                    文本响应
                                   </span>
                                 </div>
                                 <div className="p-3">
@@ -778,7 +778,7 @@ export function ToolTestPanel({
                               <div>
                                 <div className="bg-gray-50 px-3 py-1 border-b border-gray-200">
                                   <span className="text-xs font-medium text-gray-700 uppercase tracking-wide">
-                                    Image Response
+                                    图像响应
                                   </span>
                                 </div>
                                 <div className="p-3">
@@ -786,7 +786,7 @@ export function ToolTestPanel({
                                     {/* eslint-disable-next-line @next/next/no-img-element */}
                                     <img
                                       src={content.url}
-                                      alt="Tool result"
+                                      alt="工具结果"
                                       className="max-w-full h-auto rounded shadow-sm"
                                     />
                                   </div>
@@ -798,7 +798,7 @@ export function ToolTestPanel({
                               <div>
                                 <div className="bg-gray-50 px-3 py-1 border-b border-gray-200">
                                   <span className="text-xs font-medium text-gray-700 uppercase tracking-wide">
-                                    Embedded Resource
+                                    嵌入资源
                                   </span>
                                 </div>
                                 <div className="p-3">
@@ -820,7 +820,7 @@ export function ToolTestPanel({
                                     </div>
                                     <div className="flex-1">
                                       <p className="text-xs font-medium text-blue-900">
-                                        Resource Type: {content.resource_type}
+                                        资源类型：{content.resource_type}
                                       </p>
                                       {content.url && (
                                         <a
@@ -829,7 +829,7 @@ export function ToolTestPanel({
                                           rel="noopener noreferrer"
                                           className="inline-flex items-center text-xs text-blue-600 hover:text-blue-800 hover:underline mt-1 transition-colors"
                                         >
-                                          View Resource
+                                          查看资源
                                           <svg className="ml-1 h-3 w-3" fill="currentColor" viewBox="0 0 20 20">
                                             <path d="M11 3a1 1 0 100 2h2.586l-6.293 6.293a1 1 0 101.414 1.414L15 6.414V9a1 1 0 102 0V4a1 1 0 00-1-1h-5z" />
                                             <path d="M5 5a2 2 0 00-2 2v8a2 2 0 002 2h8a2 2 0 002-2v-3a1 1 0 10-2 0v3H5V7h3a1 1 0 000-2H5z" />

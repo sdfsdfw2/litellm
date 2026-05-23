@@ -540,7 +540,7 @@ const CreateMCPServer: React.FC<CreateMCPServerProps> = ({
           )}
           <img
             src={mcpLogoImg}
-            alt="MCP Logo"
+            alt="MCP 徽标"
             className="w-8 h-8 object-contain"
             style={{
               height: "20px",
@@ -764,8 +764,8 @@ const CreateMCPServer: React.FC<CreateMCPServerProps> = ({
                         <Form.Item
                           label={
                             <span className="text-sm font-medium text-gray-700">
-                              API Key Help URL
-                              <Tooltip title="Optional link shown to users to help them find their API key">
+                              API 密钥帮助 URL
+                              <Tooltip title="可选链接，向用户展示以帮助他们找到自己的 API 密钥">
                                 <InfoCircleOutlined className="ml-2 text-blue-400 hover:text-blue-600 cursor-help" />
                               </Tooltip>
                             </span>
@@ -789,21 +789,21 @@ const CreateMCPServer: React.FC<CreateMCPServerProps> = ({
                 items={[
                   {
                     key: "auth",
-                    label: <span className="text-sm font-semibold text-gray-700">Authentication</span>,
+                    label: <span className="text-sm font-semibold text-gray-700">身份验证</span>,
                     children: (
                       <>
                         <Form.Item
                           name="auth_type"
-                          rules={[{ required: true, message: "Please select an auth type" }]}
+                          rules={[{ required: true, message: "请选择认证类型" }]}
                         >
-                          <Select placeholder="Select auth type" className="rounded-lg" size="large">
-                            <Select.Option value="none">None</Select.Option>
-                            <Select.Option value="api_key">API Key</Select.Option>
-                            <Select.Option value="bearer_token">Bearer Token</Select.Option>
-                            <Select.Option value="token">Token</Select.Option>
-                            <Select.Option value="basic">Basic Auth</Select.Option>
+                          <Select placeholder="选择认证类型" className="rounded-lg" size="large">
+                            <Select.Option value="none">无</Select.Option>
+                            <Select.Option value="api_key">API 密钥</Select.Option>
+                            <Select.Option value="bearer_token">Bearer 令牌</Select.Option>
+                            <Select.Option value="token">令牌</Select.Option>
+                            <Select.Option value="basic">基本认证</Select.Option>
                             <Select.Option value="oauth2">OAuth</Select.Option>
-                            <Select.Option value="aws_sigv4">AWS SigV4 (Bedrock AgentCore MCPs)</Select.Option>
+                            <Select.Option value="aws_sigv4">AWS SigV4（Bedrock AgentCore MCP）</Select.Option>
                           </Select>
                         </Form.Item>
 
@@ -811,8 +811,8 @@ const CreateMCPServer: React.FC<CreateMCPServerProps> = ({
                           <Form.Item
                             label={
                               <span className="text-sm font-medium text-gray-700 flex items-center">
-                                Authentication Value
-                                <Tooltip title="Token, password, or header value to send with each request for the selected auth type.">
+                                认证值
+                                <Tooltip title="所选认证类型每次请求时发送的令牌、密码或标头值。">
                                   <InfoCircleOutlined className="ml-2 text-blue-400 hover:text-blue-600 cursor-help" />
                                 </Tooltip>
                               </span>
@@ -822,14 +822,14 @@ const CreateMCPServer: React.FC<CreateMCPServerProps> = ({
                               {
                                 validator: (_, value) =>
                                   value && typeof value === "string" && value.trim() === ""
-                                    ? Promise.reject(new Error("Authentication value cannot be empty whitespace"))
+                                    ? Promise.reject(new Error("认证值不能为空"))
                                     : Promise.resolve(),
                               },
                             ]}
                           >
                             <TextInput
                               type="password"
-                              placeholder="Enter token or secret"
+                              placeholder="输入令牌或密钥"
                               className="rounded-lg border-gray-300 focus:border-blue-500 focus:ring-blue-500"
                             />
                           </Form.Item>
@@ -858,22 +858,22 @@ const CreateMCPServer: React.FC<CreateMCPServerProps> = ({
             {transportType !== "stdio" && transportType !== "" && isAwsSigV4AuthType && (
               <>
                 <p className="text-sm text-gray-500 mb-2">
-                  For MCP servers hosted on AWS Bedrock AgentCore.{" "}
+                  适用于部署在 AWS Bedrock AgentCore 上的 MCP 服务器。{" "}
                   <a href="https://docs.litellm.ai/docs/mcp_aws_sigv4" target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:text-blue-700">
-                    View docs &rarr;
+                    查看文档 &rarr;
                   </a>
                 </p>
                 <Form.Item
                   label={
                     <span className="text-sm font-medium text-gray-700 flex items-center">
-                      AWS Region
-                      <Tooltip title="AWS region for SigV4 signing (e.g., us-east-1)">
+                      AWS 区域
+                      <Tooltip title="SigV4 签名的 AWS 区域（例如：us-east-1）">
                         <InfoCircleOutlined className="ml-2 text-blue-400 hover:text-blue-600 cursor-help" />
                       </Tooltip>
                     </span>
                   }
                   name={["credentials", "aws_region_name"]}
-                  rules={[{ required: true, message: "AWS region is required for SigV4 auth" }]}
+                  rules={[{ required: true, message: "SigV4 认证需要 AWS 区域" }]}
                 >
                   <Input
                     placeholder="us-east-1"
@@ -883,8 +883,8 @@ const CreateMCPServer: React.FC<CreateMCPServerProps> = ({
                 <Form.Item
                   label={
                     <span className="text-sm font-medium text-gray-700 flex items-center">
-                      AWS Service Name
-                      <Tooltip title="AWS service name for SigV4 signing. Defaults to 'bedrock-agentcore'.">
+                      AWS 服务名称
+                      <Tooltip title="SigV4 签名的 AWS 服务名称。默认为 'bedrock-agentcore'。">
                         <InfoCircleOutlined className="ml-2 text-blue-400 hover:text-blue-600 cursor-help" />
                       </Tooltip>
                     </span>
@@ -899,8 +899,8 @@ const CreateMCPServer: React.FC<CreateMCPServerProps> = ({
                 <Form.Item
                   label={
                     <span className="text-sm font-medium text-gray-700 flex items-center">
-                      AWS Access Key ID
-                      <Tooltip title="Optional. If not provided, falls back to the boto3 credential chain (IAM role, env vars, etc.).">
+                      AWS 访问密钥 ID
+                      <Tooltip title="可选。如果未提供，则回退到 boto3 凭证链（IAM 角色、环境变量等）。">
                         <InfoCircleOutlined className="ml-2 text-blue-400 hover:text-blue-600 cursor-help" />
                       </Tooltip>
                     </span>
@@ -912,7 +912,7 @@ const CreateMCPServer: React.FC<CreateMCPServerProps> = ({
                       validator(_, value) {
                         const secretKey = getFieldValue(["credentials", "aws_secret_access_key"]);
                         if (secretKey && !value) {
-                          return Promise.reject(new Error("Access Key ID is required when Secret Access Key is provided"));
+                          return Promise.reject(new Error("提供了密钥访问密钥时必须提供访问密钥 ID"));
                         }
                         return Promise.resolve();
                       },
@@ -920,15 +920,15 @@ const CreateMCPServer: React.FC<CreateMCPServerProps> = ({
                   ]}
                 >
                   <Input.Password
-                    placeholder="AKIA... (optional — uses IAM role if blank)"
+                    placeholder="AKIA...（可选——留空则使用 IAM 角色）"
                     className="rounded-lg border-gray-300 focus:border-blue-500 focus:ring-blue-500"
                   />
                 </Form.Item>
                 <Form.Item
                   label={
                     <span className="text-sm font-medium text-gray-700 flex items-center">
-                      AWS Secret Access Key
-                      <Tooltip title="Optional. Required if AWS Access Key ID is provided.">
+                      AWS 密钥访问密钥
+                      <Tooltip title="可选。如果提供了 AWS 访问密钥 ID，则此为必填。">
                         <InfoCircleOutlined className="ml-2 text-blue-400 hover:text-blue-600 cursor-help" />
                       </Tooltip>
                     </span>
@@ -940,7 +940,7 @@ const CreateMCPServer: React.FC<CreateMCPServerProps> = ({
                       validator(_, value) {
                         const accessKeyId = getFieldValue(["credentials", "aws_access_key_id"]);
                         if (accessKeyId && !value) {
-                          return Promise.reject(new Error("Secret Access Key is required when Access Key ID is provided"));
+                          return Promise.reject(new Error("提供了访问密钥 ID 时必须提供密钥访问密钥"));
                         }
                         return Promise.resolve();
                       },
@@ -948,15 +948,15 @@ const CreateMCPServer: React.FC<CreateMCPServerProps> = ({
                   ]}
                 >
                   <Input.Password
-                    placeholder="Enter secret key (optional — uses IAM role if blank)"
+                    placeholder="输入密钥（可选——留空则使用 IAM 角色）"
                     className="rounded-lg border-gray-300 focus:border-blue-500 focus:ring-blue-500"
                   />
                 </Form.Item>
                 <Form.Item
                   label={
                     <span className="text-sm font-medium text-gray-700 flex items-center">
-                      AWS Session Token
-                      <Tooltip title="Optional. Only needed for temporary STS credentials.">
+                      AWS 会话令牌
+                      <Tooltip title="可选。仅临时 STS 凭证需要。">
                         <InfoCircleOutlined className="ml-2 text-blue-400 hover:text-blue-600 cursor-help" />
                       </Tooltip>
                     </span>
@@ -964,15 +964,15 @@ const CreateMCPServer: React.FC<CreateMCPServerProps> = ({
                   name={["credentials", "aws_session_token"]}
                 >
                   <Input.Password
-                    placeholder="Enter session token (optional)"
+                    placeholder="输入会话令牌（可选）"
                     className="rounded-lg border-gray-300 focus:border-blue-500 focus:ring-blue-500"
                   />
                 </Form.Item>
                 <Form.Item
                   label={
                     <span className="text-sm font-medium text-gray-700 flex items-center">
-                      AWS Role ARN
-                      <Tooltip title="Optional. IAM role ARN to assume via STS before signing. If set, LiteLLM calls sts:AssumeRole to get temporary credentials. Uses ambient credentials (IAM role, env vars) as the source identity unless explicit keys are also provided.">
+                      AWS 角色 ARN
+                      <Tooltip title="可选。签名前通过 STS 扮演的 IAM 角色 ARN。如果设置，LiteLLM 将调用 sts:AssumeRole 获取临时凭证。除非同时提供了显式密钥，否则使用环境凭证（IAM 角色、环境变量）作为源身份。">
                         <InfoCircleOutlined className="ml-2 text-blue-400 hover:text-blue-600 cursor-help" />
                       </Tooltip>
                     </span>
@@ -980,15 +980,15 @@ const CreateMCPServer: React.FC<CreateMCPServerProps> = ({
                   name={["credentials", "aws_role_name"]}
                 >
                   <Input
-                    placeholder="arn:aws:iam::123456789012:role/MyRole (optional)"
+                    placeholder="arn:aws:iam::123456789012:role/MyRole（可选）"
                     className="rounded-lg border-gray-300 focus:border-blue-500 focus:ring-blue-500"
                   />
                 </Form.Item>
                 <Form.Item
                   label={
                     <span className="text-sm font-medium text-gray-700 flex items-center">
-                      AWS Session Name
-                      <Tooltip title="Optional. Session name for the AssumeRole call — appears in CloudTrail logs. Auto-generated if omitted.">
+                      AWS 会话名称
+                      <Tooltip title="可选。AssumeRole 调用的会话名称——会出现在 CloudTrail 日志中。如果省略则自动生成。">
                         <InfoCircleOutlined className="ml-2 text-blue-400 hover:text-blue-600 cursor-help" />
                       </Tooltip>
                     </span>
@@ -996,7 +996,7 @@ const CreateMCPServer: React.FC<CreateMCPServerProps> = ({
                   name={["credentials", "aws_session_name"]}
                 >
                   <Input
-                    placeholder="litellm-prod (optional, auto-generated if blank)"
+                    placeholder="litellm-prod（可选，留空则自动生成）"
                     className="rounded-lg border-gray-300 focus:border-blue-500 focus:ring-blue-500"
                   />
                 </Form.Item>
@@ -1064,10 +1064,10 @@ const CreateMCPServer: React.FC<CreateMCPServerProps> = ({
 
           <div className="flex items-center justify-end space-x-3 pt-6 border-t border-gray-100">
             <Button variant="secondary" onClick={handleCancel}>
-              Cancel
+              取消
             </Button>
             <Button variant="primary" loading={isLoading}>
-              {isLoading ? "Creating..." : "Add MCP Server"}
+              {isLoading ? "创建中..." : "添加 MCP 服务器"}
             </Button>
           </div>
         </Form>

@@ -5,7 +5,7 @@ export const SENSITIVE_FIELDS = new Set([
 ]);
 
 export const FIELD_LABELS: Record<string, string> = {
-  vault_addr: "Vault Address",
+  vault_addr: "Vault 地址",
   vault_namespace: "Namespace",
   vault_mount_name: "KV Mount Name",
   vault_path_prefix: "Path Prefix",

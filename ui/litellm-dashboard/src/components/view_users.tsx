@@ -148,7 +148,7 @@ const ViewUserDashboard: React.FC<ViewUserDashboardProps> = ({ accessToken, toke
       setInvitationLinkData(data);
       setIsInvitationLinkModalVisible(true);
     } catch (error) {
-      NotificationsManager.fromBackend("Failed to generate password reset link");
+      NotificationsManager.fromBackend("生成密码重置链接失败");
     }
   };
 
@@ -168,7 +168,7 @@ const ViewUserDashboard: React.FC<ViewUserDashboardProps> = ({ accessToken, toke
         NotificationsManager.success("User deleted successfully");
       } catch (error) {
         console.error("Error deleting user:", error);
-        NotificationsManager.fromBackend("Failed to delete user");
+        NotificationsManager.fromBackend("删除用户失败");
       } finally {
         setIsDeleteModalOpen(false);
         setUserToDelete(null);
@@ -232,7 +232,7 @@ const ViewUserDashboard: React.FC<ViewUserDashboardProps> = ({ accessToken, toke
 
   const handleBulkEdit = () => {
     if (selectedUsers.length === 0) {
-      NotificationsManager.fromBackend("Please select users to edit");
+      NotificationsManager.fromBackend("请选择要编辑的用户");
       return;
     }
 
@@ -314,7 +314,7 @@ const ViewUserDashboard: React.FC<ViewUserDashboardProps> = ({ accessToken, toke
                   type={selectionMode ? "primary" : "default"}
                   className="flex items-center"
                 >
-                  {selectionMode ? "Cancel Selection" : "Select Users"}
+                  {selectionMode ? "取消选择" : "选择用户"}
                 </Button>
               )}
 
@@ -331,8 +331,8 @@ const ViewUserDashboard: React.FC<ViewUserDashboardProps> = ({ accessToken, toke
       {isProxyAdmin ? (
         <TabGroup defaultIndex={0} onIndexChange={(index) => setActiveTab(index === 0 ? "users" : "settings")}>
           <TabList className="mb-4">
-            <Tab>Users</Tab>
-            <Tab>Default User Settings</Tab>
+            <Tab>用户</Tab>
+            <Tab>默认用户设置</Tab>
           </TabList>
 
           <TabPanels>
@@ -427,18 +427,18 @@ const ViewUserDashboard: React.FC<ViewUserDashboardProps> = ({ accessToken, toke
 
       <DeleteResourceModal
         isOpen={isDeleteModalOpen}
-        title="Delete User?"
-        message="Are you sure you want to delete this user? This action cannot be undone."
-        resourceInformationTitle="User Information"
+        title="删除用户？"
+        message="确定要删除此用户？此操作无法撤销。"
+        resourceInformationTitle="用户信息"
         resourceInformation={[
-          { label: "Email", value: userToDelete?.user_email },
-          { label: "User ID", value: userToDelete?.user_id, code: true },
+          { label: "邮箱", value: userToDelete?.user_email },
+          { label: "用户ID", value: userToDelete?.user_id, code: true },
           {
             label: "Global Proxy Role",
             value:
               (userToDelete && possibleUIRoles?.[userToDelete.user_role]?.ui_label) || userToDelete?.user_role || "-",
           },
-          { label: "Total Spend (USD)", value: userToDelete?.spend?.toFixed(2) },
+          { label: "总花费 (USD)", value: userToDelete?.spend?.toFixed(2) },
         ]}
         onCancel={cancelDelete}
         onOk={confirmDelete}

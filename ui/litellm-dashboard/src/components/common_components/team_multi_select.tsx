@@ -25,7 +25,7 @@ const TeamMultiSelect: React.FC<TeamMultiSelectProps> = ({
   disabled,
   organizationId,
   pageSize = 20,
-  placeholder = "Search teams by alias...",
+  placeholder = "按别名搜索团队...",
 }) => {
   const [searchInput, setSearchInput] = useState("");
   const [debouncedSearch, setDebouncedSearch] = useDebouncedState("", {
@@ -86,7 +86,7 @@ const TeamMultiSelect: React.FC<TeamMultiSelectProps> = ({
       searchValue={searchInput}
       onPopupScroll={handlePopupScroll}
       loading={isLoading}
-      notFoundContent={isLoading ? <LoadingOutlined spin /> : "No teams found"}
+      notFoundContent={isLoading ? <LoadingOutlined spin /> : "未找到团队"}
       style={{ width: "100%" }}
       popupRender={(menu) => (
         <>

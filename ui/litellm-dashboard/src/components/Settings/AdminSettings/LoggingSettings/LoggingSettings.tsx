@@ -54,9 +54,9 @@ const LoggingSettings: React.FC = () => {
 
     const submitUpdate = () =>
       mutate(updateParams, {
-        onSuccess: () => NotificationsManager.success("Spend logs settings updated successfully"),
+        onSuccess: () => NotificationsManager.success("消费日志设置更新成功"),
         onError: (error) =>
-          NotificationsManager.fromBackend("Failed to save spend logs settings: " + parseErrorMessage(error)),
+          NotificationsManager.fromBackend("保存消费日志设置失败: " + parseErrorMessage(error)),
       });
 
     if (hasRetentionPeriod) {
@@ -78,10 +78,10 @@ const LoggingSettings: React.FC = () => {
   };
 
   return (
-    <Card title="Logging Settings">
+    <Card title="日志记录设置">
       <Space direction="vertical" size="large" style={{ width: "100%" }}>
         <Typography.Paragraph style={{ marginBottom: 0 }} type="secondary">
-          Proxy-wide settings that control how request and response data are written to spend logs.
+          控制请求和响应数据如何写入消费日志的代理范围设置。
         </Typography.Paragraph>
 
         <Form
@@ -92,11 +92,11 @@ const LoggingSettings: React.FC = () => {
           initialValues={initialValues}
         >
           <Form.Item
-            label="Store Prompts in Spend Logs"
+            label="在消费日志中存储提示词"
             name="store_prompts_in_spend_logs"
             tooltip={
               proxyConfigData?.find((f) => f.field_name === "store_prompts_in_spend_logs")?.field_description ||
-              "When enabled, prompts will be stored in spend logs for tracking and analysis purposes."
+              "启用后，提示词将存储在消费日志中，用于跟踪和分析。"
             }
             valuePropName="checked"
           >
@@ -111,18 +111,18 @@ const LoggingSettings: React.FC = () => {
           </Form.Item>
 
           <Form.Item
-            label="Maximum Spend Logs Retention Period (Optional)"
+            label="最大消费日志保留期限（可选）"
             name="maximum_spend_logs_retention_period"
             tooltip={
               proxyConfigData?.find((f) => f.field_name === "maximum_spend_logs_retention_period")
                 ?.field_description ||
-              "Set the maximum retention period for spend logs (e.g., '7d' for 7 days, '30d' for 30 days). Leave empty for no limit."
+              "设置消费日志的最大保留期限（例如，'7d' 表示 7 天，'30d' 表示 30 天）。留空表示无限制。"
             }
           >
             {isLoadingConfig ? (
               <Skeleton.Input active block />
             ) : (
-              <Input placeholder="e.g., 7d, 30d" prefix={<ClockCircleOutlined />} />
+              <Input placeholder="例如，7d, 30d" prefix={<ClockCircleOutlined />} />
             )}
           </Form.Item>
 
@@ -133,7 +133,7 @@ const LoggingSettings: React.FC = () => {
               loading={isPending || isDeletingField}
               disabled={isLoadingConfig}
             >
-              {isPending || isDeletingField ? "Saving..." : "Save Settings"}
+              {isPending || isDeletingField ? "保存中..." : "保存设置"}
             </Button>
           </Form.Item>
         </Form>

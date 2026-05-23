@@ -46,8 +46,8 @@ const MCPLogoSelector: React.FC<MCPLogoSelectorProps> = ({ value, onChange }) =>
   return (
     <div>
       <div className="flex items-center gap-2 mb-2">
-        <span className="text-sm font-medium text-gray-700">Logo</span>
-        <Tooltip title="Select a well-known logo or paste a URL to any image. The logo is shown on the admin and chat pages.">
+        <span className="text-sm font-medium text-gray-700">徽标</span>
+          <Tooltip title="选择知名徽标或粘贴 URL 到任意图片。该徽标将在管理页面和聊天页面上显示。">
           <InfoCircleOutlined className="text-blue-400 hover:text-blue-600 cursor-help" />
         </Tooltip>
       </div>
@@ -107,7 +107,7 @@ const MCPLogoSelector: React.FC<MCPLogoSelectorProps> = ({ value, onChange }) =>
       {/* Custom URL input */}
       <Input
         prefix={<LinkOutlined className="text-gray-400" />}
-        placeholder="Or paste a custom logo URL..."
+        placeholder="或者粘贴自定义徽标 URL..."
         value={value && !WELL_KNOWN_LOGOS.some((l) => l.url === value) ? value : ""}
         onChange={(e) => {
           const v = e.target.value.trim();

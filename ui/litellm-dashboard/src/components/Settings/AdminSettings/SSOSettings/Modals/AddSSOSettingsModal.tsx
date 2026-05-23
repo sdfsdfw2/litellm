@@ -24,11 +24,11 @@ const AddSSOSettingsModal: React.FC<AddSSOSettingsModalProps> = ({ isVisible, on
 
     await mutateAsync(payload, {
       onSuccess: () => {
-        NotificationsManager.success("SSO settings added successfully");
+        NotificationsManager.success("SSO 设置添加成功");
         onSuccess();
       },
       onError: (error) => {
-        NotificationsManager.fromBackend("Failed to save SSO settings: " + parseErrorMessage(error));
+        NotificationsManager.fromBackend("保存 SSO 设置失败: " + parseErrorMessage(error));
       },
     });
   };
@@ -40,16 +40,16 @@ const AddSSOSettingsModal: React.FC<AddSSOSettingsModalProps> = ({ isVisible, on
 
   return (
     <Modal
-      title="Add SSO"
+      title="添加 SSO"
       open={isVisible}
       width={800}
       footer={
         <Space>
           <Button onClick={handleCancel} disabled={isPending}>
-            Cancel
+            取消
           </Button>
           <Button loading={isPending} onClick={() => form.submit()}>
-            {isPending ? "Adding..." : "Add SSO"}
+            {isPending ? "添加中..." : "添加 SSO"}
           </Button>
         </Space>
       }

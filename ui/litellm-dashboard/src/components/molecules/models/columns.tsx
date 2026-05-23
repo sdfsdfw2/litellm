@@ -18,7 +18,7 @@ const credentialsInfoPopoverContent = (
         <Space direction="vertical">
           <Flex align="center" gap={8}>
             <SyncOutlined style={{ color: "#1890ff" }} />
-            <Title level={5} style={{ margin: 0, color: "#1890ff" }}>Reusable</Title>
+            <Title level={5} style={{ margin: 0, color: "#1890ff" }}>可复用</Title>
           </Flex>
           <Text type="secondary">
             Credentials saved in LiteLLM that can be added to models repeatedly.
@@ -30,7 +30,7 @@ const credentialsInfoPopoverContent = (
         <Space direction="vertical" size={8}>
           <Flex align="center" gap={8}>
             <EditOutlined style={{ color: "#8c8c8c", fontSize: 14, flexShrink: 0 }} />
-            <Title level={5} style={{ margin: 0 }}>Manual</Title>
+            <Title level={5} style={{ margin: 0 }}>手动</Title>
           </Flex>
           <Text type="secondary">
             Credentials added directly during model creation or defined in the config file.
@@ -203,7 +203,7 @@ export const columns = (
             ) : (
               <>
                 <EditOutlined className="flex-shrink-0" style={{ color: "#8c8c8c", fontSize: 14 }} />
-                <span className="text-xs text-gray-500">Manual</span>
+                <span className="text-xs text-gray-500">手动</span>
               </>
             )}
           </div>

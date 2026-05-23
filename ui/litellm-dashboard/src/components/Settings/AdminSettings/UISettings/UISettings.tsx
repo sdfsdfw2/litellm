@@ -64,7 +64,7 @@ export default function UISettings() {
   const handleUpdatePageVisibility = (settings: { enabled_ui_pages_internal_users: string[] | null }) => {
     updateSettings(settings, {
       onSuccess: () => {
-        NotificationManager.success("Page visibility settings updated successfully");
+        NotificationManager.success("页面可见性设置已成功更新");
       },
       onError: (error) => {
         NotificationManager.fromBackend(error);

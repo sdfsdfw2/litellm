@@ -13,16 +13,15 @@ export default function HashicorpVaultEmptyPlaceholder({ onAdd }: HashicorpVault
         image={Empty.PRESENTED_IMAGE_SIMPLE}
         description={
           <div className="space-y-2">
-            <Title level={4}>No Vault Configuration Found</Title>
+            <Title level={4}>未找到 Vault 配置</Title>
             <Paragraph type="secondary" className="max-w-md mx-auto">
-              Configure Hashicorp Vault to securely manage provider API keys and secrets
-              for your LiteLLM deployment.
+              配置 Hashicorp Vault 以安全地管理 LiteLLM 部署的提供商 API 密钥和机密。
             </Paragraph>
           </div>
         }
       >
         <Button type="primary" size="large" onClick={onAdd} className="flex items-center gap-2 mx-auto mt-4">
-          Configure Vault
+          配置 Vault
         </Button>
       </Empty>
     </div>

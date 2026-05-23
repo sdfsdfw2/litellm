@@ -147,7 +147,7 @@ const AddPromptForm: React.FC<AddPromptFormProps> = ({ visible, onClose, accessT
 
         <Form.Item label="Prompt Integration" name="prompt_integration" initialValue="dotprompt">
           <Select value={promptIntegration} onChange={setPromptIntegration}>
-            <Option value="dotprompt">dotprompt</Option>
+            <Option value="dotprompt">dotprompt 格式</Option>
           </Select>
         </Form.Item>
 
@@ -156,7 +156,7 @@ const AddPromptForm: React.FC<AddPromptFormProps> = ({ visible, onClose, accessT
             <Divider />
             <Form.Item label="Prompt File" extra="Upload a .prompt file that follows the Dotprompt specification">
               <Upload {...uploadProps}>
-                <Button icon={<UploadOutlined />}>Select .prompt File</Button>
+                <Button icon={<UploadOutlined />}>选择 .prompt 文件</Button>
               </Upload>
               {fileList.length > 0 && <div className="mt-2 text-sm text-gray-600">Selected: {fileList[0].name}</div>}
             </Form.Item>

@@ -556,7 +556,7 @@ const CustomCodeModal: React.FC<CustomCodeModalProps> = ({
                     }}
                   >
                     <UsergroupAddOutlined />
-                    <span>Browse Community templates</span>
+                    <span>浏览社区模板</span>
                     <ExportOutlined style={{ fontSize: '10px' }} />
                   </div>
                 </>

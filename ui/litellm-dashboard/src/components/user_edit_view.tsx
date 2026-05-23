@@ -127,7 +127,7 @@ export function UserEditView({
         label={
           <span>
             Personal Models{" "}
-            <Tooltip title="Select which models this user can access outside of team-scope. Choose 'All Proxy Models' to grant access to all models available on the proxy.">
+            <Tooltip title="选择该用户在团队范围外可以访问的模型。选择'所有代理模型'以授予代理上所有可用的模型权限。">
               <InfoCircleOutlined style={{ marginLeft: "4px" }} />
             </Tooltip>
           </span>
@@ -141,7 +141,7 @@ export function UserEditView({
           disabled={!all_admin_roles.includes(userRole || "")}
         >
           <Select.Option key="all-proxy-models" value="all-proxy-models">
-            All Proxy Models
+            所有代理模型
           </Select.Option>
           <Select.Option key="no-default-models" value="no-default-models">
             No Default Models
@@ -198,7 +198,7 @@ export function UserEditView({
         <Button variant="secondary" type="button" onClick={onCancel}>
           Cancel
         </Button>
-        <Button type="submit">Save Changes</Button>
+        <Button type="submit">保存更改</Button>
       </div>
     </Form>
   );

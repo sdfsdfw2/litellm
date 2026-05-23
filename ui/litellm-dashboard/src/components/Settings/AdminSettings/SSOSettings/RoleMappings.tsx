@@ -11,13 +11,13 @@ export default function RoleMappings({ roleMappings }: { roleMappings: RoleMappi
 
   const roleMappingsColumns = [
     {
-      title: "Role",
+      title: "角色",
       dataIndex: "role",
       key: "role",
       render: (text: string) => <Text strong>{defaultRoleDisplayNames[text]}</Text>,
     },
     {
-      title: "Mapped Groups",
+      title: "映射组",
       dataIndex: "groups",
       key: "groups",
       render: (groups: string[]) => (
@@ -29,7 +29,7 @@ export default function RoleMappings({ roleMappings }: { roleMappings: RoleMappi
               </Tag>
             ))
           ) : (
-            <Text className="text-gray-400 italic">No groups mapped</Text>
+            <Text className="text-gray-400 italic">无映射组</Text>
           )}
         </>
       ),
@@ -39,18 +39,18 @@ export default function RoleMappings({ roleMappings }: { roleMappings: RoleMappi
     <Card>
       <div className="flex items-center gap-3">
         <Users className="w-6 h-6 text-gray-400 mb-2" />
-        <Title level={3}>Role Mappings</Title>
+        <Title level={3}>角色映射</Title>
       </div>
       <div className="space-y-8">
         <div className="grid grid-cols-2 gap-4">
           <div>
-            <Title level={5}>Group Claim</Title>
+            <Title level={5}>组声明</Title>
             <div>
               <Text code>{roleMappings.group_claim}</Text>
             </div>
           </div>
           <div>
-            <Title level={5}>Default Role</Title>
+            <Title level={5}>默认角色</Title>
             <div>
               <Text strong>{defaultRoleDisplayNames[roleMappings.default_role]}</Text>
             </div>

@@ -17,7 +17,7 @@ export default function DefaultProxyAdminTag({
   userId,
 }: DefaultProxyAdminTagProps) {
   if (userId === DEFAULT_USER_ID) {
-    return <Tag color="blue">Default Proxy Admin</Tag>;
+    return <Tag color="blue">默认代理管理员</Tag>;
   }
 
   return <Text>{userId}</Text>;

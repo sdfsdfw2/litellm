@@ -42,7 +42,7 @@ export const RateLimitTypeFormItem: React.FC<RateLimitTypeFormItemProps> = ({
     }
   };
 
-  const tooltipTitle = `Select 'guaranteed_throughput' to prevent overallocating ${limitTypeUpper} limit when the key belongs to a Team with specific ${limitTypeUpper} limits.`;
+  const tooltipTitle = `选择 'guaranteed_throughput' 以防止在密钥属于具有特定 ${limitTypeUpper} 限制的团队时超额分配 ${limitTypeUpper} 限制。`;
 
   return (
     <Form.Item
@@ -60,46 +60,43 @@ export const RateLimitTypeFormItem: React.FC<RateLimitTypeFormItemProps> = ({
     >
       <Select
         defaultValue={showDetailedDescriptions ? "default" : undefined}
-        placeholder="Select rate limit type"
+        placeholder="选择速率限制类型"
         style={{ width: "100%" }}
         optionLabelProp={showDetailedDescriptions ? "label" : undefined}
         onChange={handleChange}
       >
         {showDetailedDescriptions ? (
           <>
-            <Option value="best_effort_throughput" label="Default">
+            <Option value="best_effort_throughput" label="默认">
               <div style={{ padding: "4px 0" }}>
-                <div style={{ fontWeight: 500 }}>Default</div>
+                <div style={{ fontWeight: 500 }}>默认</div>
                 <div style={{ fontSize: "11px", color: "#6b7280", marginTop: "2px" }}>
-                  Best effort throughput - no error if we&apos;re overallocating {limitTypeLower} (Team/Key Limits
-                  checked at runtime).
+                  尽力而为的吞吐量 - 如果超额分配 {limitTypeLower} 不会报错（团队/密钥限制在运行时检查）。
                 </div>
               </div>
             </Option>
-            <Option value="guaranteed_throughput" label="Guaranteed throughput">
+            <Option value="guaranteed_throughput" label="保证吞吐量">
               <div style={{ padding: "4px 0" }}>
-                <div style={{ fontWeight: 500 }}>Guaranteed throughput</div>
+                <div style={{ fontWeight: 500 }}>保证吞吐量</div>
                 <div style={{ fontSize: "11px", color: "#6b7280", marginTop: "2px" }}>
-                  Guaranteed throughput - raise an error if we&apos;re overallocating {limitTypeLower} (also checks
-                  model-specific limits)
+                  保证吞吐量 - 如果超额分配 {limitTypeLower} 会报错（还会检查模型特定限制）。
                 </div>
               </div>
             </Option>
-            <Option value="dynamic" label="Dynamic">
+            <Option value="dynamic" label="动态">
               <div style={{ padding: "4px 0" }}>
-                <div style={{ fontWeight: 500 }}>Dynamic</div>
+                <div style={{ fontWeight: 500 }}>动态</div>
                 <div style={{ fontSize: "11px", color: "#6b7280", marginTop: "2px" }}>
-                  If the key has a set {limitTypeUpper} (e.g. 2 {limitTypeUpper}) and there are no 429 errors, it can
-                  dynamically exceed the limit when the model being called is not erroring.
+                  如果密钥设置了 {limitTypeUpper}（例如 2 {limitTypeUpper}）且没有 429 错误，则可以在调用的模型未出错时动态超出限制。
                 </div>
               </div>
             </Option>
           </>
         ) : (
           <>
-            <Option value="best_effort_throughput">Best effort throughput</Option>
-            <Option value="guaranteed_throughput">Guaranteed throughput</Option>
-            <Option value="dynamic">Dynamic</Option>
+            <Option value="best_effort_throughput">尽力而为的吞吐量</Option>
+            <Option value="guaranteed_throughput">保证吞吐量</Option>
+            <Option value="dynamic">动态</Option>
           </>
         )}
       </Select>

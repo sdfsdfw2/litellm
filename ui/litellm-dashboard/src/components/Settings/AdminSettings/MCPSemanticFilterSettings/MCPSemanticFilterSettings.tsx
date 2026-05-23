@@ -90,7 +90,7 @@ export default function MCPSemanticFilterSettings({ accessToken }: MCPSemanticFi
           setSaveSuccess(true);
           setTimeout(() => setSaveSuccess(false), 3000);
           NotificationManager.success(
-            "Settings updated successfully. Changes will be applied across all pods within 10 seconds."
+            "设置更新成功。更改将在 10 秒内应用于所有 Pod。"
           );
         },
         onError: (error) => {
@@ -119,7 +119,7 @@ export default function MCPSemanticFilterSettings({ accessToken }: MCPSemanticFi
   if (!accessToken) {
     return (
       <div className="p-6 text-center text-gray-500">
-        Please log in to configure semantic filter settings.
+        请登录以配置语义过滤器设置。
       </div>
     );
   }
@@ -131,7 +131,7 @@ export default function MCPSemanticFilterSettings({ accessToken }: MCPSemanticFi
       ) : isError ? (
         <Alert
           type="error"
-          message="Could not load MCP Semantic Filter settings"
+          message="无法加载 MCP 语义过滤器设置"
           description={error instanceof Error ? error.message : undefined}
           style={{ marginBottom: 24 }}
         />
@@ -139,8 +139,8 @@ export default function MCPSemanticFilterSettings({ accessToken }: MCPSemanticFi
         <>
           <Alert
             type="info"
-            message="Semantic Tool Filtering"
-            description="Filter MCP tools semantically based on query relevance. This reduces context window size and improves tool selection accuracy. Click 'Save Settings' to apply changes across all pods (takes effect within 10 seconds)."
+            message="语义工具过滤"
+            description={'基于查询相关性对 MCP 工具进行语义过滤。这可以减少上下文窗口大小并提高工具选择准确性。点击"保存设置"以在所有 Pod 上应用更改（10 秒内生效）。'}
             showIcon
             style={{ marginBottom: 24 }}
           />
@@ -148,7 +148,7 @@ export default function MCPSemanticFilterSettings({ accessToken }: MCPSemanticFi
           {saveSuccess && (
             <Alert
               type="success"
-              message="Settings saved successfully"
+              message="设置保存成功"
               icon={<CheckCircleOutlined />}
               showIcon
               closable
@@ -159,7 +159,7 @@ export default function MCPSemanticFilterSettings({ accessToken }: MCPSemanticFi
           {updateError && (
             <Alert
               type="error"
-              message="Could not update settings"
+              message="无法更新设置"
               description={
                 updateError instanceof Error ? updateError.message : undefined
               }
@@ -183,8 +183,8 @@ export default function MCPSemanticFilterSettings({ accessToken }: MCPSemanticFi
                     name="enabled"
                     label={
                       <Space>
-                        <Typography.Text strong>Enable Semantic Filtering</Typography.Text>
-                        <Tooltip title="When enabled, only the most relevant MCP tools will be included in requests based on semantic similarity">
+                        <Typography.Text strong>启用语义过滤</Typography.Text>
+                        <Tooltip title="启用后，将仅根据语义相似度在请求中包含最相关的 MCP 工具">
                           <QuestionCircleOutlined style={{ color: "#8c8c8c" }} />
                         </Tooltip>
                       </Space>
@@ -199,13 +199,13 @@ export default function MCPSemanticFilterSettings({ accessToken }: MCPSemanticFi
                   </Typography.Text>
                 </Card>
 
-                <Card title="Configuration" style={{ marginBottom: 16 }}>
+                <Card title="配置" style={{ marginBottom: 16 }}>
                   <Form.Item
                     name="embedding_model"
                     label={
                       <Space>
-                        <Typography.Text strong>Embedding Model</Typography.Text>
-                        <Tooltip title="The model used to generate embeddings for semantic matching">
+                        <Typography.Text strong>嵌入模型</Typography.Text>
+                        <Tooltip title="用于生成语义匹配嵌入的模型">
                           <QuestionCircleOutlined style={{ color: "#8c8c8c" }} />
                         </Tooltip>
                       </Space>
@@ -216,12 +216,12 @@ export default function MCPSemanticFilterSettings({ accessToken }: MCPSemanticFi
                         label: model.model_group,
                         value: model.model_group,
                       }))}
-                      placeholder={loadingModels ? "Loading models..." : "Select embedding model"}
+                      placeholder={loadingModels ? "正在加载模型..." : "选择嵌入模型"}
                       showSearch
                       disabled={isUpdating || loadingModels}
                       loading={loadingModels}
                       notFoundContent={
-                        loadingModels ? "Loading..." : "No embedding models available"
+                        loadingModels ? "加载中..." : "无可用嵌入模型"
                       }
                     />
                   </Form.Item>
@@ -230,8 +230,8 @@ export default function MCPSemanticFilterSettings({ accessToken }: MCPSemanticFi
                     name="top_k"
                     label={
                       <Space>
-                        <Typography.Text strong>Top K Results</Typography.Text>
-                        <Tooltip title="Maximum number of tools to return after filtering">
+                        <Typography.Text strong>Top K 结果</Typography.Text>
+                        <Tooltip title="过滤后返回的最大工具数量">
                           <QuestionCircleOutlined style={{ color: "#8c8c8c" }} />
                         </Tooltip>
                       </Space>
@@ -249,8 +249,8 @@ export default function MCPSemanticFilterSettings({ accessToken }: MCPSemanticFi
                     name="similarity_threshold"
                     label={
                       <Space>
-                        <Typography.Text strong>Similarity Threshold</Typography.Text>
-                        <Tooltip title="Minimum similarity score (0-1) for a tool to be included">
+                        <Typography.Text strong>相似度阈值</Typography.Text>
+                        <Tooltip title="工具被包含的最低相似度分数（0-1）">
                           <QuestionCircleOutlined style={{ color: "#8c8c8c" }} />
                         </Tooltip>
                       </Space>
@@ -280,7 +280,7 @@ export default function MCPSemanticFilterSettings({ accessToken }: MCPSemanticFi
                     loading={isUpdating}
                     disabled={!isDirty}
                   >
-                    Save Settings
+                    保存设置
                   </Button>
                 </div>
               </Form>

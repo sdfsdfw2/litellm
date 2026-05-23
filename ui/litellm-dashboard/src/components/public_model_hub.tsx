@@ -1692,7 +1692,7 @@ const PublicModelHub: React.FC<PublicModelHubProps> = ({ accessToken, isEmbedded
                     className="text-blue-600 hover:text-blue-800 flex items-center space-x-2"
                   >
                     <ExternalLinkIcon className="w-4 h-4" />
-                    <span>View Documentation</span>
+                    <span>查看文档</span>
                   </a>
                 </div>
               )}

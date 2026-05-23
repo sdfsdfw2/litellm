@@ -22,25 +22,25 @@ const BudgetDurationDropdown: React.FC<BudgetDurationDropdownProps> = ({
       value={value || undefined}
       onChange={onChange}
       className={className}
-      placeholder="n/a"
+      placeholder="无"
       allowClear
     >
-      <Option value="1h">hourly</Option>
-      <Option value="24h">daily</Option>
-      <Option value="7d">weekly</Option>
-      <Option value="30d">monthly</Option>
+      <Option value="1h">每小时</Option>
+      <Option value="24h">每天</Option>
+      <Option value="7d">每周</Option>
+      <Option value="30d">每月</Option>
     </Select>
   );
 };
 
 export const getBudgetDurationLabel = (value: string | null | undefined): string => {
-  if (!value) return "Not set";
+  if (!value) return "未设置";
 
   const budgetDurationMap: Record<string, string> = {
-    "1h": "hourly",
-    "24h": "daily",
-    "7d": "weekly",
-    "30d": "monthly",
+    "1h": "每小时",
+    "24h": "每天",
+    "7d": "每周",
+    "30d": "每月",
   };
 
   return budgetDurationMap[value] || value;

@@ -28,9 +28,9 @@ type CallbackRow = AlertingObject & {
 };
 
 const CALLBACK_MODES: { value: string; label: string }[] = [
-  { value: "success", label: "Success" },
-  { value: "failure", label: "Failure" },
-  { value: "success_and_failure", label: "Success & Failure" },
+  { value: "success", label: "成功" },
+  { value: "failure", label: "失败" },
+  { value: "success_and_failure", label: "成功与失败" },
 ];
 
 export const LoggingCallbacksTable: React.FC<LoggingCallbacksProps> = ({
@@ -94,7 +94,7 @@ export const LoggingCallbacksTable: React.FC<LoggingCallbacksProps> = ({
           + Add Callback
         </Button>
         <div className="flex justify-between items-center my-2">
-          <Title level={4}>Active Logging Callbacks</Title>
+          <Title level={4}>活跃的日志记录回调</Title>
         </div>
         {/* Empty state */}
         {callbacks.length === 0 ? (

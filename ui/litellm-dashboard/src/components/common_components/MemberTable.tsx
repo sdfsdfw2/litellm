@@ -84,14 +84,14 @@ export default function MemberTable({
         canEdit ? (
           <Space>
             <TableIconActionButton
-              variant="Edit"
+              variant="编辑"
               tooltipText="编辑成员"
               dataTestId="edit-member"
               onClick={() => onEdit(record)}
             />
             {(!showDeleteForMember || showDeleteForMember(record)) && (
               <TableIconActionButton
-                variant="Delete"
+                variant="删除"
                 tooltipText="删除成员"
                 dataTestId="delete-member"
                 onClick={() => onDelete(record)}

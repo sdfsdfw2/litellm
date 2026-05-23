@@ -65,13 +65,13 @@ const KeyLifecycleSettings: React.FC<KeyLifecycleSettingsProps> = ({
     <div className="space-y-6">
       {/* Key Expiry Section */}
       <div className="space-y-4">
-        <span className="text-sm font-medium text-gray-700">Key Expiry Settings</span>
+        <span className="text-sm font-medium text-gray-700">密钥过期设置</span>
 
         <div className="space-y-2">
           <label className="text-sm font-medium text-gray-700 flex items-center space-x-1">
-            <span>Expire Key</span>
+            <span>过期密钥</span>
             <Tooltip
-              title="Set when this key should expire. Format: 30s (seconds), 30m (minutes), 30h (hours), 30d (days). Leave empty to keep the current expiry unchanged."
+              title="设置此密钥何时过期。格式：30s（秒）、30m（分）、30h（时）、30d（天）。留空表示保持当前过期时间不变。"
             >
               <InfoCircleOutlined className="text-gray-400 cursor-help text-xs" />
             </Tooltip>
@@ -92,13 +92,13 @@ const KeyLifecycleSettings: React.FC<KeyLifecycleSettingsProps> = ({
                 }}
                 className="ml-2 text-sm font-normal text-gray-600"
               >
-                Never Expire
+                永不过期
               </Checkbox>
             )}
           </label>
           <TextInput
             name="duration"
-            placeholder={isCreateMode ? "e.g., 30d or leave empty to never expire" : "e.g., 30d"}
+            placeholder={isCreateMode ? "例如：30d 或留空表示永不过期" : "例如：30d"}
             className="w-full"
             value={durationValue}
             onValueChange={handleDurationChange}
@@ -111,13 +111,13 @@ const KeyLifecycleSettings: React.FC<KeyLifecycleSettingsProps> = ({
 
       {/* Auto-Rotation Section */}
       <div className="space-y-4">
-        <span className="text-sm font-medium text-gray-700">Auto-Rotation Settings</span>
+        <span className="text-sm font-medium text-gray-700">自动轮换设置</span>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div className="space-y-2">
             <label className="text-sm font-medium text-gray-700 flex items-center space-x-1">
-              <span>Enable Auto-Rotation</span>
-              <Tooltip title="Key will automatically regenerate at the specified interval for enhanced security.">
+              <span>启用自动轮换</span>
+              <Tooltip title="密钥将按指定间隔自动重新生成以增强安全性。">
                 <InfoCircleOutlined className="text-gray-400 cursor-help text-xs" />
               </Tooltip>
             </label>
@@ -132,8 +132,8 @@ const KeyLifecycleSettings: React.FC<KeyLifecycleSettingsProps> = ({
           {autoRotationEnabled && (
             <div className="space-y-2">
               <label className="text-sm font-medium text-gray-700 flex items-center space-x-1">
-                <span>Rotation Interval</span>
-                <Tooltip title="How often the key should be automatically rotated. Choose the interval that best fits your security requirements.">
+                <span>轮换间隔</span>
+                <Tooltip title="密钥应多久自动轮换一次。选择最适合您安全要求的间隔。">
                   <InfoCircleOutlined className="text-gray-400 cursor-help text-xs" />
                 </Tooltip>
               </label>
@@ -142,14 +142,14 @@ const KeyLifecycleSettings: React.FC<KeyLifecycleSettingsProps> = ({
                   value={showCustomInput ? "custom" : rotationInterval}
                   onChange={handleIntervalChange}
                   className="w-full"
-                  placeholder="Select interval"
+                  placeholder="选择间隔"
                 >
-                  <Option value="7d">7 days</Option>
-                  <Option value="30d">30 days</Option>
-                  <Option value="90d">90 days</Option>
-                  <Option value="180d">180 days</Option>
-                  <Option value="365d">365 days</Option>
-                  <Option value="custom">Custom interval</Option>
+                  <Option value="7d">7天</Option>
+                  <Option value="30d">30天</Option>
+                  <Option value="90d">90天</Option>
+                  <Option value="180d">180天</Option>
+                  <Option value="365d">365天</Option>
+                  <Option value="custom">自定义间隔</Option>
                 </Select>
 
                 {showCustomInput && (
@@ -157,10 +157,10 @@ const KeyLifecycleSettings: React.FC<KeyLifecycleSettingsProps> = ({
                     <TextInput
                       value={customInterval}
                       onChange={handleCustomIntervalChange}
-                      placeholder="e.g., 1s, 5m, 2h, 14d"
+                      placeholder="例如：1s, 5m, 2h, 14d"
                     />
                     <div className="text-xs text-gray-500">
-                      Supported formats: seconds (s), minutes (m), hours (h), days (d)
+                      支持的格式：秒(s)，分(m)，时(h)，天(d)
                     </div>
                   </div>
                 )}
@@ -171,8 +171,7 @@ const KeyLifecycleSettings: React.FC<KeyLifecycleSettingsProps> = ({
 
         {autoRotationEnabled && (
           <div className="bg-blue-50 p-3 rounded-md text-sm text-blue-700">
-            When rotation occurs, you&apos;ll receive a notification with the new key. The old key will be deactivated
-            after a brief grace period.
+            轮换发生时，您将收到包含新密钥的通知。旧密钥将在短暂的宽限期后停用。
           </div>
         )}
       </div>

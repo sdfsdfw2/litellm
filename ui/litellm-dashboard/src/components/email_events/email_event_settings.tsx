@@ -88,8 +88,8 @@ const EmailEventSettings: React.FC<EmailEventSettingsProps> = ({ accessToken }) 
 
   return (
     <Card>
-      <Title level={4}>Email Notifications</Title>
-      <Text>Select which events should trigger email notifications.</Text>
+<Title level={4}>邮箱通知</Title>
+       <Text>选择哪些事件应该触发邮箱通知。</Text>
       <Divider />
 
       {loading ? (

@@ -162,8 +162,8 @@ const CompetitorIntentConfiguration: React.FC<
             onChange={(v) => handleConfigChange("competitor_intent_type", v)}
             style={{ width: "100%" }}
           >
-            <Option value="airline">Airline (auto-load competitors from IATA)</Option>
-            <Option value="generic">Generic (specify competitors manually)</Option>
+<Option value="airline">航空公司（从 IATA 自动加载竞争对手）</Option>
+             <Option value="generic">通用（手动指定竞争对手）</Option>
           </Select>
         </Form.Item>
 
@@ -259,7 +259,7 @@ const CompetitorIntentConfiguration: React.FC<
             style={{ width: "100%" }}
           >
             <Option value="refuse">Refuse (block request)</Option>
-            <Option value="reframe">Reframe (suggest alternative)</Option>
+            <Option value="reframe">重构（建议替代方案）</Option>
           </Select>
         </Form.Item>
 
@@ -270,7 +270,7 @@ const CompetitorIntentConfiguration: React.FC<
             style={{ width: "100%" }}
           >
             <Option value="refuse">Refuse (block request)</Option>
-            <Option value="reframe">Reframe (suggest alternative to backend LLM)</Option>
+            <Option value="reframe">重构（向后端 LLM 建议替代方案）</Option>
           </Select>
         </Form.Item>
 

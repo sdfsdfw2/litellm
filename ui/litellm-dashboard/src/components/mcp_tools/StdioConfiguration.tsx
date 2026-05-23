@@ -18,15 +18,15 @@ const StdioConfiguration: React.FC<StdioConfigurationProps> = ({ isVisible, requ
     <Form.Item
       label={
         <span className="text-sm font-medium text-gray-700 flex items-center">
-          Stdio Configuration (JSON)
-          <Tooltip title="Paste your stdio MCP server configuration in JSON format. You can use the full mcpServers structure from config.yaml or just the inner server configuration.">
+          Stdio 配置（JSON）
+          <Tooltip title="以 JSON 格式粘贴您的 stdio MCP 服务器配置。您可以使用 config.yaml 中的完整 mcpServers 结构或仅使用内部服务器配置。">
             <InfoCircleOutlined className="ml-2 text-blue-400 hover:text-blue-600 cursor-help" />
           </Tooltip>
         </span>
       }
       name="stdio_config"
       rules={[
-        ...(required ? [{ required: true, message: "Please enter stdio configuration" }] : []),
+        ...(required ? [{ required: true, message: "请输入 stdio 配置" }] : []),
         {
           validator: (_, value) => {
             if (!value) return Promise.resolve();
@@ -34,7 +34,7 @@ const StdioConfiguration: React.FC<StdioConfigurationProps> = ({ isVisible, requ
               JSON.parse(value);
               return Promise.resolve();
             } catch {
-              return Promise.reject("Please enter valid JSON");
+              return Promise.reject("请输入有效的 JSON");
             }
           },
         },

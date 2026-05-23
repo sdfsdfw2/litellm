@@ -63,10 +63,10 @@ const UIThemeSettings: React.FC<UIThemeSettingsProps> = ({ userID, userRole, acc
         NotificationsManager.success("Theme settings updated successfully!");
         setLogoUrl(logoUrlInput || null);
         setFaviconUrl(faviconUrlInput || null);
-      } else { throw new Error("Failed to update settings"); }
+      } else { throw new Error("更新设置失败"); }
     } catch (error) {
       console.error("Error updating theme settings:", error);
-      NotificationsManager.fromBackend("Failed to update theme settings");
+      NotificationsManager.fromBackend("更新主题设置失败");
     } finally { setLoading(false); }
   };
 
@@ -86,10 +86,10 @@ const UIThemeSettings: React.FC<UIThemeSettingsProps> = ({ userID, userRole, acc
         body: JSON.stringify({ logo_url: null, favicon_url: null }),
       });
       if (response.ok) { NotificationsManager.success("Theme settings reset to default!"); }
-      else { throw new Error("Failed to reset"); }
+      else { throw new Error("重置失败"); }
     } catch (error) {
       console.error("Error resetting theme settings:", error);
-      NotificationsManager.fromBackend("Failed to reset theme settings");
+      NotificationsManager.fromBackend("重置主题设置失败");
     } finally { setLoading(false); }
   };
 
@@ -116,8 +116,8 @@ const UIThemeSettings: React.FC<UIThemeSettingsProps> = ({ userID, userRole, acc
             <Text className="text-xs text-gray-500 mt-1">Enter a URL for your custom favicon (.ico, .png, or .svg) or leave empty for default</Text>
           </div>
           <div className="flex gap-3 pt-4">
-            <Button onClick={handleSave} loading={loading} disabled={loading} color="indigo">Save Changes</Button>
-            <Button onClick={handleReset} loading={loading} disabled={loading} variant="secondary" color="gray">Reset to Default</Button>
+<Button onClick={handleSave} loading={loading} disabled={loading} color="indigo">保存更改</Button>
+           <Button onClick={handleReset} loading={loading} disabled={loading} variant="secondary" color="gray">重置为默认</Button>
           </div>
         </div>
       </Card>

@@ -47,7 +47,7 @@ export const ByokCredentialModal: React.FC<ByokCredentialModalProps> = ({
 
   const handleAuthorize = async () => {
     if (!apiKey.trim()) {
-      MessageManager.error("Please enter your API key");
+      MessageManager.error("请输入您的 API 密钥");
       return;
     }
     setLoading(true);
@@ -64,11 +64,11 @@ export const ByokCredentialModal: React.FC<ByokCredentialModalProps> = ({
         const err = await response.json();
         throw new Error(err?.detail?.error || "Failed to save credential");
       }
-      MessageManager.success(`Connected to ${serverDisplayName}`);
+      MessageManager.success(`已连接到 ${serverDisplayName}`);
       onSuccess(server.server_id);
       handleClose();
     } catch (e: any) {
-      MessageManager.error(e.message || "Failed to connect");
+      MessageManager.error(e.message || "连接失败");
     } finally {
       setLoading(false);
     }
@@ -91,7 +91,7 @@ export const ByokCredentialModal: React.FC<ByokCredentialModalProps> = ({
               onClick={() => setStep(1)}
               className="flex items-center gap-1 text-gray-500 hover:text-gray-800 text-sm"
             >
-              <ArrowLeftOutlined /> Back
+              <ArrowLeftOutlined /> 返回
             </button>
           ) : (
             <div />
@@ -118,9 +118,9 @@ export const ByokCredentialModal: React.FC<ByokCredentialModalProps> = ({
               </div>
             </div>
 
-            <h2 className="text-2xl font-bold text-gray-900 mb-2">Connect {serverDisplayName}</h2>
+            <h2 className="text-2xl font-bold text-gray-900 mb-2">连接 {serverDisplayName}</h2>
             <p className="text-gray-500 mb-6">
-              LiteLLM needs access to {serverDisplayName} to complete your request.
+              LiteLLM 需要访问 {serverDisplayName} 以完成您的请求。
             </p>
 
             {/* How it works */}
@@ -133,10 +133,10 @@ export const ByokCredentialModal: React.FC<ByokCredentialModalProps> = ({
                   </svg>
                 </div>
                 <div>
-                  <p className="font-semibold text-gray-800 mb-1">How it works</p>
+                  <p className="font-semibold text-gray-800 mb-1">工作原理</p>
                   <p className="text-gray-500 text-sm">
-                    LiteLLM acts as a secure bridge. Your requests are routed through our MCP client directly to{" "}
-                    {serverDisplayName}&apos;s API.
+                    LiteLLM 充当安全桥梁。您的请求通过我们的 MCP 客户端直接路由到{" "}
+                    {serverDisplayName} 的 API。
                   </p>
                 </div>
               </div>
@@ -155,7 +155,7 @@ export const ByokCredentialModal: React.FC<ByokCredentialModalProps> = ({
                     />
                     <circle cx="12" cy="12" r="9" stroke="currentColor" strokeWidth="2" />
                   </svg>
-                  Requested Access
+                  已请求的访问权限
                 </p>
                 <ul className="space-y-2">
                   {server.byok_description.map((item, i) => (
@@ -172,13 +172,13 @@ export const ByokCredentialModal: React.FC<ByokCredentialModalProps> = ({
               onClick={() => setStep(2)}
               className="w-full bg-gray-900 hover:bg-gray-700 text-white font-medium py-3 px-6 rounded-xl flex items-center justify-center gap-2 transition-colors"
             >
-              Continue to Authentication <ArrowRightOutlined />
+              继续到身份验证 <ArrowRightOutlined />
             </button>
             <button
               onClick={handleClose}
               className="mt-3 w-full text-gray-400 hover:text-gray-600 text-sm py-2"
             >
-              Cancel
+              取消
             </button>
           </div>
         ) : (
@@ -188,17 +188,17 @@ export const ByokCredentialModal: React.FC<ByokCredentialModalProps> = ({
               <KeyOutlined className="text-blue-400 text-xl" />
             </div>
 
-            <h2 className="text-2xl font-bold text-gray-900 mb-2">Provide API Key</h2>
+            <h2 className="text-2xl font-bold text-gray-900 mb-2">提供 API 密钥</h2>
             <p className="text-gray-500 mb-6">
-              Enter your {serverDisplayName} API key to authorize this connection.
+              输入您的 {serverDisplayName} API 密钥以授权此连接。
             </p>
 
             <div className="mb-4">
               <label className="block text-sm font-semibold text-gray-800 mb-2">
-                {serverDisplayName} API Key
+                {serverDisplayName} API 密钥
               </label>
               <Input.Password
-                placeholder="Enter your API key"
+                placeholder="输入您的 API 密钥"
                 value={apiKey}
                 onChange={(e) => setApiKey(e.target.value)}
                 size="large"
@@ -211,7 +211,7 @@ export const ByokCredentialModal: React.FC<ByokCredentialModalProps> = ({
                   rel="noopener noreferrer"
                   className="text-blue-500 hover:text-blue-700 text-sm mt-2 flex items-center gap-1"
                 >
-                  Where do I find my API key? <LinkOutlined />
+                  我在哪里可以找到我的 API 密钥？ <LinkOutlined />
                 </a>
               )}
             </div>
@@ -225,7 +225,7 @@ export const ByokCredentialModal: React.FC<ByokCredentialModalProps> = ({
                     fill="currentColor"
                   />
                 </svg>
-                <span className="text-sm font-medium text-gray-800">Save key for future use</span>
+                <span className="text-sm font-medium text-gray-800">保存密钥以供将来使用</span>
               </div>
               <Switch checked={saveKey} onChange={setSaveKey} />
             </div>
@@ -234,7 +234,7 @@ export const ByokCredentialModal: React.FC<ByokCredentialModalProps> = ({
             <div className="bg-blue-50 rounded-xl p-4 flex items-start gap-3 mb-6">
               <LockOutlined className="text-blue-400 mt-0.5 flex-shrink-0" />
               <p className="text-sm text-blue-700">
-                Your key is stored securely and transmitted over HTTPS. It is never shared with third parties.
+                您的密钥通过 HTTPS 安全存储和传输。绝不会与第三方共享。
               </p>
             </div>
 
@@ -243,7 +243,7 @@ export const ByokCredentialModal: React.FC<ByokCredentialModalProps> = ({
               disabled={loading}
               className="w-full bg-blue-500 hover:bg-blue-600 disabled:opacity-60 text-white font-medium py-3 px-6 rounded-xl flex items-center justify-center gap-2 transition-colors"
             >
-              <LockOutlined /> Connect &amp; Authorize
+              <LockOutlined /> 连接并授权
             </button>
           </div>
         )}

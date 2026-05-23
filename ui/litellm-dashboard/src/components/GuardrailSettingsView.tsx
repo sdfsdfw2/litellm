@@ -40,7 +40,7 @@ export function GuardrailSettingsView({
           Global
         </span>
         {killSwitchOn ? (
-          <Tag color="gold">Bypassed for this team</Tag>
+          <Tag color="gold">此团队已绕过</Tag>
         ) : globalsRunning.length > 0 ? (
           <div className="flex flex-wrap gap-2">
             {globalsRunning.map((name) => (
@@ -50,11 +50,11 @@ export function GuardrailSettingsView({
             ))}
           </div>
         ) : (
-          <span className="block text-sm text-gray-500">None configured</span>
+          <span className="block text-sm text-gray-500">未配置</span>
         )}
       </div>
       <div>
-        <span className="block text-sm font-medium text-gray-700 mb-2">Team-specific</span>
+        <span className="block text-sm font-medium text-gray-700 mb-2">团队特定</span>
         {nonGlobalOptIns.length > 0 ? (
           <div className="flex flex-wrap gap-2">
             {nonGlobalOptIns.map((name) => (
@@ -64,7 +64,7 @@ export function GuardrailSettingsView({
             ))}
           </div>
         ) : (
-          <span className="block text-sm text-gray-500">None configured</span>
+          <span className="block text-sm text-gray-500">未配置</span>
         )}
       </div>
     </div>

@@ -24,7 +24,7 @@ const OrganizationDropdown: React.FC<OrganizationDropdownProps> = ({
   return (
     <Select
       showSearch
-      placeholder="All Organizations"
+      placeholder="所有组织"
       value={value}
       onChange={onChange}
       disabled={disabled}

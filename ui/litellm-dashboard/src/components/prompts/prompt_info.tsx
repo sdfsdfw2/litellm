@@ -201,7 +201,7 @@ const PromptInfoView: React.FC<PromptInfoProps> = ({ promptId, onClose, accessTo
         </TremorButton>
         <div className="flex justify-between items-start mb-4">
           <div>
-            <Title>Prompt Details</Title>
+            <Title>提示词详情</Title>
             <div className="flex items-center cursor-pointer">
               <Text className="text-gray-500 font-mono">{basePromptId}</Text>
               <Button
@@ -302,8 +302,8 @@ const PromptInfoView: React.FC<PromptInfoProps> = ({ promptId, onClose, accessTo
 
       <TabGroup>
         <TabList className="mb-4">
-          <Tab key="overview">Overview</Tab>
-          {promptTemplate ? <Tab key="prompt-template">Prompt Template</Tab> : <></>}
+          <Tab key="overview">概览</Tab>
+          {promptTemplate ? <Tab key="prompt-template">提示词模板</Tab> : <></>}
           <Tab key="raw-json">Raw JSON</Tab>
         </TabList>
 
@@ -312,7 +312,7 @@ const PromptInfoView: React.FC<PromptInfoProps> = ({ promptId, onClose, accessTo
           <TabPanel>
             <Grid numItems={1} numItemsSm={2} numItemsLg={4} className="gap-4">
               <Card>
-                <Text>Version</Text>
+                <Text>版本</Text>
                 <div className="mt-2">
                   <Title>{currentVersion}</Title>
                   <Badge color="blue" className="mt-1">v{currentVersion}</Badge>
@@ -320,21 +320,21 @@ const PromptInfoView: React.FC<PromptInfoProps> = ({ promptId, onClose, accessTo
               </Card>
 
               <Card>
-                <Text>Prompt Type</Text>
+                <Text>提示词类型</Text>
                 <div className="mt-2">
                   <Title>{promptData.prompt_info?.prompt_type || "-"}</Title>
                 </div>
               </Card>
 
               <Card>
-                <Text>Created By</Text>
+                <Text>创建者</Text>
                 <div className="mt-2">
                   <Title className="text-sm">{promptData.created_by || "-"}</Title>
                 </div>
               </Card>
 
               <Card>
-                <Text>Created At</Text>
+                <Text>创建时间</Text>
                 <div className="mt-2">
                   <Title className="text-sm">{formatDate(promptData.created_at)}</Title>
                   <Text className="text-xs">Updated: {formatDate(promptData.updated_at)}</Text>
@@ -345,16 +345,16 @@ const PromptInfoView: React.FC<PromptInfoProps> = ({ promptId, onClose, accessTo
             {/* Version History Table */}
             <Card className="mt-6">
               <Title className="mb-3">Version History — {selectedEnv}</Title>
-              {loadingVersions ? (
-                <Text>Loading versions...</Text>
+{loadingVersions ? (
+                  <Text>正在加载版本...</Text>
               ) : versionHistory.length > 0 ? (
                 <Table>
                   <TableHead>
                     <TableRow>
-                      <TableHeaderCell>Version</TableHeaderCell>
-                      <TableHeaderCell>Created By</TableHeaderCell>
-                      <TableHeaderCell>Date</TableHeaderCell>
-                      <TableHeaderCell>Actions</TableHeaderCell>
+<TableHeaderCell>版本</TableHeaderCell>
+                          <TableHeaderCell>创建者</TableHeaderCell>
+                          <TableHeaderCell>日期</TableHeaderCell>
+                          <TableHeaderCell>操作</TableHeaderCell>
                     </TableRow>
                   </TableHead>
                   <TableBody>
@@ -422,7 +422,7 @@ const PromptInfoView: React.FC<PromptInfoProps> = ({ promptId, onClose, accessTo
             <TabPanel>
               <Card>
                 <div className="flex justify-between items-center mb-4">
-                  <Title>Prompt Template</Title>
+                  <Title>提示词模板</Title>
                   <Button
                     type="text"
                     size="small"
@@ -470,7 +470,7 @@ const PromptInfoView: React.FC<PromptInfoProps> = ({ promptId, onClose, accessTo
           <TabPanel>
             <Card>
               <div className="flex justify-between items-center mb-4">
-                <Title>Raw API Response</Title>
+                <Title>原始 API 响应</Title>
                 <Button
                   type="text"
                   size="small"
@@ -507,9 +507,9 @@ const PromptInfoView: React.FC<PromptInfoProps> = ({ promptId, onClose, accessTo
         okButtonProps={{ danger: true }}
       >
         <p>
-          Are you sure you want to delete prompt: <strong>{basePromptId}</strong>?
+          确定要删除提示词：<strong>{basePromptId}</strong> 吗？
         </p>
-        <p>This action cannot be undone.</p>
+        <p>此操作无法撤销。</p>
       </Modal>
     </div>
   );

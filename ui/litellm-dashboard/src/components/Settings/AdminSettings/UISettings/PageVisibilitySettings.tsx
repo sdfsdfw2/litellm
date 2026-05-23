@@ -60,15 +60,15 @@ export default function PageVisibilitySettings({
     <Space direction="vertical" size="middle" style={{ width: "100%" }}>
       <Space direction="vertical" size={4}>
         <Space align="center">
-          <Typography.Text strong>Internal User Page Visibility</Typography.Text>
+          <Typography.Text strong>内部用户页面可见性</Typography.Text>
           {!isPageVisibilitySet && (
             <Tag color="default" style={{ marginLeft: "8px" }}>
-              Not set (all pages visible)
+              未设置（所有页面可见）
             </Tag>
           )}
           {isPageVisibilitySet && (
             <Tag color="blue" style={{ marginLeft: "8px" }}>
-              {selectedPages.length} page{selectedPages.length !== 1 ? "s" : ""} selected
+              已选择 {selectedPages.length} 个页面
             </Tag>
           )}
         </Space>
@@ -76,11 +76,10 @@ export default function PageVisibilitySettings({
           <Typography.Text type="secondary">{enabledPagesPropertyDescription}</Typography.Text>
         )}
         <Typography.Text type="secondary" style={{ fontSize: "12px", fontStyle: "italic" }}>
-          By default, all pages are visible to internal users. Select specific pages to restrict visibility.
+          默认情况下，所有页面都对内部用户可见。选择特定页面以限制可见性。
         </Typography.Text>
         <Typography.Text type="secondary" style={{ fontSize: "12px", color: "#8b5cf6" }}>
-          Note: Only pages accessible to internal user roles are shown here. Admin-only pages are excluded as they
-          cannot be made visible to internal users regardless of this setting.
+          注意：此处仅显示内部用户角色可访问的页面。仅管理员页面已被排除，因为无论此设置如何，它们都无法对内部用户可见。
         </Typography.Text>
       </Space>
 
@@ -88,7 +87,7 @@ export default function PageVisibilitySettings({
         items={[
           {
             key: "page-visibility",
-            label: "Configure Page Visibility",
+            label: "配置页面可见性",
             children: (
               <Space direction="vertical" size="middle" style={{ width: "100%" }}>
                 <Checkbox.Group value={selectedPages} onChange={setSelectedPages} style={{ width: "100%" }}>
@@ -128,11 +127,11 @@ export default function PageVisibilitySettings({
 
                 <Space>
                   <Button type="primary" onClick={handleSavePageVisibility} loading={isUpdating} disabled={isUpdating}>
-                    Save Page Visibility Settings
+                    保存页面可见性设置
                   </Button>
                   {isPageVisibilitySet && (
                     <Button onClick={handleResetToDefault} loading={isUpdating} disabled={isUpdating}>
-                      Reset to Default (All Pages)
+                      重置为默认（所有页面）
                     </Button>
                   )}
                 </Space>

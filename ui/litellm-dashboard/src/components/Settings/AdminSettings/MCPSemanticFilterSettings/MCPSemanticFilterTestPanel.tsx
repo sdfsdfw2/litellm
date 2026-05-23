@@ -29,21 +29,21 @@ export default function MCPSemanticFilterTestPanel({
   curlCommand,
 }: MCPSemanticFilterTestPanelProps) {
   return (
-    <Card title="Test Configuration" style={{ marginBottom: 16 }}>
+    <Card title="测试配置" style={{ marginBottom: 16 }}>
       <Tabs
         defaultActiveKey="test"
         items={[
           {
             key: "test",
-            label: "Test",
+            label: "测试",
             children: (
               <Space direction="vertical" style={{ width: "100%" }} size="large">
           <div>
             <Typography.Text strong style={{ display: "block", marginBottom: 8 }}>
-              <PlayCircleOutlined /> Test Query
+              <PlayCircleOutlined /> 测试查询
             </Typography.Text>
             <Input.TextArea
-              placeholder="Enter a test query to see which tools would be selected..."
+              placeholder="输入测试查询以查看将选择哪些工具..."
               value={testQuery}
               onChange={(e) => setTestQuery(e.target.value)}
               rows={4}
@@ -58,7 +58,7 @@ export default function MCPSemanticFilterTestPanel({
               onChange={setTestModel}
               disabled={isTesting}
               showLabel={true}
-              labelText="Select Model"
+              labelText="选择模型"
             />
           </div>
 
@@ -70,31 +70,31 @@ export default function MCPSemanticFilterTestPanel({
             disabled={!testQuery || !testModel || !filterEnabled}
             block
           >
-            Test Filter
+            测试过滤器
           </Button>
 
           {!filterEnabled && (
             <Alert
               type="warning"
-              message="Semantic filtering is disabled"
-              description="Enable semantic filtering and save settings to test the filter."
+              message="语义过滤已禁用"
+              description="启用语义过滤并保存设置以测试过滤器。"
               showIcon
             />
           )}
 
           {testResult && (
             <div>
-              <Typography.Title level={5}>Results</Typography.Title>
+              <Typography.Title level={5}>结果</Typography.Title>
               <Alert
                 type="success"
-                message={`${testResult.selectedTools} tools selected`}
-                description={`Filtered from ${testResult.totalTools} available tools`}
+                message={`已选择 ${testResult.selectedTools} 个工具`}
+                description={`从 ${testResult.totalTools} 个可用工具中过滤`}
                 showIcon
                 style={{ marginBottom: 16 }}
               />
               <div>
                 <Typography.Text strong style={{ display: "block", marginBottom: 8 }}>
-                  Selected Tools:
+                  已选工具：
                 </Typography.Text>
                 <ul style={{ paddingLeft: 20, margin: 0 }}>
                   {testResult.tools.map((tool, index) => (
@@ -111,34 +111,34 @@ export default function MCPSemanticFilterTestPanel({
           },
           {
             key: "api",
-            label: "API Usage",
+            label: "API 使用",
             children: (
               <div>
                 <Space style={{ marginBottom: 8 }}>
                   <CodeOutlined />
-                  <Typography.Text strong>API Usage</Typography.Text>
+                  <Typography.Text strong>API 使用</Typography.Text>
                 </Space>
                 <Typography.Text type="secondary" style={{ display: "block", marginBottom: 8 }}>
-                  Use this curl command to test the semantic filter with your current configuration.
+                  使用此 curl 命令测试当前配置的语义过滤器。
                 </Typography.Text>
             <Typography.Text strong style={{ display: "block", marginBottom: 8 }}>
-              Response headers to check:
+              要检查的响应头：
             </Typography.Text>
             <ul style={{ paddingLeft: 20, margin: "0 0 12px 0" }}>
               <li>
                 <Typography.Text>
-                  x-litellm-semantic-filter: shows total tools → selected tools
+                  x-litellm-semantic-filter：显示总工具数 → 已选工具数
                 </Typography.Text>
                 <Typography.Text type="secondary" style={{ display: "block" }}>
-                  Example: 10→3
+                  示例：10→3
                 </Typography.Text>
               </li>
               <li>
                 <Typography.Text>
-                  x-litellm-semantic-filter-tools: CSV of selected tool names
+                  x-litellm-semantic-filter-tools：已选工具名称的 CSV
                 </Typography.Text>
                 <Typography.Text type="secondary" style={{ display: "block" }}>
-                  Example: wikipedia-fetch,github-search,slack-post
+                  示例：wikipedia-fetch,github-search,slack-post
                 </Typography.Text>
               </li>
             </ul>

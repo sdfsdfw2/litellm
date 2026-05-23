@@ -54,7 +54,7 @@ export function ObjectPermissionsView({
         accessToken={accessToken}
       />
       <div className="rounded-md border border-gray-100 p-4">
-        <Text className="text-sm font-medium text-gray-800">Search tools</Text>
+        <Text className="text-sm font-medium text-gray-800">搜索工具</Text>
         {searchTools.length === 0 ? (
           <Text className="mt-1 block text-xs text-gray-500">
             No restriction — all configured search tools are allowed for this team.

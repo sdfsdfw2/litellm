@@ -53,7 +53,7 @@ const OpenAPIQuickPicker: React.FC<OpenAPIQuickPickerProps> = ({
   if (loading) {
     return (
       <div className="mb-4">
-        <span className="text-sm font-medium text-gray-700">Popular APIs</span>
+        <span className="text-sm font-medium text-gray-700">热门 API</span>
         <div className="flex justify-center py-6">
           <Spin size="small" />
         </div>
@@ -65,7 +65,7 @@ const OpenAPIQuickPicker: React.FC<OpenAPIQuickPickerProps> = ({
 
   return (
     <div className="mb-4">
-      <span className="text-sm font-medium text-gray-700 block mb-2">Popular APIs</span>
+      <span className="text-sm font-medium text-gray-700 block mb-2">热门 API</span>
 
       <div className="grid grid-cols-5 gap-2">
         {apis.map((api) => {
@@ -105,8 +105,7 @@ const OpenAPIQuickPicker: React.FC<OpenAPIQuickPickerProps> = ({
       </div>
 
       <p className="text-xs text-gray-400 mt-2">
-        Select an API to pre-fill the spec URL and OAuth 2.0 settings, or enter
-        your own spec URL below.
+        选择 API 以预填充规范 URL 和 OAuth 2.0 设置，或在下文输入您自己的规范 URL。
       </p>
     </div>
   );

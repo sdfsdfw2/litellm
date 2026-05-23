@@ -375,8 +375,8 @@ const UserAgentActivity: React.FC<UserAgentActivityProps> = ({ accessToken, user
         <div className="space-y-6">
           <div className="flex justify-between items-start">
             <div>
-              <Title>Summary by User Agent</Title>
-              <Subtitle>Performance metrics for different user agents</Subtitle>
+              <Title>按用户代理汇总</Title>
+              <Subtitle>不同用户代理的性能指标</Subtitle>
             </div>
 
             {/* User Agent Filter */}
@@ -443,7 +443,7 @@ const UserAgentActivity: React.FC<UserAgentActivityProps> = ({ accessToken, user
               {/* Fill remaining slots if less than 4 agents */}
               {Array.from({ length: Math.max(0, 4 - (summaryData.results || []).length) }).map((_, index) => (
                 <Card key={`empty-${index}`}>
-                  <Title>No Data</Title>
+                  <Title>暂无数据</Title>
                   <div className="mt-4 space-y-3">
                     <div>
                       <Text className="text-sm text-gray-600">Success Requests</Text>
@@ -478,7 +478,7 @@ const UserAgentActivity: React.FC<UserAgentActivityProps> = ({ accessToken, user
             <TabPanel>
               <div className="mb-6">
                 <Title>DAU, WAU & MAU per Agent</Title>
-                <Subtitle>Active users across different time periods</Subtitle>
+                <Subtitle>跨不同时间段的活跃用户</Subtitle>
               </div>
 
               <TabGroup>

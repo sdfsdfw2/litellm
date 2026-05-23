@@ -540,7 +540,7 @@ const UsagePage: React.FC<UsagePageProps> = ({ accessToken, token, userRole, use
     return (
       <div style={{ width: "100%" }} className="p-8">
         <Card>
-          <Title>Database Query Limit Reached</Title>
+          <Title>数据库查询限制已到达</Title>
           <Text className="mt-4">
             SpendLogs in DB has {proxySettings.NUM_SPEND_LOGS_ROWS} rows.
             <br></br>
@@ -560,13 +560,13 @@ const UsagePage: React.FC<UsagePageProps> = ({ accessToken, token, userRole, use
     <div style={{ width: "100%" }} className="p-8">
       <TabGroup>
         <TabList className="mt-2">
-          <Tab>All Up</Tab>
+          <Tab>总览</Tab>
 
           {isAdminOrAdminViewer(userRole) ? (
             <>
-              <Tab>Team Based Usage</Tab>
-              <Tab>Customer Usage</Tab>
-              <Tab>Tag Based Usage</Tab>
+              <Tab>基于团队的使用量</Tab>
+              <Tab>客户使用量</Tab>
+              <Tab>基于标签的使用量</Tab>
             </>
           ) : (
             <>
@@ -578,8 +578,8 @@ const UsagePage: React.FC<UsagePageProps> = ({ accessToken, token, userRole, use
           <TabPanel>
             <TabGroup>
               <TabList variant="solid" className="mt-1">
-                <Tab>Cost</Tab>
-                <Tab>Activity</Tab>
+                <Tab>成本</Tab>
+                <Tab>活动</Tab>
               </TabList>
               <TabPanels>
                 <TabPanel>
@@ -593,7 +593,7 @@ const UsagePage: React.FC<UsagePageProps> = ({ accessToken, token, userRole, use
                     </Col>
                     <Col numColSpan={2}>
                       <Card>
-                        <Title>Monthly Spend</Title>
+                        <Title>月度消费</Title>
                         <BarChart
                           data={keySpendData}
                           index="date"
@@ -608,13 +608,13 @@ const UsagePage: React.FC<UsagePageProps> = ({ accessToken, token, userRole, use
                     </Col>
                     <Col numColSpan={1}>
                       <Card className="h-full">
-                        <Title>Top Virtual Keys</Title>
+                        <Title>热门虚拟密钥</Title>
                         <TopKeyView topKeys={topKeys} teams={null} topKeysLimit={5} setTopKeysLimit={() => {}} />
                       </Card>
                     </Col>
                     <Col numColSpan={1}>
                       <Card className="h-full">
-                        <Title>Top Models</Title>
+                        <Title>热门模型</Title>
                         <BarChart
                           className="mt-4 h-40"
                           data={topModels}
@@ -632,7 +632,7 @@ const UsagePage: React.FC<UsagePageProps> = ({ accessToken, token, userRole, use
                     <Col numColSpan={1}></Col>
                     <Col numColSpan={2}>
                       <Card className="mb-2">
-                        <Title>Spend by Provider</Title>
+                        <Title>按提供商划分的消费</Title>
                         <>
                           <Grid numItems={2}>
                             <Col numColSpan={1}>
@@ -650,8 +650,8 @@ const UsagePage: React.FC<UsagePageProps> = ({ accessToken, token, userRole, use
                               <Table>
                                 <TableHead>
                                   <TableRow>
-                                    <TableHeaderCell>Provider</TableHeaderCell>
-                                    <TableHeaderCell>Spend</TableHeaderCell>
+                                    <TableHeaderCell>提供商</TableHeaderCell>
+                                    <TableHeaderCell>消费</TableHeaderCell>
                                   </TableRow>
                                 </TableHead>
                                 <TableBody>
@@ -677,7 +677,7 @@ const UsagePage: React.FC<UsagePageProps> = ({ accessToken, token, userRole, use
                 <TabPanel>
                   <Grid numItems={1} className="gap-2 h-[75vh] w-full">
                     <Card>
-                      <Title>All Up</Title>
+                      <Title>总览</Title>
                       <Grid numItems={2}>
                         <Col>
                           <Subtitle style={{ fontSize: "15px", fontWeight: "normal", color: "#535452" }}>
@@ -756,11 +756,11 @@ const UsagePage: React.FC<UsagePageProps> = ({ accessToken, token, userRole, use
             <Grid numItems={2} className="gap-2 h-[75vh] w-full">
               <Col numColSpan={2}>
                 <Card className="mb-2">
-                  <Title>Total Spend Per Team</Title>
+                  <Title>每个团队的总消费</Title>
                   <BarList data={totalSpendPerTeam} />
                 </Card>
                 <Card>
-                  <Title>Daily Spend Per Team</Title>
+                  <Title>每个团队的每日消费</Title>
                   <BarChart
                     className="h-72"
                     data={teamSpendData}
@@ -793,7 +793,7 @@ const UsagePage: React.FC<UsagePageProps> = ({ accessToken, token, userRole, use
                 />
               </Col>
               <Col>
-                <Text>Select Key</Text>
+                <Text>选择密钥</Text>
                 <Select defaultValue="all-keys">
                   <SelectItem
                     key="all-keys"
@@ -828,9 +828,9 @@ const UsagePage: React.FC<UsagePageProps> = ({ accessToken, token, userRole, use
               <Table className="max-h-[70vh] min-h-[500px]">
                 <TableHead>
                   <TableRow>
-                    <TableHeaderCell>Customer</TableHeaderCell>
-                    <TableHeaderCell>Spend</TableHeaderCell>
-                    <TableHeaderCell>Total Events</TableHeaderCell>
+                    <TableHeaderCell>客户</TableHeaderCell>
+                    <TableHeaderCell>消费</TableHeaderCell>
+                    <TableHeaderCell>总事件数</TableHeaderCell>
                   </TableRow>
                 </TableHead>
 
@@ -915,7 +915,7 @@ const UsagePage: React.FC<UsagePageProps> = ({ accessToken, token, userRole, use
             <Grid numItems={2} className="gap-2 h-[75vh] w-full mb-4">
               <Col numColSpan={2}>
                 <Card>
-                  <Title>Spend Per Tag</Title>
+                  <Title>每个标签的消费</Title>
                   <Text>
                     Get Started by Tracking cost per tag{" "}
                     <a

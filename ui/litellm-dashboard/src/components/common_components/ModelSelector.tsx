@@ -19,13 +19,13 @@ interface ModelSelectorProps {
 const ModelSelector: React.FC<ModelSelectorProps> = ({
   accessToken,
   value,
-  placeholder = "Select a Model",
+  placeholder = "选择模型",
   onChange,
   disabled = false,
   style,
   className,
   showLabel = true,
-  labelText = "Select Model",
+  labelText = "选择模型",
 }) => {
   const [selectedModel, setSelectedModel] = useState<string | undefined>(value);
   const [showCustomModelInput, setShowCustomModelInput] = useState<boolean>(false);
@@ -99,7 +99,7 @@ const ModelSelector: React.FC<ModelSelectorProps> = ({
             label: model_group,
             key: index,
           })),
-          { value: "custom", label: "Enter custom model", key: "custom" },
+          { value: "custom", label: "输入自定义模型", key: "custom" },
         ]}
         style={{ width: "100%", ...style }}
         showSearch={true}
@@ -109,7 +109,7 @@ const ModelSelector: React.FC<ModelSelectorProps> = ({
       {showCustomModelInput && (
         <TextInput
           className="mt-2"
-          placeholder="Enter custom model name"
+          placeholder="输入自定义模型名称"
           onValueChange={handleCustomModelChange}
           disabled={disabled}
         />

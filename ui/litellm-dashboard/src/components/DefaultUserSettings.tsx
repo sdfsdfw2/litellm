@@ -62,7 +62,7 @@ const DefaultUserSettings: React.FC<DefaultUserSettingsProps> = ({
         }
       } catch (error) {
         console.error("Error fetching SSO settings:", error);
-        NotificationManager.fromBackend("Failed to fetch SSO settings");
+        NotificationManager.fromBackend("获取 SSO 设置失败");
       } finally {
         setLoading(false);
       }
@@ -90,7 +90,7 @@ const DefaultUserSettings: React.FC<DefaultUserSettingsProps> = ({
       setIsEditing(false);
     } catch (error) {
       console.error("Error updating SSO settings:", error);
-      NotificationManager.fromBackend("Failed to update settings: " + error);
+      NotificationManager.fromBackend("更新设置失败: " + error);
     } finally {
       setSaving(false);
     }
@@ -175,7 +175,7 @@ const DefaultUserSettings: React.FC<DefaultUserSettingsProps> = ({
                 <TextInput
                   value={team.team_id}
                   onChange={(e) => updateTeam(index, "team_id", e.target.value)}
-                  placeholder="Enter team ID"
+                  placeholder="输入团队 ID"
                 />
               </div>
 
@@ -185,7 +185,7 @@ const DefaultUserSettings: React.FC<DefaultUserSettingsProps> = ({
                   style={{ width: "100%" }}
                   value={team.max_budget_in_team}
                   onChange={(value) => updateTeam(index, "max_budget_in_team", value)}
-                  placeholder="Optional"
+                  placeholder="可选"
                   min={0}
                   step={0.01}
                   precision={2}
@@ -199,8 +199,8 @@ const DefaultUserSettings: React.FC<DefaultUserSettingsProps> = ({
                   value={team.user_role}
                   onChange={(value) => updateTeam(index, "user_role", value)}
                 >
-                  <Option value="user">User</Option>
-                  <Option value="admin">Admin</Option>
+<Option value="user">用户</Option>
+                   <Option value="admin">管理员</Option>
                 </Select>
               </div>
             </div>
@@ -418,7 +418,7 @@ const DefaultUserSettings: React.FC<DefaultUserSettingsProps> = ({
   if (!settings) {
     return (
       <Card>
-        <Text>No settings available or you do not have permission to view them.</Text>
+        <Text>没有可用的设置，或者您没有查看它们的权限。</Text>
       </Card>
     );
   }
@@ -428,7 +428,7 @@ const DefaultUserSettings: React.FC<DefaultUserSettingsProps> = ({
     const { values, field_schema } = settings;
 
     if (!field_schema || !field_schema.properties) {
-      return <Text>No schema information available</Text>;
+      return <Text>没有可用的架构信息</Text>;
     }
 
     return Object.entries(field_schema.properties).map(([key, property]: [string, any]) => {
@@ -455,7 +455,7 @@ const DefaultUserSettings: React.FC<DefaultUserSettingsProps> = ({
   return (
     <Card>
       <div className="flex justify-between items-center mb-4">
-        <Title>Default User Settings</Title>
+        <Title>默认用户设置</Title>
         {!loading &&
           settings &&
           (isEditing ? (
@@ -474,7 +474,7 @@ const DefaultUserSettings: React.FC<DefaultUserSettingsProps> = ({
               </Button>
             </div>
           ) : (
-            <Button type="primary" onClick={() => setIsEditing(true)}>Edit Settings</Button>
+            <Button type="primary" onClick={() => setIsEditing(true)}>编辑设置</Button>
           ))}
       </div>
 

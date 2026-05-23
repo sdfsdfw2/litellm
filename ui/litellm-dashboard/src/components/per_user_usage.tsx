@@ -110,13 +110,13 @@ const PerUserUsage: React.FC<PerUserUsageProps> = ({ accessToken, selectedTags, 
             <Table>
               <TableHead>
                 <TableRow>
-                  <TableHeaderCell>User ID</TableHeaderCell>
-                  <TableHeaderCell>User Email</TableHeaderCell>
-                  <TableHeaderCell>User Agent</TableHeaderCell>
-                  <TableHeaderCell className="text-right">Success Generations</TableHeaderCell>
-                  <TableHeaderCell className="text-right">Total Tokens</TableHeaderCell>
-                  <TableHeaderCell className="text-right">Failed Requests</TableHeaderCell>
-                  <TableHeaderCell className="text-right">Total Cost</TableHeaderCell>
+                  <TableHeaderCell>用户 ID</TableHeaderCell>
+                  <TableHeaderCell>用户邮箱</TableHeaderCell>
+                  <TableHeaderCell>用户代理</TableHeaderCell>
+                  <TableHeaderCell className="text-right">成功生成次数</TableHeaderCell>
+                  <TableHeaderCell className="text-right">总 Token 数</TableHeaderCell>
+                  <TableHeaderCell className="text-right">失败请求数</TableHeaderCell>
+                  <TableHeaderCell className="text-right">总成本</TableHeaderCell>
                 </TableRow>
               </TableHead>
               <TableBody>

@@ -334,7 +334,7 @@ export default function ModelInfoView({
           };
         }
       } catch (e) {
-        NotificationsManager.fromBackend("Invalid JSON in Model Info");
+        NotificationsManager.fromBackend("模型信息中的JSON无效");
         return;
       }
 
@@ -365,7 +365,7 @@ export default function ModelInfoView({
       setIsEditing(false);
     } catch (error) {
       console.error("Error updating model:", error);
-      NotificationsManager.fromBackend("Failed to update model settings");
+      NotificationsManager.fromBackend("更新模型设置失败");
     } finally {
       setIsSaving(false);
     }
@@ -378,7 +378,7 @@ export default function ModelInfoView({
         <TremorButton icon={ArrowLeftIcon} variant="light" onClick={onClose} className="mb-4">
           Back to Models
         </TremorButton>
-        <Text>Loading...</Text>
+        <Text>加载中...</Text>
       </div>
     );
   }
@@ -390,7 +390,7 @@ export default function ModelInfoView({
         <TremorButton icon={ArrowLeftIcon} variant="light" onClick={onClose} className="mb-4">
           Back to Models
         </TremorButton>
-        <Text>Model not found</Text>
+        <Text>未找到模型</Text>
       </div>
     );
   }
@@ -425,9 +425,9 @@ export default function ModelInfoView({
       }
     } catch (error) {
       if (error instanceof Error) {
-        NotificationsManager.error("Error testing connection: " + truncateString(error.message, 100));
+        NotificationsManager.error("测试连接出错：" + truncateString(error.message, 100));
       } else {
-        NotificationsManager.error("Error testing connection: " + String(error));
+        NotificationsManager.error("测试连接出错：" + String(error));
       }
     }
   };
@@ -481,7 +481,7 @@ export default function ModelInfoView({
           <TremorButton icon={ArrowLeftIcon} variant="light" onClick={onClose} className="mb-4">
             Back to Models
           </TremorButton>
-          <Title>Public Model Name: {getDisplayModelName(modelData)}</Title>
+          <Title>公共模型名称：{getDisplayModelName(modelData)}</Title>
           <div className="flex items-center cursor-pointer">
             <Text className="text-gray-500 font-mono">{modelData.model_info.id}</Text>
             <Button
@@ -525,15 +525,15 @@ export default function ModelInfoView({
             disabled={!canEditModel}
             data-testid="delete-model-button"
           >
-            Delete Model
+            删除模型
           </TremorButton>
         </div>
       </div>
 
       <TabGroup>
         <TabList className="mb-6">
-          <Tab>Overview</Tab>
-          <Tab>Raw JSON</Tab>
+          <Tab>概览</Tab>
+          <Tab>原始JSON</Tab>
         </TabList>
 
         <TabPanels>
@@ -541,7 +541,7 @@ export default function ModelInfoView({
             {/* Overview Grid */}
             <Grid numItems={1} numItemsSm={2} numItemsLg={3} className="gap-6 mb-6">
               <Card>
-                <Text>Provider</Text>
+                <Text>提供商</Text>
                 <div className="mt-2 flex items-center space-x-2">
                   {modelData.provider && (
                     <img
@@ -571,7 +571,7 @@ export default function ModelInfoView({
                 </div>
               </Card>
               <Card>
-                <Text>LiteLLM Model</Text>
+                <Text>LiteLLM 模型</Text>
                 <div className="mt-2 overflow-hidden">
                   <Tooltip title={modelData.litellm_model_name || "Not Set"}>
                     <div className="break-all text-sm font-medium leading-relaxed cursor-pointer">
@@ -581,10 +581,10 @@ export default function ModelInfoView({
                 </div>
               </Card>
               <Card>
-                <Text>Pricing</Text>
+                <Text>定价</Text>
                 <div className="mt-2">
-                  <Text>Input: ${modelData.input_cost}/1M tokens</Text>
-                  <Text>Output: ${modelData.output_cost}/1M tokens</Text>
+                  <Text>输入：${modelData.input_cost}/1M tokens</Text>
+                  <Text>输出：${modelData.output_cost}/1M tokens</Text>
                 </div>
               </Card>
             </Grid>
@@ -625,7 +625,7 @@ export default function ModelInfoView({
             {/* Settings Card */}
             <Card>
               <div className="flex justify-between items-center mb-4">
-                <Title>Model Settings</Title>
+                <Title>模型设置</Title>
                 <div className="flex gap-2">
                   {isAutoRouter && canEditModel && !isEditing && (
                     <TremorButton onClick={() => setIsAutoRouterModalOpen(true)} className="flex items-center">
@@ -639,7 +639,7 @@ export default function ModelInfoView({
                       </TremorButton>
                     )
                   ) : (
-                    <Tooltip title="Only DB models can be edited. You must be an admin or the creator of the model to edit it.">
+                    <Tooltip title="只有数据库中的模型才能被编辑。您必须是管理员或模型的创建者才能编辑它。">
                       <InfoCircleOutlined />
                     </Tooltip>
                   )}
@@ -775,9 +775,9 @@ export default function ModelInfoView({
                           <Form.Item
                             name="cache_read_cost"
                             className="mb-0"
-                            tooltip="If left blank on save, defaults to Input Cost."
+                            tooltip="保存时留空则默认为输入成本。"
                           >
-                            <NumericalInput placeholder="Defaults to Input Cost if blank" />
+                            <NumericalInput placeholder="保存时留空则默认为输入成本" />
                           </Form.Item>
                         ) : (
                           <div className="mt-1 p-2 bg-gray-50 rounded">
@@ -798,9 +798,9 @@ export default function ModelInfoView({
                           <Form.Item
                             name="cache_write_cost"
                             className="mb-0"
-                            tooltip="If left blank on save, defaults to Input Cost (backend falls back to input_cost_per_token)."
+                            tooltip="保存时留空则默认为输入成本（后端会回退到 input_cost_per_token）。"
                           >
-                            <NumericalInput placeholder="Defaults to Input Cost if blank" />
+                            <NumericalInput placeholder="保存时留空则默认为输入成本" />
                           </Form.Item>
                         ) : (
                           <div className="mt-1 p-2 bg-gray-50 rounded">
@@ -969,7 +969,7 @@ export default function ModelInfoView({
                       <div>
                         <Text className="font-medium">
                           Guardrails
-                          <Tooltip title="Apply safety guardrails to this model to filter content or enforce policies">
+                              <Tooltip title="为此模型应用安全护栏以过滤内容或执行策略">
                             <a
                               href="https://docs.litellm.ai/docs/proxy/guardrails/quick_start"
                               target="_blank"
@@ -1030,7 +1030,7 @@ export default function ModelInfoView({
                       <div>
                         <Text className="font-medium">
                           Attached Knowledge Bases (RAG)
-                          <Tooltip title="Vector stores used for RAG. Every request to this model will automatically retrieve context from these knowledge bases.">
+                            <Tooltip title="用于RAG的向量存储。对此模型的每次请求都会自动从这些知识库中检索上下文。">
                             <a
                               href="https://docs.litellm.ai/docs/completion/knowledgebase"
                               target="_blank"
@@ -1242,7 +1242,7 @@ export default function ModelInfoView({
                       <div>
                         <Text className="font-medium">
                           LiteLLM Params
-                          <Tooltip title="Optional litellm params used for making a litellm.completion() call. Some params are automatically added by LiteLLM.">
+                            <Tooltip title="用于发起litellm.completion()调用的可选litellm参数。部分参数由LiteLLM自动添加。">
                             <a
                               href="https://docs.litellm.ai/docs/completion/input"
                               target="_blank"
@@ -1299,7 +1299,7 @@ export default function ModelInfoView({
                   </div>
                 </Form>
               ) : (
-                <Text>Loading...</Text>
+                <Text>加载中...</Text>
               )}
             </Card>
           </TabPanel>
@@ -1314,7 +1314,7 @@ export default function ModelInfoView({
 
       <DeleteResourceModal
         isOpen={isDeleteModalOpen}
-        title="Delete Model"
+        title="删除模型"
         alertMessage="This action cannot be undone."
         message="Are you sure you want to delete this model?"
         resourceInformationTitle="Model Information"
@@ -1353,7 +1353,7 @@ export default function ModelInfoView({
         <Modal
           open={isCredentialModalOpen}
           onCancel={() => setIsCredentialModalOpen(false)}
-          title="Using Existing Credential"
+          title="使用现有凭据"
         >
           <Text>{modelData.litellm_params.litellm_credential_name}</Text>
         </Modal>

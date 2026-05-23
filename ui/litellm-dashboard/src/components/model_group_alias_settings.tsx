@@ -221,9 +221,9 @@ const ModelGroupAliasSettings: React.FC<ModelGroupAliasSettingsProps> = ({
               <Table className="[&_td]:py-0.5 [&_th]:py-1">
                 <TableHead>
                   <TableRow>
-                    <TableHeaderCell className="py-1 h-8">Alias Name</TableHeaderCell>
-                    <TableHeaderCell className="py-1 h-8">Target Model Group</TableHeaderCell>
-                    <TableHeaderCell className="py-1 h-8">Actions</TableHeaderCell>
+                    <TableHeaderCell className="py-1 h-8">别名名称</TableHeaderCell>
+                    <TableHeaderCell className="py-1 h-8">目标模型组</TableHeaderCell>
+                    <TableHeaderCell className="py-1 h-8">操作</TableHeaderCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>

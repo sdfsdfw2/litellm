@@ -214,7 +214,7 @@ const MCPToolsViewer = ({
         <div className="flex h-auto w-full gap-4">
           {/* Left Sidebar with Controls */}
           <div className="w-1/4 p-4 bg-gray-50 flex flex-col">
-            <Title className="text-xl font-semibold mb-6 mt-2">MCP Tools</Title>
+            <Title className="text-xl font-semibold mb-6 mt-2">MCP 工具</Title>
 
             <div className="flex flex-col flex-1">
               {/* Extra Headers Input Section */}
@@ -224,7 +224,7 @@ const MCPToolsViewer = ({
                     <div className="flex items-center">
                       <KeyOutlined className="text-blue-600 mr-2" />
                       <Text className="text-sm font-medium text-blue-800">
-                        Additional Headers
+                        附加请求头
                       </Text>
                     </div>
                     <AntdButton
@@ -233,13 +233,13 @@ const MCPToolsViewer = ({
                       onClick={() => setShowHeaderInput(!showHeaderInput)}
                       className="text-blue-700 p-0 h-auto"
                     >
-                      {showHeaderInput ? "Hide" : "Configure"}
+                      {showHeaderInput ? "隐藏" : "配置"}
                     </AntdButton>
                   </div>
                   
                   {!showHeaderInput && Object.keys(passthroughHeaders).length === 0 && (
                     <Text className="text-xs text-blue-700">
-                      This server requires additional headers. Click &quot;Configure&quot; to provide values.
+                      此服务器需要附加请求头。点击"配置"提供值。
                     </Text>
                   )}
                   
@@ -252,7 +252,7 @@ const MCPToolsViewer = ({
                           </label>
                           <Input
                             size="small"
-                            placeholder={`Enter ${headerName}`}
+                            placeholder={`请输入 ${headerName}`}
                             value={passthroughHeaders[headerName] || ""}
                             onChange={(e) => {
                               setPassthroughHeaders({
@@ -275,7 +275,7 @@ const MCPToolsViewer = ({
                         disabled={Object.values(passthroughHeaders).every(v => !v || !v.trim())}
                         className="w-full mt-2"
                       >
-                        Load Tools
+                        加载工具
                       </AntdButton>
                     </div>
                   )}
@@ -284,7 +284,7 @@ const MCPToolsViewer = ({
                     <div className="mt-2">
                       <Text className="text-xs text-green-700 flex items-center">
                         <span className="inline-block w-2 h-2 bg-green-500 rounded-full mr-2"></span>
-                        {Object.keys(passthroughHeaders).length} header(s) configured
+                        已配置 {Object.keys(passthroughHeaders).length} 个请求头
                       </Text>
                     </div>
                   )}
@@ -294,7 +294,7 @@ const MCPToolsViewer = ({
               {/* Tool Selection - Show tools first */}
               <div className="flex flex-col flex-1 min-h-0">
                 <Text className="font-medium block mb-3 text-gray-700 flex items-center">
-                  <ToolOutlined className="mr-2" /> Available Tools
+                  <ToolOutlined className="mr-2" /> 可用工具
                   {toolsData.length > 0 && (
                     <span className="ml-2 bg-blue-100 text-blue-800 text-xs font-medium px-2 py-0.5 rounded-full">
                       {toolsData.length}
@@ -306,9 +306,9 @@ const MCPToolsViewer = ({
                 {isOAuth && !oauthToken && (
                   <div className="p-4 text-center bg-white border border-gray-200 rounded-lg">
                     <LockOutlined className="text-2xl text-gray-400 mb-2" />
-                    <p className="text-xs font-medium text-gray-700 mb-1">Authentication required</p>
+                    <p className="text-xs font-medium text-gray-700 mb-1">需要身份验证</p>
                     <p className="text-xs text-gray-500 mb-3">
-                      Authenticate to view available tools
+                      请先进行身份验证以查看可用工具
                     </p>
                     <AntdButton
                       size="small"
@@ -317,7 +317,7 @@ const MCPToolsViewer = ({
                       onClick={startOAuthFlow}
                       disabled={!accessToken}
                     >
-                      Authorize
+                      授权
                     </AntdButton>
                     {oauthError && (
                       <p className="text-xs text-red-500 mt-2">{oauthError}</p>
@@ -329,15 +329,15 @@ const MCPToolsViewer = ({
                 {!isOAuth || oauthToken ? <>
                 {toolsData.length > 0 && (
                   <div className="mb-3">
-                    <Input
-                      placeholder="Search tools..."
-                      prefix={<SearchOutlined className="text-gray-400" />}
-                      value={toolSearchTerm}
-                      onChange={(e) => setToolSearchTerm(e.target.value)}
-                      allowClear
-                      className="rounded-lg"
-                      size="middle"
-                    />
+                      <Input
+                        placeholder="搜索工具..."
+                        prefix={<SearchOutlined className="text-gray-400" />}
+                        value={toolSearchTerm}
+                        onChange={(e) => setToolSearchTerm(e.target.value)}
+                        allowClear
+                        className="rounded-lg"
+                        size="middle"
+                      />
                   </div>
                 )}
 
@@ -348,7 +348,7 @@ const MCPToolsViewer = ({
                       <div className="animate-spin rounded-full h-6 w-6 border-2 border-gray-200"></div>
                       <div className="animate-spin rounded-full h-6 w-6 border-2 border-blue-600 border-t-transparent absolute top-0"></div>
                     </div>
-                    <p className="text-xs font-medium text-gray-700">Loading tools...</p>
+                    <p className="text-xs font-medium text-gray-700">正在加载工具...</p>
                   </div>
                 )}
 
@@ -356,7 +356,7 @@ const MCPToolsViewer = ({
                 {(mcpToolsResponse?.error || mcpToolsError) && !isLoadingTools && !toolsData.length && (
                   <div className="p-3 text-xs text-red-800 rounded-lg bg-red-50 border border-red-200">
                     <p className="font-medium">
-                      Error: {mcpToolsResponse?.message || (mcpToolsError as Error)?.message}
+                      错误: {mcpToolsResponse?.message || (mcpToolsError as Error)?.message}
                     </p>
                   </div>
                 )}
@@ -374,8 +374,8 @@ const MCPToolsViewer = ({
                         />
                       </svg>
                     </div>
-                    <p className="text-xs font-medium text-gray-700 mb-1">No tools available</p>
-                    <p className="text-xs text-gray-500">No tools found for this server</p>
+                    <p className="text-xs font-medium text-gray-700 mb-1">没有可用工具</p>
+                    <p className="text-xs text-gray-500">未找到此服务器的工具</p>
                   </div>
                 )}
 
@@ -385,8 +385,8 @@ const MCPToolsViewer = ({
                     {filteredTools.length === 0 ? (
                       <div className="p-4 text-center bg-white border border-gray-200 rounded-lg">
                         <SearchOutlined className="text-2xl text-gray-400 mb-2" />
-                        <p className="text-xs font-medium text-gray-700 mb-1">No tools found</p>
-                        <p className="text-xs text-gray-500">No tools match &quot;{toolSearchTerm}&quot;</p>
+                        <p className="text-xs font-medium text-gray-700 mb-1">未找到工具</p>
+                        <p className="text-xs text-gray-500">未找到匹配 &quot;{toolSearchTerm}&quot; 的工具</p>
                       </div>
                     ) : (
                       <div
@@ -436,7 +436,7 @@ const MCPToolsViewer = ({
                                   clipRule="evenodd"
                                 />
                               </svg>
-                              Selected
+                              已选
                             </div>
                           </div>
                         )}
@@ -454,7 +454,7 @@ const MCPToolsViewer = ({
           {/* Main Testing Area */}
           <div className="w-3/4 flex flex-col bg-white">
             <div className="p-4 border-b border-gray-200 flex justify-between items-center">
-              <Title className="text-xl font-semibold mb-0">Tool Testing Playground</Title>
+              <Title className="text-xl font-semibold mb-0">工具测试面板</Title>
             </div>
 
             <div className="flex-1 overflow-auto p-4">
@@ -462,9 +462,9 @@ const MCPToolsViewer = ({
                 /* Empty State */
                 <div className="h-full flex flex-col items-center justify-center text-gray-400">
                   <RobotOutlined style={{ fontSize: "48px", marginBottom: "16px" }} />
-                  <Text className="text-lg font-medium text-gray-600 mb-2">Select a Tool to Test</Text>
+                  <Text className="text-lg font-medium text-gray-600 mb-2">选择一个工具进行测试</Text>
                   <Text className="text-center text-gray-500 max-w-md">
-                    Choose a tool from the left sidebar to start testing its functionality with custom inputs.
+                    从左侧边栏选择一个工具，开始使用自定义输入测试其功能。
                   </Text>
                 </div>
               ) : (

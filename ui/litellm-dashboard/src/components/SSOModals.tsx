@@ -312,7 +312,7 @@ const SSOModals: React.FC<SSOModalsProps> = ({
         key={field.name}
         label={field.label}
         name={field.name}
-        rules={[{ required: true, message: `Please enter the ${field.label.toLowerCase()}` }]}
+        rules={[{ required: true, message: `请输入${field.label}` }]}
       >
         {field.name.includes("client") ? <Input.Password /> : <TextInput placeholder={field.placeholder} />}
       </Form.Item>
@@ -322,7 +322,7 @@ const SSOModals: React.FC<SSOModalsProps> = ({
   return (
     <>
       <Modal
-        title={ssoConfigured ? "Edit SSO Settings" : "Add SSO"}
+        title={ssoConfigured ? "编辑 SSO 设置" : "添加 SSO"}
         open={isAddSSOModalVisible}
         width={800}
         footer={null}
@@ -338,9 +338,9 @@ const SSOModals: React.FC<SSOModalsProps> = ({
         >
           <>
             <Form.Item
-              label="SSO Provider"
+              label="SSO 提供商"
               name="sso_provider"
-              rules={[{ required: true, message: "Please select an SSO provider" }]}
+              rules={[{ required: true, message: "请选择 SSO 提供商" }]}
             >
               <Select>
                 {Object.entries(ssoProviderLogoMap).map(([value, logo]) => (
@@ -357,7 +357,7 @@ const SSOModals: React.FC<SSOModalsProps> = ({
                         {value.toLowerCase() === "okta"
                           ? "Okta / Auth0"
                           : value.charAt(0).toUpperCase() + value.slice(1)}{" "}
-                        SSO
+                        单点登录
                       </span>
                     </div>
                   </Select.Option>
@@ -376,27 +376,27 @@ const SSOModals: React.FC<SSOModalsProps> = ({
             </Form.Item>
 
             <Form.Item
-              label="Proxy Admin Email"
+              label="代理管理员邮箱"
               name="user_email"
-              rules={[{ required: true, message: "Please enter the email of the proxy admin" }]}
+              rules={[{ required: true, message: "请输入代理管理员邮箱" }]}
             >
               <TextInput />
             </Form.Item>
             <Form.Item
-              label="Proxy Base URL"
+              label="代理基础 URL"
               name="proxy_base_url"
               normalize={(value) => value?.trim()}
               rules={[
-                { required: true, message: "Please enter the proxy base url" },
+                { required: true, message: "请输入代理基础 URL" },
                 {
                   pattern: /^https?:\/\/.+/,
-                  message: "URL must start with http:// or https://",
+                  message: "URL 必须以 http:// 或 https:// 开头",
                 },
                 {
                   validator: (_, value) => {
                     // Only check for trailing slash if the URL starts with http:// or https://
                     if (value && /^https?:\/\/.+/.test(value) && value.endsWith("/")) {
-                      return Promise.reject("URL must not end with a trailing slash");
+                      return Promise.reject("URL 不能以斜杠结尾");
                     }
                     return Promise.resolve();
                   },
@@ -413,7 +413,7 @@ const SSOModals: React.FC<SSOModalsProps> = ({
               {({ getFieldValue }) => {
                 const provider = getFieldValue("sso_provider");
                 return provider === "okta" || provider === "generic" ? (
-                  <Form.Item label="Use Role Mappings" name="use_role_mappings" valuePropName="checked">
+                  <Form.Item label="使用角色映射" name="use_role_mappings" valuePropName="checked">
                     <Checkbox />
                   </Form.Item>
                 ) : null;
@@ -430,9 +430,9 @@ const SSOModals: React.FC<SSOModalsProps> = ({
                 const useRoleMappings = getFieldValue("use_role_mappings");
                 return useRoleMappings ? (
                   <Form.Item
-                    label="Group Claim"
+                    label="组声明"
                     name="group_claim"
-                    rules={[{ required: true, message: "Please enter the group claim" }]}
+                    rules={[{ required: true, message: "请输入组声明" }]}
                   >
                     <TextInput />
                   </Form.Item>
@@ -450,28 +450,28 @@ const SSOModals: React.FC<SSOModalsProps> = ({
                 const useRoleMappings = getFieldValue("use_role_mappings");
                 return useRoleMappings ? (
                   <>
-                    <Form.Item label="Default Role" name="default_role" initialValue="Internal User">
+                    <Form.Item label="默认角色" name="default_role" initialValue="Internal User">
                       <Select>
-                        <Select.Option value="internal_user_viewer">Internal Viewer</Select.Option>
-                        <Select.Option value="internal_user">Internal User</Select.Option>
-                        <Select.Option value="proxy_admin_viewer">Admin Viewer</Select.Option>
-                        <Select.Option value="proxy_admin">Proxy Admin</Select.Option>
+                        <Select.Option value="internal_user_viewer">内部查看者</Select.Option>
+                        <Select.Option value="internal_user">内部用户</Select.Option>
+                        <Select.Option value="proxy_admin_viewer">管理员查看者</Select.Option>
+                        <Select.Option value="proxy_admin">代理管理员</Select.Option>
                       </Select>
                     </Form.Item>
 
-                    <Form.Item label="Proxy Admin Teams" name="proxy_admin_teams">
+                    <Form.Item label="代理管理员团队" name="proxy_admin_teams">
                       <TextInput />
                     </Form.Item>
 
-                    <Form.Item label="Admin Viewer Teams" name="admin_viewer_teams">
+                    <Form.Item label="管理员查看者团队" name="admin_viewer_teams">
                       <TextInput />
                     </Form.Item>
 
-                    <Form.Item label="Internal User Teams" name="internal_user_teams">
+                    <Form.Item label="内部用户团队" name="internal_user_teams">
                       <TextInput />
                     </Form.Item>
 
-                    <Form.Item label="Internal Viewer Teams" name="internal_viewer_teams">
+                    <Form.Item label="内部查看者团队" name="internal_viewer_teams">
                       <TextInput />
                     </Form.Item>
                   </>
@@ -506,21 +506,21 @@ const SSOModals: React.FC<SSOModalsProps> = ({
                   e.currentTarget.style.borderColor = "#6366f1";
                 }}
               >
-                Clear
-              </Button2>
+清除
+               </Button2>
             )}
-            <Button2 htmlType="submit">Save</Button2>
+            <Button2 htmlType="submit">保存</Button2>
           </div>
         </Form>
       </Modal>
 
       {/* Clear Confirmation Modal */}
       <Modal
-        title="Confirm Clear SSO Settings"
+        title="确认清除 SSO 设置"
         open={isClearConfirmModalVisible}
         onOk={handleClearSSO}
         onCancel={() => setIsClearConfirmModalVisible(false)}
-        okText="Yes, Clear"
+        okText="是的，清除"
         cancelText="取消"
         okButtonProps={{
           danger: true,
@@ -530,26 +530,26 @@ const SSOModals: React.FC<SSOModalsProps> = ({
           },
         }}
       >
-        <p>Are you sure you want to clear all SSO settings? This action cannot be undone.</p>
-        <p>Users will no longer be able to login using SSO after this change.</p>
+<p>确定要清除所有 SSO 设置吗？此操作无法撤销。</p>
+         <p>此更改后，用户将无法再使用 SSO 登录。</p>
       </Modal>
 
       <Modal
-        title="SSO Setup Instructions"
+        title="SSO 配置说明"
         open={isInstructionsModalVisible}
         width={800}
         footer={null}
         onOk={handleInstructionsOk}
         onCancel={handleInstructionsCancel}
       >
-        <p>Follow these steps to complete the SSO setup:</p>
-        <Text className="mt-2">1. DO NOT Exit this TAB</Text>
-        <Text className="mt-2">2. Open a new tab, visit your proxy base url</Text>
-        <Text className="mt-2">3. Confirm your SSO is configured correctly and you can login on the new Tab</Text>
-        <Text className="mt-2">4. If Step 3 is successful, you can close this tab</Text>
-        <div style={{ textAlign: "right", marginTop: "10px" }}>
-          <Button2 onClick={handleInstructionsOk}>Done</Button2>
-        </div>
+<p>按照以下步骤完成 SSO 配置：</p>
+         <Text className="mt-2">1. 不要退出此标签页</Text>
+         <Text className="mt-2">2. 打开新标签页，访问您的代理基础 URL</Text>
+         <Text className="mt-2">3. 确认 SSO 配置正确，您可以在新标签页登录</Text>
+         <Text className="mt-2">4. 如果步骤 3 成功，您可以关闭此标签页</Text>
+         <div style={{ textAlign: "right", marginTop: "10px" }}>
+           <Button2 onClick={handleInstructionsOk}>完成</Button2>
+         </div>
       </Modal>
     </>
   );

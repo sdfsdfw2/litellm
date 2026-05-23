@@ -11,12 +11,12 @@ export const ssoProviderDisplayNames: Record<string, string> = {
   google: "Google SSO",
   microsoft: "Microsoft SSO",
   okta: "Okta / Auth0 SSO",
-  generic: "Generic SSO",
+  generic: "通用 SSO",
 };
 
 export const defaultRoleDisplayNames: Record<string, string> = {
-  internal_user_viewer: "Internal Viewer",
-  internal_user: "Internal User",
-  proxy_admin_viewer: "Proxy Admin Viewer",
-  proxy_admin: "Proxy Admin",
+  internal_user_viewer: "内部查看者",
+  internal_user: "内部用户",
+  proxy_admin_viewer: "代理管理员查看者",
+  proxy_admin: "代理管理员",
 };

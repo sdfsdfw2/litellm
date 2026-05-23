@@ -102,8 +102,8 @@ const BudgetPanel: React.FC<BudgetSettingsPageProps> = ({ accessToken }) => {
       )}
       <TabGroup>
         <TabList>
-          <Tab>Budgets</Tab>
-          <Tab>Examples</Tab>
+<Tab>预算</Tab>
+           <Tab>示例</Tab>
         </TabList>
         <TabPanels>
           <TabPanel>
@@ -120,14 +120,14 @@ const BudgetPanel: React.FC<BudgetSettingsPageProps> = ({ accessToken }) => {
                 />
               )}
               <Card>
-                <Text>Create a budget to assign to customers.</Text>
+                <Text>创建预算以分配给客户。</Text>
                 <Table>
                   <TableHead>
                     <TableRow>
-                      <TableHeaderCell>Budget ID</TableHeaderCell>
-                      <TableHeaderCell>Max Budget</TableHeaderCell>
-                      <TableHeaderCell>TPM</TableHeaderCell>
-                      <TableHeaderCell>RPM</TableHeaderCell>
+<TableHeaderCell>预算 ID</TableHeaderCell>
+                       <TableHeaderCell>最大预算</TableHeaderCell>
+                       <TableHeaderCell>每分钟令牌数</TableHeaderCell>
+                       <TableHeaderCell>每分钟请求数</TableHeaderCell>
                     </TableRow>
                   </TableHead>
 
@@ -184,9 +184,9 @@ const BudgetPanel: React.FC<BudgetSettingsPageProps> = ({ accessToken }) => {
               <Text className="text-base">How to use budget id</Text>
               <TabGroup>
                 <TabList>
-                  <Tab>Assign Budget to Customer</Tab>
-                  <Tab>Test it (Curl)</Tab>
-                  <Tab>Test it (OpenAI SDK)</Tab>
+<Tab>分配预算给客户</Tab>
+                   <Tab>测试（Curl）</Tab>
+                   <Tab>测试（OpenAI SDK）</Tab>
                 </TabList>
                 <TabPanels>
                   <TabPanel>

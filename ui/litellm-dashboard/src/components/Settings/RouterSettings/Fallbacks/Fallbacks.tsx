@@ -191,7 +191,7 @@ const Fallbacks: React.FC<FallbacksProps> = ({ accessToken, userRole, userID, mo
       setRouterSettings(updatedSettings);
       NotificationsManager.success("Router settings updated successfully");
     } catch (error) {
-      NotificationsManager.fromBackend("Failed to update router settings: " + error);
+      NotificationsManager.fromBackend("更新路由器设置失败：" + error);
     } finally {
       setIsDeleting(false);
       setIsDeleteModalOpen(false);
@@ -228,7 +228,7 @@ const Fallbacks: React.FC<FallbacksProps> = ({ accessToken, userRole, userID, mo
       setRouterSettings(updatedSettings);
     } catch (error) {
       // Revert on error by refetching from server
-      NotificationsManager.fromBackend("Failed to update router settings: " + error);
+      NotificationsManager.fromBackend("更新路由器设置失败：" + error);
       if (accessToken && userRole && userID) {
         getCallbacksCall(accessToken, userID, userRole).then((data) => {
           let router_settings = data.router_settings;
@@ -268,9 +268,9 @@ const Fallbacks: React.FC<FallbacksProps> = ({ accessToken, userRole, userID, mo
         <Table>
           <TableHead>
             <TableRow>
-              <TableHeaderCell>Model Name</TableHeaderCell>
-              <TableHeaderCell>Fallbacks</TableHeaderCell>
-              <TableHeaderCell>Actions</TableHeaderCell>
+              <TableHeaderCell>模型名称</TableHeaderCell>
+              <TableHeaderCell>回退</TableHeaderCell>
+              <TableHeaderCell>操作</TableHeaderCell>
             </TableRow>
           </TableHead>
 
@@ -287,7 +287,7 @@ const Fallbacks: React.FC<FallbacksProps> = ({ accessToken, userRole, userID, mo
                   <TableCell className="align-top">
                     {canModify && (
                       <>
-                        <Tooltip title="Test fallback">
+                        <Tooltip title="测试回退">
                           <Icon
                             icon={PlayIcon}
                             size="sm"
@@ -295,7 +295,7 @@ const Fallbacks: React.FC<FallbacksProps> = ({ accessToken, userRole, userID, mo
                             className="cursor-pointer hover:text-blue-600"
                           />
                         </Tooltip>
-                        <Tooltip title="Delete fallback">
+                        <Tooltip title="删除回退">
                           <span
                             data-testid="delete-fallback-button"
                             role="button"
@@ -322,9 +322,9 @@ const Fallbacks: React.FC<FallbacksProps> = ({ accessToken, userRole, userID, mo
       )}
       <DeleteResourceModal
         isOpen={isDeleteModalOpen}
-        title="Delete Fallback?"
-        message="Are you sure you want to delete this fallback? This action cannot be undone."
-        resourceInformationTitle="Fallback Information"
+        title="删除回退？"
+        message="确定要删除此回退？此操作无法撤销。"
+        resourceInformationTitle="回退信息"
         resourceInformation={[
           {
             label: "Model Name",

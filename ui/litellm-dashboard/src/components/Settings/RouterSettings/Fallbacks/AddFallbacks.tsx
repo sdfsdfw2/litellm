@@ -113,7 +113,7 @@ export default function AddFallbacks({
       setIsSaving(true);
       try {
         await onChange(updatedFallbacks);
-        NotificationManager.success(`${groups.length} fallback configuration(s) added successfully!`);
+        NotificationManager.success(`${groups.length} 个回退配置添加成功！`);
         handleCancel();
       } catch (error) {
         // Error handling is done in handleFallbacksChange, so we don't need to show another notification here

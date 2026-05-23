@@ -121,11 +121,11 @@ export const MemoryView: React.FC<MemoryViewProps> = ({ accessToken }) => {
       return createMemory(accessToken, args);
     },
     onSuccess: (row) => {
-      message.success(`Created ${row.key}`);
+      message.success(`已创建 ${row.key}`);
       invalidateList();
     },
     onError: (err: Error) => {
-      message.error(`Save failed: ${err.message}`);
+      message.error(`保存失败: ${err.message}`);
     },
   });
 
@@ -140,11 +140,11 @@ export const MemoryView: React.FC<MemoryViewProps> = ({ accessToken }) => {
       return updateMemory(accessToken, key, payload);
     },
     onSuccess: (row) => {
-      message.success(`Updated ${row.key}`);
+      message.success(`已更新 ${row.key}`);
       invalidateList();
     },
     onError: (err: Error) => {
-      message.error(`Save failed: ${err.message}`);
+      message.error(`保存失败: ${err.message}`);
     },
   });
 
@@ -154,11 +154,11 @@ export const MemoryView: React.FC<MemoryViewProps> = ({ accessToken }) => {
       return deleteMemory(accessToken, key).then(() => key);
     },
     onSuccess: (key) => {
-      message.success(`Deleted ${key}`);
+      message.success(`已删除 ${key}`);
       invalidateList();
     },
     onError: (err: Error) => {
-      message.error(`Delete failed: ${err.message}`);
+      message.error(`删除失败: ${err.message}`);
     },
   });
 
@@ -200,7 +200,7 @@ export const MemoryView: React.FC<MemoryViewProps> = ({ accessToken }) => {
       try {
         metadataPayload = JSON.parse(metadataText);
       } catch {
-        message.error("Metadata must be valid JSON (or leave empty).");
+        message.error("元数据必须是有效的 JSON（或留空）。");
         return false;
       }
     }

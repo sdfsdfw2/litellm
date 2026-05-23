@@ -28,8 +28,8 @@ export const ssoProviderConfigs: Record<string, SSOProviderConfig> = {
       google_client_secret: "GOOGLE_CLIENT_SECRET",
     },
     fields: [
-      { label: "Google Client ID", name: "google_client_id" },
-      { label: "Google Client Secret", name: "google_client_secret" },
+      { label: "Google 客户端 ID", name: "google_client_id" },
+      { label: "Google 客户端密钥", name: "google_client_secret" },
     ],
   },
   microsoft: {
@@ -39,9 +39,9 @@ export const ssoProviderConfigs: Record<string, SSOProviderConfig> = {
       microsoft_tenant: "MICROSOFT_TENANT",
     },
     fields: [
-      { label: "Microsoft Client ID", name: "microsoft_client_id" },
-      { label: "Microsoft Client Secret", name: "microsoft_client_secret" },
-      { label: "Microsoft Tenant", name: "microsoft_tenant" },
+      { label: "Microsoft 客户端 ID", name: "microsoft_client_id" },
+      { label: "Microsoft 客户端密钥", name: "microsoft_client_secret" },
+      { label: "Microsoft 租户", name: "microsoft_tenant" },
     ],
   },
   okta: {
@@ -53,16 +53,16 @@ export const ssoProviderConfigs: Record<string, SSOProviderConfig> = {
       generic_userinfo_endpoint: "GENERIC_USERINFO_ENDPOINT",
     },
     fields: [
-      { label: "Generic Client ID", name: "generic_client_id" },
-      { label: "Generic Client Secret", name: "generic_client_secret" },
+      { label: "通用客户端 ID", name: "generic_client_id" },
+      { label: "通用客户端密钥", name: "generic_client_secret" },
       {
-        label: "Authorization Endpoint",
+        label: "授权端点",
         name: "generic_authorization_endpoint",
         placeholder: "https://your-domain/authorize",
       },
-      { label: "Token Endpoint", name: "generic_token_endpoint", placeholder: "https://your-domain/token" },
+      { label: "Token 端点", name: "generic_token_endpoint", placeholder: "https://your-domain/token" },
       {
-        label: "Userinfo Endpoint",
+        label: "用户信息端点",
         name: "generic_userinfo_endpoint",
         placeholder: "https://your-domain/userinfo",
       },
@@ -77,11 +77,11 @@ export const ssoProviderConfigs: Record<string, SSOProviderConfig> = {
       generic_userinfo_endpoint: "GENERIC_USERINFO_ENDPOINT",
     },
     fields: [
-      { label: "Generic Client ID", name: "generic_client_id" },
-      { label: "Generic Client Secret", name: "generic_client_secret" },
-      { label: "Authorization Endpoint", name: "generic_authorization_endpoint" },
-      { label: "Token Endpoint", name: "generic_token_endpoint" },
-      { label: "Userinfo Endpoint", name: "generic_userinfo_endpoint" },
+      { label: "通用客户端 ID", name: "generic_client_id" },
+      { label: "通用客户端密钥", name: "generic_client_secret" },
+      { label: "授权端点", name: "generic_authorization_endpoint" },
+      { label: "Token 端点", name: "generic_token_endpoint" },
+      { label: "用户信息端点", name: "generic_userinfo_endpoint" },
     ],
   },
 };
@@ -96,7 +96,7 @@ export const renderProviderFields = (provider: string) => {
       key={field.name}
       label={field.label}
       name={field.name}
-      rules={[{ required: true, message: `Please enter the ${field.label.toLowerCase()}` }]}
+      rules={[{ required: true, message: `请输入${field.label}` }]}
     >
       {field.name.includes("client") ? <Input.Password /> : <TextInput placeholder={field.placeholder} />}
     </Form.Item>
@@ -108,9 +108,9 @@ const BaseSSOSettingsForm: React.FC<BaseSSOSettingsFormProps> = ({ form, onFormS
     <div>
       <Form form={form} onFinish={onFormSubmit} labelCol={{ span: 8 }} wrapperCol={{ span: 16 }} labelAlign="left">
         <Form.Item
-          label="SSO Provider"
+          label="SSO 提供商"
           name="sso_provider"
-          rules={[{ required: true, message: "Please select an SSO provider" }]}
+          rules={[{ required: true, message: "请选择 SSO 提供商" }]}
         >
           <Select>
             {Object.entries(ssoProviderLogoMap).map(([value, logo]) => (
@@ -143,27 +143,27 @@ const BaseSSOSettingsForm: React.FC<BaseSSOSettingsFormProps> = ({ form, onFormS
         </Form.Item>
 
         <Form.Item
-          label="Proxy Admin Email"
+          label="代理管理员邮箱"
           name="user_email"
-          rules={[{ required: true, message: "Please enter the email of the proxy admin" }]}
+          rules={[{ required: true, message: "请输入代理管理员的邮箱" }]}
         >
           <TextInput />
         </Form.Item>
         <Form.Item
-          label="Proxy Base URL"
+          label="代理基础 URL"
           name="proxy_base_url"
           normalize={(value) => value?.trim()}
           rules={[
-            { required: true, message: "Please enter the proxy base url" },
+            { required: true, message: "请输入代理基础 URL" },
             {
               pattern: /^https?:\/\/.+/,
-              message: "URL must start with http:// or https://",
+              message: "URL 必须以 http:// 或 https:// 开头",
             },
             {
               validator: (_, value) => {
                 // Only check for trailing slash if the URL starts with http:// or https://
                 if (value && /^https?:\/\/.+/.test(value) && value.endsWith("/")) {
-                  return Promise.reject("URL must not end with a trailing slash");
+                  return Promise.reject("URL 不能以斜杠结尾");
                 }
                 return Promise.resolve();
               },
@@ -180,7 +180,7 @@ const BaseSSOSettingsForm: React.FC<BaseSSOSettingsFormProps> = ({ form, onFormS
           {({ getFieldValue }) => {
             const provider = getFieldValue("sso_provider");
             return provider === "okta" || provider === "generic" ? (
-              <Form.Item label="Use Role Mappings" name="use_role_mappings" valuePropName="checked">
+              <Form.Item label="使用角色映射" name="use_role_mappings" valuePropName="checked">
                 <Checkbox />
               </Form.Item>
             ) : null;
@@ -200,9 +200,9 @@ const BaseSSOSettingsForm: React.FC<BaseSSOSettingsFormProps> = ({ form, onFormS
             const supportsRoleMappings = provider === "okta" || provider === "generic";
             return useRoleMappings && supportsRoleMappings ? (
               <Form.Item
-                label="Group Claim"
+                label="组声明"
                 name="group_claim"
-                rules={[{ required: true, message: "Please enter the group claim" }]}
+                rules={[{ required: true, message: "请输入组声明" }]}
               >
                 <TextInput />
               </Form.Item>
@@ -223,28 +223,28 @@ const BaseSSOSettingsForm: React.FC<BaseSSOSettingsFormProps> = ({ form, onFormS
             const supportsRoleMappings = provider === "okta" || provider === "generic";
             return useRoleMappings && supportsRoleMappings ? (
               <>
-                <Form.Item label="Default Role" name="default_role" initialValue="Internal User">
+                <Form.Item label="默认角色" name="default_role" initialValue="Internal User">
                   <Select>
-                    <Select.Option value="internal_user_viewer">Internal Viewer</Select.Option>
-                    <Select.Option value="internal_user">Internal User</Select.Option>
-                    <Select.Option value="proxy_admin_viewer">Admin Viewer</Select.Option>
-                    <Select.Option value="proxy_admin">Proxy Admin</Select.Option>
+                    <Select.Option value="internal_user_viewer">内部查看者</Select.Option>
+                    <Select.Option value="internal_user">内部用户</Select.Option>
+                    <Select.Option value="proxy_admin_viewer">管理员查看者</Select.Option>
+                    <Select.Option value="proxy_admin">代理管理员</Select.Option>
                   </Select>
                 </Form.Item>
 
-                <Form.Item label="Proxy Admin Teams" name="proxy_admin_teams">
+                <Form.Item label="代理管理员团队" name="proxy_admin_teams">
                   <TextInput />
                 </Form.Item>
 
-                <Form.Item label="Admin Viewer Teams" name="admin_viewer_teams">
+                <Form.Item label="管理员查看者团队" name="admin_viewer_teams">
                   <TextInput />
                 </Form.Item>
 
-                <Form.Item label="Internal User Teams" name="internal_user_teams">
+                <Form.Item label="内部用户团队" name="internal_user_teams">
                   <TextInput />
                 </Form.Item>
 
-                <Form.Item label="Internal Viewer Teams" name="internal_viewer_teams">
+                <Form.Item label="内部查看者团队" name="internal_viewer_teams">
                   <TextInput />
                 </Form.Item>
               </>
@@ -259,7 +259,7 @@ const BaseSSOSettingsForm: React.FC<BaseSSOSettingsFormProps> = ({ form, onFormS
           {({ getFieldValue }) => {
             const provider = getFieldValue("sso_provider");
             return provider === "okta" || provider === "generic" ? (
-              <Form.Item label="Use Team Mappings" name="use_team_mappings" valuePropName="checked">
+              <Form.Item label="使用团队映射" name="use_team_mappings" valuePropName="checked">
                 <Checkbox />
               </Form.Item>
             ) : null;
@@ -279,9 +279,9 @@ const BaseSSOSettingsForm: React.FC<BaseSSOSettingsFormProps> = ({ form, onFormS
             const supportsTeamMappings = provider === "okta" || provider === "generic";
             return useTeamMappings && supportsTeamMappings ? (
               <Form.Item
-                label="Team IDs JWT Field"
+                label="团队 ID JWT 字段"
                 name="team_ids_jwt_field"
-                rules={[{ required: true, message: "Please enter the team IDs JWT field" }]}
+                rules={[{ required: true, message: "请输入团队 ID JWT 字段" }]}
               >
                 <TextInput />
               </Form.Item>

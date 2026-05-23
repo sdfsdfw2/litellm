@@ -1003,8 +1003,8 @@ export function TeamGuardrailsTab({ accessToken }: TeamGuardrailsTabProps) {
             className="border border-gray-200 rounded-md px-3 py-2 text-sm text-gray-700 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500 bg-white"
           >
             <option value="all">全部状态</option>
-            <option value="pending">Pending Review</option>
-            <option value="active">Active</option>
+            <option value="pending">待审核</option>
+            <option value="active">已激活</option>
             <option value="rejected">已拒绝</option>
           </select>
           <button

@@ -128,7 +128,7 @@ export const prepareModelAddRequest = async (formValues: Record<string, any>, ac
                 delete litellmExtraParams.litellm_credential_name;
               }
             } catch (error) {
-              NotificationManager.fromBackend("Failed to parse LiteLLM Extra Params: " + error);
+              NotificationManager.fromBackend("解析 LiteLLM 额外参数失败: " + error);
               throw new Error("Failed to parse litellm_extra_params: " + error);
             }
             for (const [key, value] of Object.entries(litellmExtraParams)) {
@@ -142,7 +142,7 @@ export const prepareModelAddRequest = async (formValues: Record<string, any>, ac
             try {
               modelInfoParams = JSON.parse(value);
             } catch (error) {
-              NotificationManager.fromBackend("Failed to parse LiteLLM Extra Params: " + error);
+              NotificationManager.fromBackend("解析 LiteLLM 额外参数失败: " + error);
               throw new Error("Failed to parse litellm_extra_params: " + error);
             }
             for (const [key, value] of Object.entries(modelInfoParams)) {
@@ -177,7 +177,7 @@ export const prepareModelAddRequest = async (formValues: Record<string, any>, ac
 
     return deployments;
   } catch (error) {
-    NotificationManager.fromBackend("Failed to create model: " + error);
+    NotificationManager.fromBackend("创建模型失败: " + error);
   }
 };
 
@@ -206,6 +206,6 @@ export const handleAddModelSubmit = async (values: any, accessToken: string, for
     callback && callback();
     form.resetFields();
   } catch (error) {
-    NotificationManager.fromBackend("Failed to add model: " + error);
+    NotificationManager.fromBackend("添加模型失败: " + error);
   }
 };

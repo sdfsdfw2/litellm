@@ -139,7 +139,7 @@ const AgentsPanel: React.FC<AgentsPanelProps> = ({ accessToken, userRole, teams 
       fetchAgents();
     } catch (error) {
       console.error("Error deleting agent:", error);
-      NotificationsManager.fromBackend("Failed to delete agent");
+      NotificationsManager.fromBackend("删除代理失败");
     } finally {
       setIsDeleting(false);
       setAgentToDelete(null);
@@ -176,7 +176,7 @@ const AgentsPanel: React.FC<AgentsPanelProps> = ({ accessToken, userRole, teams 
               + Add New Agent
             </Button>
           )}
-          <Tooltip title="When enabled, only agents with reachable URLs are shown">
+          <Tooltip title="启用后，只显示可达URL的代理">
             <div className="flex items-center gap-2">
               <CheckCircleOutlined className={healthCheckEnabled ? "text-green-500" : "text-gray-400"} />
               <span className="text-sm text-gray-600">Health Check</span>
@@ -206,11 +206,11 @@ const AgentsPanel: React.FC<AgentsPanelProps> = ({ accessToken, userRole, teams 
             <Table>
               <TableHead>
                 <TableRow>
-                  <TableHeaderCell>Agent Name</TableHeaderCell>
-                  <TableHeaderCell>Agent ID</TableHeaderCell>
+                  <TableHeaderCell>代理名称</TableHeaderCell>
+                  <TableHeaderCell>代理ID</TableHeaderCell>
                   <TableHeaderCell>Spend (USD)</TableHeaderCell>
                   <TableHeaderCell>Model</TableHeaderCell>
-                  <TableHeaderCell>Created</TableHeaderCell>
+                  <TableHeaderCell>创建时间</TableHeaderCell>
                   <TableHeaderCell>Status</TableHeaderCell>
                   {isAdmin && <TableHeaderCell>Actions</TableHeaderCell>}
                 </TableRow>
@@ -259,7 +259,7 @@ const AgentsPanel: React.FC<AgentsPanelProps> = ({ accessToken, userRole, teams 
                         {keyInfoMap[agent.agent_id]?.has_key ? (
                           <Badge color="green">Active</Badge>
                         ) : (
-                          <Badge color="yellow">Needs Setup</Badge>
+                          <Badge color="gold">需要设置</Badge>
                         )}
                       </TableCell>
                       {isAdmin && (
@@ -289,7 +289,7 @@ const AgentsPanel: React.FC<AgentsPanelProps> = ({ accessToken, userRole, teams 
 
       {agentToDelete && (
         <Modal
-          title="Delete Agent"
+          title="删除代理"
           open={agentToDelete !== null}
           onOk={handleDeleteConfirm}
           onCancel={handleDeleteCancel}
@@ -297,7 +297,7 @@ const AgentsPanel: React.FC<AgentsPanelProps> = ({ accessToken, userRole, teams 
           okText="删除"
           okButtonProps={{ danger: true }}
         >
-          <p>Are you sure you want to delete agent: {agentToDelete.name}?</p>
+          <p>确定要删除代理：{agentToDelete.name}？</p>
           <p>This action cannot be undone.</p>
         </Modal>
       )}

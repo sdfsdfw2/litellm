@@ -406,7 +406,7 @@ export function DeletedKeysTable({
                     <TableRow>
                       <TableCell colSpan={columns.length} className="h-8 text-center">
                         <div className="text-center text-gray-500">
-                          <p>No deleted keys found</p>
+                          <p>未找到已删除的密钥</p>
                         </div>
                       </TableCell>
                     </TableRow>

@@ -202,13 +202,13 @@ const MCPToolArgumentsForm = forwardRef<MCPToolArgumentsFormRef, MCPToolArgument
           <Form.Item
             label={
               <span className="text-sm font-medium text-gray-700">
-                Input <span className="text-red-500">*</span>
+                输入 <span className="text-red-500">*</span>
               </span>
             }
             name="input"
-            rules={[{ required: true, message: "Please enter input for this tool" }]}
+            rules={[{ required: true, message: "请为此工具输入内容" }]}
           >
-            <Input placeholder="Enter input for this tool" />
+            <Input placeholder="为此工具输入内容" />
           </Form.Item>
         </Form>
       );
@@ -218,7 +218,7 @@ const MCPToolArgumentsForm = forwardRef<MCPToolArgumentsFormRef, MCPToolArgument
       return (
         <Form form={form} layout="vertical" className={className}>
           <div className="py-4 text-center text-sm text-gray-500">
-            No parameters required for this tool.
+            此工具无需参数。
           </div>
         </Form>
       );
@@ -247,7 +247,7 @@ const MCPToolArgumentsForm = forwardRef<MCPToolArgumentsFormRef, MCPToolArgument
               rules={[
                 {
                   required: actualSchema.required?.includes(key),
-                  message: `Please enter ${key}`,
+                  message: `请输入 ${key}`,
                 },
                 ...(prop.type === "object" || prop.type === "array"
                   ? [
@@ -275,11 +275,11 @@ const MCPToolArgumentsForm = forwardRef<MCPToolArgumentsFormRef, MCPToolArgument
                             }
                             return Promise.reject(
                               new Error(
-                                prop.type === "object" ? "Please enter a JSON object" : "Please enter a JSON array",
+                                prop.type === "object" ? "请输入 JSON 对象" : "请输入 JSON 数组",
                               ),
                             );
                           } catch {
-                            return Promise.reject(new Error("Invalid JSON"));
+                            return Promise.reject(new Error("无效的 JSON"));
                           }
                         },
                       },
@@ -289,29 +289,29 @@ const MCPToolArgumentsForm = forwardRef<MCPToolArgumentsFormRef, MCPToolArgument
             >
               {prop.type === "string" && prop.enum ? (
                 <Select
-                  placeholder={`Select ${key}`}
+                  placeholder={`选择 ${key}`}
                   allowClear={!actualSchema.required?.includes(key)}
                   options={prop.enum.map((v) => ({ value: v, label: v }))}
                 />
               ) : prop.type === "string" && !prop.enum ? (
                 <Input
-                  placeholder={prop.description || `Enter ${key}`}
+                  placeholder={prop.description || `输入 ${key}`}
                   allowClear
                 />
               ) : prop.type === "number" || prop.type === "integer" ? (
                 <InputNumber
                   step={prop.type === "integer" ? 1 : undefined}
-                  placeholder={prop.description || `Enter ${key}`}
+                  placeholder={prop.description || `输入 ${key}`}
                   className="w-full"
                   style={{ width: "100%" }}
                 />
               ) : prop.type === "boolean" ? (
                 <Select
-                  placeholder={`Select ${key}`}
+                  placeholder={`选择 ${key}`}
                   allowClear={!actualSchema.required?.includes(key)}
                   options={[
-                    { value: true, label: "True" },
-                    { value: false, label: "False" },
+                    { value: true, label: "是" },
+                    { value: false, label: "否" },
                   ]}
                 />
               ) : (prop.type === "object" || prop.type === "array") ? (
@@ -320,15 +320,15 @@ const MCPToolArgumentsForm = forwardRef<MCPToolArgumentsFormRef, MCPToolArgument
                   placeholder={
                     prop.description ||
                     (prop.type === "object"
-                      ? `Enter JSON object for ${key}`
-                      : `Enter JSON array for ${key}`)
+                      ? `为 ${key} 输入 JSON 对象`
+                      : `为 ${key} 输入 JSON 数组`)
                   }
                   spellCheck={false}
                   className="font-mono"
                 />
               ) : (
                 <Input
-                  placeholder={prop.description || `Enter ${key}`}
+                  placeholder={prop.description || `输入 ${key}`}
                   allowClear
                 />
               )}

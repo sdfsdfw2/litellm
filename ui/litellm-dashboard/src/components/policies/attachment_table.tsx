@@ -201,7 +201,7 @@ const AttachmentTable: React.FC<AttachmentTableProps> = ({
           <div className="flex space-x-2">
             <ImpactPopover attachment={attachment} accessToken={accessToken} />
             {isAdmin && (
-              <Tooltip title="Delete attachment">
+              <Tooltip title="删除附件">
                 <Icon
                   icon={TrashIcon}
                   size="sm"

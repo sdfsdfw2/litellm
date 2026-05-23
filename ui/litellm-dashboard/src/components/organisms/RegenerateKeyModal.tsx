@@ -93,7 +93,7 @@ export function RegenerateKeyModal({ selectedToken, visible, onClose, onKeyUpdat
         formValues,
       );
       setRegeneratedKey(response.key);
-      NotificationManager.success("Virtual Key regenerated successfully");
+      NotificationManager.success("虚拟密钥已成功重新生成");
 
       // Build the update payload. Spread the API response first so any new
       // fields it returns (new token, timestamps, etc.) are captured, then

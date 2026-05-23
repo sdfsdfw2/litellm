@@ -111,7 +111,7 @@ const GeneralSettings: React.FC<GeneralSettingsPageProps> = ({ accessToken, user
       <TabGroup className="h-[75vh] w-full">
         <TabList variant="line" defaultValue="1" className="px-8 pt-4">
           <Tab value="1">Loadbalancing</Tab>
-          <Tab value="2">Routing Groups</Tab>
+          <Tab value="2">路由组</Tab>
           <Tab value="3">Fallbacks</Tab>
           <Tab value="4">General</Tab>
         </TabList>
@@ -140,10 +140,10 @@ const GeneralSettings: React.FC<GeneralSettingsPageProps> = ({ accessToken, user
               <Table>
                 <TableHead>
                   <TableRow>
-                    <TableHeaderCell>Setting</TableHeaderCell>
-                    <TableHeaderCell>Value</TableHeaderCell>
-                    <TableHeaderCell>Status</TableHeaderCell>
-                    <TableHeaderCell>Action</TableHeaderCell>
+                    <TableHeaderCell>设置</TableHeaderCell>
+                    <TableHeaderCell>值</TableHeaderCell>
+                    <TableHeaderCell>状态</TableHeaderCell>
+                    <TableHeaderCell>操作</TableHeaderCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>

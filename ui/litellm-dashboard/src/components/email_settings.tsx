@@ -43,7 +43,7 @@ const EmailSettings: React.FC<EmailSettingsProps> = ({ accessToken, premiumUser,
     };
     try {
       await setCallbacksCall(accessToken, payload);
-      NotificationManager.success("Email settings updated successfully");
+      NotificationManager.success("邮箱设置更新成功");
     } catch (error) {
       NotificationManager.fromBackend(error);
     }
@@ -55,7 +55,7 @@ const EmailSettings: React.FC<EmailSettingsProps> = ({ accessToken, premiumUser,
         <EmailEventSettings accessToken={accessToken} />
       </div>
       <Card>
-        <Title level={4}>Email Server Settings</Title>
+        <Title level={4}>邮箱服务器设置</Title>
         <Text>
           <a href="https://docs.litellm.ai/docs/proxy/email" target="_blank" style={{ color: "blue" }}>
             {" "}
@@ -164,7 +164,7 @@ const EmailSettings: React.FC<EmailSettingsProps> = ({ accessToken, premiumUser,
             if (!accessToken) return;
             try {
               await serviceHealthCheck(accessToken, "email");
-              NotificationManager.success("Email test triggered. Check your configured email inbox/logs.");
+              NotificationManager.success("邮箱测试已触发。请检查您配置的邮箱收件箱/日志。");
             } catch (error) {
               NotificationManager.fromBackend(error);
             }

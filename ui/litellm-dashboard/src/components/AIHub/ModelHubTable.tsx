@@ -409,7 +409,7 @@ const ModelHubTable: React.FC<ModelHubTableProps> = ({ accessToken, publicPage, 
               )}
             </div>
             <div className="flex items-center space-x-4">
-              <Text>Model Hub URL:</Text>
+              <Text>模型中心 URL:</Text>
               <div className="flex items-center bg-gray-200 px-2 py-1 rounded">
                 <Text className="mr-2">{`${getProxyBaseUrl()}/ui/model_hub_table`}</Text>
                 <button
@@ -433,10 +433,10 @@ const ModelHubTable: React.FC<ModelHubTableProps> = ({ accessToken, publicPage, 
           {/* Tab System for Model Hub, Agent Hub, MCP Hub, and Plugin Marketplace */}
           <TabGroup>
             <TabList className="mb-4">
-              <Tab>Model Hub</Tab>
-              <Tab>Agent Hub</Tab>
-              <Tab>MCP Hub</Tab>
-              <Tab>Skill Hub</Tab>
+              <Tab>模型中心</Tab>
+              <Tab>代理中心</Tab>
+              <Tab>MCP 中心</Tab>
+              <Tab>技能中心</Tab>
             </TabList>
 
             <TabPanels>
@@ -447,7 +447,7 @@ const ModelHubTable: React.FC<ModelHubTableProps> = ({ accessToken, publicPage, 
                   {/* Header with Make Public Button */}
                   {publicPage == false && canModify && (
                     <div className="flex justify-end mb-4">
-                      <Button onClick={() => handleMakePublicPage()}>Select Models to Make Public</Button>
+                      <Button onClick={() => handleMakePublicPage()}>选择要公开的模型</Button>
                     </div>
                   )}
 
@@ -476,7 +476,7 @@ const ModelHubTable: React.FC<ModelHubTableProps> = ({ accessToken, publicPage, 
                   {/* Header with Make Public Button */}
                   {publicPage == false && canModify && (
                     <div className="flex justify-end mb-4">
-                      <Button onClick={() => handleMakeAgentPublicPage()}>Select Agents to Make Public</Button>
+                      <Button onClick={() => handleMakeAgentPublicPage()}>选择要公开的代理</Button>
                     </div>
                   )}
 
@@ -502,7 +502,7 @@ const ModelHubTable: React.FC<ModelHubTableProps> = ({ accessToken, publicPage, 
                   {/* Header with Make Public Button */}
                   {publicPage == false && canModify && (
                     <div className="flex justify-end mb-4">
-                      <Button onClick={() => handleMakeMcpPublicPage()}>Select MCP Servers to Make Public</Button>
+                      <Button onClick={() => handleMakeMcpPublicPage()}>选择要公开的 MCP 服务器</Button>
                     </div>
                   )}
 
@@ -570,7 +570,7 @@ const ModelHubTable: React.FC<ModelHubTableProps> = ({ accessToken, publicPage, 
             </Text>
           </div>
           <div className="flex justify-end">
-            <Button onClick={goToPublicModelPage}>See Page</Button>
+            <Button onClick={goToPublicModelPage}>查看页面</Button>
           </div>
         </div>
       </Modal>
@@ -596,7 +596,7 @@ const ModelHubTable: React.FC<ModelHubTableProps> = ({ accessToken, publicPage, 
                 </div>
                 <div>
                   <Text className="font-medium">Mode:</Text>
-                  <Text>{selectedModel.mode || "Not specified"}</Text>
+                  <Text>{selectedModel.mode || "未指定"}</Text>
                 </div>
                 <div>
                   <Text className="font-medium">Providers:</Text>
@@ -617,18 +617,18 @@ const ModelHubTable: React.FC<ModelHubTableProps> = ({ accessToken, publicPage, 
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <Text className="font-medium">Max Input Tokens:</Text>
-                  <Text>{selectedModel.max_input_tokens?.toLocaleString() || "Not specified"}</Text>
+                  <Text>{selectedModel.max_input_tokens?.toLocaleString() || "未指定"}</Text>
                 </div>
                 <div>
                   <Text className="font-medium">Max Output Tokens:</Text>
-                  <Text>{selectedModel.max_output_tokens?.toLocaleString() || "Not specified"}</Text>
+                  <Text>{selectedModel.max_output_tokens?.toLocaleString() || "未指定"}</Text>
                 </div>
                 <div>
                   <Text className="font-medium">Input Cost per 1M Tokens:</Text>
                   <Text>
                     {selectedModel.input_cost_per_token
                       ? formatCost(selectedModel.input_cost_per_token)
-                      : "Not specified"}
+                      : "未指定"}
                   </Text>
                 </div>
                 <div>
@@ -636,7 +636,7 @@ const ModelHubTable: React.FC<ModelHubTableProps> = ({ accessToken, publicPage, 
                   <Text>
                     {selectedModel.output_cost_per_token
                       ? formatCost(selectedModel.output_cost_per_token)
-                      : "Not specified"}
+                      : "未指定"}
                   </Text>
                 </div>
               </div>
@@ -858,7 +858,7 @@ print(response.choices[0].message.content)`}
             {selectedAgent.supportsAuthenticatedExtendedCard && (
               <div>
                 <Text className="text-lg font-semibold mb-4">Additional Features</Text>
-                <Badge color="green">Supports Authenticated Extended Card</Badge>
+                <Badge color="green">支持已认证扩展卡片</Badge>
               </div>
             )}
           </div>

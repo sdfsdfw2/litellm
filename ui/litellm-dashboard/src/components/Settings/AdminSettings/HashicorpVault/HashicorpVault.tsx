@@ -46,7 +46,7 @@ export default function HashicorpVault() {
     setIsTesting(true);
     try {
       const result = await testHashicorpVaultConnection(accessToken);
-      NotificationManager.success(result.message || "Connection to Vault successful!");
+      NotificationManager.success(result.message || "Vault 连接成功！");
     } catch (err) {
       NotificationManager.fromBackend(err);
     } finally {
@@ -57,7 +57,7 @@ export default function HashicorpVault() {
   const handleDelete = () => {
     deleteConfig(undefined, {
       onSuccess: () => {
-        NotificationManager.success("Hashicorp Vault configuration deleted");
+        NotificationManager.success("Hashicorp Vault 配置已删除");
         setIsDeleteModalOpen(false);
       },
       onError: (err) => {
@@ -70,7 +70,7 @@ export default function HashicorpVault() {
     if (!clearingField) return;
     updateConfig({ [clearingField]: "" }, {
       onSuccess: () => {
-        NotificationManager.success(`${FIELD_LABELS[clearingField] ?? clearingField} cleared`);
+        NotificationManager.success(`${FIELD_LABELS[clearingField] ?? clearingField} 已清除`);
         setClearingField(null);
       },
       onError: (err) => {
@@ -82,7 +82,7 @@ export default function HashicorpVault() {
   const renderValue = (key: string) => {
     const value = rawValues[key];
     if (!value) {
-      return <span className="text-gray-400 italic">Not configured</span>;
+      return <span className="text-gray-400 italic">未配置</span>;
     }
     if (SENSITIVE_FIELDS.has(key)) {
       return (
@@ -111,7 +111,7 @@ export default function HashicorpVault() {
 
     return (
       <Descriptions bordered {...descriptionsConfig}>
-        <Descriptions.Item label="Auth Method">
+        <Descriptions.Item label="认证方式">
           <Text>{detectAuthMethod(rawValues)}</Text>
         </Descriptions.Item>
         {fieldsToShow.map(([key]) => (
@@ -133,7 +133,7 @@ export default function HashicorpVault() {
         <Card>
           <Alert
             type="error"
-            message="Could not load Hashicorp Vault configuration"
+            message="无法加载 Hashicorp Vault 配置"
             description={error instanceof Error ? error.message : undefined}
           />
         </Card>
@@ -146,7 +146,7 @@ export default function HashicorpVault() {
                 <KeyRound className="w-6 h-6 text-gray-400" />
                 <div>
                   <Title level={3} style={{ marginBottom: 0 }}>Hashicorp Vault</Title>
-                  <Text type="secondary">Manage secret manager configuration</Text>
+                  <Text type="secondary">管理密钥管理器配置</Text>
                 </div>
               </Flex>
 
@@ -158,20 +158,20 @@ export default function HashicorpVault() {
                       loading={isTesting}
                       onClick={handleTestConnection}
                     >
-                      Test Connection
+                      测试连接
                     </Button>
                     <Button
                       icon={<Edit className="w-4 h-4" />}
                       onClick={() => setIsEditModalVisible(true)}
                     >
-                      Edit Configuration
+                      编辑配置
                     </Button>
                     <Button
                       danger
                       icon={<Trash2 className="w-4 h-4" />}
                       onClick={() => setIsDeleteModalOpen(true)}
                     >
-                      Delete Configuration
+                      删除配置
                     </Button>
                   </>
                 )}
@@ -182,7 +182,7 @@ export default function HashicorpVault() {
               <Alert
                 type="info"
                 showIcon
-                message={'Secrets must be stored with the field name "key"'}
+                message={'密钥必须使用字段名 "key" 存储'}
                 description={
                   <>
                     <Text code>vault kv put secret/SECRET_NAME key=secret_value</Text>
@@ -191,7 +191,7 @@ export default function HashicorpVault() {
                       href="https://docs.litellm.ai/docs/secret_managers/hashicorp_vault"
                       target="_blank"
                     >
-                      View documentation
+                      查看文档
                     </Typography.Link>
                   </>
                 }
@@ -215,11 +215,11 @@ export default function HashicorpVault() {
 
       <DeleteResourceModal
         isOpen={isDeleteModalOpen}
-        title="Delete Hashicorp Vault Configuration?"
-        message="Models using Vault secrets will lose access to their API keys until a new configuration is saved."
-        resourceInformationTitle="Vault Configuration"
+        title="删除 Hashicorp Vault 配置？"
+        message="使用 Vault 密钥的模型在保存新配置前将无法访问其 API 密钥。"
+        resourceInformationTitle="Vault 配置"
         resourceInformation={[
-          { label: "Vault Address", value: rawValues.vault_addr },
+          { label: "Vault 地址", value: rawValues.vault_addr },
         ]}
         onCancel={() => setIsDeleteModalOpen(false)}
         onOk={handleDelete}
@@ -228,11 +228,11 @@ export default function HashicorpVault() {
 
       <DeleteResourceModal
         isOpen={clearingField !== null}
-        title={`Clear ${clearingField ? (FIELD_LABELS[clearingField] ?? clearingField) : ""}?`}
-        message="This will remove the stored value."
-        resourceInformationTitle="Field"
+        title={`清除 ${clearingField ? (FIELD_LABELS[clearingField] ?? clearingField) : ""}？`}
+        message="这将移除存储的值。"
+        resourceInformationTitle="字段"
         resourceInformation={[
-          { label: "Field", value: clearingField ? (FIELD_LABELS[clearingField] ?? clearingField) : "" },
+          { label: "字段", value: clearingField ? (FIELD_LABELS[clearingField] ?? clearingField) : "" },
         ]}
         onCancel={() => setClearingField(null)}
         onOk={handleClearField}

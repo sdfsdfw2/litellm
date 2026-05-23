@@ -270,9 +270,9 @@ const CacheDashboard: React.FC<CachePageProps> = ({ accessToken, token, userRole
     <TabGroup className="gap-2 p-8 h-full w-full mt-2 mb-8">
       <TabList className="flex justify-between mt-2 w-full items-center">
         <div className="flex">
-          <Tab>Cache Analytics</Tab>
-          <Tab>Cache Health</Tab>
-          <Tab>Cache Settings</Tab>
+          <Tab>缓存分析</Tab>
+          <Tab>缓存健康</Tab>
+          <Tab>缓存设置</Tab>
         </div>
 
         <div className="flex items-center space-x-2">

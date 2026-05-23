@@ -237,10 +237,10 @@ export default function SpendLogsTable({ accessToken, token, userRole, userID, p
     <div className="w-full max-w-screen p-6 overflow-x-hidden box-border">
       <TabGroup defaultIndex={0} onIndexChange={(index) => setActiveTab(index === 0 ? "request logs" : "audit logs")}>
         <TabList>
-          <Tab>Request Logs</Tab>
-          <Tab>Audit Logs</Tab>
-          <Tab>Deleted Keys</Tab>
-          <Tab>Deleted Teams</Tab>
+          <Tab>请求日志</Tab>
+          <Tab>审计日志</Tab>
+          <Tab>已删除的密钥</Tab>
+          <Tab>已删除的团队</Tab>
         </TabList>
         <TabPanels>
           <TabPanel>

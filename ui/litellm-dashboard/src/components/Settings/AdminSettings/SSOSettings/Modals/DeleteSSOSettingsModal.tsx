@@ -38,12 +38,12 @@ const DeleteSSOSettingsModal: React.FC<DeleteSSOSettingsModalProps> = ({ isVisib
 
     await editSSOSettings(clearSettings, {
       onSuccess: () => {
-        NotificationsManager.success("SSO settings cleared successfully");
+        NotificationsManager.success("SSO 设置已清除");
         onCancel();
         onSuccess();
       },
       onError: (error) => {
-        NotificationsManager.fromBackend("Failed to clear SSO settings: " + parseErrorMessage(error));
+        NotificationsManager.fromBackend("清除 SSO 设置失败: " + parseErrorMessage(error));
       },
     });
   };
@@ -51,12 +51,12 @@ const DeleteSSOSettingsModal: React.FC<DeleteSSOSettingsModalProps> = ({ isVisib
   return (
     <DeleteResourceModal
       isOpen={isVisible}
-      title="Confirm Clear SSO Settings"
-      alertMessage="This action cannot be undone."
-      message="Are you sure you want to clear all SSO settings? Users will no longer be able to login using SSO after this change."
-      resourceInformationTitle="SSO Settings"
+      title="确认清除 SSO 设置"
+      alertMessage="此操作无法撤消。"
+      message="确定要清除所有 SSO 设置吗？更改后用户将无法再使用 SSO 登录。"
+      resourceInformationTitle="SSO 设置"
       resourceInformation={[
-        { label: "Provider", value: (ssoSettings?.values && detectSSOProvider(ssoSettings?.values)) || "Generic" },
+        { label: "提供商", value: (ssoSettings?.values && detectSSOProvider(ssoSettings?.values)) || "通用" },
       ]}
       onCancel={onCancel}
       onOk={handleClearSSO}

@@ -95,7 +95,7 @@ const AddAutoRouterTab: React.FC<AddAutoRouterTabProps> = ({ form, handleOk, acc
 
     // Check basic required fields first
     if (!currentFormValues.auto_router_name) {
-      NotificationManager.fromBackend("Please enter an Auto Router Name");
+      NotificationManager.fromBackend("请输入自动路由器名称");
       return;
     }
 
@@ -104,7 +104,7 @@ const AddAutoRouterTab: React.FC<AddAutoRouterTabProps> = ({ form, handleOk, acc
       // Complexity Router validation
       const filledTiers = Object.values(complexityTiers).filter(Boolean);
       if (filledTiers.length === 0) {
-        NotificationManager.fromBackend("Please select at least one model for a complexity tier");
+        NotificationManager.fromBackend("请至少为一个复杂度层级选择一个模型");
         return;
       }
 
@@ -142,13 +142,13 @@ const AddAutoRouterTab: React.FC<AddAutoRouterTabProps> = ({ form, handleOk, acc
         })
         .catch((error) => {
           console.error("Validation failed:", error);
-          NotificationManager.fromBackend("Please fill in all required fields");
+          NotificationManager.fromBackend("请填写所有必填字段");
         });
         
     } else {
       // Semantic Router validation (existing logic)
       if (!currentFormValues.auto_router_default_model) {
-        NotificationManager.fromBackend("Please select a Default Model");
+        NotificationManager.fromBackend("请选择默认模型");
         return;
       }
 
@@ -160,7 +160,7 @@ const AddAutoRouterTab: React.FC<AddAutoRouterTabProps> = ({ form, handleOk, acc
 
       // Custom validation for router config
       if (!routerConfig || !routerConfig.routes || routerConfig.routes.length === 0) {
-        NotificationManager.fromBackend("Please configure at least one route for the auto router");
+        NotificationManager.fromBackend("请至少为自动路由器配置一条路由");
         return;
       }
 
@@ -171,7 +171,7 @@ const AddAutoRouterTab: React.FC<AddAutoRouterTabProps> = ({ form, handleOk, acc
 
       if (invalidRoutes.length > 0) {
         NotificationManager.fromBackend(
-          "Please ensure all routes have a target model, description, and at least one utterance",
+          "请确保所有路由都有目标模型、描述和至少一个示例语句",
         );
         return;
       }
@@ -203,7 +203,7 @@ const AddAutoRouterTab: React.FC<AddAutoRouterTabProps> = ({ form, handleOk, acc
             });
             NotificationManager.fromBackend(`Please fill in the following required fields: ${missingFields.join(", ")}`);
           } else {
-            NotificationManager.fromBackend("Please fill in all required fields");
+          NotificationManager.fromBackend("请填写所有必填字段");
           }
         });
     }

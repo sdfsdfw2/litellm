@@ -29,19 +29,19 @@ const STATUS_CONFIG: Record<
   { label: string; bg: string; text: string; dot: string }
 > = {
   active: {
-    label: "Active",
+    label: "活跃",
     bg: "bg-green-50",
     text: "text-green-700",
     dot: "bg-green-500",
   },
   pending_review: {
-    label: "Pending Review",
+    label: "待审核",
     bg: "bg-yellow-50",
     text: "text-yellow-700",
     dot: "bg-yellow-500",
   },
   rejected: {
-    label: "Rejected",
+    label: "已拒绝",
     bg: "bg-red-50",
     text: "text-red-700",
     dot: "bg-red-500",
@@ -87,8 +87,8 @@ function ConfirmDialog({ action, serverName, isCurrentlyActive, onConfirm, onCan
   const [reviewNotes, setReviewNotes] = useState("");
   const isApprove = action === "approve";
   const rejectBody = isCurrentlyActive
-    ? "This server is currently live. Rejecting it will immediately remove it from the proxy runtime."
-    : "This will mark the submission as rejected.";
+    ? "此服务器当前正在运行。拒绝它将立即从代理运行时中移除。"
+    : "这将把提交标记为已拒绝。";
   return (
     <div className="fixed inset-0 bg-black/30 flex items-center justify-center z-50">
       <div className="bg-white rounded-xl shadow-xl p-6 max-w-sm w-full mx-4">
@@ -104,18 +104,18 @@ function ConfirmDialog({ action, serverName, isCurrentlyActive, onConfirm, onCan
           )}
         </div>
         <h3 className="text-base font-semibold text-gray-900 mb-1">
-          {isApprove ? "Approve MCP Server" : "Reject MCP Server"}
+          {isApprove ? "批准 MCP 服务器" : "拒绝 MCP 服务器"}
         </h3>
         <p className="text-sm text-gray-500 mb-4">
-          Are you sure you want to {action}{" "}
-          <span className="font-medium text-gray-700">&quot;{serverName}&quot;</span>?{" "}
+          您确定要{action}
+          <span className="font-medium text-gray-700">&quot;{serverName}&quot;</span>？{" "}
           {isApprove
-            ? "This will make it active and available for use."
+            ? "这将使其激活并可供使用。"
             : rejectBody}
         </p>
         {!isApprove && (
           <textarea
-            placeholder="Reason for rejection (optional)"
+            placeholder="拒绝原因（可选）"
             value={reviewNotes}
             onChange={(e) => setReviewNotes(e.target.value)}
             className="w-full border border-gray-200 rounded-md px-3 py-2 text-sm text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-blue-500 mb-4 resize-none"
@@ -128,7 +128,7 @@ function ConfirmDialog({ action, serverName, isCurrentlyActive, onConfirm, onCan
             onClick={onCancel}
             className="flex-1 border border-gray-300 text-gray-700 hover:bg-gray-50 text-sm font-medium py-2 rounded-md transition-colors"
           >
-            Cancel
+            取消
           </button>
           <button
             type="button"
@@ -137,7 +137,7 @@ function ConfirmDialog({ action, serverName, isCurrentlyActive, onConfirm, onCan
               isApprove ? "bg-green-500 hover:bg-green-600" : "bg-red-500 hover:bg-red-600"
             }`}
           >
-            {isApprove ? "Approve" : "Reject"}
+            {isApprove ? "批准" : "拒绝"}
           </button>
         </div>
       </div>
@@ -169,13 +169,13 @@ function SubmissionRulesPanel({ requiredFields, onChange, onSave, isSaving }: Su
       >
         <div className="flex items-center gap-2">
           <SettingsIcon className="h-4 w-4 text-gray-400" />
-          <span className="text-sm font-semibold text-gray-800">Submission Rules</span>
+          <span className="text-sm font-semibold text-gray-800">提交规则</span>
           {activeLabels.length > 0 ? (
             <span className="text-xs text-gray-500">
-              ({activeLabels.length} required field{activeLabels.length !== 1 ? "s" : ""})
+              ({activeLabels.length} 个必填字段)
             </span>
           ) : (
-            <span className="text-xs text-gray-400 italic">no rules set</span>
+            <span className="text-xs text-gray-400 italic">未设置规则</span>
           )}
         </div>
         <div className="flex items-center gap-3">
@@ -205,8 +205,7 @@ function SubmissionRulesPanel({ requiredFields, onChange, onSave, isSaving }: Su
       {expanded && (
         <div className="border-t border-gray-100 px-4 pt-4 pb-4">
           <p className="text-xs text-gray-500 mb-4">
-            Select which fields must be filled in before a submission is considered compliant.
-            LiteLLM will show ✓ / ✗ for each rule on every submission card below.
+            选择提交前必须填写的字段。LiteLLM 将在每个提交卡片上为每个规则显示 ✓ / ✗。
           </p>
           <div className="grid grid-cols-2 gap-x-8 gap-y-5">
             {FIELD_GROUPS.map((group) => (
@@ -251,14 +250,14 @@ function SubmissionRulesPanel({ requiredFields, onChange, onSave, isSaving }: Su
               }}
               className="px-4 py-1.5 text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 disabled:opacity-50 rounded-md transition-colors"
             >
-              {isSaving ? "Saving…" : "Save Rules"}
+              {isSaving ? "保存中…" : "保存规则"}
             </button>
             <button
               type="button"
               onClick={() => setExpanded(false)}
               className="px-4 py-1.5 text-sm font-medium text-gray-600 hover:text-gray-900 border border-gray-200 rounded-md hover:bg-gray-50 transition-colors"
             >
-              Cancel
+取消
             </button>
           </div>
         </div>
@@ -315,14 +314,14 @@ function MCPServerCard({ server, onApprove, onReject, requiredFields }: MCPServe
               </div>
             )}
             <div className="flex items-center gap-3 mt-1.5 text-xs text-gray-400">
-              <span>Transport: <span className="text-gray-600">{server.transport ?? "sse"}</span></span>
+              <span>传输方式：<span className="text-gray-600">{server.transport ?? "sse"}</span></span>
               <span>·</span>
-              <span>Submitted by: <span className="text-gray-600">{server.submitted_by ?? "—"}</span></span>
+              <span>提交者：<span className="text-gray-600">{server.submitted_by ?? "—"}</span></span>
               <span>·</span>
               <span>{formatDate(server.submitted_at)}</span>
             </div>
             {approvalStatus === "rejected" && server.review_notes && (
-              <p className="text-xs text-red-600 mt-1.5">Rejection reason: {server.review_notes}</p>
+              <p className="text-xs text-red-600 mt-1.5">拒绝原因：{server.review_notes}</p>
             )}
           </div>
           {/* Approve/Reject when no checks panel (no rules configured) */}
@@ -334,7 +333,7 @@ function MCPServerCard({ server, onApprove, onReject, requiredFields }: MCPServe
                   onClick={onApprove}
                   className="text-xs bg-green-500 hover:bg-green-600 text-white px-3 py-1.5 rounded-md transition-colors font-medium"
                 >
-                  Approve
+                  批准
                 </button>
               )}
               <button
@@ -342,7 +341,7 @@ function MCPServerCard({ server, onApprove, onReject, requiredFields }: MCPServe
                 onClick={onReject}
                 className="text-xs border border-red-300 text-red-600 hover:bg-red-50 px-3 py-1.5 rounded-md transition-colors font-medium"
               >
-                Reject
+                拒绝
               </button>
             </div>
           )}
@@ -384,11 +383,11 @@ function MCPServerCard({ server, onApprove, onReject, requiredFields }: MCPServe
             <div className="flex-1 min-w-0">
               <div className={`text-sm font-semibold leading-tight ${allPassed ? "text-green-800" : "text-red-800"}`}>
                 {allPassed
-                  ? "All checks passed"
-                  : `${failCount} check${failCount !== 1 ? "s" : ""} failed`}
+                  ? "所有检查通过"
+                  : `${failCount} 项检查失败`}
               </div>
               <div className="text-xs text-gray-500 mt-0.5">
-                {passCount} passing, {failCount} failing
+                {passCount} 通过，{failCount} 失败
               </div>
             </div>
             {/* Approve / Reject in header */}
@@ -399,7 +398,7 @@ function MCPServerCard({ server, onApprove, onReject, requiredFields }: MCPServe
                   onClick={onApprove}
                   className="text-xs bg-green-600 hover:bg-green-700 text-white px-3 py-1.5 rounded-md transition-colors font-medium"
                 >
-                  Approve
+                  批准
                 </button>
               )}
               {approvalStatus === "rejected" && (
@@ -408,7 +407,7 @@ function MCPServerCard({ server, onApprove, onReject, requiredFields }: MCPServe
                   onClick={onApprove}
                   className="text-xs bg-green-600 hover:bg-green-700 text-white px-3 py-1.5 rounded-md transition-colors font-medium"
                 >
-                  Re-approve
+                  重新批准
                 </button>
               )}
               {approvalStatus !== "rejected" && (
@@ -417,7 +416,7 @@ function MCPServerCard({ server, onApprove, onReject, requiredFields }: MCPServe
                   onClick={onReject}
                   className="text-xs border border-red-300 text-red-600 hover:bg-red-50 bg-white px-3 py-1.5 rounded-md transition-colors font-medium"
                 >
-                  Reject
+                  拒绝
                 </button>
               )}
             </div>
@@ -443,7 +442,7 @@ function MCPServerCard({ server, onApprove, onReject, requiredFields }: MCPServe
                   {c.label}
                 </span>
                 <span className={`text-xs ${c.passed ? "text-green-600" : "text-red-500"}`}>
-                  {c.passed ? "Passes" : "Missing"}
+                  {c.passed ? "通过" : "缺失"}
                 </span>
               </div>
             ))}
@@ -575,10 +574,10 @@ export function MCPSubmissionsTab({ accessToken }: MCPSubmissionsTabProps) {
       />
 
       <div className="grid grid-cols-4 gap-4 mb-6">
-        <StatCard label="Total Submitted" value={summary.total} color="text-gray-900" />
-        <StatCard label="Pending Review" value={summary.pending_review} color="text-yellow-600" />
-        <StatCard label="Active" value={summary.active} color="text-green-600" />
-        <StatCard label="Rejected" value={summary.rejected} color="text-red-600" />
+        <StatCard label="总计已提交" value={summary.total} color="text-gray-900" />
+        <StatCard label="待审核" value={summary.pending_review} color="text-yellow-600" />
+        <StatCard label="活跃" value={summary.active} color="text-green-600" />
+        <StatCard label="已拒绝" value={summary.rejected} color="text-red-600" />
       </div>
 
       <div className="flex items-center gap-3 mb-5">
@@ -586,7 +585,7 @@ export function MCPSubmissionsTab({ accessToken }: MCPSubmissionsTabProps) {
           <SearchIcon className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
           <input
             type="text"
-            placeholder="Search MCP servers..."
+            placeholder="搜索 MCP 服务器..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             className="w-full pl-9 pr-4 py-2 border border-gray-200 rounded-md text-sm text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
@@ -597,23 +596,23 @@ export function MCPSubmissionsTab({ accessToken }: MCPSubmissionsTabProps) {
           onChange={(e) => setStatusFilter(e.target.value as typeof statusFilter)}
           className="border border-gray-200 rounded-md px-3 py-2 text-sm text-gray-700 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500 bg-white"
         >
-          <option value="all">All Status</option>
-          <option value="pending_review">Pending Review</option>
-          <option value="active">Active</option>
-          <option value="rejected">Rejected</option>
+          <option value="all">所有状态</option>
+          <option value="pending_review">待审核</option>
+          <option value="active">活跃</option>
+          <option value="rejected">已拒绝</option>
         </select>
       </div>
 
       <div className="space-y-3">
         {isLoading && (
-          <div className="text-center py-12 text-gray-500 text-sm">Loading submissions…</div>
+          <div className="text-center py-12 text-gray-500 text-sm">正在加载提交…</div>
         )}
         {error && (
           <div className="text-center py-12 text-red-600 text-sm">{error}</div>
         )}
         {!isLoading && !error && filtered.length === 0 && (
           <div className="text-center py-12 text-gray-400 text-sm">
-            No MCP server submissions match your filters.
+            没有符合条件的 MCP 服务器提交。
           </div>
         )}
         {!isLoading &&

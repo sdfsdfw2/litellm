@@ -21,7 +21,7 @@ export default function RedactableField({
             value
           )
         ) : (
-          <span className="text-gray-400 italic">Not configured</span>
+          <span className="text-gray-400 italic">未配置</span>
         )}
       </span>
       {value && (

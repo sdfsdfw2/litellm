@@ -35,7 +35,7 @@ const RoutePreview: React.FC<RoutePreviewProps> = ({ pathValue, targetValue, inc
           <div className="flex items-center gap-4">
             {/* Your endpoint */}
             <div className="flex-1 bg-gray-50 border border-gray-200 rounded-lg p-3">
-              <div className="text-sm text-gray-600 mb-2">Your endpoint</div>
+                  <div className="text-sm text-gray-600 mb-2">你的端点</div>
               <code className="font-mono text-sm text-gray-900">{getLiteLLMProxyUrl()}</code>
             </div>
 
@@ -46,21 +46,20 @@ const RoutePreview: React.FC<RoutePreviewProps> = ({ pathValue, targetValue, inc
 
             {/* Forwards to */}
             <div className="flex-1 bg-gray-50 border border-gray-200 rounded-lg p-3">
-              <div className="text-sm text-gray-600 mb-2">Forwards to</div>
-              <code className="font-mono text-sm text-gray-900">{targetValue}</code>
+                  <div className="text-sm text-gray-600 mb-2">转发至</div>
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
 
-        {includeSubpath && (
-          <>
-            {/* With subpaths */}
-            <div>
-              <div className="text-base font-semibold text-gray-900 mb-3">With subpaths:</div>
-              <div className="flex items-center gap-4">
-                {/* Your endpoint + subpath */}
-                <div className="flex-1 bg-gray-50 border border-gray-200 rounded-lg p-3">
-                  <div className="text-sm text-gray-600 mb-2">Your endpoint + subpath</div>
+            {includeSubpath && (
+              <>
+                {/* With subpaths */}
+                <div>
+                  <div className="text-base font-semibold text-gray-900 mb-3">包含子路径：</div>
+                  <div className="flex items-center gap-4">
+                    {/* Your endpoint + subpath */}
+                    <div className="flex-1 bg-gray-50 border border-gray-200 rounded-lg p-3">
+                      <div className="text-sm text-gray-600 mb-2">你的端点 + 子路径</div>
                   <code className="font-mono text-sm text-gray-900">
                     {pathValue && `${proxyBaseUrl}${pathValue}`}
                     <span className="text-blue-600">/v1/text-to-image/base/model</span>
@@ -74,7 +73,7 @@ const RoutePreview: React.FC<RoutePreviewProps> = ({ pathValue, targetValue, inc
 
                 {/* Forwards to with subpath */}
                 <div className="flex-1 bg-gray-50 border border-gray-200 rounded-lg p-3">
-                  <div className="text-sm text-gray-600 mb-2">Forwards to</div>
+                  <div className="text-sm text-gray-600 mb-2">转发至</div>
                   <code className="font-mono text-sm text-gray-900">
                     {targetValue}
                     <span className="text-blue-600">/v1/text-to-image/base/model</span>

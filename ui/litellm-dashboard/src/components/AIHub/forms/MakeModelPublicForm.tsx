@@ -138,7 +138,7 @@ const MakeModelPublicForm: React.FC<MakeModelPublicFormProps> = ({
     return (
       <div className="space-y-4">
         <div className="flex items-center justify-between">
-          <Title>Select Models to Make Public</Title>
+          <Title>选择要公开的模型</Title>
           <div className="flex items-center space-x-2">
             <Checkbox
               checked={allModelsSelected}
@@ -168,7 +168,7 @@ const MakeModelPublicForm: React.FC<MakeModelPublicFormProps> = ({
           <div className="space-y-3">
             {filteredData.length === 0 ? (
               <div className="text-center py-8 text-gray-500">
-                <Text>No models match the current filters.</Text>
+                <Text>没有模型匹配当前筛选条件。</Text>
               </div>
             ) : (
               filteredData.map((model) => (
@@ -217,12 +217,11 @@ const MakeModelPublicForm: React.FC<MakeModelPublicFormProps> = ({
   const renderStep2Content = () => {
     return (
       <div className="space-y-4">
-        <Title>Confirm Making Models Public</Title>
+        <Title>确认公开模型</Title>
 
         <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
           <Text className="text-sm text-yellow-800">
-            <strong>Warning:</strong> Once you make these models public, anyone who can go to the{" "}
-            <code>/ui/model_hub_table</code> will be able to know they exist on the proxy.
+            <strong>警告：</strong>一旦您将这些模型公开，任何可以访问 <code>/ui/model_hub_table</code> 的人都将知道它们存在于代理服务器上。
           </Text>
         </div>
 

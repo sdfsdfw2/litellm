@@ -167,7 +167,7 @@ function NavigationSection({
         <DownOutlined />
         <span style={keyboardShortcutStyle}>J</span>
       </Button>
-      <Tooltip title="ESC to close">
+      <Tooltip title="按 ESC 关闭">
         <Button type="text" icon={<CloseOutlined />} onClick={onClose} />
       </Tooltip>
     </Space>
@@ -191,7 +191,7 @@ function StatusBar({
   return (
     <Space size={SPACING_LARGE}>
       <Tag color={statusColor}>{statusLabel}</Tag>
-      <Tag>Env: {environment}</Tag>
+      <Tag>环境: {environment}</Tag>
       <Space size={SPACING_MEDIUM}>
         <Text type="secondary" style={{ fontSize: FONT_SIZE_MEDIUM }}>
           {moment(log.startTime).format("MMM D, YYYY h:mm:ss A")}

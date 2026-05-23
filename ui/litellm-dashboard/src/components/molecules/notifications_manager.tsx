@@ -149,7 +149,7 @@ const CLOUDZERO_MATCH = [
 function titleFor(status?: number, desc?: string): string {
   const d = (desc || "").toLowerCase();
 
-  if (AUTH_MATCH.some((s) => d.includes(s))) return "Authentication Error";
+  if (AUTH_MATCH.some((s) => d.includes(s))) return "认证错误";
   if (FORBIDDEN_MATCH.some((s) => d.includes(s))) return "Access Denied";
   if (DB_MATCH?.some?.((s: string) => d.includes(s)) || status === 503) return "Service Unavailable";
   if (BUDGET_MATCH?.some?.((s: string) => d.includes(s))) return "Budget Exceeded";
@@ -160,7 +160,7 @@ function titleFor(status?: number, desc?: string): string {
   if (GUARDRAIL_MATCH.some((s) => d.includes(s))) return "Content Blocked";
 
   if (FILE_UPLOAD_MATCH.some((s) => d.includes(s))) return "Validation Error";
-  if (CLOUDZERO_MATCH.some((s) => d.includes(s))) return "Integration Error";
+  if (CLOUDZERO_MATCH.some((s) => d.includes(s))) return "集成错误";
 
   if (VALIDATION_MATCH.some((s) => d.includes(s))) return "Validation Error";
   if (status === 404 || d.includes("not found") || NOT_FOUND_MATCH.some((s) => d.includes(s))) return "Not Found";
@@ -172,12 +172,12 @@ function titleFor(status?: number, desc?: string): string {
     RATE_LIMIT_EXTRA?.some?.((s: string) => d.includes(s))
   )
     return "Rate Limit Exceeded";
-  if (status && status >= 500) return "Server Error";
-  if (status === 401) return "Authentication Error";
+  if (status && status >= 500) return "服务器错误";
+  if (status === 401) return "认证错误";
   if (status === 403) return "Access Denied";
-  if (d.includes("enterprise") || d.includes("premium")) return "Info";
-  if (status && status >= 400) return "Request Error";
-  return "Error";
+  if (d.includes("enterprise") || d.includes("premium")) return "信息";
+  if (status && status >= 400) return "请求错误";
+  return "错误";
 }
 
 const SUCCESS_MATCH = [
@@ -221,7 +221,7 @@ const CONFIG_WARN_MATCH = [
 function classifyGeneralMessage(desc?: string): { kind: "success" | "info" | "warning"; title: string } | null {
   const d = (desc || "").toLowerCase();
 
-  if (SUCCESS_MATCH.some((s) => d.includes(s))) return { kind: "success", title: "Success" };
+  if (SUCCESS_MATCH.some((s) => d.includes(s))) return { kind: "success", title: "成功" };
   if (DEPRECATION_FEATURE_WARN_MATCH.some((s) => d.includes(s))) return { kind: "warning", title: "Feature Notice" };
   if (CONFIG_WARN_MATCH.some((s) => d.includes(s))) return { kind: "warning", title: "Configuration Warning" };
   if (INFO_MATCH.some((s) => d.includes(s))) return { kind: "warning", title: "Rate Limit" }; // show as warning for visibility
@@ -260,7 +260,7 @@ function looksErrorPayload(input: any, status?: number): boolean {
 
 const NotificationManager = {
   error(input: string | NotificationConfig) {
-    const cfg = normalize(input, "Error");
+    const cfg = normalize(input, "错误");
     getNotification().error({
       ...COMMON_NOTIFICATION_PROPS,
       ...cfg,
@@ -280,7 +280,7 @@ const NotificationManager = {
   },
 
   info(input: string | NotificationConfig) {
-    const cfg = normalize(input, "Info");
+    const cfg = normalize(input, "信息");
     getNotification().info({
       ...COMMON_NOTIFICATION_PROPS,
       ...cfg,
@@ -293,14 +293,14 @@ const NotificationManager = {
     if (React.isValidElement(input)) {
       getNotification().success({
         ...COMMON_NOTIFICATION_PROPS,
-        message: "Success",
+        message: "成功",
         description: input,
         placement: defaultPlacement(),
         duration: 3.5,
       });
       return;
     }
-    const cfg = normalize(input as string | NotificationConfig, "Success");
+    const cfg = normalize(input as string | NotificationConfig, "成功");
     getNotification().success({
       ...COMMON_NOTIFICATION_PROPS,
       ...cfg,
@@ -324,22 +324,22 @@ const NotificationManager = {
         title === "Budget Exceeded" ||
         title === "Feature Unavailable" ||
         title === "Content Blocked" ||
-        title === "Integration Error"
+        title === "集成错误"
       ) {
         getNotification().warning({ ...COMMON_NOTIFICATION_PROPS, ...payload, duration: extra?.duration ?? 7 });
         return;
       }
-      if (title === "Server Error") {
+      if (title === "服务器错误") {
         getNotification().error({ ...COMMON_NOTIFICATION_PROPS, ...payload, duration: extra?.duration ?? 8 });
         return;
       }
       if (
-        title === "Request Error" ||
-        title === "Authentication Error" ||
-        title === "Access Denied" ||
-        title === "Not Found" ||
-        title === "Error" ||
-        title === "Already Exists"
+        title === "请求错误" ||
+        title === "认证错误" ||
+        title === "访问被拒绝" ||
+        title === "未找到" ||
+        title === "错误" ||
+        title === "已存在"
       ) {
         getNotification().error({ ...COMMON_NOTIFICATION_PROPS, ...payload, duration: extra?.duration ?? 6 });
         return;
@@ -350,7 +350,7 @@ const NotificationManager = {
 
     // Non-error: success/info/warning classifier
     const cls = classifyGeneralMessage(description);
-    const payload = { ...base, message: cls?.title ?? "Info" };
+    const payload = { ...base, message: cls?.title ?? "信息" };
 
     if (cls?.kind === "success") {
       getNotification().success({ ...COMMON_NOTIFICATION_PROPS, ...payload, duration: extra?.duration ?? 3.5 });

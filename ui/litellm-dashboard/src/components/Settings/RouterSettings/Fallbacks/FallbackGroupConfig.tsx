@@ -74,7 +74,7 @@ export function FallbackGroupConfig({
         <Select
           className="w-full h-12"
           size="large"
-          placeholder="Select primary model"
+          placeholder="选择主要模型"
           value={group.primaryModel}
           onChange={handlePrimaryChange}
           showSearch
@@ -87,7 +87,7 @@ export function FallbackGroupConfig({
         {!group.primaryModel && (
           <div className="mt-2 flex items-center gap-2 text-amber-600 text-xs bg-amber-50 p-2 rounded">
             <AlertCircle className="w-4 h-4" />
-            <span>Select a model to begin configuring fallbacks</span>
+            <span>选择一个模型开始配置回退</span>
           </div>
         )}
       </div>

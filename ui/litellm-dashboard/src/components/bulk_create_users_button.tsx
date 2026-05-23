@@ -566,9 +566,9 @@ const BulkCreateUsersButton: React.FC<BulkCreateUsersProps> = ({
               <div className="ml-11 mb-6">
                 <p className="mb-4">Add multiple users at once by following these steps:</p>
                 <ol className="list-decimal list-inside space-y-2 ml-2 mb-4">
-                  <li>Download our CSV template</li>
+                  <li>下载我们的 CSV 模板</li>
                   <li>Add your users&apos; information to the spreadsheet</li>
-                  <li>Save the file and upload it here</li>
+                  <li>保存文件并在此处上传</li>
                   <li>After creation, download the results file containing the Virtual Keys for each user</li>
                 </ol>
 
@@ -694,7 +694,7 @@ const BulkCreateUsersButton: React.FC<BulkCreateUsersProps> = ({
                       <UploadOutlined className="text-3xl text-gray-400 mb-2" />
                       <p className="mb-1">Drag and drop your CSV file here</p>
                       <p className="text-sm text-gray-500 mb-3">or</p>
-                      <Button size="small">Browse files</Button>
+                      <Button size="small">浏览文件</Button>
                       <p className="text-xs text-gray-500 mt-4">Only CSV files (.csv) are supported</p>
                     </div>
                   </Upload>
@@ -741,12 +741,11 @@ const BulkCreateUsersButton: React.FC<BulkCreateUsersProps> = ({
                       <Text className="text-red-600 font-medium">{parseError}</Text>
                       {parsedData.some((user) => !user.isValid) && (
                         <ul className="mt-2 list-disc list-inside text-red-600 text-sm">
-                          <li>Check the table below for specific errors in each row</li>
-                          <li>
-                            Common issues include invalid email formats, missing required fields, or incorrect role
-                            values
-                          </li>
-                          <li>Fix these issues in your CSV file and upload again</li>
+<li>查看下表中每行的具体错误</li>
+                           <li>
+                             常见问题包括无效的邮箱格式、缺少必填字段或角色值不正确
+                           </li>
+                           <li>修复 CSV 文件中的这些问题后重新上传</li>
                         </ul>
                       )}
                     </div>

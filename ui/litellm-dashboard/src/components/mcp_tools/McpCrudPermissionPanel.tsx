@@ -180,22 +180,22 @@ const McpCrudPermissionPanel: React.FC<McpCrudPermissionPanelProps> = ({
                 <span className="font-semibold text-gray-900 text-sm">{meta.label}</span>
                 <span className={`text-xs px-2 py-0.5 rounded-full ${RISK_BADGE[meta.risk]}`}>
                   {meta.risk === "high"
-                    ? "High Risk"
+                    ? "高风险"
                     : meta.risk === "medium"
-                    ? "Medium Risk"
+                    ? "中风险"
                     : meta.risk === "low"
-                    ? "Safe"
-                    : "Unclassified"}
+                    ? "安全"
+                    : "未分类"}
                 </span>
                 <span className="text-xs text-gray-500 ml-1">
-                  {group.filter((t) => effectiveAllowed.has(t.name)).length}/{group.length} allowed
+                  {group.filter((t) => effectiveAllowed.has(t.name)).length}/{group.length} 已允许
                 </span>
               </button>
 
               {!readOnly && (
                 <div className="flex items-center gap-2 ml-4">
                   <Text className="text-xs text-gray-500">
-                    {fullyAllowed ? "All on" : partial ? "Partial" : "All off"}
+                    {fullyAllowed ? "全部开启" : partial ? "部分开启" : "全部关闭"}
                   </Text>
                   {/* Checkbox supports `indeterminate`; Switch does not. */}
                   <Checkbox
@@ -253,7 +253,7 @@ const McpCrudPermissionPanel: React.FC<McpCrudPermissionPanelProps> = ({
                           allowed ? "bg-green-100 text-green-700" : "bg-gray-100 text-gray-500"
                         }`}
                       >
-                        {allowed ? "on" : "off"}
+                        {allowed ? "开" : "关"}
                       </span>
                     </div>
                   );

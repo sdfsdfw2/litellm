@@ -82,6 +82,6 @@ export const handleAddAutoRouterSubmit = async (values: any, accessToken: string
     }
   } catch (error) {
     console.error("Failed to add auto router:", error);
-    NotificationManager.fromBackend("Failed to add auto router: " + error);
+    NotificationManager.fromBackend("添加自动路由器失败: " + error);
   }
 };

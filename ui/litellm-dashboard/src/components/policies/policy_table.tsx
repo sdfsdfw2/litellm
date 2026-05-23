@@ -218,7 +218,7 @@ const PolicyTable: React.FC<PolicyTableProps> = ({
           <div className="flex space-x-2">
             {isAdmin && (
               <>
-                <Tooltip title="Edit policy">
+                <Tooltip title="编辑策略">
                   <Icon
                     icon={PencilIcon}
                     size="sm"
@@ -226,7 +226,7 @@ const PolicyTable: React.FC<PolicyTableProps> = ({
                     className="cursor-pointer hover:text-blue-500"
                   />
                 </Tooltip>
-                <Tooltip title="Delete policy">
+                <Tooltip title="删除策略">
                   <Icon
                     icon={TrashIcon}
                     size="sm"

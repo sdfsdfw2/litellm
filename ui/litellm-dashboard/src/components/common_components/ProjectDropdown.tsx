@@ -28,7 +28,7 @@ const ProjectDropdown: React.FC<ProjectDropdownProps> = ({
   return (
     <Select
       showSearch
-      placeholder="Search or select a project"
+      placeholder="搜索或选择项目"
       value={value}
       onChange={onChange}
       disabled={disabled}

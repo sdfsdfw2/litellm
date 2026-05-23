@@ -92,7 +92,7 @@ const PromptTable: React.FC<PromptTableProps> = ({
                 {displayId}
               </Button>
             </Tooltip>
-            <Tooltip title="Copy prompt ID">
+            <Tooltip title="复制提示词 ID">
               <CopyOutlined
                 onClick={(e) => {
                   e.stopPropagation();
@@ -238,7 +238,7 @@ const PromptTable: React.FC<PromptTableProps> = ({
 
               return (
                 <div className="flex items-center gap-1">
-                  <Tooltip title="Delete prompt">
+                  <Tooltip title="删除提示词">
                     <Button
                       size="xs"
                       variant="light"
@@ -308,9 +308,9 @@ const PromptTable: React.FC<PromptTableProps> = ({
             {isLoading ? (
               <TableRow>
                 <TableCell colSpan={columns.length} className="h-8 text-center">
-                  <div className="text-center text-gray-500">
-                    <p>Loading...</p>
-                  </div>
+<div className="text-center text-gray-500">
+                     <p>加载中...</p>
+                   </div>
                 </TableCell>
               </TableRow>
             ) : promptsList.length > 0 ? (
@@ -326,9 +326,9 @@ const PromptTable: React.FC<PromptTableProps> = ({
             ) : (
               <TableRow>
                 <TableCell colSpan={columns.length} className="h-8 text-center">
-                  <div className="text-center text-gray-500">
-                    <p>No prompts found</p>
-                  </div>
+<div className="text-center text-gray-500">
+                     <p>未找到提示词</p>
+                   </div>
                 </TableCell>
               </TableRow>
             )}

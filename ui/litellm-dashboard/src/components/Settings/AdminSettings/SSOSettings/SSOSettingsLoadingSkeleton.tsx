@@ -24,8 +24,8 @@ export default function SSOSettingsLoadingSkeleton() {
           <div className="flex items-center gap-3">
             <Shield className="w-6 h-6 text-gray-400" />
             <div>
-              <Title level={3}>SSO Configuration</Title>
-              <Text type="secondary">Manage Single Sign-On authentication settings</Text>
+              <Title level={3}>SSO 配置</Title>
+              <Text type="secondary">管理单点登录认证设置</Text>
             </div>
           </div>
 

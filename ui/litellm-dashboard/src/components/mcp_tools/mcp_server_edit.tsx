@@ -147,7 +147,7 @@ const MCPServerEdit: React.FC<MCPServerEditProps> = ({
         form.setFieldsValue({ credentials });
         
         NotificationsManager.success(
-          "OAuth authorization successful! Please click 'Update MCP Server' to save the credentials."
+          'OAuth 授权成功！请点击"更新 MCP 服务器"以保存凭证。'
         );
       }
     },
@@ -297,12 +297,12 @@ const MCPServerEdit: React.FC<MCPServerEditProps> = ({
       } else {
         console.error("Failed to fetch tools:", toolsResponse.message);
         setTools([]);
-        setToolsError(toolsResponse.message || "Failed to load tools");
+          setToolsError(toolsResponse.message || "加载工具失败");
       }
     } catch (error) {
       console.error("Tools fetch error:", error);
       setTools([]);
-      setToolsError(error instanceof Error ? error.message : "Failed to load tools");
+      setToolsError(error instanceof Error ? error.message : "加载工具失败");
     } finally {
       setIsLoadingTools(false);
     }
@@ -331,7 +331,7 @@ const MCPServerEdit: React.FC<MCPServerEditProps> = ({
           <div className="flex items-center gap-2">
             <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
             <span className="font-medium">{searchValue}</span>
-            <span className="text-gray-400 text-xs ml-1">create new group</span>
+            <span className="text-gray-400 text-xs ml-1">创建新分组</span>
           </div>
         ),
       });
@@ -460,11 +460,11 @@ const MCPServerEdit: React.FC<MCPServerEditProps> = ({
             };
 
             if (!stdioFields.command) {
-              NotificationsManager.fromBackend("Stdio configuration must include a command");
+              NotificationsManager.fromBackend("Stdio 配置必须包含命令");
               return;
             }
           } catch {
-            NotificationsManager.fromBackend("Invalid JSON in stdio configuration");
+            NotificationsManager.fromBackend("Stdio 配置中的 JSON 无效");
             return;
           }
         } else {
@@ -481,7 +481,7 @@ const MCPServerEdit: React.FC<MCPServerEditProps> = ({
                 }, {});
               }
             } catch {
-              NotificationsManager.fromBackend("Invalid JSON in stdio env configuration");
+              NotificationsManager.fromBackend("Stdio 环境变量配置中的 JSON 无效");
               return;
             }
           }
@@ -491,7 +491,7 @@ const MCPServerEdit: React.FC<MCPServerEditProps> = ({
 
           const parsedCommand = rawCommand ? String(rawCommand).trim() : "";
           if (!parsedCommand) {
-            NotificationsManager.fromBackend("Stdio transport requires a command");
+            NotificationsManager.fromBackend("Stdio 传输类型需要命令");
             return;
           }
 
@@ -514,7 +514,7 @@ const MCPServerEdit: React.FC<MCPServerEditProps> = ({
         try {
           tokenValidation = JSON.parse(rawTokenValidationJson);
         } catch {
-          NotificationsManager.fromBackend("Invalid JSON in Token Validation Rules");
+          NotificationsManager.fromBackend("Token 验证规则中的 JSON 无效");
           return;
         }
       }
@@ -575,24 +575,24 @@ const MCPServerEdit: React.FC<MCPServerEditProps> = ({
       }
 
       const updated = await updateMCPServer(accessToken, payload);
-      NotificationsManager.success("MCP Server updated successfully");
+      NotificationsManager.success("MCP 服务器更新成功");
       onSuccess(updated);
     } catch (error: any) {
-      NotificationsManager.fromBackend("Failed to update MCP Server" + (error?.message ? `: ${error.message}` : ""));
+      NotificationsManager.fromBackend("更新 MCP 服务器失败" + (error?.message ? `: ${error.message}` : ""));
     }
   };
 
   return (
     <TabGroup>
       <TabList className="grid w-full grid-cols-2">
-        <Tab>Server Configuration</Tab>
-        <Tab>Cost Configuration</Tab>
+        <Tab>服务器配置</Tab>
+        <Tab>成本配置</Tab>
       </TabList>
       <TabPanels className="mt-6">
         <TabPanel>
           <Form form={form} onFinish={handleSave} initialValues={initialValues} layout="vertical">
             <Form.Item
-              label="MCP Server Name"
+              label="MCP 服务器名称"
               name="server_name"
               rules={[
                 {
@@ -603,7 +603,7 @@ const MCPServerEdit: React.FC<MCPServerEditProps> = ({
               <Input className="rounded-lg border-gray-300 focus:border-blue-500 focus:ring-blue-500" />
             </Form.Item>
             <Form.Item
-              label="Alias"
+              label="别名"
               name="alias"
               rules={[
                 {
@@ -616,26 +616,26 @@ const MCPServerEdit: React.FC<MCPServerEditProps> = ({
                 className="rounded-lg border-gray-300 focus:border-blue-500 focus:ring-blue-500"
               />
             </Form.Item>
-            <Form.Item label="Description" name="description">
+            <Form.Item label="描述" name="description">
               <Input className="rounded-lg border-gray-300 focus:border-blue-500 focus:ring-blue-500" />
             </Form.Item>
             <MCPLogoSelector value={logoUrl} onChange={setLogoUrl} />
-            <Form.Item label="Transport Type" name="transport" rules={[{ required: true }]}>
+            <Form.Item label="传输类型" name="transport" rules={[{ required: true }]}>
               <Select onChange={handleTransportChange}>
-                <Select.Option value="http">Streamable HTTP (Recommended)</Select.Option>
-                <Select.Option value="sse">Server-Sent Events (SSE)</Select.Option>
-                <Select.Option value="stdio">Standard Input/Output (stdio)</Select.Option>
-                <Select.Option value={TRANSPORT.OPENAPI}>OpenAPI Spec</Select.Option>
+                <Select.Option value="http">Streamable HTTP（推荐）</Select.Option>
+                <Select.Option value="sse">服务器推送事件 (SSE)</Select.Option>
+                <Select.Option value="stdio">标准输入/输出 (stdio)</Select.Option>
+                <Select.Option value={TRANSPORT.OPENAPI}>OpenAPI 规范</Select.Option>
               </Select>
             </Form.Item>
 
             {/* URL field - only for HTTP/SSE */}
             {isMCPTransport && (
               <Form.Item
-                label="MCP Server URL"
+                label="MCP 服务器 URL"
                 name="url"
                 rules={[
-                  { required: true, message: "Please enter a server URL" },
+                  { required: true, message: "请输入服务器 URL" },
                   { validator: (_, value) => validateMCPServerUrl(value) },
                 ]}
               >
@@ -651,14 +651,14 @@ const MCPServerEdit: React.FC<MCPServerEditProps> = ({
               <Form.Item
                 label={
                   <span className="text-sm font-medium text-gray-700 flex items-center">
-                    OpenAPI Spec URL
-                    <Tooltip title="URL to an OpenAPI specification (JSON or YAML). MCP tools will be automatically generated from the API endpoints defined in the spec.">
+                    OpenAPI 规范 URL
+                    <Tooltip title="OpenAPI 规范（JSON 或 YAML）的 URL。将根据规范中定义的 API 端点自动生成 MCP 工具。">
                       <InfoCircleOutlined className="ml-2 text-blue-400 hover:text-blue-600 cursor-help" />
                     </Tooltip>
                   </span>
                 }
                 name="spec_path"
-                rules={[{ required: true, message: "Please enter an OpenAPI spec URL" }]}
+                rules={[{ required: true, message: "请输入 OpenAPI 规范 URL" }]}
               >
                 <Input
                   placeholder="https://petstore3.swagger.io/api/v3/openapi.json"
@@ -669,15 +669,15 @@ const MCPServerEdit: React.FC<MCPServerEditProps> = ({
 
             {/* Authentication - for HTTP, SSE, and OpenAPI */}
             {!isStdioTransport && (
-              <Form.Item label="Authentication" name="auth_type" rules={[{ required: true }]}>
+              <Form.Item label="身份验证" name="auth_type" rules={[{ required: true }]}>
                 <Select>
-                  <Select.Option value="none">None</Select.Option>
-                  <Select.Option value="api_key">API Key</Select.Option>
+                  <Select.Option value="none">无</Select.Option>
+                  <Select.Option value="api_key">API 密钥</Select.Option>
                   <Select.Option value="bearer_token">Bearer Token</Select.Option>
                   <Select.Option value="token">Token</Select.Option>
-                  <Select.Option value="basic">Basic Auth</Select.Option>
+                  <Select.Option value="basic">基本认证</Select.Option>
                   <Select.Option value="oauth2">OAuth</Select.Option>
-                  <Select.Option value="aws_sigv4">AWS SigV4 (Bedrock AgentCore MCPs)</Select.Option>
+                  <Select.Option value="aws_sigv4">AWS SigV4（Bedrock AgentCore MCP）</Select.Option>
                 </Select>
               </Form.Item>
             )}
@@ -685,36 +685,35 @@ const MCPServerEdit: React.FC<MCPServerEditProps> = ({
             {isStdioTransport && (
               <div className="rounded-lg border border-gray-200 p-4 space-y-4">
                 <p className="text-sm text-gray-600">
-                  Configure the stdio transport used to launch the MCP server process. You can either fill in the fields
-                  below or paste a JSON configuration.
+                  配置用于启动 MCP 服务器进程的 stdio 传输。您可以填写以下字段或粘贴 JSON 配置。
                 </p>
 
                 <Form.Item
-                  label="Command"
+                  label="命令"
                   name="command"
-                  rules={[{ required: true, message: "Please enter a command for stdio transport" }]}
+                  rules={[{ required: true, message: "请输入 stdio 传输的命令" }]}
                 >
                   <Input
-                    placeholder="e.g., npx"
+                    placeholder="例如：npx"
                     className="rounded-lg border-gray-300 focus:border-blue-500 focus:ring-blue-500"
                   />
                 </Form.Item>
 
                 <Form.Item
-                  label="Args"
+                  label="参数"
                   name="args"
                 >
                   <Select
                     mode="tags"
                     size="large"
                     tokenSeparators={[","]}
-                    placeholder="Add args (press enter or comma)"
+                    placeholder="添加参数（按回车或逗号）"
                     className="rounded-lg"
                   />
                 </Form.Item>
 
                 <Form.Item
-                  label="Environment (JSON object)"
+                  label="环境变量（JSON 对象）"
                   name="env_json"
                   rules={[
                     {
@@ -725,9 +724,9 @@ const MCPServerEdit: React.FC<MCPServerEditProps> = ({
                           if (parsed && typeof parsed === "object" && !Array.isArray(parsed)) {
                             return Promise.resolve();
                           }
-                          return Promise.reject(new Error("Env must be a JSON object"));
+                          return Promise.reject(new Error("环境变量必须是 JSON 对象"));
                         } catch {
-                          return Promise.reject(new Error("Please enter valid JSON"));
+                          return Promise.reject(new Error("请输入有效的 JSON"));
                         }
                       },
                     },
@@ -749,8 +748,8 @@ const MCPServerEdit: React.FC<MCPServerEditProps> = ({
               <Form.Item
                 label={
                   <span className="text-sm font-medium text-gray-700 flex items-center">
-                    Authentication Value
-                    <Tooltip title="Token, password, or header value to send with each request for the selected auth type.">
+                    认证值
+                    <Tooltip title="用于每次请求的 Token、密码或标头值，对应所选认证类型。">
                       <InfoCircleOutlined className="ml-2 text-blue-400 hover:text-blue-600 cursor-help" />
                     </Tooltip>
                   </span>
@@ -760,13 +759,13 @@ const MCPServerEdit: React.FC<MCPServerEditProps> = ({
                   {
                     validator: (_, value) =>
                       value && typeof value === "string" && value.trim() === ""
-                        ? Promise.reject(new Error("Authentication value cannot be empty"))
+                        ? Promise.reject(new Error("认证值不能为空"))
                         : Promise.resolve(),
                   },
                 ]}
               >
                 <Input.Password
-                  placeholder="Enter token or secret (leave blank to keep existing)"
+                  placeholder="输入 Token 或密钥（留空则保留现有值）"
                   className="rounded-lg border-gray-300 focus:border-blue-500 focus:ring-blue-500"
                 />
               </Form.Item>
@@ -777,8 +776,8 @@ const MCPServerEdit: React.FC<MCPServerEditProps> = ({
                 <Form.Item
                   label={
                     <span className="text-sm font-medium text-gray-700 flex items-center">
-                      OAuth Client ID (optional)
-                      <Tooltip title="Provide only if your MCP server cannot handle dynamic client registration.">
+                      OAuth 客户端 ID（可选）
+                      <Tooltip title="仅当您的 MCP 服务器无法处理动态客户端注册时才提供。">
                         <InfoCircleOutlined className="ml-2 text-blue-400 hover:text-blue-600 cursor-help" />
                       </Tooltip>
                     </span>
@@ -786,15 +785,15 @@ const MCPServerEdit: React.FC<MCPServerEditProps> = ({
                   name={["credentials", "client_id"]}
                 >
                   <Input.Password
-                    placeholder="Enter OAuth client ID (leave blank to keep existing)"
+                    placeholder="输入 OAuth 客户端 ID（留空则保留现有值）"
                     className="rounded-lg border-gray-300 focus:border-blue-500 focus:ring-blue-500"
                   />
                 </Form.Item>
                 <Form.Item
                   label={
                     <span className="text-sm font-medium text-gray-700 flex items-center">
-                      OAuth Client Secret (optional)
-                      <Tooltip title="Provide only if your MCP server cannot handle dynamic client registration.">
+                      OAuth 客户端密钥（可选）
+                      <Tooltip title="仅当您的 MCP 服务器无法处理动态客户端注册时才提供。">
                         <InfoCircleOutlined className="ml-2 text-blue-400 hover:text-blue-600 cursor-help" />
                       </Tooltip>
                     </span>
@@ -802,15 +801,15 @@ const MCPServerEdit: React.FC<MCPServerEditProps> = ({
                   name={["credentials", "client_secret"]}
                 >
                   <Input.Password
-                    placeholder="Enter OAuth client secret (leave blank to keep existing)"
+                    placeholder="输入 OAuth 客户端密钥（留空则保留现有值）"
                     className="rounded-lg border-gray-300 focus:border-blue-500 focus:ring-blue-500"
                   />
                 </Form.Item>
                 <Form.Item
                   label={
                     <span className="text-sm font-medium text-gray-700 flex items-center">
-                      OAuth Scopes (optional)
-                      <Tooltip title="Add scopes to override the default scope list used for this MCP server.">
+                      OAuth 作用域（可选）
+                      <Tooltip title="添加作用域以覆盖此 MCP 服务器使用的默认作用域列表。">
                         <InfoCircleOutlined className="ml-2 text-blue-400 hover:text-blue-600 cursor-help" />
                       </Tooltip>
                     </span>
@@ -820,7 +819,7 @@ const MCPServerEdit: React.FC<MCPServerEditProps> = ({
                   <Select
                     mode="tags"
                     tokenSeparators={[","]}
-                    placeholder="Add scopes"
+                    placeholder="添加作用域"
                     className="rounded-lg"
                     size="large"
                   />
@@ -828,8 +827,8 @@ const MCPServerEdit: React.FC<MCPServerEditProps> = ({
                 <Form.Item
                   label={
                     <span className="text-sm font-medium text-gray-700 flex items-center">
-                      Authorization URL Override (optional)
-                      <Tooltip title="Optional override for the authorization endpoint.">
+                      授权 URL 覆盖（可选）
+                      <Tooltip title="授权端点的可选覆盖。">
                         <InfoCircleOutlined className="ml-2 text-blue-400 hover:text-blue-600 cursor-help" />
                       </Tooltip>
                     </span>
@@ -844,8 +843,8 @@ const MCPServerEdit: React.FC<MCPServerEditProps> = ({
                 <Form.Item
                   label={
                     <span className="text-sm font-medium text-gray-700 flex items-center">
-                      Token URL Override (optional)
-                      <Tooltip title="Optional override for the token endpoint.">
+                      Token URL 覆盖（可选）
+                      <Tooltip title="Token 端点的可选覆盖。">
                         <InfoCircleOutlined className="ml-2 text-blue-400 hover:text-blue-600 cursor-help" />
                       </Tooltip>
                     </span>
@@ -860,8 +859,8 @@ const MCPServerEdit: React.FC<MCPServerEditProps> = ({
                 <Form.Item
                   label={
                     <span className="text-sm font-medium text-gray-700 flex items-center">
-                      Registration URL Override (optional)
-                      <Tooltip title="Optional override for the dynamic client registration endpoint.">
+                      注册 URL 覆盖（可选）
+                      <Tooltip title="动态客户端注册端点的可选覆盖。">
                         <InfoCircleOutlined className="ml-2 text-blue-400 hover:text-blue-600 cursor-help" />
                       </Tooltip>
                     </span>
@@ -877,48 +876,48 @@ const MCPServerEdit: React.FC<MCPServerEditProps> = ({
                   <>
                     <Form.Item
                       label={
-                        <span className="text-sm font-medium text-gray-700 flex items-center">
-                          Token Validation Rules (optional)
-                          <Tooltip title='JSON object of key-value rules checked against the OAuth token response before storing. Supports dot-notation for nested fields (e.g. {"organization": "my-org", "team.id": "123"}). Tokens that fail validation are rejected with HTTP 403.'>
-                            <InfoCircleOutlined className="ml-2 text-blue-400 hover:text-blue-600 cursor-help" />
-                          </Tooltip>
-                        </span>
-                      }
-                      name="token_validation_json"
-                      rules={[
-                        {
-                          validator: (_: any, value: string) => {
-                            if (!value || value.trim() === "") return Promise.resolve();
-                            try {
-                              JSON.parse(value);
-                              return Promise.resolve();
-                            } catch {
-                              return Promise.reject(new Error("Must be valid JSON"));
-                            }
-                          },
-                        },
-                      ]}
-                    >
-                      <Input.TextArea
-                        placeholder={'{\n  "organization": "my-org",\n  "team.id": "123"\n}'}
+                    <span className="text-sm font-medium text-gray-700 flex items-center">
+                      Token 验证规则（可选）
+                      <Tooltip title='存储前根据 OAuth Token 响应检查的键值规则 JSON 对象。支持嵌套字段的点号表示法（例如 {"organization": "my-org", "team.id": "123"}）。验证失败的 Token 将返回 HTTP 403。'>
+                        <InfoCircleOutlined className="ml-2 text-blue-400 hover:text-blue-600 cursor-help" />
+                      </Tooltip>
+                    </span>
+                  }
+                  name="token_validation_json"
+                  rules={[
+                    {
+                      validator: (_: any, value: string) => {
+                        if (!value || value.trim() === "") return Promise.resolve();
+                        try {
+                          JSON.parse(value);
+                          return Promise.resolve();
+                        } catch {
+                          return Promise.reject(new Error("必须是有效的 JSON"));
+                        }
+                      },
+                    },
+                  ]}
+                >
+                  <Input.TextArea
+                    placeholder={'{\n  "organization": "my-org",\n  "team.id": "123"\n}'}
                         rows={4}
                         className="font-mono text-sm rounded-lg border-gray-300 focus:border-blue-500 focus:ring-blue-500"
                       />
                     </Form.Item>
                     <Form.Item
                       label={
-                        <span className="text-sm font-medium text-gray-700 flex items-center">
-                          Token Storage TTL (seconds, optional)
-                          <Tooltip title="How long to cache each user's OAuth access token in Redis before evicting it (regardless of the token's own expires_in). Leave blank to derive the TTL from the token's expires_in, or fall back to the 12-hour default.">
-                            <InfoCircleOutlined className="ml-2 text-blue-400 hover:text-blue-600 cursor-help" />
-                          </Tooltip>
-                        </span>
-                      }
-                      name="token_storage_ttl_seconds"
-                    >
-                      <InputNumber
-                        min={1}
-                        placeholder="e.g. 3600"
+                    <span className="text-sm font-medium text-gray-700 flex items-center">
+                      Token 存储 TTL（秒，可选）
+                      <Tooltip title="在 Redis 中缓存每个用户的 OAuth 访问令牌的时间（无论令牌自身的 expires_in 如何）。留空则从令牌的 expires_in 派生 TTL，否则回退到 12 小时默认值。">
+                        <InfoCircleOutlined className="ml-2 text-blue-400 hover:text-blue-600 cursor-help" />
+                      </Tooltip>
+                    </span>
+                  }
+                  name="token_storage_ttl_seconds"
+                >
+                  <InputNumber
+                    min={1}
+                    placeholder="例如 3600"
                         style={{ width: "100%" }}
                         className="rounded-lg"
                       />
@@ -926,22 +925,22 @@ const MCPServerEdit: React.FC<MCPServerEditProps> = ({
                   </>
                 )}
                 <div className="rounded-lg border border-dashed border-gray-300 p-4 space-y-2">
-                  <p className="text-sm text-gray-600">Use OAuth to fetch a fresh access token and temporarily save it in the session as the authentication value.</p>
+                  <p className="text-sm text-gray-600">使用 OAuth 获取新的访问令牌，并将其临时保存在会话中作为认证值。</p>
                   <Button
                     variant="secondary"
                     onClick={startOAuthFlow}
                     disabled={oauthStatus === "authorizing" || oauthStatus === "exchanging"}
                   >
                     {oauthStatus === "authorizing"
-                      ? "Waiting for authorization..."
+                      ? "等待授权..."
                       : oauthStatus === "exchanging"
-                        ? "Exchanging authorization code..."
-                        : "Authorize & Fetch Token"}
+                        ? "正在交换授权码..."
+                        : "授权并获取 Token"}
                   </Button>
                   {oauthError && <p className="text-sm text-red-500">{oauthError}</p>}
                   {oauthStatus === "success" && oauthTokenResponse?.access_token && (
                     <p className="text-sm text-green-600">
-                      Token fetched. Expires in {oauthTokenResponse.expires_in ?? "?"} seconds.
+                      Token 已获取。{oauthTokenResponse.expires_in ?? "?"} 秒后过期。
                     </p>
                   )}
                 </div>
@@ -951,16 +950,16 @@ const MCPServerEdit: React.FC<MCPServerEditProps> = ({
             {!isStdioTransport && isAwsSigV4AuthType && (
               <>
                 <p className="text-sm text-gray-500 mb-2">
-                  For MCP servers hosted on AWS Bedrock AgentCore.{" "}
+                  适用于托管在 AWS Bedrock AgentCore 上的 MCP 服务器。{" "}
                   <a href="https://docs.litellm.ai/docs/mcp_aws_sigv4" target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:text-blue-700">
-                    View docs &rarr;
+                    查看文档 &rarr;
                   </a>
                 </p>
                 <Form.Item
                   label={
                     <span className="text-sm font-medium text-gray-700 flex items-center">
-                      AWS Region
-                      <Tooltip title="AWS region for SigV4 signing (e.g., us-east-1)">
+                      AWS 区域
+                      <Tooltip title="SigV4 签名的 AWS 区域（例如 us-east-1）">
                         <InfoCircleOutlined className="ml-2 text-blue-400 hover:text-blue-600 cursor-help" />
                       </Tooltip>
                     </span>
@@ -969,15 +968,15 @@ const MCPServerEdit: React.FC<MCPServerEditProps> = ({
                   rules={[]}
                 >
                   <Input
-                    placeholder="us-east-1 (leave blank to keep existing)"
+                    placeholder="us-east-1（留空则保留现有值）"
                     className="rounded-lg border-gray-300 focus:border-blue-500 focus:ring-blue-500"
                   />
                 </Form.Item>
                 <Form.Item
                   label={
                     <span className="text-sm font-medium text-gray-700 flex items-center">
-                      AWS Service Name
-                      <Tooltip title="AWS service name for SigV4 signing. Defaults to 'bedrock-agentcore'.">
+                      AWS 服务名称
+                      <Tooltip title="SigV4 签名的 AWS 服务名称。默认为 'bedrock-agentcore'。">
                         <InfoCircleOutlined className="ml-2 text-blue-400 hover:text-blue-600 cursor-help" />
                       </Tooltip>
                     </span>
@@ -985,15 +984,15 @@ const MCPServerEdit: React.FC<MCPServerEditProps> = ({
                   name={["credentials", "aws_service_name"]}
                 >
                   <Input
-                    placeholder="bedrock-agentcore (leave blank to keep existing)"
+                    placeholder="bedrock-agentcore（留空则保留现有值）"
                     className="rounded-lg border-gray-300 focus:border-blue-500 focus:ring-blue-500"
                   />
                 </Form.Item>
                 <Form.Item
                   label={
                     <span className="text-sm font-medium text-gray-700 flex items-center">
-                      AWS Access Key ID
-                      <Tooltip title="Optional. If not provided, falls back to the boto3 credential chain (IAM role, env vars, etc.).">
+                      AWS 访问密钥 ID
+                      <Tooltip title="可选。如果未提供，则回退到 boto3 凭证链（IAM 角色、环境变量等）。">
                         <InfoCircleOutlined className="ml-2 text-blue-400 hover:text-blue-600 cursor-help" />
                       </Tooltip>
                     </span>
@@ -1002,15 +1001,15 @@ const MCPServerEdit: React.FC<MCPServerEditProps> = ({
                   rules={[]}
                 >
                   <Input.Password
-                    placeholder="Leave blank to keep existing"
+                    placeholder="留空以保留现有值"
                     className="rounded-lg border-gray-300 focus:border-blue-500 focus:ring-blue-500"
                   />
                 </Form.Item>
                 <Form.Item
                   label={
                     <span className="text-sm font-medium text-gray-700 flex items-center">
-                      AWS Secret Access Key
-                      <Tooltip title="Optional. Required if AWS Access Key ID is provided.">
+                      AWS 秘密访问密钥
+                      <Tooltip title="可选。如果提供了 AWS 访问密钥 ID，则需要此项。">
                         <InfoCircleOutlined className="ml-2 text-blue-400 hover:text-blue-600 cursor-help" />
                       </Tooltip>
                     </span>
@@ -1019,15 +1018,15 @@ const MCPServerEdit: React.FC<MCPServerEditProps> = ({
                   rules={[]}
                 >
                   <Input.Password
-                    placeholder="Leave blank to keep existing"
+                    placeholder="留空以保留现有值"
                     className="rounded-lg border-gray-300 focus:border-blue-500 focus:ring-blue-500"
                   />
                 </Form.Item>
                 <Form.Item
                   label={
                     <span className="text-sm font-medium text-gray-700 flex items-center">
-                      AWS Session Token
-                      <Tooltip title="Optional. Only needed for temporary STS credentials.">
+                      AWS 会话 Token
+                      <Tooltip title="可选。仅临时 STS 凭证需要。">
                         <InfoCircleOutlined className="ml-2 text-blue-400 hover:text-blue-600 cursor-help" />
                       </Tooltip>
                     </span>
@@ -1035,15 +1034,15 @@ const MCPServerEdit: React.FC<MCPServerEditProps> = ({
                   name={["credentials", "aws_session_token"]}
                 >
                   <Input.Password
-                    placeholder="Leave blank to keep existing"
+                    placeholder="留空以保留现有值"
                     className="rounded-lg border-gray-300 focus:border-blue-500 focus:ring-blue-500"
                   />
                 </Form.Item>
                 <Form.Item
                   label={
                     <span className="text-sm font-medium text-gray-700 flex items-center">
-                      AWS Role ARN
-                      <Tooltip title="Optional. IAM role ARN to assume via STS before signing. If set, LiteLLM calls sts:AssumeRole to get temporary credentials.">
+                      AWS 角色 ARN
+                      <Tooltip title="可选。签名前通过 STS 扮演的 IAM 角色 ARN。如果设置，LiteLLM 将调用 sts:AssumeRole 获取临时凭证。">
                         <InfoCircleOutlined className="ml-2 text-blue-400 hover:text-blue-600 cursor-help" />
                       </Tooltip>
                     </span>
@@ -1051,15 +1050,15 @@ const MCPServerEdit: React.FC<MCPServerEditProps> = ({
                   name={["credentials", "aws_role_name"]}
                 >
                   <Input
-                    placeholder="Leave blank to keep existing"
+                    placeholder="留空以保留现有值"
                     className="rounded-lg border-gray-300 focus:border-blue-500 focus:ring-blue-500"
                   />
                 </Form.Item>
                 <Form.Item
                   label={
                     <span className="text-sm font-medium text-gray-700 flex items-center">
-                      AWS Session Name
-                      <Tooltip title="Optional. Session name for the AssumeRole call — appears in CloudTrail logs. Auto-generated if omitted.">
+                      AWS 会话名称
+                      <Tooltip title="可选。AssumeRole 调用的会话名称——将出现在 CloudTrail 日志中。省略时自动生成。">
                         <InfoCircleOutlined className="ml-2 text-blue-400 hover:text-blue-600 cursor-help" />
                       </Tooltip>
                     </span>
@@ -1067,7 +1066,7 @@ const MCPServerEdit: React.FC<MCPServerEditProps> = ({
                   name={["credentials", "aws_session_name"]}
                 >
                   <Input
-                    placeholder="Leave blank to keep existing"
+                    placeholder="留空以保留现有值"
                     className="rounded-lg border-gray-300 focus:border-blue-500 focus:ring-blue-500"
                   />
                 </Form.Item>
@@ -1116,8 +1115,8 @@ const MCPServerEdit: React.FC<MCPServerEditProps> = ({
             </div>
 
             <div className="flex justify-end gap-2">
-              <AntdButton onClick={onCancel}>Cancel</AntdButton>
-              <Button type="submit">Save Changes</Button>
+              <AntdButton onClick={onCancel}>取消</AntdButton>
+              <Button type="submit">保存更改</Button>
             </div>
           </Form>
         </TabPanel>
@@ -1127,8 +1126,8 @@ const MCPServerEdit: React.FC<MCPServerEditProps> = ({
             <MCPServerCostConfig value={costConfig} onChange={setCostConfig} tools={tools} disabled={isLoadingTools} />
 
             <div className="flex justify-end gap-2">
-              <AntdButton onClick={onCancel}>Cancel</AntdButton>
-              <Button onClick={() => form.submit()}>Save Changes</Button>
+              <AntdButton onClick={onCancel}>取消</AntdButton>
+              <Button onClick={() => form.submit()}>保存更改</Button>
             </div>
           </div>
         </TabPanel>

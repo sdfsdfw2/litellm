@@ -308,7 +308,7 @@ export default function UserInfoView({
         <Button icon={ArrowLeftIcon} variant="light" onClick={onClose} className="mb-4">
           Back to Users
         </Button>
-        <Text>Loading user data...</Text>
+        <Text>正在加载用户数据...</Text>
       </div>
     );
   }
@@ -319,7 +319,7 @@ export default function UserInfoView({
         <Button icon={ArrowLeftIcon} variant="light" onClick={onClose} className="mb-4">
           Back to Users
         </Button>
-        <Text>User not found</Text>
+        <Text>未找到用户</Text>
       </div>
     );
   }
@@ -418,8 +418,8 @@ export default function UserInfoView({
 
       <TabGroup defaultIndex={activeTab} onIndexChange={setActiveTab}>
         <TabList className="mb-4">
-          <Tab>Overview</Tab>
-          <Tab>Details</Tab>
+          <Tab>概览</Tab>
+          <Tab>详情</Tab>
         </TabList>
 
         <TabPanels>
@@ -427,7 +427,7 @@ export default function UserInfoView({
           <TabPanel>
             <Grid numItems={1} numItemsSm={2} numItemsLg={3} className="gap-6">
               <Card>
-                <Text>Spend</Text>
+                <Text>花费</Text>
                 <div className="mt-2">
                   <Title>${formatNumberWithCommas(userData.spend || 0, 4)}</Title>
                   <Text>
@@ -441,7 +441,7 @@ export default function UserInfoView({
 
               <Card>
                 <div className="flex justify-between items-center mb-2">
-                  <Text>Teams</Text>
+                  <Text>团队</Text>
                   {isProxyAdmin && (
                     <Button
                       icon={PlusIcon}
@@ -459,7 +459,7 @@ export default function UserInfoView({
                     <Table>
                       <TableHead>
                         <TableRow>
-                          <TableHeaderCell>Team Name</TableHeaderCell>
+                          <TableHeaderCell>团队名称</TableHeaderCell>
                           {isProxyAdmin && <TableHeaderCell className="text-right">Actions</TableHeaderCell>}
                         </TableRow>
                       </TableHead>
@@ -484,7 +484,7 @@ export default function UserInfoView({
                     </Table>
                     </div>
                   ) : (
-                    <Text>No teams</Text>
+                    <Text>暂无团队</Text>
                   )}
                   {!isTeamsExpanded && teamDetails.length > 20 && (
                     <Button
@@ -510,12 +510,12 @@ export default function UserInfoView({
               </Card>
 
               <Card>
-                <Text>Personal Models</Text>
+                <Text>个人模型</Text>
                 <div className="mt-2">
                   {userData.models?.length && userData.models?.length > 0 ? (
                     userData.models?.map((model, index) => <Text key={index}>{model}</Text>)
                   ) : (
-                    <Text>All proxy models</Text>
+                    <Text>所有代理模型</Text>
                   )}
                 </div>
               </Card>
@@ -526,9 +526,9 @@ export default function UserInfoView({
           <TabPanel>
             <Card>
               <div className="flex justify-between items-center mb-4">
-                <Title>User Settings</Title>
+                <Title>用户设置</Title>
                 {!isEditing && userRole && rolesWithWriteAccess.includes(userRole) && (
-                  <Button onClick={() => setIsEditing(true)}>Edit Settings</Button>
+                  <Button onClick={() => setIsEditing(true)}>编辑设置</Button>
                 )}
               </div>
 
@@ -607,7 +607,7 @@ export default function UserInfoView({
                           </span>
                         ))
                       ) : (
-                        <Text>All proxy models</Text>
+                        <Text>所有代理模型</Text>
                       )}
                     </div>
                   </div>

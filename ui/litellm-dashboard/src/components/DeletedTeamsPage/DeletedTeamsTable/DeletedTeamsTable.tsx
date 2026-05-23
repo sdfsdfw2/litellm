@@ -133,7 +133,7 @@ export function DeletedTeamsTable({
         if (!Array.isArray(models) || models.length === 0) {
           return (
             <Badge size={"xs"} color="red">
-              <Text>All Proxy Models</Text>
+              <Text>所有代理模型</Text>
             </Badge>
           );
         }
@@ -142,7 +142,7 @@ export function DeletedTeamsTable({
             {models.slice(0, 3).map((model: string, index: number) =>
               model === "all-proxy-models" ? (
                 <Badge key={index} size={"xs"} color="red">
-                  <Text>All Proxy Models</Text>
+                  <Text>所有代理模型</Text>
                 </Badge>
               ) : (
                 <Badge key={index} size={"xs"} color="blue">
@@ -346,7 +346,7 @@ export function DeletedTeamsTable({
                     <TableRow>
                       <TableCell colSpan={columns.length} className="h-8 text-center">
                         <div className="text-center text-gray-500">
-                          <p>No deleted teams found</p>
+                          <p>未找到已删除的团队</p>
                         </div>
                       </TableCell>
                     </TableRow>
