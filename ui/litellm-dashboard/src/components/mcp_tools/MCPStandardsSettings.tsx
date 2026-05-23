@@ -16,51 +16,51 @@ export interface FieldGroup {
 
 export const FIELD_GROUPS: FieldGroup[] = [
   {
-    label: "Documentation",
+    label: "文档",
     fields: [
       {
         key: "description",
-        label: "Description",
-        description: "Must have a non-empty description",
+        label: "描述",
+        description: "必须有非空的描述",
         check: (s) => !!s.description?.trim(),
       },
       {
         key: "alias",
-        label: "Alias",
-        description: "Must have a display alias",
+        label: "别名",
+        description: "必须有显示别名",
         check: (s) => !!s.alias?.trim(),
       },
     ],
   },
   {
-    label: "Source",
+    label: "源代码",
     fields: [
       {
         key: "source_url",
-        label: "GitHub / Source URL",
-        description: "Must link to a source repository",
+        label: "GitHub / 源代码 URL",
+        description: "必须链接到源代码仓库",
         check: (s) => !!s.source_url?.trim(),
       },
     ],
   },
   {
-    label: "Connection",
+    label: "连接",
     fields: [
       {
         key: "url",
-        label: "Server URL",
-        description: "Must have a URL configured",
+        label: "服务器 URL",
+        description: "必须配置 URL",
         check: (s) => !!s.url?.trim(),
       },
     ],
   },
   {
-    label: "Security",
+    label: "安全",
     fields: [
       {
         key: "auth_type",
-        label: "Auth configured",
-        description: "Must use authentication (not 'none')",
+        label: "已配置认证",
+        description: "必须使用身份验证（不能为 'none'）",
         check: (s) => !!s.auth_type && s.auth_type !== "none",
       },
     ],

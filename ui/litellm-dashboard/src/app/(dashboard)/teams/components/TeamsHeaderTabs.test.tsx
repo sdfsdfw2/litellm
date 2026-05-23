@@ -27,28 +27,28 @@ const renderTabs = (props: Partial<Parameters<typeof TeamsHeaderTabs>[0]> = {}) 
 };
 
 describe("TeamsHeaderTabs", () => {
-  it("should render 'Your Teams' and 'Available Teams' tabs", () => {
+  it("should render '我的团队' and '可加入的团队' tabs", () => {
     renderTabs();
 
-    expect(screen.getByText("Your Teams")).toBeInTheDocument();
-    expect(screen.getByText("Available Teams")).toBeInTheDocument();
+    expect(screen.getByText("我的团队")).toBeInTheDocument();
+    expect(screen.getByText("可加入的团队")).toBeInTheDocument();
   });
 
-  it("should render 'Default Team Settings' tab when user is Admin", () => {
+  it("should render '默认团队设置' tab when user is Admin", () => {
     renderTabs({ userRole: "Admin" });
 
-    expect(screen.getByText("Default Team Settings")).toBeInTheDocument();
+    expect(screen.getByText("默认团队设置")).toBeInTheDocument();
   });
 
-  it("should not render 'Default Team Settings' tab for non-admin users", () => {
+  it("should not render '默认团队设置' tab for non-admin users", () => {
     renderTabs({ userRole: "Internal User" });
 
-    expect(screen.queryByText("Default Team Settings")).not.toBeInTheDocument();
+    expect(screen.queryByText("默认团队设置")).not.toBeInTheDocument();
   });
 
   it("should display last refreshed time when provided", () => {
     renderTabs({ lastRefreshed: "2024-06-01 12:00:00" });
 
-    expect(screen.getByText("Last Refreshed: 2024-06-01 12:00:00")).toBeInTheDocument();
+    expect(screen.getByText("上次刷新: 2024-06-01 12:00:00")).toBeInTheDocument();
   });
 });

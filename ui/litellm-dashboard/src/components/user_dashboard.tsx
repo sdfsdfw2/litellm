@@ -108,28 +108,28 @@ const UserDashboard: React.FC<UserDashboardProps> = ({
 
   function formatUserRole(userRole: string) {
     if (!userRole) {
-      return "Undefined Role";
+      return "未定义角色";
     }
     console.log(`Received user role: ${userRole}`);
     switch (userRole.toLowerCase()) {
       case "app_owner":
-        return "App Owner";
+        return "应用所有者";
       case "demo_app_owner":
-        return "App Owner";
+        return "应用所有者";
       case "app_admin":
-        return "Admin";
+        return "管理员";
       case "proxy_admin":
-        return "Admin";
+        return "管理员";
       case "proxy_admin_viewer":
-        return "Admin Viewer";
+        return "管理员查看者";
       case "app_user":
-        return "App User";
+        return "应用用户";
       case "internal_user":
-        return "Internal User";
+        return "内部用户";
       case "internal_user_viewer":
-        return "Internal Viewer";
+        return "内部查看者";
       default:
-        return "Unknown Role";
+        return "未知角色";
     }
   }
 
@@ -309,7 +309,7 @@ const UserDashboard: React.FC<UserDashboardProps> = ({
   }
 
   if (userID == null) {
-    return <h1>User ID is not set</h1>;
+    return <h1>用户 ID 未设置</h1>;
   }
 
   if (userRole == null) {

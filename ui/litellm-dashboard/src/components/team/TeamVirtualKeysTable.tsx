@@ -58,11 +58,11 @@ export function TeamVirtualKeysTable({ teamId, teamAlias, organization }: TeamVi
     pageSize: 50,
   });
   const [filters, setFilters] = useState<Record<string, string>>({
-    "Organization ID": "",
-    "Key Alias": "",
-    "User ID": "",
-    "Sort By": "created_at",
-    "Sort Order": "desc",
+    "组织 ID": "",
+    "密钥别名": "",
+    "用户 ID": "",
+    "排序依据": "created_at",
+    "排序方式": "desc",
   });
 
   const sortBy = sorting.length > 0 ? sorting[0].id : "created_at";
@@ -78,9 +78,9 @@ export function TeamVirtualKeysTable({ teamId, teamAlias, organization }: TeamVi
     refetch,
   } = useKeys(pageIndex + 1, pageSize, {
     teamID: teamId,
-    organizationID: filters["Organization ID"]?.trim() || undefined,
-    selectedKeyAlias: filters["Key Alias"]?.trim() || undefined,
-    userID: filters["User ID"]?.trim() || undefined,
+    organizationID: filters["组织 ID"]?.trim() || undefined,
+    selectedKeyAlias: filters["密钥别名"]?.trim() || undefined,
+    userID: filters["用户 ID"]?.trim() || undefined,
     sortBy: sortBy || undefined,
     sortOrder: sortOrder || undefined,
     expand: "user",
@@ -141,11 +141,11 @@ export function TeamVirtualKeysTable({ teamId, teamAlias, organization }: TeamVi
   const handleFilterChange = useCallback((newFilters: Record<string, string>, skipDebounce = false) => {
     setFilters((prev) => ({
       ...prev,
-      "Organization ID": newFilters["Organization ID"] ?? prev["Organization ID"],
-      "Key Alias": newFilters["Key Alias"] ?? prev["Key Alias"],
-      "User ID": newFilters["User ID"] ?? prev["User ID"],
-      "Sort By": newFilters["Sort By"] ?? prev["Sort By"] ?? "created_at",
-      "Sort Order": newFilters["Sort Order"] ?? prev["Sort Order"] ?? "desc",
+      "组织 ID": newFilters["组织 ID"] ?? prev["组织 ID"],
+      "密钥别名": newFilters["密钥别名"] ?? prev["密钥别名"],
+      "用户 ID": newFilters["用户 ID"] ?? prev["用户 ID"],
+      "排序依据": newFilters["排序依据"] ?? prev["排序依据"] ?? "created_at",
+      "排序方式": newFilters["排序方式"] ?? prev["排序方式"] ?? "desc",
     }));
     if (!skipDebounce) {
       setTablePagination((prev) => ({ ...prev, pageIndex: 0 }));
@@ -154,11 +154,11 @@ export function TeamVirtualKeysTable({ teamId, teamAlias, organization }: TeamVi
 
   const handleFilterReset = useCallback(() => {
     setFilters({
-      "Organization ID": "",
-      "Key Alias": "",
-      "User ID": "",
-      "Sort By": "created_at",
-      "Sort Order": "desc",
+      "组织 ID": "",
+      "密钥别名": "",
+      "用户 ID": "",
+      "排序依据": "created_at",
+      "排序方式": "desc",
     });
     setTablePagination((prev) => ({ ...prev, pageIndex: 0 }));
   }, []);
@@ -166,8 +166,8 @@ export function TeamVirtualKeysTable({ teamId, teamAlias, organization }: TeamVi
   const filterOptions: FilterOption[] = useMemo(
     () => [
       {
-        name: "Organization ID",
-        label: "Organization ID",
+        name: "组织 ID",
+        label: "组织 ID",
         isSearchable: true,
         searchFn: async (searchText: string) => {
           const { organizationIds } = teamFilterOptions;
@@ -180,8 +180,8 @@ export function TeamVirtualKeysTable({ teamId, teamAlias, organization }: TeamVi
         },
       },
       {
-        name: "Key Alias",
-        label: "Key Alias",
+        name: "密钥别名",
+        label: "密钥别名",
         isSearchable: true,
         searchFn: async (searchText: string) => {
           const { keyAliases } = teamFilterOptions;
@@ -193,8 +193,8 @@ export function TeamVirtualKeysTable({ teamId, teamAlias, organization }: TeamVi
         },
       },
       {
-        name: "User ID",
-        label: "User ID",
+        name: "用户 ID",
+        label: "用户 ID",
         isSearchable: true,
         searchFn: async (searchText: string) => {
           const { userIds } = teamFilterOptions;
@@ -220,7 +220,7 @@ export function TeamVirtualKeysTable({ teamId, teamAlias, organization }: TeamVi
       {
         id: "token",
         accessorKey: "token",
-        header: "Key ID",
+        header: "密钥 ID",
         size: 100,
         enableSorting: true,
         cell: (info) => {
@@ -244,7 +244,7 @@ export function TeamVirtualKeysTable({ teamId, teamAlias, organization }: TeamVi
       {
         id: "key_alias",
         accessorKey: "key_alias",
-        header: "Key Alias",
+        header: "密钥别名",
         size: 150,
         enableSorting: true,
         cell: (info) => {
@@ -265,7 +265,7 @@ export function TeamVirtualKeysTable({ teamId, teamAlias, organization }: TeamVi
       {
         id: "key_name",
         accessorKey: "key_name",
-        header: "Secret Key",
+        header: "密钥",
         size: 120,
         enableSorting: false,
         cell: (info) => <span className="font-mono text-xs">{info.getValue() as string}</span>,
@@ -273,7 +273,7 @@ export function TeamVirtualKeysTable({ teamId, teamAlias, organization }: TeamVi
       {
         id: "organization_id",
         accessorKey: "organization_id",
-        header: "Organization ID",
+        header: "组织 ID",
         size: 140,
         enableSorting: false,
         cell: (info) => (info.getValue() ? info.renderValue() : "-"),
@@ -281,7 +281,7 @@ export function TeamVirtualKeysTable({ teamId, teamAlias, organization }: TeamVi
       {
         id: "user_email",
         accessorKey: "user",
-        header: "User Email",
+        header: "用户邮箱",
         size: 160,
         enableSorting: false,
         cell: (info) => {
@@ -303,7 +303,7 @@ export function TeamVirtualKeysTable({ teamId, teamAlias, organization }: TeamVi
       {
         id: "user_id",
         accessorKey: "user_id",
-        header: "User ID",
+        header: "用户 ID",
         size: 70,
         enableSorting: false,
         cell: (info) => {
@@ -325,7 +325,7 @@ export function TeamVirtualKeysTable({ teamId, teamAlias, organization }: TeamVi
       {
         id: "created_at",
         accessorKey: "created_at",
-        header: "Created At",
+        header: "创建时间",
         size: 120,
         enableSorting: true,
         cell: (info) => {
@@ -336,7 +336,7 @@ export function TeamVirtualKeysTable({ teamId, teamAlias, organization }: TeamVi
       {
         id: "created_by",
         accessorKey: "created_by",
-        header: "Created By",
+        header: "创建者",
         size: 70,
         enableSorting: false,
         cell: (info) => {
@@ -352,9 +352,9 @@ export function TeamVirtualKeysTable({ teamId, teamAlias, organization }: TeamVi
           const popoverContent = (
             <div className="flex flex-col gap-2 text-xs min-w-[200px] max-w-[300px]">
               {[
-                { label: "User Alias", value: userAlias },
-                { label: "User Email", value: userEmail },
-                { label: "User ID", value: userId },
+                { label: "用户别名", value: userAlias },
+                { label: "用户邮箱", value: userEmail },
+                { label: "用户 ID", value: userId },
               ].map(({ label, value }) => (
                 <div key={label} className="flex flex-col min-w-0">
                   <span className="text-gray-400">{label}</span>
@@ -404,7 +404,7 @@ export function TeamVirtualKeysTable({ teamId, teamAlias, organization }: TeamVi
         enableSorting: true,
         cell: (info) => {
           const value = info.getValue();
-          return value ? new Date(value as string).toLocaleDateString() : "Never";
+          return value ? new Date(value as string).toLocaleDateString() : "从未";
         },
       },
       {
@@ -412,9 +412,9 @@ export function TeamVirtualKeysTable({ teamId, teamAlias, organization }: TeamVi
         accessorKey: "last_active",
         header: () => (
           <span className="flex items-center gap-1">
-            Last Active
+            上次活跃
             <Popover
-              content="This is a new field and is not backfilled. Only new key usage will update this value."
+              content="这是一个新字段，不会回填。只有新的密钥使用才会更新此值。"
               trigger="hover"
             >
               <InfoCircleOutlined className="text-gray-400 text-xs cursor-help" />
@@ -425,7 +425,7 @@ export function TeamVirtualKeysTable({ teamId, teamAlias, organization }: TeamVi
         enableSorting: false,
         cell: (info) => {
           const value = info.getValue();
-          if (!value) return "Unknown";
+          if (!value) return "未知";
           const date = new Date(value as string);
           return (
             <Tooltip title={date.toLocaleString(undefined, { dateStyle: "medium", timeStyle: "long" })}>
@@ -437,18 +437,18 @@ export function TeamVirtualKeysTable({ teamId, teamAlias, organization }: TeamVi
       {
         id: "expires",
         accessorKey: "expires",
-        header: "Expires",
+        header: "过期时间",
         size: 120,
         enableSorting: false,
         cell: (info) => {
           const value = info.getValue();
-          return value ? new Date(value as string).toLocaleDateString() : "Never";
+          return value ? new Date(value as string).toLocaleDateString() : "永不过期";
         },
       },
       {
         id: "spend",
         accessorKey: "spend",
-        header: "Spend (USD)",
+        header: "消费 (USD)",
         size: 100,
         enableSorting: true,
         cell: (info) => formatNumberWithCommas(info.getValue() as number, 4),
@@ -456,30 +456,30 @@ export function TeamVirtualKeysTable({ teamId, teamAlias, organization }: TeamVi
       {
         id: "max_budget",
         accessorKey: "max_budget",
-        header: "Budget (USD)",
+        header: "预算 (USD)",
         size: 110,
         enableSorting: true,
         cell: (info) => {
           const maxBudget = info.getValue() as number | null;
-          if (maxBudget === null) return "Unlimited";
+          if (maxBudget === null) return "无限制";
           return `$${formatNumberWithCommas(maxBudget)}`;
         },
       },
       {
         id: "budget_reset_at",
         accessorKey: "budget_reset_at",
-        header: "Budget Reset",
+        header: "预算重置",
         size: 130,
         enableSorting: false,
         cell: (info) => {
           const value = info.getValue();
-          return value ? new Date(value as string).toLocaleString() : "Never";
+          return value ? new Date(value as string).toLocaleString() : "从不";
         },
       },
       {
         id: "models",
         accessorKey: "models",
-        header: "Models",
+        header: "模型",
         size: 200,
         enableSorting: false,
         cell: (info) => {
@@ -489,9 +489,9 @@ export function TeamVirtualKeysTable({ teamId, teamAlias, organization }: TeamVi
               {Array.isArray(models) ? (
                 <div className="flex flex-col">
                   {models.length === 0 ? (
-                    <Badge size="xs" className="mb-1" color="red">
-                      <Text>All Proxy Models</Text>
-                    </Badge>
+                      <Badge size="xs" className="mb-1" color="red">
+                        <Text>所有代理模型</Text>
+                      </Badge>
                   ) : (
                     <>
                       <div className="flex items-start">
@@ -514,7 +514,7 @@ export function TeamVirtualKeysTable({ teamId, teamAlias, organization }: TeamVi
                           {models.slice(0, 3).map((model, index) =>
                             model === "all-proxy-models" ? (
                               <Badge key={index} size="xs" color="red">
-                                <Text>All Proxy Models</Text>
+                                <Text>所有代理模型</Text>
                               </Badge>
                             ) : (
                               <Badge key={index} size="xs" color="blue">
@@ -538,7 +538,7 @@ export function TeamVirtualKeysTable({ teamId, teamAlias, organization }: TeamVi
                               {models.slice(3).map((model, index) =>
                                 model === "all-proxy-models" ? (
                                   <Badge key={index + 3} size="xs" color="red">
-                                    <Text>All Proxy Models</Text>
+                                    <Text>所有代理模型</Text>
                                   </Badge>
                                 ) : (
                                   <Badge key={index + 3} size="xs" color="blue">
@@ -564,15 +564,15 @@ export function TeamVirtualKeysTable({ teamId, teamAlias, organization }: TeamVi
       },
       {
         id: "rate_limits",
-        header: "Rate Limits",
+        header: "速率限制",
         size: 140,
         enableSorting: false,
         cell: ({ row }) => {
           const key = row.original;
           return (
             <div>
-              <div>TPM: {key.tpm_limit !== null ? key.tpm_limit : "Unlimited"}</div>
-              <div>RPM: {key.rpm_limit !== null ? key.rpm_limit : "Unlimited"}</div>
+              <div>TPM: {key.tpm_limit !== null ? key.tpm_limit : "无限制"}</div>
+              <div>RPM: {key.rpm_limit !== null ? key.rpm_limit : "无限制"}</div>
             </div>
           );
         },
@@ -590,8 +590,8 @@ export function TeamVirtualKeysTable({ teamId, teamAlias, organization }: TeamVi
         const sortState = newSorting[0];
         handleFilterChange(
           {
-            "Sort By": sortState.id,
-            "Sort Order": sortState.desc ? "desc" : "asc",
+            "排序依据": sortState.id,
+            "排序方式": sortState.desc ? "desc" : "asc",
           },
           true,
         );
@@ -643,7 +643,7 @@ export function TeamVirtualKeysTable({ teamId, teamAlias, organization }: TeamVi
                 <Skeleton.Node active style={{ width: 74, height: 20 }} />
               ) : (
                 <span className="text-sm text-gray-700">
-                  Page {pageIndex + 1} of {table.getPageCount()}
+                  第 {pageIndex + 1} 页，共 {table.getPageCount()} 页
                 </span>
               )}
 
@@ -655,7 +655,7 @@ export function TeamVirtualKeysTable({ teamId, teamAlias, organization }: TeamVi
                   disabled={isLoading || isFetching || !table.getCanPreviousPage()}
                   className="px-3 py-1 text-sm border rounded-md hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  Previous
+                  上一页
                 </button>
               )}
 
@@ -667,7 +667,7 @@ export function TeamVirtualKeysTable({ teamId, teamAlias, organization }: TeamVi
                   disabled={isLoading || isFetching || !table.getCanNextPage()}
                   className="px-3 py-1 text-sm border rounded-md hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  Next
+                  下一页
                 </button>
               )}
             </div>
@@ -761,7 +761,7 @@ export function TeamVirtualKeysTable({ teamId, teamAlias, organization }: TeamVi
                       <TableRow>
                         <TableCell colSpan={columns.length} className="h-8 text-center">
                           <div className="text-center text-gray-500">
-                            <p>Loading keys...</p>
+                            <p>正在加载密钥...</p>
                           </div>
                         </TableCell>
                       </TableRow>
@@ -794,7 +794,7 @@ export function TeamVirtualKeysTable({ teamId, teamAlias, organization }: TeamVi
                       <TableRow>
                         <TableCell colSpan={columns.length} className="h-8 text-center">
                           <div className="text-center text-gray-500">
-                            <p>No keys found</p>
+                            <p>未找到密钥</p>
                           </div>
                         </TableCell>
                       </TableRow>

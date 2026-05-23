@@ -28,30 +28,30 @@ const ModelSection = ({
       {/* Summary Cards */}
       <Grid numItems={4} className="gap-4">
         <Card>
-          <Text>Total Requests</Text>
+          <Text>总请求数</Text>
           <Title>{metrics.total_requests.toLocaleString()}</Title>
         </Card>
         <Card>
-          <Text>Total Successful Requests</Text>
+          <Text>成功请求数</Text>
           <Title>{metrics.total_successful_requests.toLocaleString()}</Title>
         </Card>
         <Card>
-          <Text>Total Tokens</Text>
+          <Text>总令牌数</Text>
           <Title>{metrics.total_tokens.toLocaleString()}</Title>
-          <Text>{Math.round(metrics.total_tokens / metrics.total_successful_requests)} avg per successful request</Text>
+          <Text>{Math.round(metrics.total_tokens / metrics.total_successful_requests)} 平均每次成功请求</Text>
         </Card>
         <Card>
-          <Text>Total Spend</Text>
+          <Text>总消费</Text>
           <Title>${formatNumberWithCommas(metrics.total_spend, 2)}</Title>
           <Text>
-            ${formatNumberWithCommas(metrics.total_spend / metrics.total_successful_requests, 3)} per successful request
+            ${formatNumberWithCommas(metrics.total_spend / metrics.total_successful_requests, 3)} 每次成功请求
           </Text>
         </Card>
       </Grid>
 
       {metrics.top_api_keys && metrics.top_api_keys.length > 0 && (
         <Card className="mt-4">
-          <Title>Top Virtual Keys by Spend</Title>
+          <Title>消费最高的虚拟密钥</Title>
           <div className="mt-3">
             <div className="grid grid-cols-1 gap-2">
               {metrics.top_api_keys.map((keyData, index) => (
@@ -63,7 +63,7 @@ const ModelSection = ({
                   <div className="text-right">
                     <Text className="font-medium">${formatNumberWithCommas(keyData.spend, 2)}</Text>
                     <Text className="text-xs text-gray-500">
-                      {keyData.requests.toLocaleString()} requests | {keyData.tokens.toLocaleString()} tokens
+                      {keyData.requests.toLocaleString()} 次请求 | {keyData.tokens.toLocaleString()} 个令牌
                     </Text>
                   </div>
                 </div>
@@ -77,10 +77,10 @@ const ModelSection = ({
         <KeyModelUsageView topModels={metrics.top_models} />
       )}
 
-      {/* Spend per day - Full width card */}
+      {/* 每日消费 - 全宽卡片 */}
       <Card className="mt-4">
         <div className="flex justify-between items-center">
-          <Title>Spend per day</Title>
+          <Title>每日消费</Title>
           <CustomLegend categories={["metrics.spend"]} colors={["green"]} />
         </div>
         <BarChart
@@ -98,7 +98,7 @@ const ModelSection = ({
       <Grid numItems={2} className="gap-4 mt-4">
         <Card>
           <div className="flex justify-between items-center">
-            <Title>Total Tokens</Title>
+            <Title>总令牌数</Title>
             <CustomLegend
               categories={["metrics.prompt_tokens", "metrics.completion_tokens", "metrics.total_tokens"]}
               colors={["blue", "cyan", "indigo"]}
@@ -118,7 +118,7 @@ const ModelSection = ({
 
         <Card>
           <div className="flex justify-between items-center">
-            <Title>Requests per day</Title>
+            <Title>每日请求数</Title>
             <CustomLegend categories={["metrics.api_requests"]} colors={["blue"]} />
           </div>
           <BarChart
@@ -135,7 +135,7 @@ const ModelSection = ({
 
         <Card>
           <div className="flex justify-between items-center">
-            <Title>Success vs Failed Requests</Title>
+            <Title>成功与失败请求</Title>
             <CustomLegend
               categories={["metrics.successful_requests", "metrics.failed_requests"]}
               colors={["green", "red"]}
@@ -156,15 +156,15 @@ const ModelSection = ({
         {!hidePromptCachingMetrics && (
           <Card>
             <div className="flex justify-between items-center">
-              <Title>Prompt Caching Metrics</Title>
+              <Title>提示缓存指标</Title>
               <CustomLegend
                 categories={["metrics.cache_read_input_tokens", "metrics.cache_creation_input_tokens"]}
                 colors={["cyan", "purple"]}
               />
             </div>
             <div className="mb-2">
-              <Text>Cache Read: {metrics.total_cache_read_input_tokens?.toLocaleString() || 0} tokens</Text>
-              <Text>Cache Creation: {metrics.total_cache_creation_input_tokens?.toLocaleString() || 0} tokens</Text>
+              <Text>缓存读取：{metrics.total_cache_read_input_tokens?.toLocaleString() || 0} 个令牌</Text>
+              <Text>缓存创建：{metrics.total_cache_creation_input_tokens?.toLocaleString() || 0} 个令牌</Text>
             </div>
             <AreaChart
               className="mt-4"
@@ -259,22 +259,22 @@ export const ActivityMetrics: React.FC<ActivityMetricsProps> = ({ modelMetrics, 
     <div className="space-y-8">
       {/* Global Summary */}
       <div className="border rounded-lg p-4">
-        <Title>Overall Usage</Title>
+        <Title>总体使用情况</Title>
         <Grid numItems={4} className="gap-4 mb-4">
           <Card>
-            <Text>Total Requests</Text>
+            <Text>总请求数</Text>
             <Title>{totalMetrics.total_requests.toLocaleString()}</Title>
           </Card>
           <Card>
-            <Text>Total Successful Requests</Text>
+            <Text>成功请求数</Text>
             <Title>{totalMetrics.total_successful_requests.toLocaleString()}</Title>
           </Card>
           <Card>
-            <Text>Total Tokens</Text>
+            <Text>总令牌数</Text>
             <Title>{totalMetrics.total_tokens.toLocaleString()}</Title>
           </Card>
           <Card>
-            <Text>Total Spend</Text>
+            <Text>总消费</Text>
             <Title>${formatNumberWithCommas(totalMetrics.total_spend, 2)}</Title>
           </Card>
         </Grid>
@@ -282,7 +282,7 @@ export const ActivityMetrics: React.FC<ActivityMetricsProps> = ({ modelMetrics, 
         <Grid numItems={2} className="gap-4">
           <Card>
             <div className="flex justify-between items-center">
-              <Title>Total Tokens Over Time</Title>
+              <Title>令牌数变化趋势</Title>
               <CustomLegend
                 categories={["metrics.prompt_tokens", "metrics.completion_tokens", "metrics.total_tokens"]}
                 colors={["blue", "cyan", "indigo"]}
@@ -301,7 +301,7 @@ export const ActivityMetrics: React.FC<ActivityMetricsProps> = ({ modelMetrics, 
           </Card>
           <Card>
             <div className="flex justify-between items-center">
-              <Title>Total Requests Over Time</Title>
+              <Title>请求数变化趋势</Title>
               <CustomLegend
                 categories={["metrics.successful_requests", "metrics.failed_requests"]}
                 colors={["emerald", "red"]}
@@ -328,16 +328,16 @@ export const ActivityMetrics: React.FC<ActivityMetricsProps> = ({ modelMetrics, 
             key={modelName}
             header={
               <div className="flex justify-between items-center w-full">
-                <Title>{modelMetrics[modelName].label || "Unknown Item"}</Title>
+                <Title>{modelMetrics[modelName].label || "未知项目"}</Title>
                 <div className="flex space-x-4 text-sm text-gray-500">
                   <span>${formatNumberWithCommas(modelMetrics[modelName].total_spend, 2)}</span>
-                  <span>{modelMetrics[modelName].total_requests.toLocaleString()} requests</span>
+                  <span>{modelMetrics[modelName].total_requests.toLocaleString()} 次请求</span>
                 </div>
               </div>
             }
           >
             <ModelSection
-              modelName={modelName || "Unknown Model"}
+              modelName={modelName || "未知模型"}
               metrics={modelMetrics[modelName]}
               hidePromptCachingMetrics={hidePromptCachingMetrics}
             />

@@ -24,7 +24,7 @@ const formatNumber = (value: number | null | undefined, digits = 4): string => {
 };
 
 const formatRateLimit = (value: number | null | undefined): string => {
-  if (value === null || value === undefined) return "Unlimited";
+  if (value === null || value === undefined) return "无限制";
   return formatNumberWithCommas(value, 0);
 };
 
@@ -34,7 +34,7 @@ export default function MyUserTab({ teamId }: MyUserTabProps) {
   if (isLoading) {
     return (
       <Card>
-        <Typography.Text type="secondary">Loading your membership info…</Typography.Text>
+        <Typography.Text type="secondary">正在加载您的成员信息…</Typography.Text>
       </Card>
     );
   }
@@ -45,7 +45,7 @@ export default function MyUserTab({ teamId }: MyUserTabProps) {
         <Typography.Text type="danger">
           {error instanceof Error
             ? error.message
-            : "Failed to load your membership info for this team."}
+            : "无法加载此团队的成员信息。"}
         </Typography.Text>
       </Card>
     );
@@ -55,7 +55,7 @@ export default function MyUserTab({ teamId }: MyUserTabProps) {
     return (
       <Card>
         <Typography.Text type="secondary">
-          No membership info available for the current user in this team.
+          当前用户在此团队中没有成员信息。
         </Typography.Text>
       </Card>
     );
@@ -75,7 +75,7 @@ export default function MyUserTab({ teamId }: MyUserTabProps) {
       <Card>
         <Row gutter={[24, 16]}>
           <Col xs={24} sm={12} md={8}>
-            <Typography.Text type="secondary">User</Typography.Text>
+            <Typography.Text type="secondary">用户</Typography.Text>
             <div style={{ marginTop: 4 }}>
               <Typography.Text strong>{data.user_email || data.user_id}</Typography.Text>
             </div>
@@ -84,7 +84,7 @@ export default function MyUserTab({ teamId }: MyUserTabProps) {
             </Typography.Text>
           </Col>
           <Col xs={24} sm={12} md={8}>
-            <Typography.Text type="secondary">Team Role</Typography.Text>
+            <Typography.Text type="secondary">团队角色</Typography.Text>
             <div style={{ marginTop: 4 }}>
               <Tag color={data.role === "admin" ? "blue" : "default"}>
                 {data.role || "user"}
@@ -98,20 +98,20 @@ export default function MyUserTab({ teamId }: MyUserTabProps) {
         <Col xs={24} md={12}>
           <Card>
             {labelWithTooltip(
-              "Current Cycle Spend (USD)",
-              "Spend for the current budget cycle. Resets to $0 when the budget window rolls over.",
+              "当前周期消费 (USD)",
+              "当前预算周期的消费。当预算窗口滚动时会重置为 $0。",
             )}
             <div style={{ marginTop: 8 }}>
               <Typography.Title level={3} style={{ margin: 0 }}>
                 ${formatNumber(spend, 4)}
               </Typography.Title>
               <Typography.Text type="secondary">
-                of {maxBudget === null ? "Unlimited" : `$${formatNumber(maxBudget, 4)}`}
+                共 {maxBudget === null ? "无限制" : `$${formatNumber(maxBudget, 4)}`}
               </Typography.Text>
             </div>
             {budgetReset && (
               <div style={{ marginTop: 4 }}>
-                <Typography.Text type="secondary">Resets {budgetReset}</Typography.Text>
+                <Typography.Text type="secondary">重置于 {budgetReset}</Typography.Text>
               </div>
             )}
           </Card>
@@ -120,8 +120,8 @@ export default function MyUserTab({ teamId }: MyUserTabProps) {
         <Col xs={24} md={12}>
           <Card>
             {labelWithTooltip(
-              "Rate Limits",
-              "Your per-member rate limits within this team.",
+              "速率限制",
+              "您在此团队中的个人速率限制。",
             )}
             <div style={{ marginTop: 8 }}>
               <Typography.Text>TPM: {formatRateLimit(tpmLimit)}</Typography.Text>
@@ -134,8 +134,8 @@ export default function MyUserTab({ teamId }: MyUserTabProps) {
         <Col xs={24} md={12}>
           <Card>
             {labelWithTooltip(
-              "Total Spend (USD)",
-              "Cumulative spend across all budget cycles within this team.",
+              "总消费 (USD)",
+              "在此团队内跨所有预算周期的累计消费。",
             )}
             <div style={{ marginTop: 8 }}>
               <Typography.Title level={4} style={{ margin: 0 }}>
@@ -148,8 +148,8 @@ export default function MyUserTab({ teamId }: MyUserTabProps) {
         <Col xs={24} md={12}>
           <Card>
             {labelWithTooltip(
-              "Model Scope",
-              "Models you can access within this team.",
+              "模型范围",
+              "您在此团队中可以访问的模型。",
             )}
             <div style={{ marginTop: 8 }}>
               {allowedModels && allowedModels.length > 0 ? (
@@ -159,7 +159,7 @@ export default function MyUserTab({ teamId }: MyUserTabProps) {
                   ))}
                 </Space>
               ) : (
-                <Typography.Text>All Team Models</Typography.Text>
+                <Typography.Text>所有团队模型</Typography.Text>
               )}
             </div>
           </Card>

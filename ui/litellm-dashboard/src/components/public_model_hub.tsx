@@ -1052,9 +1052,9 @@ const PublicModelHub: React.FC<PublicModelHubProps> = ({ accessToken, isEmbedded
           {/* Health and Endpoint Status - only shown when not embedded */}
           {!isEmbedded && (
             <Card className="mb-10 p-8 bg-white border border-gray-200 rounded-lg shadow-sm">
-              <Title className="text-2xl font-semibold mb-6 text-gray-900">Health and Endpoint Status</Title>
+              <Title className="text-2xl font-semibold mb-6 text-gray-900">健康与端点状态</Title>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <Text className="text-green-600 font-medium text-sm">Service status: {serviceStatus}</Text>
+                <Text className="text-green-600 font-medium text-sm">服务状态: {serviceStatus}</Text>
               </div>
             </Card>
           )}
@@ -1063,18 +1063,18 @@ const PublicModelHub: React.FC<PublicModelHubProps> = ({ accessToken, isEmbedded
           <Card className="p-8 bg-white border border-gray-200 rounded-lg shadow-sm">
             <Tabs activeKey={activeTab} onChange={setActiveTab} size="large" className="public-hub-tabs">
               {/* Models Tab */}
-              <TabPane tab="Model Hub" key="models">
+              <TabPane tab="模型中心" key="models">
                 <div className="flex justify-between items-center mb-8">
-                  <Title className="text-2xl font-semibold text-gray-900">Available Models</Title>
+                  <Title className="text-2xl font-semibold text-gray-900">可用模型</Title>
                 </div>
 
                 {/* Filters */}
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8 p-6 bg-gray-50 rounded-lg border border-gray-200">
                   <div>
                     <div className="flex items-center space-x-2 mb-3">
-                      <Text className="text-sm font-medium text-gray-700">Search Models:</Text>
+                      <Text className="text-sm font-medium text-gray-700">搜索模型:</Text>
                       <Tooltip
-                        title="Smart search with relevance ranking - finds models containing your search terms, ranked by relevance. Try searching 'xai grok-4', 'claude-4', 'gpt-4', or 'sonnet'"
+                        title="智能搜索，按相关性排序 - 查找包含您搜索词的模型。试试搜索 'claude-4', 'gpt-4' 或 'sonnet'"
                         placement="top"
                       >
                         <Info className="w-4 h-4 text-gray-400 cursor-help" />
@@ -1084,7 +1084,7 @@ const PublicModelHub: React.FC<PublicModelHubProps> = ({ accessToken, isEmbedded
                       <SearchIcon className="w-4 h-4 text-gray-400 absolute left-3 top-1/2 transform -translate-y-1/2" />
                       <input
                         type="text"
-                        placeholder="Search model names... (smart search enabled)"
+                        placeholder="搜索模型名称...（已启用智能搜索）"
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
                         className="border border-gray-300 rounded-lg pl-10 pr-4 py-2 w-full text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white"
@@ -1092,12 +1092,12 @@ const PublicModelHub: React.FC<PublicModelHubProps> = ({ accessToken, isEmbedded
                     </div>
                   </div>
                   <div>
-                    <Text className="text-sm font-medium mb-3 text-gray-700">Provider:</Text>
+                    <Text className="text-sm font-medium mb-3 text-gray-700">提供商:</Text>
                     <Select
                       mode="multiple"
                       value={selectedProviders}
                       onChange={(values) => setSelectedProviders(values)}
-                      placeholder="Select providers"
+                      placeholder="选择提供商"
                       className="w-full"
                       size="large"
                       allowClear
@@ -1130,12 +1130,12 @@ const PublicModelHub: React.FC<PublicModelHubProps> = ({ accessToken, isEmbedded
                     </Select>
                   </div>
                   <div>
-                    <Text className="text-sm font-medium mb-3 text-gray-700">Mode:</Text>
+                    <Text className="text-sm font-medium mb-3 text-gray-700">模式:</Text>
                     <Select
                       mode="multiple"
                       value={selectedModes}
                       onChange={(values) => setSelectedModes(values)}
-                      placeholder="Select modes"
+                      placeholder="选择模式"
                       className="w-full"
                       size="large"
                       allowClear
@@ -1150,12 +1150,12 @@ const PublicModelHub: React.FC<PublicModelHubProps> = ({ accessToken, isEmbedded
                     </Select>
                   </div>
                   <div>
-                    <Text className="text-sm font-medium mb-3 text-gray-700">Features:</Text>
+                    <Text className="text-sm font-medium mb-3 text-gray-700">功能:</Text>
                     <Select
                       mode="multiple"
                       value={selectedFeatures}
                       onChange={(values) => setSelectedFeatures(values)}
-                      placeholder="Select features"
+                      placeholder="选择功能"
                       className="w-full"
                       size="large"
                       allowClear
@@ -1180,24 +1180,24 @@ const PublicModelHub: React.FC<PublicModelHubProps> = ({ accessToken, isEmbedded
 
                 <div className="mt-8 text-center">
                   <Text className="text-sm text-gray-600">
-                    Showing {filteredData.length} of {modelHubData?.length || 0} models
+                    显示 {filteredData.length}，共 {modelHubData?.length || 0} 个模型
                   </Text>
                 </div>
               </TabPane>
 
               {/* Agents Tab */}
               {agentHubData && Array.isArray(agentHubData) && agentHubData.length > 0 && (
-                <TabPane tab="Agent Hub" key="agents">
+                <TabPane tab="Agent 中心" key="agents">
                   <div className="flex justify-between items-center mb-8">
-                    <Title className="text-2xl font-semibold text-gray-900">Available Agents</Title>
+                    <Title className="text-2xl font-semibold text-gray-900">可用 Agent</Title>
                   </div>
 
                   {/* Filters */}
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8 p-6 bg-gray-50 rounded-lg border border-gray-200">
                     <div>
                       <div className="flex items-center space-x-2 mb-3">
-                        <Text className="text-sm font-medium text-gray-700">Search Agents:</Text>
-                        <Tooltip title="Search agents by name or description" placement="top">
+                        <Text className="text-sm font-medium text-gray-700">搜索 Agent:</Text>
+                        <Tooltip title="按名称或描述搜索 Agent" placement="top">
                           <Info className="w-4 h-4 text-gray-400 cursor-help" />
                         </Tooltip>
                       </div>
@@ -1205,7 +1205,7 @@ const PublicModelHub: React.FC<PublicModelHubProps> = ({ accessToken, isEmbedded
                         <SearchIcon className="w-4 h-4 text-gray-400 absolute left-3 top-1/2 transform -translate-y-1/2" />
                         <input
                           type="text"
-                          placeholder="Search agent names or descriptions..."
+                          placeholder="搜索 Agent 名称或描述..."
                           value={agentSearchTerm}
                           onChange={(e) => setAgentSearchTerm(e.target.value)}
                           className="border border-gray-300 rounded-lg pl-10 pr-4 py-2 w-full text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white"
@@ -1213,12 +1213,12 @@ const PublicModelHub: React.FC<PublicModelHubProps> = ({ accessToken, isEmbedded
                       </div>
                     </div>
                     <div>
-                      <Text className="text-sm font-medium mb-3 text-gray-700">Skills:</Text>
+                      <Text className="text-sm font-medium mb-3 text-gray-700">技能:</Text>
                       <Select
                         mode="multiple"
                         value={selectedAgentSkills}
                         onChange={(values) => setSelectedAgentSkills(values)}
-                        placeholder="Select skills"
+                        placeholder="选择技能"
                         className="w-full"
                         size="large"
                         allowClear
@@ -1243,7 +1243,7 @@ const PublicModelHub: React.FC<PublicModelHubProps> = ({ accessToken, isEmbedded
 
                   <div className="mt-8 text-center">
                     <Text className="text-sm text-gray-600">
-                      Showing {filteredAgentData.length} of {agentHubData?.length || 0} agents
+                      显示 {filteredAgentData.length}，共 {agentHubData?.length || 0} 个 Agent
                     </Text>
                   </div>
                 </TabPane>
@@ -1251,17 +1251,17 @@ const PublicModelHub: React.FC<PublicModelHubProps> = ({ accessToken, isEmbedded
 
               {/* MCP Servers Tab */}
               {mcpHubData && Array.isArray(mcpHubData) && mcpHubData.length > 0 && (
-                <TabPane tab="MCP Hub" key="mcp">
+                <TabPane tab="MCP 中心" key="mcp">
                   <div className="flex justify-between items-center mb-8">
-                    <Title className="text-2xl font-semibold text-gray-900">Available MCP Servers</Title>
+                    <Title className="text-2xl font-semibold text-gray-900">可用 MCP 服务器</Title>
                   </div>
 
                   {/* Filters */}
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8 p-6 bg-gray-50 rounded-lg border border-gray-200">
                     <div>
                       <div className="flex items-center space-x-2 mb-3">
-                        <Text className="text-sm font-medium text-gray-700">Search MCP Servers:</Text>
-                        <Tooltip title="Search MCP servers by name or description" placement="top">
+                        <Text className="text-sm font-medium text-gray-700">搜索 MCP 服务器:</Text>
+                        <Tooltip title="按名称或描述搜索 MCP 服务器" placement="top">
                           <Info className="w-4 h-4 text-gray-400 cursor-help" />
                         </Tooltip>
                       </div>
@@ -1269,7 +1269,7 @@ const PublicModelHub: React.FC<PublicModelHubProps> = ({ accessToken, isEmbedded
                         <SearchIcon className="w-4 h-4 text-gray-400 absolute left-3 top-1/2 transform -translate-y-1/2" />
                         <input
                           type="text"
-                          placeholder="Search MCP server names or descriptions..."
+                          placeholder="搜索 MCP 服务器名称或描述..."
                           value={mcpSearchTerm}
                           onChange={(e) => setMcpSearchTerm(e.target.value)}
                           className="border border-gray-300 rounded-lg pl-10 pr-4 py-2 w-full text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white"
@@ -1277,12 +1277,12 @@ const PublicModelHub: React.FC<PublicModelHubProps> = ({ accessToken, isEmbedded
                       </div>
                     </div>
                     <div>
-                      <Text className="text-sm font-medium mb-3 text-gray-700">Transport:</Text>
+                      <Text className="text-sm font-medium mb-3 text-gray-700">传输方式:</Text>
                       <Select
                         mode="multiple"
                         value={selectedMcpTransports}
                         onChange={(values) => setSelectedMcpTransports(values)}
-                        placeholder="Select transport types"
+                        placeholder="选择传输类型"
                         className="w-full"
                         size="large"
                         allowClear
@@ -1307,14 +1307,14 @@ const PublicModelHub: React.FC<PublicModelHubProps> = ({ accessToken, isEmbedded
 
                   <div className="mt-8 text-center">
                     <Text className="text-sm text-gray-600">
-                      Showing {filteredMcpData.length} of {mcpHubData?.length || 0} MCP servers
+                      显示 {filteredMcpData.length}，共 {mcpHubData?.length || 0} 个 MCP 服务器
                     </Text>
                   </div>
                 </TabPane>
               )}
 
               {/* Skill Hub Tab */}
-              <TabPane tab="Skill Hub" key="skills">
+              <TabPane tab="技能中心" key="skills">
                 <SkillHubDashboard
                   skills={skillHubData}
                   isLoading={skillLoading}
@@ -1329,9 +1329,9 @@ const PublicModelHub: React.FC<PublicModelHubProps> = ({ accessToken, isEmbedded
         <Modal
           title={
             <div className="flex items-center space-x-2">
-              <span>{selectedModel?.model_group || "Model Details"}</span>
+              <span>{selectedModel?.model_group || "模型详情"}</span>
               {selectedModel && (
-                <Tooltip title="Copy model name">
+                <Tooltip title="复制模型名称">
                   <Copy
                     onClick={() => copyToClipboard(selectedModel.model_group)}
                     className="cursor-pointer text-gray-500 hover:text-blue-500 w-4 h-4"
@@ -1350,18 +1350,18 @@ const PublicModelHub: React.FC<PublicModelHubProps> = ({ accessToken, isEmbedded
             <div className="space-y-6">
               {/* Model Overview */}
               <div>
-                <Text className="text-lg font-semibold mb-4">Model Overview</Text>
+                <Text className="text-lg font-semibold mb-4">模型概览</Text>
                 <div className="grid grid-cols-2 gap-4 mb-4">
                   <div>
-                    <Text className="font-medium">Model Name:</Text>
+                    <Text className="font-medium">模型名称:</Text>
                     <Text>{selectedModel.model_group}</Text>
                   </div>
                   <div>
-                    <Text className="font-medium">Mode:</Text>
-                    <Text>{selectedModel.mode || "Not specified"}</Text>
+                    <Text className="font-medium">模式:</Text>
+                    <Text>{selectedModel.mode || "未指定"}</Text>
                   </div>
                   <div>
-                    <Text className="font-medium">Providers:</Text>
+                    <Text className="font-medium">提供商:</Text>
                     <div className="flex flex-wrap gap-1 mt-1">
                       {(selectedModel.providers ?? []).map((provider) => {
                         const { logo } = getProviderLogoAndName(provider);
@@ -1393,19 +1393,19 @@ const PublicModelHub: React.FC<PublicModelHubProps> = ({ accessToken, isEmbedded
                     <div className="flex items-start space-x-2">
                       <Info className="w-4 h-4 text-blue-600 mt-0.5 flex-shrink-0" />
                       <div>
-                        <Text className="font-medium text-blue-900 mb-2">Wildcard Routing</Text>
+                        <Text className="font-medium text-blue-900 mb-2">通配符路由</Text>
                         <Text className="text-sm text-blue-800 mb-2">
-                          This model uses wildcard routing. You can pass any value where you see the{" "}
-                          <code className="bg-blue-100 px-1 py-0.5 rounded text-xs">*</code> symbol.
+                          此模型使用通配符路由。您可以在看到{" "}
+                          <code className="bg-blue-100 px-1 py-0.5 rounded text-xs">*</code> 符号的位置传入任意值。
                         </Text>
                         <Text className="text-sm text-blue-800">
-                          For example, with{" "}
-                          <code className="bg-blue-100 px-1 py-0.5 rounded text-xs">{selectedModel.model_group}</code>,
-                          you can use any string (
+                          例如，搭配{" "}
+                          <code className="bg-blue-100 px-1 py-0.5 rounded text-xs">{selectedModel.model_group}</code>，
+                          您可以使用与此模式匹配的任意字符串（如{" "}
                           <code className="bg-blue-100 px-1 py-0.5 rounded text-xs">
                             {selectedModel.model_group.replaceAll("*", "my-custom-value")}
                           </code>
-                          ) that matches this pattern.
+                          ）。
                         </Text>
                       </div>
                     </div>
@@ -1415,30 +1415,30 @@ const PublicModelHub: React.FC<PublicModelHubProps> = ({ accessToken, isEmbedded
 
               {/* Token and Cost Information */}
               <div>
-                <Text className="text-lg font-semibold mb-4">Token & Cost Information</Text>
+                <Text className="text-lg font-semibold mb-4">Token 与费用信息</Text>
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <Text className="font-medium">Max Input Tokens:</Text>
-                    <Text>{selectedModel.max_input_tokens?.toLocaleString() || "Not specified"}</Text>
+                    <Text className="font-medium">最大输入 Token:</Text>
+                    <Text>{selectedModel.max_input_tokens?.toLocaleString() || "未指定"}</Text>
                   </div>
                   <div>
-                    <Text className="font-medium">Max Output Tokens:</Text>
-                    <Text>{selectedModel.max_output_tokens?.toLocaleString() || "Not specified"}</Text>
+                    <Text className="font-medium">最大输出 Token:</Text>
+                    <Text>{selectedModel.max_output_tokens?.toLocaleString() || "未指定"}</Text>
                   </div>
                   <div>
-                    <Text className="font-medium">Input Cost per 1M Tokens:</Text>
+                    <Text className="font-medium">每百万 Token 输入费用:</Text>
                     <Text>
                       {selectedModel.input_cost_per_token
                         ? formatCost(selectedModel.input_cost_per_token)
-                        : "Not specified"}
+                        : "未指定"}
                     </Text>
                   </div>
                   <div>
-                    <Text className="font-medium">Output Cost per 1M Tokens:</Text>
+                    <Text className="font-medium">每百万 Token 输出费用:</Text>
                     <Text>
                       {selectedModel.output_cost_per_token
                         ? formatCost(selectedModel.output_cost_per_token)
-                        : "Not specified"}
+                        : "未指定"}
                     </Text>
                   </div>
                 </div>
@@ -1446,14 +1446,14 @@ const PublicModelHub: React.FC<PublicModelHubProps> = ({ accessToken, isEmbedded
 
               {/* Capabilities */}
               <div>
-                <Text className="text-lg font-semibold mb-4">Capabilities</Text>
+                <Text className="text-lg font-semibold mb-4">能力</Text>
                 <div className="flex flex-wrap gap-2">
                   {(() => {
                     const capabilities = getModelCapabilities(selectedModel);
                     const colors = ["green", "blue", "purple", "orange", "red", "yellow"];
 
                     if (capabilities.length === 0) {
-                      return <Text className="text-gray-500">No special capabilities listed</Text>;
+                      return <Text className="text-gray-500">未列出特殊能力</Text>;
                     }
 
                     return capabilities.map((capability, index) => (
@@ -1468,17 +1468,17 @@ const PublicModelHub: React.FC<PublicModelHubProps> = ({ accessToken, isEmbedded
               {/* Rate Limits */}
               {(selectedModel.tpm || selectedModel.rpm) && (
                 <div>
-                  <Text className="text-lg font-semibold mb-4">Rate Limits</Text>
+                  <Text className="text-lg font-semibold mb-4">速率限制</Text>
                   <div className="grid grid-cols-2 gap-4">
                     {selectedModel.tpm && (
                       <div>
-                        <Text className="font-medium">Tokens per Minute:</Text>
+                        <Text className="font-medium">每分钟 Token 数:</Text>
                         <Text>{selectedModel.tpm.toLocaleString()}</Text>
                       </div>
                     )}
                     {selectedModel.rpm && (
                       <div>
-                        <Text className="font-medium">Requests per Minute:</Text>
+                        <Text className="font-medium">每分钟请求数:</Text>
                         <Text>{selectedModel.rpm.toLocaleString()}</Text>
                       </div>
                     )}
@@ -1489,7 +1489,7 @@ const PublicModelHub: React.FC<PublicModelHubProps> = ({ accessToken, isEmbedded
               {/* Supported OpenAI Parameters */}
               {selectedModel.supported_openai_params && selectedModel.supported_openai_params.length > 0 && (
                 <div>
-                  <Text className="text-lg font-semibold mb-4">Supported OpenAI Parameters</Text>
+                  <Text className="text-lg font-semibold mb-4">支持的 OpenAI 参数</Text>
                   <div className="flex flex-wrap gap-2">
                     {selectedModel.supported_openai_params.map((param) => (
                       <Tag key={param} color="green">
@@ -1502,7 +1502,7 @@ const PublicModelHub: React.FC<PublicModelHubProps> = ({ accessToken, isEmbedded
 
               {/* Usage Example */}
               <div>
-                <Text className="text-lg font-semibold mb-4">Usage Example</Text>
+                <Text className="text-lg font-semibold mb-4">使用示例</Text>
                 <div className="bg-gray-900 text-gray-100 p-4 rounded-lg overflow-x-auto">
                   <pre className="text-sm">
                     {(() => {
@@ -1547,7 +1547,7 @@ const PublicModelHub: React.FC<PublicModelHubProps> = ({ accessToken, isEmbedded
                     }}
                     className="text-sm text-blue-600 hover:text-blue-800 cursor-pointer"
                   >
-                    Copy to clipboard
+                    复制到剪贴板
                   </button>
                 </div>
               </div>
@@ -1559,9 +1559,9 @@ const PublicModelHub: React.FC<PublicModelHubProps> = ({ accessToken, isEmbedded
         <Modal
           title={
             <div className="flex items-center space-x-2">
-              <span>{selectedAgent?.name || "Agent Details"}</span>
+              <span>{selectedAgent?.name || "Agent 详情"}</span>
               {selectedAgent && (
-                <Tooltip title="Copy agent name">
+                <Tooltip title="复制 Agent 名称">
                   <Copy
                     onClick={() => copyToClipboard(selectedAgent.name)}
                     className="cursor-pointer text-gray-500 hover:text-blue-500 w-4 h-4"
@@ -1580,23 +1580,23 @@ const PublicModelHub: React.FC<PublicModelHubProps> = ({ accessToken, isEmbedded
             <div className="space-y-6">
               {/* Agent Overview */}
               <div>
-                <Text className="text-lg font-semibold mb-4">Agent Overview</Text>
+                <Text className="text-lg font-semibold mb-4">Agent 概览</Text>
                 <div className="grid grid-cols-2 gap-4 mb-4">
                   <div>
-                    <Text className="font-medium">Name:</Text>
+                    <Text className="font-medium">名称:</Text>
                     <Text>{selectedAgent.name}</Text>
                   </div>
                   <div>
-                    <Text className="font-medium">Version:</Text>
+                    <Text className="font-medium">版本:</Text>
                     <Text>{selectedAgent.version}</Text>
                   </div>
                   <div className="col-span-2">
-                    <Text className="font-medium">Description:</Text>
+                    <Text className="font-medium">描述:</Text>
                     <Text>{selectedAgent.description}</Text>
                   </div>
                   {selectedAgent.url && (
                     <div>
-                      <Text className="font-medium">URL:</Text>
+<Text className="font-medium">网址:</Text>
                       <a
                         href={selectedAgent.url}
                         target="_blank"
@@ -1613,7 +1613,7 @@ const PublicModelHub: React.FC<PublicModelHubProps> = ({ accessToken, isEmbedded
               {/* Capabilities */}
               {selectedAgent.capabilities && (
                 <div>
-                  <Text className="text-lg font-semibold mb-4">Capabilities</Text>
+                  <Text className="text-lg font-semibold mb-4">能力</Text>
                   <div className="flex flex-wrap gap-2">
                     {Object.entries(selectedAgent.capabilities)
                       .filter(([_, value]) => value === true)
@@ -1629,7 +1629,7 @@ const PublicModelHub: React.FC<PublicModelHubProps> = ({ accessToken, isEmbedded
               {/* Skills */}
               {selectedAgent.skills && selectedAgent.skills.length > 0 && (
                 <div>
-                  <Text className="text-lg font-semibold mb-4">Skills</Text>
+                  <Text className="text-lg font-semibold mb-4">技能</Text>
                   <div className="space-y-4">
                     {selectedAgent.skills.map((skill, index) => (
                       <div key={index} className="border border-gray-200 rounded-lg p-4">
@@ -1656,10 +1656,10 @@ const PublicModelHub: React.FC<PublicModelHubProps> = ({ accessToken, isEmbedded
 
               {/* Input/Output Modes */}
               <div>
-                <Text className="text-lg font-semibold mb-4">Input/Output Modes</Text>
+                <Text className="text-lg font-semibold mb-4">输入/输出模式</Text>
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <Text className="font-medium">Input Modes:</Text>
+                    <Text className="font-medium">输入模式:</Text>
                     <div className="flex flex-wrap gap-1 mt-1">
                       {(selectedAgent.defaultInputModes ?? []).map((mode) => (
                         <Tag key={mode} color="blue">

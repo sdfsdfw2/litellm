@@ -34,7 +34,7 @@ const ModelsCell = ({ team }: ModelsCellProps) => {
     if (entry.name === "all-proxy-models") {
       return (
         <Badge key={index} size={"xs"} color="red">
-          <Text>All Proxy Models</Text>
+          <Text>所有代理模型</Text>
         </Badge>
       );
     }
@@ -45,7 +45,7 @@ const ModelsCell = ({ team }: ModelsCellProps) => {
         key={index}
         size={"xs"}
         color={entry.source === "access_group" ? "green" : "blue"}
-        title={entry.source === "access_group" ? "From access group" : "Direct assignment"}
+        title={entry.source === "access_group" ? "来自访问组" : "直接分配"}
       >
         <Text>{truncated}</Text>
       </Badge>
@@ -64,9 +64,9 @@ const ModelsCell = ({ team }: ModelsCellProps) => {
       <div className="flex flex-col">
         {modelEntries.length === 0 ? (
           <Badge size={"xs"} className="mb-1" color="red">
-            <Text>All Proxy Models</Text>
-          </Badge>
-        ) : (
+          <Text>所有代理模型</Text>
+        </Badge>
+      ) : (
           <div className="flex flex-col">
             <div className="flex items-start">
               {modelEntries.length > 3 && (
@@ -86,7 +86,7 @@ const ModelsCell = ({ team }: ModelsCellProps) => {
                 {modelEntries.length > 3 && !expandedAccordion && (
                   <Badge size={"xs"} color="gray" className="cursor-pointer">
                     <Text>
-                      +{modelEntries.length - 3} {modelEntries.length - 3 === 1 ? "more model" : "more models"}
+                      +{modelEntries.length - 3} 个更多模型
                     </Text>
                   </Badge>
                 )}

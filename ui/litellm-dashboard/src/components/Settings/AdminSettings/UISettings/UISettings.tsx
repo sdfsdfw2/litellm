@@ -38,7 +38,7 @@ export default function UISettings() {
       { disable_model_add_for_internal_users: checked },
       {
         onSuccess: () => {
-          NotificationManager.success("UI settings updated successfully");
+          NotificationManager.success("UI 设置已成功更新");
         },
         onError: (error) => {
           NotificationManager.fromBackend(error);
@@ -52,7 +52,7 @@ export default function UISettings() {
       { disable_team_admin_delete_team_user: checked },
       {
         onSuccess: () => {
-          NotificationManager.success("UI settings updated successfully");
+          NotificationManager.success("UI 设置已成功更新");
         },
         onError: (error) => {
           NotificationManager.fromBackend(error);
@@ -77,7 +77,7 @@ export default function UISettings() {
       { forward_client_headers_to_llm_api: checked },
       {
         onSuccess: () => {
-          NotificationManager.success("UI settings updated successfully");
+          NotificationManager.success("UI 设置已成功更新");
         },
         onError: (error) => {
           NotificationManager.fromBackend(error);
@@ -91,7 +91,7 @@ export default function UISettings() {
       { forward_llm_provider_auth_headers: checked },
       {
         onSuccess: () => {
-          NotificationManager.success("UI settings updated successfully");
+          NotificationManager.success("UI 设置已成功更新");
         },
         onError: (error) => {
           NotificationManager.fromBackend(error);
@@ -105,7 +105,7 @@ export default function UISettings() {
       { enable_projects_ui: checked },
       {
         onSuccess: () => {
-          NotificationManager.success("UI settings updated successfully. Refreshing page...");
+          NotificationManager.success("UI 设置已成功更新，正在刷新页面...");
           setTimeout(() => window.location.reload(), 1000);
         },
         onError: (error) => {
@@ -120,7 +120,7 @@ export default function UISettings() {
       { require_auth_for_public_ai_hub: checked },
       {
         onSuccess: () => {
-          NotificationManager.success("UI settings updated successfully");
+          NotificationManager.success("UI 设置已成功更新");
         },
         onError: (error) => {
           NotificationManager.fromBackend(error);
@@ -134,7 +134,7 @@ export default function UISettings() {
       { disable_agents_for_internal_users: checked },
       {
         onSuccess: () => {
-          NotificationManager.success("UI settings updated successfully");
+          NotificationManager.success("UI 设置已成功更新");
         },
         onError: (error) => {
           NotificationManager.fromBackend(error);
@@ -148,7 +148,7 @@ export default function UISettings() {
       { allow_agents_for_team_admins: checked },
       {
         onSuccess: () => {
-          NotificationManager.success("UI settings updated successfully");
+          NotificationManager.success("UI 设置已成功更新");
         },
         onError: (error) => {
           NotificationManager.fromBackend(error);
@@ -162,7 +162,7 @@ export default function UISettings() {
       { disable_vector_stores_for_internal_users: checked },
       {
         onSuccess: () => {
-          NotificationManager.success("UI settings updated successfully");
+          NotificationManager.success("UI 设置已成功更新");
         },
         onError: (error) => {
           NotificationManager.fromBackend(error);
@@ -176,7 +176,7 @@ export default function UISettings() {
       { allow_vector_stores_for_team_admins: checked },
       {
         onSuccess: () => {
-          NotificationManager.success("UI settings updated successfully");
+          NotificationManager.success("UI 设置已成功更新");
         },
         onError: (error) => {
           NotificationManager.fromBackend(error);
@@ -190,7 +190,7 @@ export default function UISettings() {
       { scope_user_search_to_org: checked },
       {
         onSuccess: () => {
-          NotificationManager.success("UI settings updated successfully");
+          NotificationManager.success("UI 设置已成功更新");
         },
         onError: (error) => {
           NotificationManager.fromBackend(error);
@@ -204,7 +204,7 @@ export default function UISettings() {
       { disable_custom_api_keys: checked },
       {
         onSuccess: () => {
-          NotificationManager.success("UI settings updated successfully");
+          NotificationManager.success("UI 设置已成功更新");
         },
         onError: (error) => {
           NotificationManager.fromBackend(error);
@@ -220,7 +220,7 @@ export default function UISettings() {
       ) : isError ? (
         <Alert
           type="error"
-          message="Could not load UI settings"
+          message="无法加载 UI 设置"
           description={error instanceof Error ? error.message : undefined}
         />
       ) : (
@@ -232,7 +232,7 @@ export default function UISettings() {
           {updateError && (
             <Alert
               type="error"
-              message="Could not update UI settings"
+              message="无法更新 UI 设置"
               description={updateError instanceof Error ? updateError.message : undefined}
             />
           )}
@@ -246,7 +246,7 @@ export default function UISettings() {
               aria-label={property?.description ?? "Disable model add for internal users"}
             />
             <Space direction="vertical" size={4}>
-              <Typography.Text strong>Disable model add for internal users</Typography.Text>
+              <Typography.Text strong>禁用内部用户添加模型</Typography.Text>
               {property?.description && <Typography.Text type="secondary">{property.description}</Typography.Text>}
             </Space>
           </Space>
@@ -260,7 +260,7 @@ export default function UISettings() {
               aria-label={disableTeamAdminDeleteProperty?.description ?? "Disable team admin delete team user"}
             />
             <Space direction="vertical" size={4}>
-              <Typography.Text strong>Disable team admin delete team user</Typography.Text>
+              <Typography.Text strong>禁用团队管理员删除团队成员</Typography.Text>
               {disableTeamAdminDeleteProperty?.description && (
                 <Typography.Text type="secondary">{disableTeamAdminDeleteProperty.description}</Typography.Text>
               )}
@@ -276,7 +276,7 @@ export default function UISettings() {
               aria-label={requireAuthForPublicAIHubProperty?.description ?? "Require authentication for public AI Hub"}
             />
             <Space direction="vertical" size={4}>
-              <Typography.Text strong>Require authentication for public AI Hub</Typography.Text>
+              <Typography.Text strong>公共 AI Hub 需要身份验证</Typography.Text>
               {requireAuthForPublicAIHubProperty?.description && (
                 <Typography.Text type="secondary">{requireAuthForPublicAIHubProperty.description}</Typography.Text>
               )}
@@ -292,10 +292,10 @@ export default function UISettings() {
               aria-label={forwardClientHeadersProperty?.description ?? "Forward client headers to LLM API"}
             />
             <Space direction="vertical" size={4}>
-              <Typography.Text strong>Forward client headers to LLM API</Typography.Text>
+              <Typography.Text strong>转发客户端请求头到 LLM API</Typography.Text>
               <Typography.Text type="secondary">
                 {forwardClientHeadersProperty?.description ??
-                  "Forwards client headers (Authorization, anthropic-beta, and x-* custom headers) to the upstream LLM. Enable for Claude Code with a Max subscription (forwards the OAuth token) or to pass custom/tracing headers through to the provider. Independent of the BYOK toggle — enable only the one(s) you need."}
+                  "将客户端请求头（Authorization、anthropic-beta 和 x-* 自定义请求头）转发到上游 LLM。为 Claude Code Max 订阅启用（转发 OAuth 令牌），或将自定义/跟踪请求头传递到提供商。与 BYOK 开关独立——仅启用您需要的选项。"}
               </Typography.Text>
             </Space>
           </Space>
@@ -312,10 +312,10 @@ export default function UISettings() {
               }
             />
             <Space direction="vertical" size={4}>
-              <Typography.Text strong>Forward LLM provider auth headers</Typography.Text>
+              <Typography.Text strong>转发 LLM 提供商认证请求头</Typography.Text>
               <Typography.Text type="secondary">
                 {forwardLLMProviderAuthHeadersProperty?.description ??
-                  "Forwards provider auth headers (x-api-key, x-goog-api-key, api-key, ocp-apim-subscription-key) to the upstream LLM, overriding any deployment-configured key for that request. Enable for Claude Code BYOK (clients bring their own API key). Independent of the client-headers toggle — enable only the one(s) you need."}
+                  "将提供商认证请求头（x-api-key、x-goog-api-key、api-key、ocp-apim-subscription-key）转发到上游 LLM，覆盖该请求的任何部署配置密钥。为 Claude Code BYOK 启用（客户端自带 API 密钥）。与客户端请求头开关独立——仅启用您需要的选项。"}
               </Typography.Text>
             </Space>
           </Space>
@@ -330,10 +330,10 @@ export default function UISettings() {
                 aria-label={enableProjectsUIProperty.description ?? "Enable Projects UI"}
               />
               <Space direction="vertical" size={4}>
-                <Typography.Text strong>[BETA] Enable Projects (page will refresh)</Typography.Text>
+                <Typography.Text strong>[BETA] 启用项目（页面将刷新）</Typography.Text>
                 <Typography.Text type="secondary">
                   {enableProjectsUIProperty.description ??
-                    "If enabled, shows the Projects feature in the UI sidebar and the project field in key management."}
+                    "启用后，在 UI 侧边栏显示项目功能，在密钥管理中显示项目字段。"}
                 </Typography.Text>
               </Space>
             </Space>
@@ -351,7 +351,7 @@ export default function UISettings() {
               aria-label={disableAgentsProperty?.description ?? "Disable agents for internal users"}
             />
             <Space direction="vertical" size={4}>
-              <Typography.Text strong>Disable agents for internal users</Typography.Text>
+              <Typography.Text strong>禁用内部用户的代理功能</Typography.Text>
               {disableAgentsProperty?.description && (
                 <Typography.Text type="secondary">{disableAgentsProperty.description}</Typography.Text>
               )}
@@ -368,7 +368,7 @@ export default function UISettings() {
             />
             <Space direction="vertical" size={4}>
               <Typography.Text strong type={!isAgentsDisabled ? "secondary" : undefined}>
-                Allow agents for team admins
+                允许团队管理员使用代理
               </Typography.Text>
               {allowAgentsTeamAdminsProperty?.description && (
                 <Typography.Text type="secondary">{allowAgentsTeamAdminsProperty.description}</Typography.Text>
@@ -388,7 +388,7 @@ export default function UISettings() {
               aria-label={disableVectorStoresProperty?.description ?? "Disable vector stores for internal users"}
             />
             <Space direction="vertical" size={4}>
-              <Typography.Text strong>Disable vector stores for internal users</Typography.Text>
+              <Typography.Text strong>禁用内部用户的向量存储功能</Typography.Text>
               {disableVectorStoresProperty?.description && (
                 <Typography.Text type="secondary">{disableVectorStoresProperty.description}</Typography.Text>
               )}
@@ -405,7 +405,7 @@ export default function UISettings() {
             />
             <Space direction="vertical" size={4}>
               <Typography.Text strong type={!isVectorStoresDisabled ? "secondary" : undefined}>
-                Allow vector stores for team admins
+                允许团队管理员使用向量存储
               </Typography.Text>
               {allowVectorStoresTeamAdminsProperty?.description && (
                 <Typography.Text type="secondary">{allowVectorStoresTeamAdminsProperty.description}</Typography.Text>
@@ -425,10 +425,10 @@ export default function UISettings() {
               aria-label={scopeUserSearchProperty?.description ?? "Scope user search to organization"}
             />
             <Space direction="vertical" size={4}>
-              <Typography.Text strong>Scope user search to organization</Typography.Text>
+              <Typography.Text strong>将用户搜索限定于组织内</Typography.Text>
               <Typography.Text type="secondary">
                 {scopeUserSearchProperty?.description ??
-                  "If enabled, the user search endpoint restricts results by organization. When off, any authenticated user can search all users."}
+                  "启用后，用户搜索端点将按组织限制结果。关闭时，任何经过身份验证的用户都可以搜索所有用户。"}
               </Typography.Text>
             </Space>
           </Space>
@@ -445,10 +445,10 @@ export default function UISettings() {
               aria-label={disableCustomApiKeysProperty?.description ?? "Disable custom Virtual key values"}
             />
             <Space direction="vertical" size={4}>
-              <Typography.Text strong>Disable custom Virtual key values</Typography.Text>
+              <Typography.Text strong>禁用自定义虚拟密钥值</Typography.Text>
               <Typography.Text type="secondary">
                 {disableCustomApiKeysProperty?.description ??
-                  "If true, users cannot specify custom key values. All keys must be auto-generated."}
+                  "如果启用，用户无法指定自定义密钥值。所有密钥必须自动生成。"}
               </Typography.Text>
             </Space>
           </Space>

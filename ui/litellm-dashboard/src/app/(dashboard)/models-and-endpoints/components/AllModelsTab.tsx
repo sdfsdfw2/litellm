@@ -208,7 +208,7 @@ const AllModelsTab = ({
     try {
       setDeleteLoading(true);
       await modelDeleteCall(accessToken, deleteModalModelId);
-      NotificationsManager.success("Model deleted successfully");
+      NotificationsManager.success("模型删除成功");
       queryClient.invalidateQueries({ queryKey: ["models", "list"] });
       refetchModels();
     } catch (error) {
@@ -227,7 +227,7 @@ const AllModelsTab = ({
     try {
       setPausingModelId(modelId);
       await modelPatchUpdateCall(accessToken, { blocked }, modelId);
-      NotificationsManager.success(blocked ? "Model paused" : "Model resumed");
+      NotificationsManager.success(blocked ? "模型已暂停" : "模型已恢复");
       // invalidateQueries already schedules a refetch for active observers
       // on this key — no need to also call refetchModels() (would double-fetch).
       queryClient.invalidateQueries({ queryKey: ["models", "list"] });
@@ -248,7 +248,7 @@ const AllModelsTab = ({
             <div className="border-b px-6 py-4 bg-gray-50">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-4">
-                  <Text className="text-lg font-semibold text-gray-900">Current Team:</Text>
+                  <Text className="text-lg font-semibold text-gray-900">当前团队:</Text>
                   <div className="w-80">
                     {isLoading ? (
                       <Skeleton.Input active block size="large" />
@@ -281,7 +281,7 @@ const AllModelsTab = ({
                             label: (
                               <Space direction="horizontal" align="center">
                                 <Badge color="blue" size="small" />
-                                <Text style={{ fontSize: 16 }}>Personal</Text>
+                                <Text style={{ fontSize: 16 }}>个人</Text>
                               </Space>
                             ),
                           },
@@ -304,7 +304,7 @@ const AllModelsTab = ({
                   </div>
                 </div>
                 <div className="flex items-center gap-4">
-                  <Text className="text-lg font-semibold text-gray-900">View:</Text>
+                  <Text className="text-lg font-semibold text-gray-900">视图:</Text>
                   <div className="w-64">
                     {isLoading ? (
                       <Skeleton.Input active block size="large" />
@@ -321,7 +321,7 @@ const AllModelsTab = ({
                             label: (
                               <Space direction="horizontal" align="center">
                                 <Badge color="purple" size="small" />
-                                <Text style={{ fontSize: 16 }}>Current Team Models</Text>
+                                <Text style={{ fontSize: 16 }}>当前团队模型</Text>
                               </Space>
                             ),
                           },
@@ -330,7 +330,7 @@ const AllModelsTab = ({
                             label: (
                               <Space direction="horizontal" align="center">
                                 <Badge color="gray" size="small" />
-                                <Text style={{ fontSize: 16 }}>All Available Models</Text>
+                                <Text style={{ fontSize: 16 }}>所有可用模型</Text>
                               </Space>
                             ),
                           },
@@ -347,25 +347,26 @@ const AllModelsTab = ({
                   <div className="text-xs text-gray-500">
                     {currentTeam === "personal" ? (
                       <span>
-                        To access these models: Create a Virtual Key without selecting a team on the{" "}
+                        要访问这些模型：在{" "}
                         <a
                           href="/public?login=success&page=api-keys"
                           className="text-gray-600 hover:text-gray-800 underline"
                         >
-                          Virtual Keys page
+                          虚拟密钥页面
                         </a>
+                        上创建虚拟密钥，无需选择团队
                       </span>
                     ) : (
                       <span>
-                        To access these models: Create a Virtual Key and select Team as &quot;
-                        {typeof currentTeam !== "string" ? currentTeam.team_alias || currentTeam.team_id : ""}&quot; on
-                        the{" "}
+                        要访问这些模型：在{" "}
                         <a
                           href="/public?login=success&page=api-keys"
                           className="text-gray-600 hover:text-gray-800 underline"
                         >
-                          Virtual Keys page
+                          虚拟密钥页面
                         </a>
+                        上创建虚拟密钥，并选择团队为 &quot;
+                        {typeof currentTeam !== "string" ? currentTeam.team_alias || currentTeam.team_id : ""}&quot;
                       </span>
                     )}
                   </div>
@@ -383,7 +384,7 @@ const AllModelsTab = ({
                     <div className="relative w-64">
                       <input
                         type="text"
-                        placeholder="Search model names..."
+                        placeholder="搜索模型名称..."
                         data-testid="model-search-input"
                         className="w-full px-3 py-2 pl-8 border rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                         value={modelNameSearch}
@@ -417,7 +418,7 @@ const AllModelsTab = ({
                           d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"
                         />
                       </svg>
-                      Filters
+筛选
                     </button>
 
                     {/* Reset Filters Button */}
@@ -433,7 +434,7 @@ const AllModelsTab = ({
                           d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
                         />
                       </svg>
-                      Reset Filters
+                      重置筛选
                     </button>
                   </div>
 
@@ -441,7 +442,7 @@ const AllModelsTab = ({
                   <Button
                     icon={<SettingOutlined />}
                     onClick={() => setIsModelSettingsModalVisible(true)}
-                    title="Model Settings"
+                    title="模型设置"
                   />
                 </div>
 
@@ -454,11 +455,11 @@ const AllModelsTab = ({
                         className="w-full"
                         value={selectedModelGroup ?? "all"}
                         onChange={(value) => setSelectedModelGroup(value === "all" ? "all" : value)}
-                        placeholder="Filter by Public Model Name"
+                        placeholder="按公开模型名称筛选"
                         showSearch
                         options={[
-                          { value: "all", label: "All Models" },
-                          { value: "wildcard", label: "Wildcard Models (*)" },
+                          { value: "all", label: "所有模型" },
+                          { value: "wildcard", label: "通配符模型 (*)" },
                           ...availableModelGroups.map((group, idx) => ({
                             value: group,
                             label: group,
@@ -473,10 +474,10 @@ const AllModelsTab = ({
                         className="w-full"
                         value={selectedModelAccessGroupFilter ?? "all"}
                         onChange={(value) => setSelectedModelAccessGroupFilter(value === "all" ? null : value)}
-                        placeholder="Filter by Model Access Group"
+                        placeholder="按模型访问组筛选"
                         showSearch
                         options={[
-                          { value: "all", label: "All Model Access Groups" },
+                          { value: "all", label: "所有模型访问组" },
                           ...availableModelAccessGroups.map((accessGroup, idx) => ({
                             value: accessGroup,
                             label: accessGroup,
@@ -494,8 +495,8 @@ const AllModelsTab = ({
                   ) : (
                     <span data-testid="models-results-count" className="text-sm text-gray-700">
                       {paginationMeta.total_count > 0
-                        ? `Showing ${((currentPage - 1) * pageSize) + 1} - ${Math.min(currentPage * pageSize, paginationMeta.total_count)} of ${paginationMeta.total_count} results`
-                        : "Showing 0 results"}
+                        ? `显示第 ${((currentPage - 1) * pageSize) + 1} - ${Math.min(currentPage * pageSize, paginationMeta.total_count)} 条，共 ${paginationMeta.total_count} 条结果`
+                        : "显示 0 条结果"}
                     </span>
                   )}
 
@@ -515,7 +516,7 @@ const AllModelsTab = ({
                           : "hover:bg-gray-50"
                           }`}
                       >
-                        Previous
+                        上一页
                       </button>
                     )}
 
@@ -534,7 +535,7 @@ const AllModelsTab = ({
                           : "hover:bg-gray-50"
                           }`}
                       >
-                        Next
+                        下一页
                       </button>
                     )}
                   </div>
@@ -573,26 +574,26 @@ const AllModelsTab = ({
 
       <DeleteResourceModal
         isOpen={!!deleteModalModelId}
-        title="Delete Model"
-        alertMessage="This action cannot be undone."
-        message="Are you sure you want to delete this model?"
-        resourceInformationTitle="Model Information"
+        title="删除模型"
+        alertMessage="此操作不可撤销。"
+        message="确定要删除此模型吗？"
+        resourceInformationTitle="模型信息"
         resourceInformation={modelToDelete ? [
           {
-            label: "Model Name",
-            value: modelToDelete.model_name || "Not Set",
+            label: "模型名称",
+            value: modelToDelete.model_name || "未设置",
           },
           {
-            label: "LiteLLM Model Name",
-            value: modelToDelete.litellm_model_name || "Not Set",
+            label: "LiteLLM 模型名称",
+            value: modelToDelete.litellm_model_name || "未设置",
           },
           {
-            label: "Provider",
-            value: modelToDelete.provider || "Not Set",
+            label: "提供商",
+            value: modelToDelete.provider || "未设置",
           },
           {
-            label: "Created By",
-            value: modelToDelete.model_info?.created_by || "Not Set",
+            label: "创建者",
+            value: modelToDelete.model_info?.created_by || "未设置",
           },
         ] : []}
         onCancel={() => setDeleteModalModelId(null)}

@@ -27,14 +27,13 @@ const APIReferenceView: React.FC<ApiRefProps> = ({ proxySettings }) => {
           {/* Header row with Docs link on the right */}
           <div className="flex items-center justify-between">
             <p className="text-2xl text-tremor-content-strong dark:text-dark-tremor-content-strong font-semibold">
-              OpenAI Compatible Proxy: API Reference
+              OpenAI 兼容代理：API 参考
             </p>
             <DocLink className="ml-3 shrink-0" href="https://docs.litellm.ai/docs/proxy/user_keys" />
           </div>
 
           <Text className="mt-2 mb-2">
-            LiteLLM is OpenAI Compatible. This means your API Key works with the OpenAI SDK. Just replace the base_url
-            to point to your litellm proxy. Example Below{" "}
+                        LiteLLM 与 OpenAI 兼容。这意味着您的 API 密钥可以与 OpenAI SDK 配合使用。只需将 base_url 替换为您的 LiteLLM 代理地址即可。示例如下{" "}
           </Text>
 
           <TabGroup>

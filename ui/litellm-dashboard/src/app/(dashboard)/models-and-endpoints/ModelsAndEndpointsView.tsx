@@ -523,7 +523,7 @@ const ModelsAndEndpointsView: React.FC<ModelDashboardProps> = ({ premiumUser, te
                     <div className="flex">{visibleTabs.map((t) => t.tab)}</div>
 
                     <div className="flex items-center space-x-2 self-center">
-                      {lastRefreshed && <span className="text-xs text-gray-500">Last Refreshed: {lastRefreshed}</span>}
+                      {lastRefreshed && <span className="text-xs text-gray-500">上次刷新: {lastRefreshed}</span>}
                       <Icon
                         icon={RefreshIcon}
                         variant="shadow"

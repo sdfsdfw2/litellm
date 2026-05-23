@@ -52,7 +52,7 @@ const SettingRow: React.FC<SettingRowProps> = ({ label, description, isEditing, 
   </Row>
 );
 
-const NotSet = () => <Text className="text-gray-400 italic">Not set</Text>;
+const NotSet = () => <Text className="text-gray-400 italic">未设置</Text>;
 
 const renderTags = (values: string[], displayFn?: (v: string) => string) => {
   if (!values || values.length === 0) return <NotSet />;
@@ -108,7 +108,7 @@ const TeamSSOSettings: React.FC<TeamSSOSettingsProps> = ({ accessToken }) => {
       } catch (error) {
         console.error("Error fetching team SSO settings:", error);
         setFetchError(true);
-        NotificationsManager.fromBackend("Failed to fetch team settings");
+        NotificationsManager.fromBackend("获取团队设置失败");
       } finally {
         setLoading(false);
       }
@@ -127,10 +127,10 @@ const TeamSSOSettings: React.FC<TeamSSOSettingsProps> = ({ accessToken }) => {
       setValues(newValues);
       setEditedValues(newValues);
       setIsEditing(false);
-      NotificationsManager.success("Default team settings updated successfully");
+      NotificationsManager.success("默认团队设置已成功更新");
     } catch (error) {
       console.error("Error updating team settings:", error);
-      NotificationsManager.fromBackend("Failed to update team settings");
+      NotificationsManager.fromBackend("更新团队设置失败");
     } finally {
       setSaving(false);
     }
@@ -156,7 +156,7 @@ const TeamSSOSettings: React.FC<TeamSSOSettingsProps> = ({ accessToken }) => {
   if (fetchError) {
     return (
       <Card>
-        <Text>No team settings available or you do not have permission to view them.</Text>
+        <Text>没有可用的团队设置，或者您没有权限查看。</Text>
       </Card>
     );
   }
@@ -167,25 +167,25 @@ const TeamSSOSettings: React.FC<TeamSSOSettingsProps> = ({ accessToken }) => {
       <div className="flex justify-between items-start mb-2">
         <div>
           <Title level={3} className="m-0 text-gray-900">
-            Default Team Settings
+            默认团队设置
           </Title>
           <Text className="text-gray-500 mt-1 block">
-            These settings will be applied by default when creating new teams.
+            创建新团队时将默认应用这些设置。
           </Text>
         </div>
         <div>
           {isEditing ? (
             <div className="flex gap-3">
               <Button onClick={handleCancel} disabled={saving}>
-                Cancel
+                取消
               </Button>
               <Button type="primary" onClick={handleSave} loading={saving} icon={<SaveOutlined />}>
-                Save Changes
+                保存更改
               </Button>
             </div>
           ) : (
             <Button onClick={() => setIsEditing(true)} icon={<EditOutlined />}>
-              Edit Settings
+              编辑设置
             </Button>
           )}
         </div>
@@ -194,11 +194,11 @@ const TeamSSOSettings: React.FC<TeamSSOSettingsProps> = ({ accessToken }) => {
       <div className="mt-8">
         {/* Budget & Rate Limits */}
         <div className="mb-8">
-          <div className="text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">Budget & Rate Limits</div>
+          <div className="text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">预算与速率限制</div>
           <div className="border-t border-gray-100">
             <SettingRow
-              label="Max Budget"
-              description="Maximum budget (in USD) for new automatically created teams."
+              label="最大预算"
+              description="新自动创建团队的最大预算（美元）。"
               isEditing={isEditing}
               viewContent={
                 values.max_budget != null ? <Text>${Number(values.max_budget).toLocaleString()}</Text> : <NotSet />
@@ -209,7 +209,7 @@ const TeamSSOSettings: React.FC<TeamSSOSettingsProps> = ({ accessToken }) => {
                   style={{ maxWidth: 320 }}
                   value={editedValues.max_budget}
                   onChange={(v) => update("max_budget", v)}
-                  placeholder="Not set"
+                  placeholder="未设置"
                   prefix="$"
                   min={0}
                 />
@@ -217,8 +217,8 @@ const TeamSSOSettings: React.FC<TeamSSOSettingsProps> = ({ accessToken }) => {
             />
 
             <SettingRow
-              label="Budget Duration"
-              description="How frequently the team's budget resets."
+              label="预算周期"
+              description="团队预算重置的频率。"
               isEditing={isEditing}
               viewContent={
                 values.budget_duration ? <Text>{getBudgetDurationLabel(values.budget_duration)}</Text> : <NotSet />
@@ -233,8 +233,8 @@ const TeamSSOSettings: React.FC<TeamSSOSettingsProps> = ({ accessToken }) => {
             />
 
             <SettingRow
-              label="TPM Limit"
-              description="Maximum tokens per minute allowed across all models."
+              label="TPM 限制"
+              description="所有模型允许的每分钟最大令牌数。"
               isEditing={isEditing}
               viewContent={
                 values.tpm_limit != null ? <Text>{values.tpm_limit.toLocaleString()}</Text> : <NotSet />
@@ -245,15 +245,15 @@ const TeamSSOSettings: React.FC<TeamSSOSettingsProps> = ({ accessToken }) => {
                   style={{ maxWidth: 320 }}
                   value={editedValues.tpm_limit}
                   onChange={(v) => update("tpm_limit", v)}
-                  placeholder="Not set"
+                  placeholder="未设置"
                   min={0}
                 />
               }
             />
 
             <SettingRow
-              label="RPM Limit"
-              description="Maximum requests per minute allowed across all models."
+              label="RPM 限制"
+              description="所有模型允许的每分钟最大请求数。"
               isEditing={isEditing}
               viewContent={
                 values.rpm_limit != null ? <Text>{values.rpm_limit.toLocaleString()}</Text> : <NotSet />
@@ -264,7 +264,7 @@ const TeamSSOSettings: React.FC<TeamSSOSettingsProps> = ({ accessToken }) => {
                   style={{ maxWidth: 320 }}
                   value={editedValues.rpm_limit}
                   onChange={(v) => update("rpm_limit", v)}
-                  placeholder="Not set"
+                  placeholder="未设置"
                   min={0}
                 />
               }
@@ -274,11 +274,11 @@ const TeamSSOSettings: React.FC<TeamSSOSettingsProps> = ({ accessToken }) => {
 
         {/* Access & Permissions */}
         <div className="mb-8">
-          <div className="text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">Access & Permissions</div>
+          <div className="text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">访问与权限</div>
           <div className="border-t border-gray-100">
             <SettingRow
-              label="Models"
-              description="Default list of models that new teams can access."
+              label="模型"
+              description="新团队可访问的默认模型列表。"
               isEditing={isEditing}
               viewContent={renderTags(values.models, getModelDisplayName)}
               editContent={
@@ -293,8 +293,8 @@ const TeamSSOSettings: React.FC<TeamSSOSettingsProps> = ({ accessToken }) => {
             />
 
             <SettingRow
-              label="Team Member Permissions"
-              description="Default permissions granted to members of newly created teams. /key/info and /key/health are always included."
+              label="团队成员权限"
+              description="授予新创建团队成员的默认权限。/key/info 和 /key/health 始终包含在内。"
               isEditing={isEditing}
               viewContent={renderTags(values.team_member_permissions)}
               editContent={
@@ -303,7 +303,7 @@ const TeamSSOSettings: React.FC<TeamSSOSettingsProps> = ({ accessToken }) => {
                   style={{ width: "100%" }}
                   value={editedValues.team_member_permissions || []}
                   onChange={(v) => update("team_member_permissions", v)}
-                  placeholder="Select permissions"
+                  placeholder="选择权限"
                   tagRender={({ label, closable, onClose }) => (
                     <Tag color="blue" closable={closable} onClose={onClose} className="mr-1 mt-1 mb-1">
                       {label}

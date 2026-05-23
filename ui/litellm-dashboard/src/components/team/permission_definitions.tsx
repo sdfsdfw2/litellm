@@ -9,21 +9,21 @@ export interface PermissionInfo {
  * Map of permission endpoint patterns to their descriptions
  */
 export const PERMISSION_DESCRIPTIONS: Record<string, string> = {
-  "/key/generate": "Member can generate a virtual key for this team",
+  "/key/generate": "成员可以为此团队生成虚拟密钥",
   "/key/service-account/generate":
-    "Member can generate a service account key (not belonging to any user) for this team",
-  "/key/update": "Member can update a virtual key belonging to this team",
-  "/key/delete": "Member can delete a virtual key belonging to this team",
-  "/key/info": "Member can get info about a virtual key belonging to this team",
-  "/key/regenerate": "Member can regenerate a virtual key belonging to this team",
-  "/key/{key_id}/regenerate": "Member can regenerate a virtual key belonging to this team",
-  "/key/list": "Member can list virtual keys belonging to this team",
-  "/key/block": "Member can block a virtual key belonging to this team",
-  "/key/unblock": "Member can unblock a virtual key belonging to this team",
+    "成员可以为此团队生成服务账户密钥（不属于任何用户）",
+  "/key/update": "成员可以更新属于此团队的虚拟密钥",
+  "/key/delete": "成员可以删除属于此团队的虚拟密钥",
+  "/key/info": "成员可以获取属于此团队的虚拟密钥信息",
+  "/key/regenerate": "成员可以重新生成属于此团队的虚拟密钥",
+  "/key/{key_id}/regenerate": "成员可以重新生成属于此团队的虚拟密钥",
+  "/key/list": "成员可以列出属于此团队的虚拟密钥",
+  "/key/block": "成员可以封禁属于此团队的虚拟密钥",
+  "/key/unblock": "成员可以解封属于此团队的虚拟密钥",
   "/team/daily/activity":
-    "Member can view all team usage data (not just their own)",
+    "成员可以查看所有团队使用数据（不仅是自己的）",
   "/spend/logs":
-    "Member can view spend logs for the entire team (not just their own)",
+    "成员可以查看整个团队的消费日志（不仅是自己的）",
 };
 
 /**
@@ -58,7 +58,7 @@ export const getPermissionInfo = (permission: string): PermissionInfo => {
 
   // Fallback if no match found
   if (!description) {
-    description = `Access ${permission}`;
+    description = `访问 ${permission}`;
   }
 
   return {

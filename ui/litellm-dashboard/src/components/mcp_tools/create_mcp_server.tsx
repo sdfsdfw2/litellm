@@ -170,7 +170,7 @@ const CreateMCPServer: React.FC<CreateMCPServerProps> = ({
         form.setFieldsValue({ credentials });
 
         NotificationsManager.success(
-          "OAuth authorization successful! Please click 'Create MCP Server' to save the configuration.",
+          "OAuth 授权成功！请点击「添加 MCP 服务器」保存配置。",
         );
       }
     },
@@ -351,7 +351,7 @@ const CreateMCPServer: React.FC<CreateMCPServerProps> = ({
 
           console.log("Parsed stdio config:", stdioFields);
         } catch (error) {
-          NotificationsManager.fromBackend("Invalid JSON in stdio configuration");
+          NotificationsManager.fromBackend("stdio 配置中的 JSON 无效");
           return;
         }
       }
@@ -367,7 +367,7 @@ const CreateMCPServer: React.FC<CreateMCPServerProps> = ({
         try {
           tokenValidation = JSON.parse(rawTokenValidationJson);
         } catch {
-          NotificationsManager.fromBackend("Invalid JSON in Token Validation Rules");
+          NotificationsManager.fromBackend("令牌验证规则中的 JSON 无效");
           setIsLoading(false);
           return;
         }
@@ -429,8 +429,8 @@ const CreateMCPServer: React.FC<CreateMCPServerProps> = ({
 
         NotificationsManager.success(
           isAdmin
-            ? "MCP Server created successfully"
-            : "MCP Server submitted for admin review"
+            ? "MCP 服务器创建成功"
+            : "MCP 服务器已提交，待管理员审核"
         );
         form.resetFields();
         setCostConfig({});
@@ -444,7 +444,7 @@ const CreateMCPServer: React.FC<CreateMCPServerProps> = ({
     } catch (error) {
       const reason = error instanceof Error ? error.message : String(error);
       NotificationsManager.fromBackend(
-        isAdmin ? `Error creating MCP Server: ${reason}` : `Error submitting MCP Server: ${reason}`
+        isAdmin ? `创建 MCP 服务器失败：${reason}` : `提交 MCP 服务器失败：${reason}`
       );
     } finally {
       setIsLoading(false);
@@ -497,7 +497,7 @@ const CreateMCPServer: React.FC<CreateMCPServerProps> = ({
           <div className="flex items-center gap-2">
             <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
             <span className="font-medium">{searchValue}</span>
-            <span className="text-gray-400 text-xs ml-1">create new group</span>
+            <span className="text-gray-400 text-xs ml-1">创建新组</span>
           </div>
         ),
       });
@@ -549,7 +549,7 @@ const CreateMCPServer: React.FC<CreateMCPServerProps> = ({
             }}
           />
           <h2 className="text-xl font-semibold text-gray-900">
-            {isAdmin ? "Add New MCP Server" : "Submit MCP Server for Review"}
+            {isAdmin ? "添加新 MCP 服务器" : "提交 MCP 服务器以待审核"}
           </h2>
         </div>
       }
@@ -574,28 +574,28 @@ const CreateMCPServer: React.FC<CreateMCPServerProps> = ({
         >
           {!isAdmin && (
             <div className="rounded-md bg-blue-50 border border-blue-200 px-4 py-3 text-sm text-blue-800">
-              Your submission will be sent for admin review before it becomes active.
-              {" "}Note: the request must be made with a team-scoped API key.
+              您的提交将发送给管理员审核，审核通过后才会生效。
+              {" "}注意：必须使用团队范围的 API 密钥发起请求。
             </div>
           )}
           <div className="grid grid-cols-1 gap-6">
             <Form.Item
               label={
                 <span className="text-sm font-medium text-gray-700 flex items-center">
-                  MCP Server Name
-                  <Tooltip title="Best practice: Use a descriptive name that indicates the server's purpose (e.g., 'GitHub_MCP', 'Email_Service'). Cannot contain spaces or hyphens; use underscores instead. Names must comply with SEP-986 and will be rejected if invalid (https://modelcontextprotocol.io/specification/2025-11-25/server/tools#tool-names).">
+                  MCP 服务器名称
+                  <Tooltip title="最佳实践：使用描述性名称来指示服务器的用途（例如：'GitHub_MCP'、'Email_Service'）。不能包含空格或连字符，请使用下划线代替。名称必须符合 SEP-986 规范，否则将被拒绝（https://modelcontextprotocol.io/specification/2025-11-25/server/tools#tool-names）。">
                     <InfoCircleOutlined className="ml-2 text-blue-400 hover:text-blue-600 cursor-help" />
                   </Tooltip>
                 </span>
               }
               name="server_name"
               rules={[
-                { required: false, message: "Please enter a server name" },
+                { required: false, message: "请输入服务器名称" },
                 { validator: (_, value) => validateMCPServerName(value) },
               ]}
             >
               <TextInput
-                placeholder="e.g., GitHub_MCP, Zapier_MCP, etc."
+                placeholder="例如：GitHub_MCP、Zapier_MCP 等"
                 className="rounded-lg border-gray-300 focus:border-blue-500 focus:ring-blue-500"
               />
             </Form.Item>
@@ -603,8 +603,8 @@ const CreateMCPServer: React.FC<CreateMCPServerProps> = ({
             <Form.Item
               label={
                 <span className="text-sm font-medium text-gray-700 flex items-center">
-                  Alias
-                  <Tooltip title="A short, unique identifier for this server. Defaults to the server name if not provided. Cannot contain spaces or hyphens; use underscores instead.">
+                  别名
+                  <Tooltip title="该服务器的简短唯一标识符。未提供时默认使用服务器名称。不能包含空格或连字符，请使用下划线代替。">
                     <InfoCircleOutlined className="ml-2 text-blue-400 hover:text-blue-600 cursor-help" />
                   </Tooltip>
                 </span>
@@ -613,24 +613,24 @@ const CreateMCPServer: React.FC<CreateMCPServerProps> = ({
               rules={[{ required: false }, { validator: (_, value) => validateMCPServerName(value) }]}
             >
               <TextInput
-                placeholder="e.g., GitHub_MCP, Zapier_MCP, etc."
+                placeholder="例如：GitHub_MCP、Zapier_MCP 等"
                 className="rounded-lg border-gray-300 focus:border-blue-500 focus:ring-blue-500"
                 onChange={() => setAliasManuallyEdited(true)}
               />
             </Form.Item>
 
             <Form.Item
-              label={<span className="text-sm font-medium text-gray-700">Description</span>}
+              label={<span className="text-sm font-medium text-gray-700">描述</span>}
               name="description"
               rules={[
                 {
                   required: false,
-                  message: "Please enter a server description",
+                  message: "请输入服务器描述",
                 },
               ]}
             >
               <TextInput
-                placeholder="Brief description of what this server does"
+                placeholder="简要描述该服务器的功能"
                 className="rounded-lg border-gray-300 focus:border-blue-500 focus:ring-blue-500"
               />
             </Form.Item>
@@ -638,7 +638,7 @@ const CreateMCPServer: React.FC<CreateMCPServerProps> = ({
             <MCPLogoSelector value={logoUrl} onChange={setLogoUrl} />
 
             <Form.Item
-              label={<span className="text-sm font-medium text-gray-700">GitHub / Source URL</span>}
+              label={<span className="text-sm font-medium text-gray-700">GitHub / 源码 URL</span>}
               name="source_url"
             >
               <TextInput
@@ -648,31 +648,31 @@ const CreateMCPServer: React.FC<CreateMCPServerProps> = ({
             </Form.Item>
 
             <Form.Item
-              label={<span className="text-sm font-medium text-gray-700">Transport Type</span>}
+              label={<span className="text-sm font-medium text-gray-700">传输方式</span>}
               name="transport"
-              rules={[{ required: true, message: "Please select a transport type" }]}
+              rules={[{ required: true, message: "请选择传输方式" }]}
             >
               <Select
-                placeholder="Select transport"
+                placeholder="选择传输方式"
                 className="rounded-lg"
                 size="large"
                 onChange={handleTransportChange}
                 value={transportType}
               >
-                <Select.Option value="http">Streamable HTTP (Recommended)</Select.Option>
-                <Select.Option value="sse">Server-Sent Events (SSE)</Select.Option>
-                <Select.Option value="stdio">Standard Input/Output (stdio)</Select.Option>
-                <Select.Option value={TRANSPORT.OPENAPI}>OpenAPI Spec</Select.Option>
+                <Select.Option value="http">Streamable HTTP（推荐）</Select.Option>
+                <Select.Option value="sse">服务器推送事件 (SSE)</Select.Option>
+                <Select.Option value="stdio">标准输入/输出 (stdio)</Select.Option>
+                <Select.Option value={TRANSPORT.OPENAPI}>OpenAPI 规范</Select.Option>
               </Select>
             </Form.Item>
 
             {/* URL field - only show for HTTP and SSE */}
             {(transportType === "http" || transportType === "sse") && (
               <Form.Item
-                label={<span className="text-sm font-medium text-gray-700">MCP Server URL</span>}
+                label={<span className="text-sm font-medium text-gray-700">MCP 服务器 URL</span>}
                 name="url"
                 rules={[
-                  { required: true, message: "Please enter a server URL" },
+                  { required: true, message: "请输入服务器 URL" },
                   { validator: (_, value) => validateMCPServerUrl(value) },
                 ]}
               >
@@ -703,8 +703,8 @@ const CreateMCPServer: React.FC<CreateMCPServerProps> = ({
                 <Form.Item
                   label={
                     <span className="text-sm font-medium text-gray-700 flex items-center gap-2">
-                      BYOK (Bring Your Own Key)
-                      <Tooltip title="When enabled, each user provides their own API key for this service. Keys are stored per-user and never shared.">
+                      BYOK（自带密钥）
+                      <Tooltip title="启用后，每个用户为此服务提供自己的 API 密钥。密钥按用户存储，绝不共享。">
                         <InfoCircleOutlined className="text-blue-400 hover:text-blue-600 cursor-help" />
                       </Tooltip>
                     </span>
@@ -724,7 +724,7 @@ const CreateMCPServer: React.FC<CreateMCPServerProps> = ({
                           <div className="mb-4 p-3 bg-blue-50 rounded-lg text-sm text-blue-700 flex items-start gap-2">
                             <InfoCircleOutlined className="mt-0.5 flex-shrink-0" />
                             <span>
-                              User keys will be sent as:{" "}
+                              用户密钥将以以下方式发送：{" "}
                               <code className="font-mono bg-blue-100 px-1 rounded">
                                 {getFieldValue("auth_type") === "bearer_token" && "Authorization: Bearer {key}"}
                                 {getFieldValue("auth_type") === "token" && "Authorization: token {key}"}
@@ -732,21 +732,21 @@ const CreateMCPServer: React.FC<CreateMCPServerProps> = ({
                                 {getFieldValue("auth_type") === "basic" && "Authorization: Basic {key}"}
                                 {getFieldValue("auth_type") === "authorization" && "Authorization: {key}"}
                               </code>
-                              {!getFieldValue("auth_type") && "Set Authentication Type below to specify the format."}
+                              {!getFieldValue("auth_type") && "请在下方的认证类型中指定格式。"}
                             </span>
                           </div>
                         )}
                         {!getFieldValue("auth_type") && (
                           <div className="mb-4 p-3 bg-yellow-50 rounded-lg text-sm text-yellow-700 flex items-start gap-2">
                             <InfoCircleOutlined className="mt-0.5 flex-shrink-0" />
-                            <span>Set the <strong>Authentication Type</strong> below to specify how user keys are sent (e.g., Bearer Token, API Key header).</span>
+                            <span>请在下方的<strong>认证类型</strong>中指定用户密钥的发送方式（例如：Bearer Token、API Key Header）。</span>
                           </div>
                         )}
                         <Form.Item
                           label={
                             <span className="text-sm font-medium text-gray-700">
-                              Access Description
-                              <Tooltip title="List of permissions shown to users in the connection modal (e.g. 'Create and manage Jira issues')">
+                              访问描述
+                              <Tooltip title="连接弹窗中向用户展示的权限列表（例如：'创建和管理 Jira 问题'）">
                                 <InfoCircleOutlined className="ml-2 text-blue-400 hover:text-blue-600 cursor-help" />
                               </Tooltip>
                             </span>
@@ -755,7 +755,7 @@ const CreateMCPServer: React.FC<CreateMCPServerProps> = ({
                         >
                           <Select
                             mode="tags"
-                            placeholder="Add access description items (press Enter after each)"
+                            placeholder="添加访问描述项（每项后按回车）"
                             className="w-full"
                             tokenSeparators={[","]}
                           />

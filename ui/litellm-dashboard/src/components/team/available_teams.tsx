@@ -55,12 +55,12 @@ const AvailableTeamsPanel: React.FC<AvailableTeamsProps> = ({ accessToken, userI
         role: "user",
       });
 
-      NotificationsManager.success("Successfully joined team");
+      NotificationsManager.success("成功加入团队");
       // Update available teams list
       setAvailableTeams((teams) => teams.filter((team) => team.team_id !== teamId));
     } catch (error) {
       console.error("Error joining team:", error);
-      NotificationsManager.fromBackend("Failed to join team");
+      NotificationsManager.fromBackend("加入团队失败");
     }
   };
 
@@ -69,11 +69,11 @@ const AvailableTeamsPanel: React.FC<AvailableTeamsProps> = ({ accessToken, userI
       <Table>
         <TableHead>
           <TableRow>
-            <TableHeaderCell>Team Name</TableHeaderCell>
-            <TableHeaderCell>Description</TableHeaderCell>
-            <TableHeaderCell>Members</TableHeaderCell>
-            <TableHeaderCell>Models</TableHeaderCell>
-            <TableHeaderCell>Actions</TableHeaderCell>
+            <TableHeaderCell>团队名称</TableHeaderCell>
+            <TableHeaderCell>描述</TableHeaderCell>
+            <TableHeaderCell>成员</TableHeaderCell>
+            <TableHeaderCell>模型</TableHeaderCell>
+            <TableHeaderCell>操作</TableHeaderCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -83,16 +83,16 @@ const AvailableTeamsPanel: React.FC<AvailableTeamsProps> = ({ accessToken, userI
                 <Text>{team.team_alias}</Text>
               </TableCell>
               <TableCell>
-                <Text>{team.description || "No description available"}</Text>
+                <Text>{team.description || "暂无描述"}</Text>
               </TableCell>
               <TableCell>
-                <Text>{team.members_with_roles.length} members</Text>
+                <Text>{team.members_with_roles.length} 个成员</Text>
               </TableCell>
               <TableCell>
                 <div className="flex flex-col">
                   {!team.models || team.models.length === 0 ? (
                     <Badge size="xs" color="red">
-                      <Text>All Proxy Models</Text>
+                      <Text>所有代理模型</Text>
                     </Badge>
                   ) : (
                     team.models.map((model, index) => (
@@ -104,8 +104,8 @@ const AvailableTeamsPanel: React.FC<AvailableTeamsProps> = ({ accessToken, userI
                 </div>
               </TableCell>
               <TableCell>
-                <Button size="xs" variant="secondary" onClick={() => handleJoinTeam(team.team_id)}>
-                  Join Team
+                  <Button size="xs" variant="secondary" onClick={() => handleJoinTeam(team.team_id)}>
+                  加入团队
                 </Button>
               </TableCell>
             </TableRow>
@@ -113,15 +113,15 @@ const AvailableTeamsPanel: React.FC<AvailableTeamsProps> = ({ accessToken, userI
           {availableTeams.length === 0 && (
             <TableRow>
               <TableCell colSpan={5} className="text-center">
-                <Text>No available teams to join. See how to set available teams{" "}
+                <Text>没有可加入的团队。了解如何设置可用团队，请点击{" "}
                   <a
                     href="https://docs.litellm.ai/docs/proxy/self_serve#all-settings-for-self-serve--sso-flow"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-blue-500 hover:text-blue-700 underline"
                   >
-                    here
-                  </a>.
+                    这里
+                  </a>。
                 </Text>
               </TableCell>
             </TableRow>

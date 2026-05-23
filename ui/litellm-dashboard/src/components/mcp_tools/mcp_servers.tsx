@@ -241,7 +241,7 @@ const MCPServers: React.FC<MCPServerProps> = ({ accessToken, userRole, userID })
 
   if (!accessToken || !userRole || !userID) {
     console.log("Missing required authentication parameters", { accessToken, userRole, userID });
-    return <div className="p-6 text-center text-gray-500">Missing required authentication parameters.</div>;
+    return <div className="p-6 text-center text-gray-500">缺少必需的身份验证参数。</div>;
   }
 
   return (

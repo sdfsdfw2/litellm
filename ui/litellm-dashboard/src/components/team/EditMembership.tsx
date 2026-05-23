@@ -162,7 +162,7 @@ const MemberModal = <T extends BaseMember>({
 
   return (
     <Modal
-      title={config.title || (mode === "add" ? "Add Member" : "Edit Member")}
+      title={config.title || (mode === "add" ? "添加成员" : "编辑成员")}
       open={visible}
       width={1000}
       footer={null}
@@ -174,7 +174,7 @@ const MemberModal = <T extends BaseMember>({
             label="Email"
             name="user_email"
             className="mb-4"
-            rules={[{ type: "email", message: "Please enter a valid email!" }]}
+            rules={[{ type: "email", message: "请输入有效的邮箱地址！" }]}
           >
             <TextInput placeholder="user@example.com" />
           </Form.Item>
@@ -182,12 +182,12 @@ const MemberModal = <T extends BaseMember>({
 
         {config.showEmail && config.showUserId && (
           <div className="text-center mb-4">
-            <Text>OR</Text>
+            <Text>或</Text>
           </div>
         )}
 
         {config.showUserId && (
-          <Form.Item label="User ID" name="user_id" className="mb-4">
+          <Form.Item label="用户 ID" name="user_id" className="mb-4">
             <TextInput placeholder="user_123" />
           </Form.Item>
         )}
@@ -195,15 +195,15 @@ const MemberModal = <T extends BaseMember>({
         <Form.Item
           label={
             <div className="flex items-center gap-2">
-              <span>Role</span>
+              <span>角色</span>
               {mode === "edit" && initialData && (
-                <span className="text-gray-500 text-sm">(Current: {getRoleLabel(initialData.role)})</span>
+                <span className="text-gray-500 text-sm">（当前：{getRoleLabel(initialData.role)}）</span>
               )}
             </div>
           }
           name="role"
           className="mb-4"
-          rules={[{ required: true, message: "Please select a role!" }]}
+          rules={[{ required: true, message: "请选择一个角色！" }]}
         >
           <Select>
             {mode === "edit" && initialData
@@ -233,16 +233,16 @@ const MemberModal = <T extends BaseMember>({
 
         <div className="text-right mt-6">
           <AntButton onClick={onCancel} className="mr-2" disabled={isSubmitting}>
-            Cancel
+            取消
           </AntButton>
           <AntButton type="default" htmlType="submit" loading={isSubmitting}>
             {mode === "add"
               ? isSubmitting
-                ? "Adding..."
-                : "Add Member"
+                ? "添加中..."
+                : "添加成员"
               : isSubmitting
-                ? "Saving..."
-                : "Save Changes"}
+                ? "保存中..."
+                : "保存更改"}
           </AntButton>
         </div>
       </Form>

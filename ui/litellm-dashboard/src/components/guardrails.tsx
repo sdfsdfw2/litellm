@@ -139,7 +139,7 @@ const GuardrailsPanel: React.FC<GuardrailsPanelProps> = ({ accessToken, userRole
             ? [
                 {
                   key: "garden",
-                  label: "Guardrail Garden",
+                  label: "护栏花园",
                   children: (
                     <GuardrailGarden
                       accessToken={accessToken}
@@ -149,7 +149,7 @@ const GuardrailsPanel: React.FC<GuardrailsPanelProps> = ({ accessToken, userRole
                 },
                 {
                   key: "guardrails",
-                  label: "Guardrails",
+                  label: "护栏",
                   children: (
                     <>
                       <div className="flex justify-between items-center mb-4">
@@ -159,13 +159,13 @@ const GuardrailsPanel: React.FC<GuardrailsPanelProps> = ({ accessToken, userRole
                               {
                                 key: "provider",
                                 icon: <PlusOutlined />,
-                                label: "Add Provider Guardrail",
+                                label: "添加提供商护栏",
                                 onClick: handleAddGuardrail,
                               },
                               {
                                 key: "custom_code",
                                 icon: <CodeOutlined />,
-                                label: "Create Custom Code Guardrail",
+                                label: "创建自定义代码护栏",
                                 onClick: handleAddCustomCodeGuardrail,
                               },
                             ],
@@ -174,7 +174,7 @@ const GuardrailsPanel: React.FC<GuardrailsPanelProps> = ({ accessToken, userRole
                           disabled={!accessToken}
                         >
                           <Button disabled={!accessToken}>
-                            + Add New Guardrail <DownOutlined className="ml-2" />
+                            + 添加新护栏 <DownOutlined className="ml-2" />
                           </Button>
                         </Dropdown>
                       </div>
@@ -214,17 +214,17 @@ const GuardrailsPanel: React.FC<GuardrailsPanelProps> = ({ accessToken, userRole
 
                       <DeleteResourceModal
                         isOpen={isDeleteModalOpen}
-                        title="Delete Guardrail"
-                        message={`Are you sure you want to delete guardrail: ${guardrailToDelete?.guardrail_name}? This action cannot be undone.`}
-                        resourceInformationTitle="Guardrail Information"
+                        title="删除护栏"
+                        message={`确定要删除护栏 ${guardrailToDelete?.guardrail_name} 吗？此操作无法撤销。`}
+                        resourceInformationTitle="护栏信息"
                         resourceInformation={[
-                          { label: "Name", value: guardrailToDelete?.guardrail_name },
+                          { label: "名称", value: guardrailToDelete?.guardrail_name },
                           { label: "ID", value: guardrailToDelete?.guardrail_id, code: true },
-                          { label: "Provider", value: providerDisplayName },
-                          { label: "Mode", value: guardrailToDelete?.litellm_params.mode },
+                          { label: "提供商", value: providerDisplayName },
+                          { label: "模式", value: guardrailToDelete?.litellm_params.mode },
                           {
-                            label: "Default On",
-                            value: guardrailToDelete?.litellm_params.default_on ? "Yes" : "No",
+                            label: "默认开启",
+                            value: guardrailToDelete?.litellm_params.default_on ? "是" : "否",
                           },
                         ]}
                         onCancel={handleDeleteCancel}
@@ -236,7 +236,7 @@ const GuardrailsPanel: React.FC<GuardrailsPanelProps> = ({ accessToken, userRole
                 },
                 {
                   key: "playground",
-                  label: "Test Playground",
+                  label: "测试沙盒",
                   disabled: !accessToken,
                   children: (
                     <GuardrailTestPlayground
@@ -251,7 +251,7 @@ const GuardrailsPanel: React.FC<GuardrailsPanelProps> = ({ accessToken, userRole
             : []),
           {
             key: "submitted",
-            label: "Submitted Guardrails",
+            label: "已提交的护栏",
             children: <TeamGuardrailsTab accessToken={accessToken} />,
           },
         ]}

@@ -23,7 +23,7 @@ const TeamRoleBadge = (role: string | null) => {
           }}
         >
           <ShieldIcon className="h-3 w-3 mr-1" />
-          Admin
+          管理员
         </span>
       );
     case "user":
@@ -38,7 +38,7 @@ const TeamRoleBadge = (role: string | null) => {
           }}
         >
           <UserIcon className="h-3 w-3 mr-1" />
-          Member
+          成员
         </span>
       );
   }

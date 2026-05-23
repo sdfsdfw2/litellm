@@ -74,9 +74,9 @@ const MCPPermissionManagement: React.FC<MCPPermissionManagementProps> = ({
           <div className="flex items-center">
             <div className="flex items-center space-x-2">
               <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
-              <h3 className="text-lg font-semibold text-gray-900">Permission Management / Access Control</h3>
+              <h3 className="text-lg font-semibold text-gray-900">权限管理 / 访问控制</h3>
             </div>
-            <p className="text-sm text-gray-600 ml-4">Configure access permissions and security settings (Optional)</p>
+            <p className="text-sm text-gray-600 ml-4">配置访问权限和安全设置（可选）</p>
           </div>
         }
         key="permissions"
@@ -87,12 +87,12 @@ const MCPPermissionManagement: React.FC<MCPPermissionManagementProps> = ({
           <div className="flex items-start justify-between gap-4">
             <div>
               <span className="text-sm font-medium text-gray-700 flex items-center">
-                Allow All LiteLLM Keys
-                <Tooltip title="When enabled, every API key can access this MCP server.">
+                允许所有 LiteLLM 密钥
+                <Tooltip title="启用后，每个 API 密钥都可以访问此 MCP 服务器。">
                   <InfoCircleOutlined className="ml-2 text-blue-400 hover:text-blue-600 cursor-help" />
                 </Tooltip>
               </span>
-              <p className="text-sm text-gray-600 mt-1">Enable if this server should be &quot;public&quot; to all keys.</p>
+              <p className="text-sm text-gray-600 mt-1">如果此服务器应对所有密钥开放，请启用。</p>
             </div>
             <Form.Item
               name="allow_all_keys"
@@ -107,12 +107,12 @@ const MCPPermissionManagement: React.FC<MCPPermissionManagementProps> = ({
           <div className="flex items-start justify-between gap-4">
             <div>
               <span className="text-sm font-medium text-gray-700 flex items-center">
-                Internal network only
-                <Tooltip title="When on, only requests from within your internal network are accepted. Turn off to allow external clients (other clusters, ChatGPT, etc). API key authentication is always required regardless of this setting.">
+                仅内网
+                <Tooltip title="启用后，仅接受来自内部网络的请求。关闭以允许外部客户端（其他集群、ChatGPT 等）。无论此设置如何，始终需要 API 密钥认证。">
                   <InfoCircleOutlined className="ml-2 text-blue-400 hover:text-blue-600 cursor-help" />
                 </Tooltip>
               </span>
-              <p className="text-sm text-gray-600 mt-1">Turn on to restrict access to callers within your internal network only.</p>
+              <p className="text-sm text-gray-600 mt-1">启用以限制仅内网调用者访问。</p>
             </div>
             <Form.Item
               name="available_on_public_internet"
@@ -130,13 +130,13 @@ const MCPPermissionManagement: React.FC<MCPPermissionManagementProps> = ({
             <div className="flex items-start justify-between gap-4">
               <div>
                 <span className="text-sm font-medium text-gray-700 flex items-center">
-                  Delegate auth to upstream (PKCE passthrough)
-                  <Tooltip title="When on, LiteLLM skips its own API key/SSO check for this server and lets the client complete PKCE directly with the upstream MCP server. Only honored when Auth Type is oauth2. No spend tracking or per-key rate limiting will run on this route.">
+                  委托上游认证（PKCE 透传）
+                  <Tooltip title="启用后，LiteLLM 跳过自身的 API 密钥/SSO 检查，让客户端直接与上游 MCP 服务器完成 PKCE。仅在身份验证类型为 oauth2 时生效。此路由上不会进行消费跟踪或按密钥限速。">
                     <InfoCircleOutlined className="ml-2 text-blue-400 hover:text-blue-600 cursor-help" />
                   </Tooltip>
                 </span>
                 <p className="text-sm text-gray-600 mt-1">
-                  Bypass LiteLLM auth so clients authenticate directly with the upstream OAuth MCP server.
+                  绕过 LiteLLM 认证，使客户端直接与上游 OAuth MCP 服务器进行身份验证。
                 </p>
               </div>
               <Form.Item
@@ -155,16 +155,16 @@ const MCPPermissionManagement: React.FC<MCPPermissionManagementProps> = ({
               type="warning"
               showIcon
               className="mb-2"
-              message="Internal server with upstream OAuth delegation"
-              description="This MCP server is configured as internal-only but delegates auth to upstream. Anonymous users will be able to reach the upstream OAuth2 /authorize flow without a LiteLLM session. Ensure your upstream provider and network enforce access controls."
+              message="内网服务器的上游 OAuth 委托"
+              description="此 MCP 服务器配置为仅内网访问，但将认证委托给上游。匿名用户将能够无需 LiteLLM 会话即可访问上游 OAuth2 /authorize 流程。请确保您的上游提供商和网络强制执行访问控制。"
             />
           )}
 
           <Form.Item
             label={
               <span className="text-sm font-medium text-gray-700 flex items-center">
-                MCP Access Groups
-                <Tooltip title="Specify access groups for this MCP server. Users must be in at least one of these groups to access the server.">
+                MCP 访问组
+                <Tooltip title="为此 MCP 服务器指定访问组。用户必须至少属于其中一个组才能访问此服务器。">
                   <InfoCircleOutlined className="ml-2 text-blue-400 hover:text-blue-600 cursor-help" />
                 </Tooltip>
               </span>
@@ -175,7 +175,7 @@ const MCPPermissionManagement: React.FC<MCPPermissionManagementProps> = ({
             <Select
               mode="tags"
               showSearch
-              placeholder="Select existing groups or type to create new ones"
+              placeholder="选择现有组或输入创建新组"
               optionFilterProp="value"
               filterOption={(input, option) => (option?.value ?? "").toLowerCase().includes(input.toLowerCase())}
               onSearch={(value) => setSearchValue(value)}
@@ -189,13 +189,13 @@ const MCPPermissionManagement: React.FC<MCPPermissionManagementProps> = ({
           <Form.Item
             label={
               <span className="text-sm font-medium text-gray-700 flex items-center">
-                Extra Headers
-                <Tooltip title="Forward custom headers from incoming requests to this MCP server (e.g., Authorization, X-Custom-Header, User-Agent)">
+                额外请求头
+                <Tooltip title="将来自入站请求的自定义请求头转发到此 MCP 服务器（例如：Authorization、X-Custom-Header、User-Agent）">
                   <InfoCircleOutlined className="ml-2 text-blue-400 hover:text-blue-600 cursor-help" />
                 </Tooltip>
                 {mcpServer?.extra_headers && mcpServer.extra_headers.length > 0 && (
                   <span className="ml-2 text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded-full">
-                    {mcpServer.extra_headers.length} configured
+                    已配置 {mcpServer.extra_headers.length} 个
                   </span>
                 )}
               </span>
@@ -206,8 +206,8 @@ const MCPPermissionManagement: React.FC<MCPPermissionManagementProps> = ({
               mode="tags"
               placeholder={
                 mcpServer?.extra_headers && mcpServer.extra_headers.length > 0
-                  ? `Currently: ${mcpServer.extra_headers.join(", ")}`
-                  : "Enter header names (e.g., Authorization, X-Custom-Header)"
+                  ? `当前: ${mcpServer.extra_headers.join(", ")}`
+                  : "输入请求头名称（例如：Authorization, X-Custom-Header）"
               }
               className="rounded-lg"
               size="large"
@@ -219,8 +219,8 @@ const MCPPermissionManagement: React.FC<MCPPermissionManagementProps> = ({
           <Form.Item
             label={
               <span className="text-sm font-medium text-gray-700 flex items-center">
-                Static Headers
-                <Tooltip title="Send these key-value headers with every request to this MCP server.">
+                静态请求头
+                <Tooltip title="每次向此 MCP 服务器发送请求时附带这些键值对请求头。">
                   <InfoCircleOutlined className="ml-2 text-blue-400 hover:text-blue-600 cursor-help" />
                 </Tooltip>
               </span>
@@ -236,26 +236,26 @@ const MCPPermissionManagement: React.FC<MCPPermissionManagementProps> = ({
                         {...restField}
                         name={[name, "header"]}
                         className="flex-1"
-                        rules={[{ required: true, message: "Header name is required" }]}
+                        rules={[{ required: true, message: "请求头名称不能为空" }]}
                       >
                         <Input
                           size="large"
                           allowClear
                           className="rounded-lg"
-                          placeholder="Header name (e.g., X-API-Key)"
+                          placeholder="请求头名称（例如：X-API-Key）"
                         />
                       </Form.Item>
                       <Form.Item
                         {...restField}
                         name={[name, "value"]}
                         className="flex-1"
-                        rules={[{ required: true, message: "Header value is required" }]}
+                        rules={[{ required: true, message: "请求头值不能为空" }]}
                       >
                         <Input
                           size="large"
                           allowClear
                           className="rounded-lg"
-                          placeholder="Header value"
+                          placeholder="请求头值"
                         />
                       </Form.Item>
                       <MinusCircleOutlined
@@ -265,7 +265,7 @@ const MCPPermissionManagement: React.FC<MCPPermissionManagementProps> = ({
                     </Space>
                   ))}
                   <Button type="dashed" onClick={() => add()} icon={<PlusOutlined />} block>
-                    Add Static Header
+                    添加静态请求头
                   </Button>
                 </div>
               )}

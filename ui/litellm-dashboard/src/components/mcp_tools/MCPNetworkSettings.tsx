@@ -89,9 +89,9 @@ const MCPNetworkSettings: React.FC<MCPNetworkSettingsProps> = ({ accessToken }) 
   return (
     <div className="space-y-6 p-4">
       <div>
-        <Text className="text-lg font-semibold">Private IP Ranges</Text>
+        <Text className="text-lg font-semibold">私有 IP 范围</Text>
         <p className="text-sm text-gray-500 mt-1">
-          Define which IP ranges are part of your private network. Callers from these IPs can see all MCP servers. Callers from any other IP can only see servers marked &quot;Available on Public Internet&quot;.
+          定义哪些 IP 范围属于您的私有网络。来自这些 IP 的调用者可以看到所有 MCP 服务器。来自其他 IP 的调用者只能看到标记为"公开可用"的服务器。
         </p>
       </div>
 
@@ -99,11 +99,11 @@ const MCPNetworkSettings: React.FC<MCPNetworkSettingsProps> = ({ accessToken }) 
         {currentIp && (
           <div className="mb-4 p-3 bg-blue-50 rounded-lg">
             <Text className="text-sm text-blue-700">
-              Your current IP: <span className="font-mono font-medium">{currentIp}</span>
+              您的当前 IP: <span className="font-mono font-medium">{currentIp}</span>
             </Text>
             {suggestedRange && !privateRanges.includes(suggestedRange) && (
               <div className="mt-1">
-                <Text className="text-sm text-blue-600">Suggested range: </Text>
+                <Text className="text-sm text-blue-600">建议范围: </Text>
                 <Tag
                   className="cursor-pointer font-mono"
                   color="blue"
@@ -118,20 +118,20 @@ const MCPNetworkSettings: React.FC<MCPNetworkSettingsProps> = ({ accessToken }) 
         )}
 
         <div className="flex items-center mb-2">
-          <Text className="font-medium">Your Private Network Ranges</Text>
+          <Text className="font-medium">您的私有网络范围</Text>
         </div>
         <Select
           mode="tags"
           value={privateRanges}
           onChange={setPrivateRanges}
-          placeholder="Leave empty to use defaults: 10.0.0.0/8, 172.16.0.0/12, 192.168.0.0/16, 127.0.0.0/8"
+          placeholder="留空使用默认值：10.0.0.0/8, 172.16.0.0/12, 192.168.0.0/16, 127.0.0.0/8"
           tokenSeparators={[","]}
           className="w-full"
           size="large"
           allowClear
         />
         <p className="text-xs text-gray-400 mt-2">
-          Enter CIDR ranges (e.g., 10.0.0.0/8). When empty, standard private IP ranges are used.
+          输入 CIDR 范围（例如：10.0.0.0/8）。留空时使用标准的私有 IP 范围。
         </p>
       </Card>
 
@@ -142,7 +142,7 @@ const MCPNetworkSettings: React.FC<MCPNetworkSettingsProps> = ({ accessToken }) 
           onClick={handleSave}
           loading={saving}
         >
-          Save
+          保存
         </Button>
       </div>
     </div>

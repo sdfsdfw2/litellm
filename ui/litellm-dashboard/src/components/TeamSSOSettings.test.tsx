@@ -203,7 +203,7 @@ describe("TeamSSOSettings", () => {
     renderWithProviders(<TeamSSOSettings {...defaultProps} />);
 
     await waitFor(() => {
-      expect(screen.getByText("Default Team Settings")).toBeInTheDocument();
+      expect(screen.getByText("默认团队设置")).toBeInTheDocument();
       expect(screen.getByText("These settings will be applied by default when creating new teams.")).toBeInTheDocument();
     });
   });

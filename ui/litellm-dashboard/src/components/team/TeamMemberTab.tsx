@@ -70,7 +70,7 @@ export default function TeamMemberTab({
 
   // Helper function to get rate limits for a user
   const getUserRateLimits = (userId: string | null): string => {
-    if (!userId) return "No Limits";
+    if (!userId) return "无限制";
     const membership = teamData.team_memberships.find((tm) => tm.user_id === userId);
     const rpmLimit = membership?.litellm_budget_table?.rpm_limit;
     const tpmLimit = membership?.litellm_budget_table?.tpm_limit;
@@ -79,7 +79,7 @@ export default function TeamMemberTab({
     const tpmText = tpmLimit ? `${formatNumber(tpmLimit)} TPM` : null;
 
     const limits = [rpmText, tpmText].filter(Boolean);
-    return limits.length > 0 ? limits.join(" / ") : "No Limits";
+    return limits.length > 0 ? limits.join(" / ") : "无限制";
   };
 
   const { data: uiSettingsData } = useUISettings();
@@ -105,8 +105,8 @@ export default function TeamMemberTab({
     {
       title: (
         <Space direction="horizontal">
-          Model Scope
-          <Tooltip title="Models this member can access. Empty means they inherit all team models.">
+          模型范围
+          <Tooltip title="此成员可以访问的模型。留空表示继承所有团队模型。">
             <InfoCircleOutlined />
           </Tooltip>
         </Space>
@@ -115,7 +115,7 @@ export default function TeamMemberTab({
       render: (_: unknown, record: Member) => {
         const models = getUserAllowedModels(record.user_id);
         if (!models) {
-          return <Typography.Text type="secondary">(all team models)</Typography.Text>;
+          return <Typography.Text type="secondary">（所有团队模型）</Typography.Text>;
         }
         const displayed = models.slice(0, 2);
         const remaining = models.length - displayed.length;
@@ -126,7 +126,7 @@ export default function TeamMemberTab({
             ))}
             {remaining > 0 && (
               <Tooltip title={models.slice(2).join(", ")}>
-                <Typography.Text type="secondary">+{remaining} more</Typography.Text>
+                <Typography.Text type="secondary">+{remaining} 更多</Typography.Text>
               </Tooltip>
             )}
           </Space>
@@ -136,8 +136,8 @@ export default function TeamMemberTab({
     {
       title: (
         <Space direction="horizontal">
-          Current Cycle Spend (USD)
-          <Tooltip title="Spend for the current budget cycle. Resets to $0 when the member's budget window rolls over. This is the value checked against the member's budget.">
+          当前周期消费 (USD)
+          <Tooltip title="当前预算周期的消费。当成员的预算窗口滚动时会重置为 $0。这是检查成员预算时使用的值。">
             <InfoCircleOutlined />
           </Tooltip>
         </Space>
@@ -150,8 +150,8 @@ export default function TeamMemberTab({
     {
       title: (
         <Space direction="horizontal">
-          Total Spend (USD)
-          <Tooltip title="Cumulative spend by this member within this team, across all budget cycles. Tracking began 2026-04-21; spend from before that date is not included.">
+          总消费 (USD)
+          <Tooltip title="此成员在此团队内跨所有预算周期的累计消费。跟踪从 2026-04-21 开始；该日期之前的消费不包含在内。">
             <InfoCircleOutlined />
           </Tooltip>
         </Space>
@@ -162,19 +162,19 @@ export default function TeamMemberTab({
       ),
     },
     {
-      title: "Team Member Budget (USD)",
+      title: "成员预算 (USD)",
       key: "budget",
       render: (_: unknown, record: Member) => {
         const budget = getUserBudget(record.user_id);
         return (
           <Typography.Text>
-            {budget ? `$${formatNumberWithCommas(Number(budget), 4)}` : "No Limit"}
+            {budget ? `$${formatNumberWithCommas(Number(budget), 4)}` : "无限制"}
           </Typography.Text>
         );
       },
     },
     {
-      title: "Budget Reset",
+      title: "预算重置",
       key: "budget_reset",
       render: (_: unknown, record: Member) => {
         const reset = getUserBudgetReset(record.user_id);
@@ -188,8 +188,8 @@ export default function TeamMemberTab({
     {
       title: (
         <Space direction="horizontal">
-          Team Member Rate Limits
-          <Tooltip title="Rate limits for this member's usage within this team.">
+          成员速率限制
+          <Tooltip title="此成员在此团队内的速率限制。">
             <InfoCircleOutlined />
           </Tooltip>
         </Space>
@@ -221,8 +221,8 @@ export default function TeamMemberTab({
       }}
       onDelete={handleMemberDelete}
       onAddMember={() => setIsAddMemberModalVisible(true)}
-      roleColumnTitle="Team Role"
-      roleTooltip="This role applies only to this team and is independent from the user's proxy-level role."
+      roleColumnTitle="团队角色"
+      roleTooltip="此角色仅适用于此团队，与用户的代理级别角色无关。"
       extraColumns={extraColumns}
       showDeleteForMember={() =>
         isProxyAdmin || (canEditTeam && !isUserTeamAdmin) || (isUserTeamAdmin && !disableTeamAdminDeleteTeamUser)

@@ -42,15 +42,15 @@ const TeamsTable = ({
     <Table>
       <TableHead>
         <TableRow>
-          <TableHeaderCell>Team Name</TableHeaderCell>
-          <TableHeaderCell>Team ID</TableHeaderCell>
-          <TableHeaderCell>Created</TableHeaderCell>
-          <TableHeaderCell>Spend (USD)</TableHeaderCell>
-          <TableHeaderCell>Budget (USD)</TableHeaderCell>
-          <TableHeaderCell>Models</TableHeaderCell>
-          <TableHeaderCell>Organization</TableHeaderCell>
-          <TableHeaderCell>Your Role</TableHeaderCell>
-          <TableHeaderCell>Info</TableHeaderCell>
+          <TableHeaderCell>团队名称</TableHeaderCell>
+          <TableHeaderCell>团队 ID</TableHeaderCell>
+          <TableHeaderCell>创建时间</TableHeaderCell>
+          <TableHeaderCell>消费 (USD)</TableHeaderCell>
+          <TableHeaderCell>预算 (USD)</TableHeaderCell>
+          <TableHeaderCell>模型</TableHeaderCell>
+          <TableHeaderCell>组织</TableHeaderCell>
+          <TableHeaderCell>你的角色</TableHeaderCell>
+          <TableHeaderCell>信息</TableHeaderCell>
         </TableRow>
       </TableHead>
 
@@ -98,7 +98,7 @@ const TeamsTable = ({
                       overflow: "hidden",
                     }}
                   >
-                    {team.created_at ? new Date(team.created_at).toLocaleDateString() : "N/A"}
+                    {team.created_at ? new Date(team.created_at).toLocaleDateString() : "无"}
                   </TableCell>
                   <TableCell
                     style={{
@@ -116,7 +116,7 @@ const TeamsTable = ({
                       overflow: "hidden",
                     }}
                   >
-                    {team["max_budget"] !== null && team["max_budget"] !== undefined ? team["max_budget"] : "No limit"}
+                    {team["max_budget"] !== null && team["max_budget"] !== undefined ? team["max_budget"] : "无限制"}
                   </TableCell>
                   <ModelsCell team={team} />
                   <TableCell>{team.organization_id}</TableCell>
@@ -128,7 +128,7 @@ const TeamsTable = ({
                         perTeamInfo[team.team_id] &&
                         perTeamInfo[team.team_id].keys &&
                         perTeamInfo[team.team_id].keys.length}{" "}
-                      Keys
+                      个密钥
                     </Text>
                     <Text>
                       {perTeamInfo &&
@@ -137,7 +137,7 @@ const TeamsTable = ({
                         perTeamInfo[team.team_id].team_info &&
                         perTeamInfo[team.team_id].team_info.members_with_roles &&
                         perTeamInfo[team.team_id].team_info.members_with_roles.length}{" "}
-                      Members
+                      个成员
                     </Text>
                   </TableCell>
                   <TableCell>

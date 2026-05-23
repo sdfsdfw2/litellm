@@ -33,15 +33,15 @@ const MCPConnectionStatus: React.FC<MCPConnectionStatusProps> = ({
       <div className="space-y-4">
         <div className="flex items-center gap-2">
           <CheckCircleOutlined className="text-blue-600" />
-          <Title>Connection Status</Title>
+          <Title>连接状态</Title>
         </div>
 
         {!canFetchTools && (formValues.url || formValues.spec_path) && (
           <div className="text-center py-6 text-gray-400 border rounded-lg border-dashed">
             <ToolOutlined className="text-2xl mb-2" />
-            <Text>Complete required fields to test connection</Text>
+            <Text>请填写必填字段以测试连接</Text>
             <br />
-            <Text className="text-sm">Fill in URL, Transport, and Authentication to test MCP server connection</Text>
+            <Text className="text-sm">填写 URL、传输方式和身份验证以测试 MCP 服务器连接</Text>
           </div>
         )}
 
@@ -51,35 +51,35 @@ const MCPConnectionStatus: React.FC<MCPConnectionStatusProps> = ({
               <div>
                 <Text className="text-gray-700 font-medium">
                   {isLoadingTools
-                    ? "Testing connection to MCP server..."
+                    ? "正在测试 MCP 服务器连接..."
                     : tools.length > 0
-                      ? "Connection successful"
+                      ? "连接成功"
                       : toolsError
-                        ? "Connection failed"
-                        : "Ready to test connection"}
+                        ? "连接失败"
+                        : "准备测试连接"}
                 </Text>
                 <br />
-                <Text className="text-gray-500 text-sm">Server: {formValues.url || formValues.spec_path}</Text>
+                <Text className="text-gray-500 text-sm">服务器: {formValues.url || formValues.spec_path}</Text>
               </div>
 
               {isLoadingTools && (
                 <div className="flex items-center text-blue-600">
                   <Spin size="small" className="mr-2" />
-                  <Text className="text-blue-600">Connecting...</Text>
+                  <Text className="text-blue-600">正在连接...</Text>
                 </div>
               )}
 
               {!isLoadingTools && !toolsError && tools.length > 0 && (
                 <div className="flex items-center text-green-600">
                   <CheckCircleOutlined className="mr-1" />
-                  <Text className="text-green-600 font-medium">Connected</Text>
+                  <Text className="text-green-600 font-medium">已连接</Text>
                 </div>
               )}
 
               {toolsError && (
                 <div className="flex items-center text-red-600">
                   <ExclamationCircleOutlined className="mr-1" />
-                  <Text className="text-red-600 font-medium">Failed</Text>
+                  <Text className="text-red-600 font-medium">失败</Text>
                 </div>
               )}
             </div>
@@ -87,13 +87,13 @@ const MCPConnectionStatus: React.FC<MCPConnectionStatusProps> = ({
             {isLoadingTools && (
               <div className="flex items-center justify-center py-6">
                 <Spin size="large" />
-                <Text className="ml-3">Testing connection and loading tools...</Text>
+                <Text className="ml-3">正在测试连接并加载工具...</Text>
               </div>
             )}
 
             {toolsError && (
               <Alert
-                message="Connection Failed"
+                message="连接失败"
                 description={
                   <div>
                     <div>{toolsError}</div>
@@ -102,7 +102,7 @@ const MCPConnectionStatus: React.FC<MCPConnectionStatusProps> = ({
                         items={[
                           {
                             key: "stack-trace",
-                            label: "Stack Trace",
+                            label: "堆栈跟踪",
                             children: (
                               <pre style={{ 
                                 whiteSpace: "pre-wrap", 
@@ -130,7 +130,7 @@ const MCPConnectionStatus: React.FC<MCPConnectionStatusProps> = ({
                 showIcon
                 action={
                   <Button icon={<ReloadOutlined />} onClick={fetchTools} size="small">
-                    Retry
+                    重试
                   </Button>
                 }
               />
@@ -139,9 +139,9 @@ const MCPConnectionStatus: React.FC<MCPConnectionStatusProps> = ({
             {!isLoadingTools && tools.length === 0 && !toolsError && (
               <div className="text-center py-6 text-gray-500 border rounded-lg border-dashed">
                 <CheckCircleOutlined className="text-2xl mb-2 text-green-500" />
-                <Text className="text-green-600 font-medium">Connection successful!</Text>
+                <Text className="text-green-600 font-medium">连接成功！</Text>
                 <br />
-                <Text className="text-gray-500">No tools found for this MCP server</Text>
+                <Text className="text-gray-500">未找到此 MCP 服务器的工具</Text>
               </div>
             )}
           </div>
