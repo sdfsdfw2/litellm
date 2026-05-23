@@ -100,7 +100,7 @@ export function LogDetailContent({ logEntry, isLoadingDetails = false, accessTok
         <Alert
           type="error"
           showIcon
-          message="Request Failed"
+          message="请求失败"
           description={<ErrorDescription errorInfo={errorInfo} />}
           className="mb-6"
         />
@@ -113,22 +113,22 @@ export function LogDetailContent({ logEntry, isLoadingDetails = false, accessTok
 
       {/* Request Details */}
       <div className="bg-white rounded-lg shadow w-full max-w-full overflow-hidden mb-6">
-        <Card title="Request Details" size="small" bordered={false} style={{ marginBottom: 0 }}>
+        <Card title="请求详情" size="small" bordered={false} style={{ marginBottom: 0 }}>
           <Descriptions column={2} size="small">
-            <Descriptions.Item label="Model">{logEntry.model}</Descriptions.Item>
-            <Descriptions.Item label="Provider">{logEntry.custom_llm_provider || "-"}</Descriptions.Item>
-            <Descriptions.Item label="Call Type">{logEntry.call_type}</Descriptions.Item>
-            <Descriptions.Item label="Model ID">
+            <Descriptions.Item label="模型">{logEntry.model}</Descriptions.Item>
+            <Descriptions.Item label="提供商">{logEntry.custom_llm_provider || "-"}</Descriptions.Item>
+            <Descriptions.Item label="调用类型">{logEntry.call_type}</Descriptions.Item>
+            <Descriptions.Item label="模型 ID">
               <TruncatedValue value={logEntry.model_id} />
             </Descriptions.Item>
-            <Descriptions.Item label="API Base">
+            <Descriptions.Item label="API 基础地址">
               <TruncatedValue value={logEntry.api_base} maxWidth={API_BASE_MAX_WIDTH} />
             </Descriptions.Item>
             {logEntry.requester_ip_address && (
-              <Descriptions.Item label="IP Address">{logEntry.requester_ip_address}</Descriptions.Item>
+              <Descriptions.Item label="IP 地址">{logEntry.requester_ip_address}</Descriptions.Item>
             )}
             {hasGuardrailData && (
-              <Descriptions.Item label="Guardrail">
+              <Descriptions.Item label="护栏">
                 <GuardrailLabel label={primaryGuardrailLabel} maskedCount={totalMaskedEntities} />
               </Descriptions.Item>
             )}
@@ -165,7 +165,7 @@ export function LogDetailContent({ logEntry, isLoadingDetails = false, accessTok
       {isLoadingDetails ? (
         <div className="bg-white rounded-lg shadow w-full max-w-full overflow-hidden mb-6 p-8 text-center">
           <Spin size="default" />
-          <div style={{ marginTop: 8, color: "#999" }}>Loading request &amp; response data...</div>
+          <div style={{ marginTop: 8, color: "#999" }}>正在加载请求和响应数据...</div>
         </div>
       ) : (
         <RequestResponseSection
@@ -220,12 +220,12 @@ function ErrorDescription({ errorInfo }: { errorInfo: any }) {
     <div>
       {errorInfo.error_code && (
         <div>
-          <Text strong>Error Code:</Text> {errorInfo.error_code}
+          <Text strong>错误代码:</Text> {errorInfo.error_code}
         </div>
       )}
       {errorInfo.error_message && (
         <div>
-          <Text strong>Message:</Text> {errorInfo.error_message}
+          <Text strong>消息:</Text> {errorInfo.error_message}
         </div>
       )}
     </div>
@@ -236,7 +236,7 @@ function TagsSection({ tags }: { tags: Record<string, any> }) {
   return (
     <div className="bg-white rounded-lg shadow w-full max-w-full overflow-hidden p-4 mb-6">
       <Text strong style={{ display: "block", marginBottom: 8, fontSize: 16 }}>
-        Tags
+        标签
       </Text>
       <Space size={SPACING_MEDIUM} wrap>
         {Object.entries(tags).map(([key, value]) => (
@@ -260,7 +260,7 @@ function GuardrailLabel({ label, maskedCount }: { label: string; maskedCount: nu
       <a onClick={handleClick} style={{ cursor: "pointer" }}>{label}</a>
       {maskedCount > 0 && (
         <Tag color="blue">
-          {maskedCount} masked
+          {maskedCount} 已脱敏
         </Tag>
       )}
     </Space>
@@ -306,19 +306,19 @@ function MetricsSection({ logEntry, metadata }: { logEntry: LogEntry; metadata: 
 
   return (
     <div className="bg-white rounded-lg shadow w-full max-w-full overflow-hidden mb-6">
-      <Card title="Metrics" size="small" style={{ marginBottom: 0 }}>
-        <Descriptions column={2} size="small">
-          {showAnthropicMessagesInputOutput ? (
-            <>
-              <Descriptions.Item label="Input Tokens">
-                {formatNumberWithCommas(uncachedInputTokens)}
-              </Descriptions.Item>
-              <Descriptions.Item label="Output Tokens">
-                {formatNumberWithCommas(logEntry.completion_tokens)}
-              </Descriptions.Item>
-            </>
-          ) : (
-            <Descriptions.Item label="Tokens">
+        <Card title="指标" size="small" style={{ marginBottom: 0 }}>
+          <Descriptions column={2} size="small">
+            {showAnthropicMessagesInputOutput ? (
+              <>
+                <Descriptions.Item label="输入 Token">
+                  {formatNumberWithCommas(uncachedInputTokens)}
+                </Descriptions.Item>
+                <Descriptions.Item label="输出 Token">
+                  {formatNumberWithCommas(logEntry.completion_tokens)}
+                </Descriptions.Item>
+              </>
+            ) : (
+              <Descriptions.Item label="Token">
               <TokenFlow
                 prompt={logEntry.prompt_tokens}
                 completion={logEntry.completion_tokens}
@@ -326,24 +326,24 @@ function MetricsSection({ logEntry, metadata }: { logEntry: LogEntry; metadata: 
               />
             </Descriptions.Item>
           )}
-          <Descriptions.Item label="Cost">${formatNumberWithCommas(logEntry.spend || 0, 8)}</Descriptions.Item>
-          <Descriptions.Item label="Duration">{logEntry.request_duration_ms != null ? (logEntry.request_duration_ms / 1000).toFixed(3) : "-"} s</Descriptions.Item>
+          <Descriptions.Item label="费用">${formatNumberWithCommas(logEntry.spend || 0, 8)}</Descriptions.Item>
+          <Descriptions.Item label="持续时间">{logEntry.request_duration_ms != null ? (logEntry.request_duration_ms / 1000).toFixed(3) : "-"} s</Descriptions.Item>
           {ttftMs != null && ttftMs > 0 && (
-            <Descriptions.Item label="Time to First Token">{(ttftMs / 1000).toFixed(3)} s</Descriptions.Item>
+            <Descriptions.Item label="首 Token 延迟">{(ttftMs / 1000).toFixed(3)} s</Descriptions.Item>
           )}
 
           {hasCacheActivity && (
             <>
-              <Descriptions.Item label="Cache Hit">
+              <Descriptions.Item label="缓存命中">
                 <Tag color={cacheHitColor}>{cacheHitValue}</Tag>
               </Descriptions.Item>
               {metadata?.additional_usage_values?.cache_read_input_tokens > 0 && (
-                <Descriptions.Item label="Cache Read Tokens">
+                <Descriptions.Item label="缓存读取 Token">
                   {formatNumberWithCommas(metadata.additional_usage_values.cache_read_input_tokens)}
                 </Descriptions.Item>
               )}
               {metadata?.additional_usage_values?.cache_creation_input_tokens > 0 && (
-                <Descriptions.Item label="Cache Creation Tokens">
+                <Descriptions.Item label="缓存创建 Token">
                   {formatNumberWithCommas(metadata.additional_usage_values.cache_creation_input_tokens)}
                 </Descriptions.Item>
               )}
@@ -351,12 +351,12 @@ function MetricsSection({ logEntry, metadata }: { logEntry: LogEntry; metadata: 
           )}
 
           {metadata?.litellm_overhead_time_ms !== undefined && metadata.litellm_overhead_time_ms !== null && (
-            <Descriptions.Item label="LiteLLM Overhead">
+            <Descriptions.Item label="LiteLLM 开销">
               {metadata.litellm_overhead_time_ms.toFixed(2)} ms
             </Descriptions.Item>
           )}
 
-          <Descriptions.Item label="Retries">
+          <Descriptions.Item label="重试次数">
             {metadata?.attempted_retries !== undefined && metadata?.attempted_retries !== null
               ? metadata.attempted_retries > 0
                 ? <>{metadata.attempted_retries}{metadata.max_retries !== undefined && metadata.max_retries !== null ? ` / ${metadata.max_retries}` : ''}</>
@@ -364,10 +364,10 @@ function MetricsSection({ logEntry, metadata }: { logEntry: LogEntry; metadata: 
               : "-"}
           </Descriptions.Item>
 
-          <Descriptions.Item label="Start Time">
+            <Descriptions.Item label="开始时间">
             {moment(logEntry.startTime).format("YYYY-MM-DDTHH:mm:ss.SSS[Z]")}
           </Descriptions.Item>
-          <Descriptions.Item label="End Time">
+          <Descriptions.Item label="结束时间">
             {moment(logEntry.endTime).format("YYYY-MM-DDTHH:mm:ss.SSS[Z]")}
           </Descriptions.Item>
         </Descriptions>
@@ -436,13 +436,13 @@ function RequestResponseSection({
                   }
                 }}
               >
-                <h3 className="text-lg font-medium text-gray-900" style={{ margin: 0 }}>Request & Response</h3>
+                <h3 className="text-lg font-medium text-gray-900" style={{ margin: 0 }}>请求与响应</h3>
                 <Radio.Group
                   size="small"
                   value={viewMode}
                   onChange={(e) => setViewMode(e.target.value)}
                 >
-                  <Radio.Button value="pretty">Pretty</Radio.Button>
+                  <Radio.Button value="pretty">美观</Radio.Button>
                   <Radio.Button value="json">JSON</Radio.Button>
                 </Radio.Group>
               </div>
@@ -468,7 +468,7 @@ function RequestResponseSection({
                       <Text
                         copyable={{
                           text: getCopyText(),
-                          tooltips: ["Copy JSON", "Copied!"]
+                          tooltips: ["复制 JSON", "已复制!"]
                         }}
                         disabled={activeTab === TAB_RESPONSE && !hasResponse && !hasError}
                       />
@@ -476,7 +476,7 @@ function RequestResponseSection({
                     items={[
                       {
                         key: TAB_REQUEST,
-                        label: "Request",
+                        label: "请求",
                         children: (
                           <div style={{ paddingTop: SPACING_XLARGE, paddingBottom: SPACING_XLARGE }}>
                             <JsonViewer data={getRawRequest()} mode="formatted" />
@@ -485,14 +485,14 @@ function RequestResponseSection({
                       },
                       {
                         key: TAB_RESPONSE,
-                        label: "Response",
+                        label: "响应",
                         children: (
                           <div style={{ paddingTop: SPACING_XLARGE, paddingBottom: SPACING_XLARGE }}>
                             {hasResponse || hasError ? (
                               <JsonViewer data={getFormattedResponse()} mode="formatted" />
                             ) : (
                               <div style={{ textAlign: "center", padding: 20, color: "#999", fontStyle: "italic" }}>
-                                Response data not available
+                                响应数据不可用
                               </div>
                             )}
                           </div>
@@ -539,7 +539,7 @@ export function GuardrailJumpLink({ guardrailEntries }: { guardrailEntries: any[
           border: `1px solid ${allPassed ? "#bbf7d0" : "#fecaca"}`,
         }}
       >
-        {allPassed ? "\u2713" : "\u2717"} {guardrailEntries.length} guardrail{guardrailEntries.length !== 1 ? "s" : ""} evaluated
+        {allPassed ? "\u2713" : "\u2717"} {guardrailEntries.length} 个护栏已评估
         <span style={{ fontSize: 11, opacity: 0.7 }}>{"\u2193"}</span>
       </div>
     </div>
@@ -555,14 +555,14 @@ function MetadataSection({ metadata }: { metadata: Record<string, any> }) {
         items={[
           {
             key: "1",
-            label: <h3 className="text-lg font-medium text-gray-900">Metadata</h3>,
+            label: <h3 className="text-lg font-medium text-gray-900">元数据</h3>,
             children: (
               <div>
                 <div style={{ display: "flex", justifyContent: "flex-end", marginBottom: 8 }}>
                   <Text
                     copyable={{
                       text: JSON.stringify(metadata, null, 2),
-                      tooltips: ["Copy Metadata", "Copied!"]
+                      tooltips: ["复制元数据", "已复制!"]
                     }}
                   />
                 </div>

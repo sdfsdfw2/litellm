@@ -102,10 +102,10 @@ const PassThroughSettings: React.FC<GeneralSettingsPageProps> = ({ accessToken, 
       const updatedSettings = generalSettings.filter((setting) => setting.id !== endpointToDelete);
       setGeneralSettings(updatedSettings);
 
-      NotificationsManager.success("Endpoint deleted successfully.");
+      NotificationsManager.success("端点删除成功。");
     } catch (error) {
-      console.error("Error deleting the endpoint:", error);
-      NotificationsManager.fromBackend("Error deleting the endpoint: " + error);
+      console.error("删除端点时出错:", error);
+      NotificationsManager.fromBackend("删除端点时出错: " + error);
     }
 
     // Close the confirmation modal and reset the endpointToDelete
@@ -141,19 +141,19 @@ const PassThroughSettings: React.FC<GeneralSettingsPageProps> = ({ accessToken, 
       ),
     },
     {
-      header: "Path",
+      header: "路径",
       accessorKey: "path",
     },
     {
-      header: "Target",
+      header: "目标地址",
       accessorKey: "target",
       cell: (info: any) => <Text>{info.getValue()}</Text>,
     },
     {
       header: () => (
         <div className="flex items-center gap-1">
-          <span>Methods</span>
-          <Tooltip title="HTTP methods supported by this endpoint">
+          <span>方法</span>
+          <Tooltip title="此端点支持的HTTP方法">
             <InformationCircleIcon className="w-4 h-4 text-gray-400 cursor-help" />
           </Tooltip>
         </div>
@@ -178,22 +178,22 @@ const PassThroughSettings: React.FC<GeneralSettingsPageProps> = ({ accessToken, 
     {
       header: () => (
         <div className="flex items-center gap-1">
-          <span>Authentication</span>
-          <Tooltip title="LiteLLM Virtual Key required to call endpoint">
+          <span>认证</span>
+          <Tooltip title="需要LiteLLM虚拟密钥才能调用此端点">
             <InformationCircleIcon className="w-4 h-4 text-gray-400 cursor-help" />
           </Tooltip>
         </div>
       ),
       accessorKey: "auth",
-      cell: (info: any) => <Badge color={info.getValue() ? "green" : "gray"}>{info.getValue() ? "Yes" : "No"}</Badge>,
+      cell: (info: any) => <Badge color={info.getValue() ? "green" : "gray"}>{info.getValue() ? "是" : "否"}</Badge>,
     },
     {
-      header: "Headers",
+      header: "请求头",
       accessorKey: "headers",
       cell: (info: any) => <PasswordField value={info.getValue() || {}} />,
     },
     {
-      header: "Actions",
+      header: "操作",
       id: "actions",
       cell: ({ row }) => (
         <div className="flex space-x-1">
@@ -226,7 +226,7 @@ const PassThroughSettings: React.FC<GeneralSettingsPageProps> = ({ accessToken, 
     const selectedEndpoint = generalSettings.find((endpoint) => endpoint.id === selectedEndpointId);
 
     if (!selectedEndpoint) {
-      return <div>Endpoint not found</div>;
+      return <div>未找到端点</div>;
     }
 
     return (
@@ -244,8 +244,8 @@ const PassThroughSettings: React.FC<GeneralSettingsPageProps> = ({ accessToken, 
   return (
     <div>
       <div>
-        <Title>Pass Through Endpoints</Title>
-        <Text className="text-tremor-content">Configure and manage your pass-through endpoints</Text>
+        <Title>Pass Through 端点</Title>
+        <Text className="text-tremor-content">配置和管理您的 Pass Through 端点</Text>
       </div>
 
       <AddPassThroughEndpoint
@@ -261,7 +261,7 @@ const PassThroughSettings: React.FC<GeneralSettingsPageProps> = ({ accessToken, 
         renderSubComponent={() => <div></div>}
         getRowCanExpand={() => false}
         isLoading={false}
-        noDataMessage="No pass-through endpoints configured"
+        noDataMessage="未配置 Pass Through 端点"
       />
 
       {isDeleteModalOpen && (
@@ -281,10 +281,10 @@ const PassThroughSettings: React.FC<GeneralSettingsPageProps> = ({ accessToken, 
               <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
                 <div className="sm:flex sm:items-start">
                   <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
-                    <h3 className="text-lg leading-6 font-medium text-gray-900">Delete Pass-Through Endpoint</h3>
+                    <h3 className="text-lg leading-6 font-medium text-gray-900">删除 Pass-Through 端点</h3>
                     <div className="mt-2">
                       <p className="text-sm text-gray-500">
-                        Are you sure you want to delete this pass-through endpoint? This action cannot be undone.
+                        确定要删除此 Pass-Through 端点吗？此操作不可撤销。
                       </p>
                     </div>
                   </div>
@@ -292,9 +292,9 @@ const PassThroughSettings: React.FC<GeneralSettingsPageProps> = ({ accessToken, 
               </div>
               <div className="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
                 <Button onClick={confirmDelete} color="red" className="ml-2">
-                  Delete
+                  删除
                 </Button>
-                <Button onClick={cancelDelete}>Cancel</Button>
+                <Button onClick={cancelDelete}>取消</Button>
               </div>
             </div>
           </div>

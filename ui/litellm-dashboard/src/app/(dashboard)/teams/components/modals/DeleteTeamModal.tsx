@@ -22,7 +22,7 @@ const DeleteTeamModal = ({ teams, teamToDelete, onCancel, onConfirm }: DeleteTea
       <div className="bg-white rounded-lg shadow-xl w-full max-w-2xl min-h-[380px] py-6 overflow-hidden transform transition-all flex flex-col justify-between">
         <div>
           <div className="flex items-center justify-between px-6 py-4 border-b border-gray-200">
-            <h3 className="text-lg font-semibold text-gray-900">Delete Team</h3>
+            <h3 className="text-lg font-semibold text-gray-900">删除团队</h3>
             <button
               aria-label="Close"
               onClick={() => {
@@ -42,28 +42,28 @@ const DeleteTeamModal = ({ teams, teamToDelete, onCancel, onConfirm }: DeleteTea
                 </div>
                 <div>
                   <p className="text-base font-medium text-red-600">
-                    Warning: This team has {keyCount} associated key{keyCount > 1 ? "s" : ""}.
+                    警告: 此团队有 {keyCount} 个关联密钥。
                   </p>
                   <p className="text-base text-red-600 mt-2">
-                    Deleting the team will also delete all associated keys. This action is irreversible.
+                    删除团队将同时删除所有关联的密钥。此操作不可撤销。
                   </p>
                 </div>
               </div>
             )}
             <p className="text-base text-gray-600 mb-5">
-              Are you sure you want to force delete this team and all its keys?
+              确定要强制删除此团队及其所有密钥吗？
             </p>
             <div className="mb-5">
               <label className="block text-base font-medium text-gray-700 mb-2">
-                {`Type `}
+                {`输入 `}
                 <span className="underline">{teamName}</span>
-                {` to confirm deletion:`}
+                {` 以确认删除:`}
               </label>
               <input
                 type="text"
                 value={deleteConfirmInput}
                 onChange={(e) => setDeleteConfirmInput(e.target.value)}
-                placeholder="Enter team name exactly"
+                placeholder="请准确输入团队名称"
                 className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-base"
                 autoFocus
               />
@@ -78,14 +78,14 @@ const DeleteTeamModal = ({ teams, teamToDelete, onCancel, onConfirm }: DeleteTea
             }}
             className="px-5 py-3 bg-white border border-gray-300 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
           >
-            Cancel
+            取消
           </button>
           <button
             onClick={onConfirm}
             disabled={!isValid}
             className={`px-5 py-3 rounded-md text-base font-medium text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 ${isValid ? "bg-red-600 hover:bg-red-700" : "bg-red-300 cursor-not-allowed"}`}
           >
-            Force Delete
+            强制删除
           </button>
         </div>
       </div>

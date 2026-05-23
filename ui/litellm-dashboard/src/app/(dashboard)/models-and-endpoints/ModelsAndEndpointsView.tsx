@@ -178,9 +178,9 @@ const ModelsAndEndpointsView: React.FC<ModelDashboardProps> = ({ premiumUser, te
     },
     onChange(info) {
       if (info.file.status === "done") {
-        NotificationsManager.success(`${info.file.name} file uploaded successfully`);
+        NotificationsManager.success(`${info.file.name} 文件上传成功`);
       } else if (info.file.status === "error") {
-        NotificationsManager.fromBackend(`${info.file.name} file upload failed.`);
+        NotificationsManager.fromBackend(`${info.file.name} 文件上传失败。`);
       }
     },
   };
@@ -207,17 +207,17 @@ const ModelsAndEndpointsView: React.FC<ModelDashboardProps> = ({ premiumUser, te
         if (globalRetryPolicy) {
           payload.router_settings.retry_policy = globalRetryPolicy;
         }
-        NotificationsManager.success("Global retry settings saved successfully");
+        NotificationsManager.success("全局重试设置保存成功");
       } else {
         if (modelGroupRetryPolicy) {
           payload.router_settings.model_group_retry_policy = modelGroupRetryPolicy;
         }
-        NotificationsManager.success(`Retry settings saved successfully for ${selectedModelGroup}`);
+        NotificationsManager.success(`${selectedModelGroup} 的重试设置保存成功`);
       }
 
       await setCallbacksCall(accessToken, payload);
     } catch (error) {
-      NotificationsManager.fromBackend("Failed to save retry settings");
+      NotificationsManager.fromBackend("保存重试设置失败");
     }
   };
 
@@ -297,11 +297,11 @@ const ModelsAndEndpointsView: React.FC<ModelDashboardProps> = ({ premiumUser, te
           {/* Model Management Header */}
           <div className="flex justify-between items-center mb-4">
             <div>
-              <h2 className="text-lg font-semibold">Model Management</h2>
+              <h2 className="text-lg font-semibold">模型管理</h2>
               {!all_admin_roles.includes(userRole) ? (
-                <p className="text-sm text-gray-600">Add models for teams you are an admin for.</p>
+                <p className="text-sm text-gray-600">为您管理的团队添加模型</p>
               ) : (
-                <p className="text-sm text-gray-600">Add and manage models for the proxy</p>
+                <p className="text-sm text-gray-600">添加和管理代理的模型</p>
               )}
             </div>
             {!showMissingProviderBanner && (
@@ -312,7 +312,7 @@ const ModelsAndEndpointsView: React.FC<ModelDashboardProps> = ({ premiumUser, te
                 className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-[#6366f1] hover:text-[#5558e3] border border-[#6366f1] hover:border-[#5558e3] rounded-lg transition-colors"
               >
                 <PlusCircleOutlined style={{ fontSize: "12px" }} />
-                Request Provider
+                请求添加提供商
               </a>
             )}
           </div>
@@ -324,10 +324,10 @@ const ModelsAndEndpointsView: React.FC<ModelDashboardProps> = ({ premiumUser, te
                 <PlusCircleOutlined style={{ fontSize: "18px", color: "#6366f1" }} />
               </div>
               <div className="flex-1 min-w-0">
-                <h4 className="text-gray-900 font-semibold text-sm m-0">Missing a provider?</h4>
+                <h4 className="text-gray-900 font-semibold text-sm m-0">缺少提供商？</h4>
                 <p className="text-gray-500 text-xs m-0 mt-0.5">
-                  The LiteLLM engineering team is constantly adding support for new LLM models, providers, endpoints. If
-                  you don&apos;t see the one you need, let us know and we&apos;ll prioritize it.
+                  LiteLLM 工程团队持续添加对新 LLM 模型、提供商和端点的支持。如果找不到您需要的，
+                  请告知我们，我们会优先处理。
                 </p>
               </div>
               <a
@@ -336,7 +336,7 @@ const ModelsAndEndpointsView: React.FC<ModelDashboardProps> = ({ premiumUser, te
                 rel="noopener noreferrer"
                 className="flex-shrink-0 inline-flex items-center gap-2 px-4 py-2 bg-[#6366f1] hover:bg-[#5558e3] text-white text-sm font-medium rounded-lg transition-colors"
               >
-                Request Provider
+                请求添加提供商
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   className="h-4 w-4"
@@ -358,7 +358,7 @@ const ModelsAndEndpointsView: React.FC<ModelDashboardProps> = ({ premiumUser, te
                   localStorage.setItem("hideMissingProviderBanner", "true");
                 }}
                 className="flex-shrink-0 p-1 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-full transition-colors"
-                aria-label="Dismiss banner"
+                aria-label="关闭横幅"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -399,7 +399,7 @@ const ModelsAndEndpointsView: React.FC<ModelDashboardProps> = ({ premiumUser, te
               const isAdmin = all_admin_roles.includes(userRole);
               const visibleTabs: Array<{ tab: React.ReactElement; panel: React.ReactElement }> = [
                 {
-                  tab: <Tab key="all-models">{isAdmin ? "All Models" : "Your Models"}</Tab>,
+                  tab: <Tab key="all-models">{isAdmin ? "所有模型" : "我的模型"}</Tab>,
                   panel: (
                     <AllModelsTab
                       key="all-models"
@@ -415,7 +415,7 @@ const ModelsAndEndpointsView: React.FC<ModelDashboardProps> = ({ premiumUser, te
               ];
               if (!shouldHideAddModelTab) {
                 visibleTabs.push({
-                  tab: <Tab key="add-model">Add Model</Tab>,
+                  tab: <Tab key="add-model">添加模型</Tab>,
                   panel: (
                     <TabPanel key="add-model" className="h-full">
                       <AddModelTab
@@ -441,7 +441,7 @@ const ModelsAndEndpointsView: React.FC<ModelDashboardProps> = ({ premiumUser, te
               if (isAdmin) {
                 visibleTabs.push(
                   {
-                    tab: <Tab key="llm-credentials">LLM Credentials</Tab>,
+                    tab: <Tab key="llm-credentials">LLM 凭据</Tab>,
                     panel: (
                       <TabPanel key="llm-credentials">
                         <CredentialsPanel uploadProps={uploadProps} />
@@ -449,7 +449,7 @@ const ModelsAndEndpointsView: React.FC<ModelDashboardProps> = ({ premiumUser, te
                     ),
                   },
                   {
-                    tab: <Tab key="pass-through">Pass-Through Endpoints</Tab>,
+                    tab: <Tab key="pass-through">Pass-Through 端点</Tab>,
                     panel: (
                       <TabPanel key="pass-through">
                         <PassThroughSettings
@@ -463,7 +463,7 @@ const ModelsAndEndpointsView: React.FC<ModelDashboardProps> = ({ premiumUser, te
                     ),
                   },
                   {
-                    tab: <Tab key="health-status">Health Status</Tab>,
+                    tab: <Tab key="health-status">健康状态</Tab>,
                     panel: (
                       <TabPanel key="health-status">
                         <HealthCheckComponent
@@ -483,7 +483,7 @@ const ModelsAndEndpointsView: React.FC<ModelDashboardProps> = ({ premiumUser, te
                     ),
                   },
                   {
-                    tab: <Tab key="model-retry-settings">Model Retry Settings</Tab>,
+                    tab: <Tab key="model-retry-settings">模型重试设置</Tab>,
                     panel: (
                       <ModelRetrySettingsTab
                         key="model-retry-settings"
@@ -500,7 +500,7 @@ const ModelsAndEndpointsView: React.FC<ModelDashboardProps> = ({ premiumUser, te
                     ),
                   },
                   {
-                    tab: <Tab key="model-group-alias">Model Group Alias</Tab>,
+                    tab: <Tab key="model-group-alias">模型组别名</Tab>,
                     panel: (
                       <TabPanel key="model-group-alias">
                         <ModelGroupAliasSettings
@@ -512,7 +512,7 @@ const ModelsAndEndpointsView: React.FC<ModelDashboardProps> = ({ premiumUser, te
                     ),
                   },
                   {
-                    tab: <Tab key="price-data-reload">Price Data Reload</Tab>,
+                    tab: <Tab key="price-data-reload">价格数据重新加载</Tab>,
                     panel: <PriceDataManagementTab key="price-data-reload" />,
                   },
                 );

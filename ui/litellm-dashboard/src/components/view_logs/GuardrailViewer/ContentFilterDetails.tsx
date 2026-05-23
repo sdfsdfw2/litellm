@@ -80,7 +80,7 @@ const ContentFilterDetails: React.FC<ContentFilterDetailsProps> = ({ response })
       return (
         <div className="bg-white rounded-lg border border-red-200 p-4">
           <div className="text-red-800">
-            <h5 className="font-medium mb-2">Error</h5>
+            <h5 className="font-medium mb-2">错误</h5>
             <p className="text-sm">{response}</p>
           </div>
         </div>
@@ -95,7 +95,7 @@ const ContentFilterDetails: React.FC<ContentFilterDetailsProps> = ({ response })
   if (detections.length === 0) {
     return (
       <div className="bg-white rounded-lg border border-gray-200 p-4">
-        <div className="text-gray-600 text-sm">No detections found</div>
+        <div className="text-gray-600 text-sm">未发现检测项</div>
       </div>
     );
   }
@@ -118,10 +118,10 @@ const ContentFilterDetails: React.FC<ContentFilterDetailsProps> = ({ response })
       <div className="bg-white rounded-lg border border-gray-200 p-4">
         <div className="grid grid-cols-2 gap-4">
           <div className="space-y-2">
-            <KV label="Total Detections:">
+            <KV label="总检测数:">
               <span className="font-semibold">{totalDetections}</span>
             </KV>
-            <KV label="Actions:">
+            <KV label="操作:">
               <div className="flex flex-wrap gap-2">
                 {blockedCount > 0 && chip(`${blockedCount} blocked`, "red")}
                 {maskedCount > 0 && chip(`${maskedCount} masked`, "blue")}
@@ -130,7 +130,7 @@ const ContentFilterDetails: React.FC<ContentFilterDetailsProps> = ({ response })
             </KV>
           </div>
           <div className="space-y-2">
-            <KV label="By Type:">
+            <KV label="按类型:">
               <div className="flex flex-wrap gap-2">
                 {patterns.length > 0 && chip(`${patterns.length} patterns`, "slate")}
                 {blockedWords.length > 0 && chip(`${blockedWords.length} keywords`, "slate")}
@@ -143,16 +143,16 @@ const ContentFilterDetails: React.FC<ContentFilterDetailsProps> = ({ response })
 
       {/* Patterns Section */}
       {patterns.length > 0 && (
-        <Section title="Patterns Matched" count={patterns.length} defaultOpen={true}>
+        <Section title="匹配的模式" count={patterns.length} defaultOpen={true}>
           <div className="space-y-2">
             {patterns.map((detection, idx) => (
               <div key={idx} className="p-3 bg-gray-50 rounded-md">
                 <div className="grid grid-cols-2 gap-4">
                   <div className="space-y-1">
-                    <KV label="Pattern:">{detection.pattern_name || "unknown"}</KV>
+                    <KV label="模式:">{detection.pattern_name || "未知"}</KV>
                   </div>
                   <div className="space-y-1">
-                    <KV label="Action:">{chip(detection.action, detection.action === "BLOCK" ? "red" : "blue")}</KV>
+                    <KV label="操作:">{chip(detection.action, detection.action === "BLOCK" ? "red" : "blue")}</KV>
                   </div>
                 </div>
               </div>
@@ -163,16 +163,16 @@ const ContentFilterDetails: React.FC<ContentFilterDetailsProps> = ({ response })
 
       {/* Blocked Words Section */}
       {blockedWords.length > 0 && (
-        <Section title="Blocked Words Detected" count={blockedWords.length} defaultOpen={true}>
+        <Section title="检出禁词" count={blockedWords.length} defaultOpen={true}>
           <div className="space-y-2">
             {blockedWords.map((detection, idx) => (
               <div key={idx} className="p-3 bg-gray-50 rounded-md">
                 <div className="grid grid-cols-2 gap-4">
                   <div className="space-y-1">
-                    <KV label="Keyword:" mono>
-                      {detection.keyword || "unknown"}
+                    <KV label="关键词:" mono>
+                      {detection.keyword || "未知"}
                     </KV>
-                    {detection.description && <KV label="Description:">{detection.description}</KV>}
+                    {detection.description && <KV label="描述:">{detection.description}</KV>}
                   </div>
                   <div className="space-y-1">
                     <KV label="Action:">{chip(detection.action, detection.action === "BLOCK" ? "red" : "blue")}</KV>
@@ -186,18 +186,18 @@ const ContentFilterDetails: React.FC<ContentFilterDetailsProps> = ({ response })
 
       {/* Category Keywords Section */}
       {categoryKeywords.length > 0 && (
-        <Section title="Category Keywords Detected" count={categoryKeywords.length} defaultOpen={true}>
+        <Section title="检出分类关键词" count={categoryKeywords.length} defaultOpen={true}>
           <div className="space-y-2">
             {categoryKeywords.map((detection, idx) => (
               <div key={idx} className="p-3 bg-gray-50 rounded-md">
                 <div className="grid grid-cols-2 gap-4">
                   <div className="space-y-1">
-                    <KV label="Category:">{detection.category || "unknown"}</KV>
-                    <KV label="Keyword:" mono>
-                      {detection.keyword || "unknown"}
+                    <KV label="分类:">{detection.category || "未知"}</KV>
+                    <KV label="关键词:" mono>
+                      {detection.keyword || "未知"}
                     </KV>
                     {detection.severity && (
-                      <KV label="Severity:">
+                      <KV label="严重程度:">
                         {chip(detection.severity, detection.severity === "high" ? "red" : detection.severity === "medium" ? "amber" : "slate")}
                       </KV>
                     )}
@@ -213,7 +213,7 @@ const ContentFilterDetails: React.FC<ContentFilterDetailsProps> = ({ response })
       )}
 
       {/* Raw JSON (for debugging) */}
-      <Section title="Raw Detection Data" defaultOpen={false}>
+      <Section title="原始检测数据" defaultOpen={false}>
         <pre className="bg-gray-50 rounded p-3 text-xs overflow-x-auto">{JSON.stringify(detections, null, 2)}</pre>
       </Section>
     </div>

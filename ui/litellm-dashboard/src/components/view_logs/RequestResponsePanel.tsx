@@ -57,18 +57,18 @@ export function RequestResponsePanel({
   const handleCopyRequest = async () => {
     const success = await copyToClipboard(JSON.stringify(getRawRequest(), null, 2));
     if (success) {
-      NotificationsManager.success("Request copied to clipboard");
+      NotificationsManager.success("请求已复制到剪贴板");
     } else {
-      NotificationsManager.fromBackend("Failed to copy request");
+      NotificationsManager.fromBackend("复制请求失败");
     }
   };
 
   const handleCopyResponse = async () => {
     const success = await copyToClipboard(JSON.stringify(formattedResponse(), null, 2));
     if (success) {
-      NotificationsManager.success("Response copied to clipboard");
+      NotificationsManager.success("响应已复制到剪贴板");
     } else {
-      NotificationsManager.fromBackend("Failed to copy response");
+      NotificationsManager.fromBackend("复制响应失败");
     }
   };
 
@@ -77,8 +77,8 @@ export function RequestResponsePanel({
       {/* Request Side */}
       <div className="bg-white rounded-lg shadow w-full max-w-full overflow-hidden">
         <div className="flex justify-between items-center p-4 border-b">
-          <h3 className="text-lg font-medium">Request</h3>
-          <button onClick={handleCopyRequest} className="p-1 hover:bg-gray-200 rounded" title="Copy request">
+          <h3 className="text-lg font-medium">请求</h3>
+          <button onClick={handleCopyRequest} className="p-1 hover:bg-gray-200 rounded" title="复制请求">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="16"
@@ -106,13 +106,13 @@ export function RequestResponsePanel({
       <div className="bg-white rounded-lg shadow w-full max-w-full overflow-hidden">
         <div className="flex justify-between items-center p-4 border-b">
           <h3 className="text-lg font-medium">
-            Response
-            {hasError && <span className="ml-2 text-sm text-red-600">• HTTP code {errorInfo?.error_code || 400}</span>}
+            响应
+            {hasError && <span className="ml-2 text-sm text-red-600">• HTTP 状态码 {errorInfo?.error_code || 400}</span>}
           </h3>
           <button
             onClick={handleCopyResponse}
             className="p-1 hover:bg-gray-200 rounded"
-            title="Copy response"
+            title="复制响应"
             disabled={!hasResponse && !hasError}
           >
             <svg
@@ -137,7 +137,7 @@ export function RequestResponsePanel({
               <JsonView data={formattedResponse()} style={defaultStyles} clickToExpandNode />
             </div>
           ) : (
-            <div className="text-gray-500 text-sm italic text-center py-4">Response data not available</div>
+            <div className="text-gray-500 text-sm italic text-center py-4">响应数据不可用</div>
           )}
         </div>
       </div>
